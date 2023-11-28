@@ -1,7 +1,7 @@
 import { Vector3 } from '@babylonjs/core';
-import { Component } from './Component';
 import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { ISchema } from '../util';
+import { Component } from './Component';
 
 export class CameraComponent extends Component {
   static schema: ISchema = {

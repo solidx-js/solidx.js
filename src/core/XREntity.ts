@@ -34,6 +34,7 @@ export class XREntity extends XRNode {
       if (!Comp) continue;
 
       const comp = new Comp(this, key);
+      this.components[key] = comp;
       comp.init();
 
       const value = _getValue(Comp, key);
@@ -56,6 +57,7 @@ export class XREntity extends XRNode {
   }
 
   update(attr: string | null, oldVal: string | null, newVal: string | null): void {
+    super.update(attr, oldVal, newVal);
     this._flushComponents();
   }
 
@@ -65,5 +67,6 @@ export class XREntity extends XRNode {
     for (const component of Object.values(this.components)) {
       component.remove();
     }
+    this.components = {};
   }
 }

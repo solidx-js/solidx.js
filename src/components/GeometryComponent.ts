@@ -2,7 +2,6 @@ import { CreateBoxVertexData } from '@babylonjs/core/Meshes/Builders';
 import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
 import { ISchema } from '../util';
 import { Component } from './Component';
-import { Mesh } from '@babylonjs/core/Meshes/mesh';
 
 export class GeometryComponent extends Component<{ primitive?: string }> {
   static schema: ISchema = {
@@ -35,8 +34,6 @@ export class GeometryComponent extends Component<{ primitive?: string }> {
       if (curPrimitive) {
         if (curPrimitive === 'box') {
           this._vert = CreateBoxVertexData({});
-          const mesh = new Mesh('box', this.scene);
-          this._vert.applyToMesh(mesh);
         }
       } else {
         this._vert = null;
