@@ -74,6 +74,9 @@ export class XRScene extends XREntity {
 
     this._scene = new Scene(this.engine);
 
+    // for debug
+    this._scene.debugLayer.show();
+
     // 挂载默认 system
     this.setAttribute('mesh-system', '');
     this._flushSystems();

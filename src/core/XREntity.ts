@@ -3,9 +3,13 @@ import { ComponentRegistry } from '../registry';
 import { Schema } from '../util';
 import { XRNode } from './XRNode';
 import { difference, range } from 'lodash';
+import { Node } from '@babylonjs/core/node';
 
 export class XREntity extends XRNode {
   components: Record<string, Component> = {};
+
+  /** bjs node */
+  node: Node | null = null;
 
   get name() {
     return 'XREntity';
@@ -68,5 +72,10 @@ export class XREntity extends XRNode {
       component.remove();
     }
     this.components = {};
+
+    if (this.node) {
+      this.node.dispose();
+      this.node = null;
+    }
   }
 }

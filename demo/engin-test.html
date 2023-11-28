@@ -13,13 +13,23 @@
     </style>
   </head>
   <body>
-    <xr-engine width="600" height="400">
+    <xr-engine width="1000" height="400">
       <xr-scene>
         <xr-camera></xr-camera>
-        <xr-entity geometry="primitive: box"></xr-entity>
+        <xr-sky></xr-sky>
+        <xr-entity id="box" geometry="primitive: box" material="emissiveColor: #ff0000"></xr-entity>
       </xr-scene>
     </xr-engine>
 
     <script src="../src/index.ts" type="module"></script>
+
+    <script>
+      const box = document.querySelector('#box');
+      setInterval(() => {
+        // 随机颜色
+        const color = '#' + Math.floor(Math.random() * 0xffffff).toString(16);
+        box.setAttribute('material', `emissiveColor: ${color}`);
+      }, 500);
+    </script>
   </body>
 </html>

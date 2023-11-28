@@ -1,10 +1,12 @@
-import { CameraComponent, Component, GeometryComponent } from './components';
+import { CameraComponent, Component, GeometryComponent, MaterialComponent } from './components';
 import { XREntity, XRNode, XREngine } from './core';
 import { XRAssets } from './core/XRAssets';
 import { XRScene } from './core/XRScene';
-import { Primitive, CameraPrimitive } from './primitives';
+import { Primitive, CameraPrimitive, SkyPrimitive } from './primitives';
 import { MeshSystem } from './system';
 import { System } from './system/System';
+
+import '@babylonjs/inspector';
 
 /**
  * A registry for storing and retrieving Primitive by name.
@@ -75,6 +77,7 @@ export class SystemRegistry {
 // 1. 注册组件(必须先注册，否则下面 define 时会找不到注册组件导致报错)
 ComponentRegistry.Instance.register('camera', CameraComponent);
 ComponentRegistry.Instance.register('geometry', GeometryComponent as any);
+ComponentRegistry.Instance.register('material', MaterialComponent as any);
 
 // 2. 注册系统
 SystemRegistry.Instance.register('mesh-system', MeshSystem);
@@ -88,3 +91,4 @@ customElements.define('xr-node', XRNode);
 
 // 4. 注册 Primitive
 PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);
+PrimitiveRegistry.Instance.register('xr-sky', SkyPrimitive);

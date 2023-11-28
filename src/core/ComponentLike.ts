@@ -9,8 +9,13 @@ export class ComponentLike<T = any> {
 
   readonly logger = this.el.logger.extend(this.name);
 
+  private _disposes: (() => any)[] = [];
+
   private _data: T | null = null;
   private _prevData: T | null = null;
+
+  private _time = 0;
+  private _timeDelta = 0;
 
   constructor(
     readonly el: XREntity,
@@ -29,10 +34,20 @@ export class ComponentLike<T = any> {
     return this._prevData;
   }
 
+  get sceneEle() {
+    const ele = this.el.closest<XRScene>('xr-scene');
+    if (!ele) throw new Error('Entity: xr-scene not found');
+    return ele;
+  }
+
   get scene() {
-    const _s = this.el.closest<XRScene>('xr-scene')?.scene;
+    const _s = this.sceneEle?.scene;
     if (!_s) throw new Error('Entity: xr-scene not found');
     return _s;
+  }
+
+  get engine() {
+    return this.scene.getEngine();
   }
 
   flush(data: any) {
@@ -47,16 +62,29 @@ export class ComponentLike<T = any> {
   /** @override */
   init() {
     this.logger.debug('init');
+
+    // 绑定 tick & tock
+    const _tickOb = this.scene.onBeforeRenderObservable.add(() => {
+      const _cur = performance.now();
+      this._timeDelta = _cur - this._time;
+      this._time = _cur;
+
+      this.tick();
+    });
+    this._disposes.push(() => _tickOb.remove());
+
+    const _tockOb = this.scene.onAfterRenderObservable.add(() => this.tock());
+    this._disposes.push(() => _tockOb.remove());
   }
 
   /** @override */
   update() {}
 
   /** @override */
-  tick(time: number, timeDelta: number) {}
+  tick() {}
 
   /** @override */
-  tock(time: number, timeDelta: number) {}
+  tock() {}
 
   /** @override */
   play() {}
@@ -70,5 +98,10 @@ export class ComponentLike<T = any> {
 
     this._data = null;
     this._prevData = null;
+
+    for (const dispose of this._disposes) {
+      dispose();
+    }
+    this._disposes = [];
   }
 }

@@ -88,6 +88,8 @@ export const Schema = {
 
     // object
     else if (schema.type === 'object') {
+      if (!data) return {};
+
       // 按照 key: value; key: value 的格式解析
       if (typeof data === 'string') {
         const obj: any = {};

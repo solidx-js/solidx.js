@@ -17,6 +17,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "@babylonjs/inspector": "^6.31.0",
     "@parcel/config-default": "^2.10.3",
     "@parcel/packager-ts": "2.10.3",
     "@parcel/transformer-less": "2.10.3",
