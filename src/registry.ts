@@ -1,4 +1,4 @@
-import { CameraComponent, Component, GeometryComponent, MaterialComponent } from './components';
+import { CameraComponent, Component, GeometryComponent, MaterialComponent, PositionComponent } from './components';
 import { XREntity, XRNode, XREngine } from './core';
 import { XRAssets } from './core/XRAssets';
 import { XRScene } from './core/XRScene';
@@ -78,6 +78,7 @@ export class SystemRegistry {
 ComponentRegistry.Instance.register('camera', CameraComponent);
 ComponentRegistry.Instance.register('geometry', GeometryComponent as any);
 ComponentRegistry.Instance.register('material', MaterialComponent as any);
+ComponentRegistry.Instance.register('position', PositionComponent as any);
 
 // 2. 注册系统
 SystemRegistry.Instance.register('mesh-system', MeshSystem);
