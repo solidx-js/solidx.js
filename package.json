@@ -1,0 +1,38 @@
+{
+  "name": "bjs-frame",
+  "version": "1.0.0",
+  "files": [
+    "dist"
+  ],
+  "source": "./src/index.ts",
+  "types": "./dist/types.d.ts",
+  "module": "./dist/index.js",
+  "scripts": {
+    "dev": "parcel demo/index.html",
+    "build": "parcel build --no-cache --no-optimize",
+    "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
+    "release": "npm run ci && rm -rf dist/* && npm run build && release-it"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@parcel/config-default": "^2.10.3",
+    "@parcel/packager-ts": "2.10.3",
+    "@parcel/transformer-less": "2.10.3",
+    "@parcel/transformer-svg-react": "^2.10.3",
+    "@parcel/transformer-typescript-types": "2.10.3",
+    "@types/lodash": "^4.14.201",
+    "@types/node": "^20.9.0",
+    "lodash": "^4.17.21",
+    "parcel": "^2.10.3",
+    "prettier": "^3.1.0",
+    "process": "^0.11.10",
+    "release-it": "^17.0.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^6.31.0",
+    "ah-logger": "^3.2.8"
+  }
+}

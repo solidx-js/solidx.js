@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Demo app</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <xr-engine width="600" height="400">
+      <xr-scene>
+        <xr-camera></xr-camera>
+        <xr-entity geometry="primitive: box"></xr-entity>
+      </xr-scene>
+    </xr-engine>
+
+    <script src="../src/index.ts" type="module"></script>
+  </body>
+</html>
