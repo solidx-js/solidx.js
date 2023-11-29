@@ -1,14 +1,5 @@
-import {
-  CameraComponent,
-  Component,
-  GeometryComponent,
-  MaterialComponent,
-  ModelComponent,
-  PositionComponent,
-  RotationComponent,
-} from './components';
-import { XREngine, XRGeometry, XRMesh } from './core';
-import { XRScene } from './core/XRScene';
+import { Component, GeometryComponent, MaterialComponent } from './components';
+import { XREngine, XRGeometry, XRMaterial, XRMesh, XRScene } from './core';
 import { Primitive, CameraPrimitive, SkyPrimitive } from './primitives';
 
 import '@babylonjs/inspector';
@@ -55,7 +46,7 @@ export class ComponentRegistry {
 // 1. 注册组件(必须先注册，否则下面 define 时会找不到注册组件导致报错)
 // ComponentRegistry.Instance.register('camera', CameraComponent);
 ComponentRegistry.Instance.register('geometry', GeometryComponent as any);
-// ComponentRegistry.Instance.register('material', MaterialComponent as any);
+ComponentRegistry.Instance.register('material', MaterialComponent as any);
 // ComponentRegistry.Instance.register('position', PositionComponent as any);
 // ComponentRegistry.Instance.register('rotation', RotationComponent as any);
 // ComponentRegistry.Instance.register('model', ModelComponent as any);
@@ -64,6 +55,7 @@ ComponentRegistry.Instance.register('geometry', GeometryComponent as any);
 customElements.define('xr-engine', XREngine);
 customElements.define('xr-scene', XRScene);
 customElements.define('xr-geometry', XRGeometry);
+customElements.define('xr-material', XRMaterial);
 customElements.define('xr-mesh', XRMesh);
 
 // 3. 注册 Primitive

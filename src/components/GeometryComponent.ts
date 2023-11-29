@@ -19,6 +19,8 @@ export class GeometryComponent extends Component<string> {
   }
 
   update(): void {
+    super.update();
+
     if (!(this.el instanceof XRMesh) || !this.el.mesh) return;
     if (!this.data || !this.data.startsWith('#')) throw new Error('GeometryComponent: data must start with #');
 

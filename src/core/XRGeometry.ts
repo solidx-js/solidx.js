@@ -1,5 +1,4 @@
 import { XRElement } from './XRElement';
-import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
 import type { XRScene } from './XRScene';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
 
