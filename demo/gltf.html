@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Demo app</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <xr-engine width="1000" height="400">
+      <xr-scene>
+        <xr-assets>
+          <xr-asset-item id="pic1" src="https://rshop.tech/gw/assets/upload/202308311600390.png"></xr-asset-item>
+          <xr-asset-item id="DamagedHelmet.glb" mime="application/gltf" src="./assets/DamagedHelmet.glb"></xr-asset-item>
+        </xr-assets>
+
+        <xr-camera></xr-camera>
+        <xr-sky></xr-sky>
+        <xr-entity model="DamagedHelmet.glb" position="0 0 0" rotation="0 0 0"></xr-entity>
+      </xr-scene>
+    </xr-engine>
+
+    <script src="../src/index.ts" type="module"></script>
+  </body>
+</html>

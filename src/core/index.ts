@@ -1,5 +1,6 @@
 export * from './ComponentLike';
 export * from './XRAssets';
+export * from './XRAssetItem';
 export * from './XREngine';
 export * from './XREntity';
 export * from './XRNode';

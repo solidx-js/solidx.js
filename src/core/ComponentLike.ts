@@ -35,9 +35,11 @@ export class ComponentLike<T = any> {
   }
 
   get sceneEle() {
-    const ele = this.el.closest<XRScene>('xr-scene');
-    if (!ele) throw new Error('Entity: xr-scene not found');
-    return ele;
+    return this.el.sceneEle;
+  }
+
+  get system() {
+    return this.sceneEle.system;
   }
 
   get scene() {

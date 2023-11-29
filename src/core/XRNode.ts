@@ -1,9 +1,10 @@
 import { DefaultBizLogger } from '../BizLogger';
+import { XRScene } from './XRScene';
 
 export class XRNode extends HTMLElement {
-  readonly logger = DefaultBizLogger.extend(this.name);
+  static requiredAttrs: string[] = [];
 
-  private _isReady = false;
+  readonly logger = DefaultBizLogger.extend(this.name);
 
   /**
    * With custom elements V1 attributeChangedCallback only fires
@@ -37,9 +38,23 @@ export class XRNode extends HTMLElement {
     this.dispatchEvent(new CustomEvent(name, { bubbles: true, detail, composed: true }));
   }
 
+  private get _Cls() {
+    return this.constructor as any as typeof XRNode;
+  }
+
   /** @override */
   get name() {
     return 'XRNode';
+  }
+
+  get sceneEle() {
+    const ele = this.closest<XRScene>('xr-scene');
+    if (!ele) throw new Error('Entity: xr-scene not found');
+    return ele;
+  }
+
+  get system() {
+    return this.sceneEle._system;
   }
 
   protected connectedCallback() {
@@ -57,6 +72,12 @@ export class XRNode extends HTMLElement {
   /** @override 第一次被连接到文档 DOM */
   init() {
     this.logger.debug('init');
+
+    // 检查必须的属性
+    if (this._Cls.requiredAttrs.length > 0) {
+      const missingAttrs = this._Cls.requiredAttrs.filter(attr => this.getAttribute(attr) === null);
+      if (missingAttrs.length > 0) throw new Error(`Missing required attributes: ${missingAttrs.join(', ')}`);
+    }
 
     this._setupMutationObserver();
   }

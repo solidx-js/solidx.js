@@ -3,6 +3,9 @@
   "transformers": {
     "*.svg": [
       "@parcel/transformer-svg-react"
+    ],
+    "*.glb": [
+      "@parcel/transformer-raw"
     ]
   }
 }

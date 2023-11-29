@@ -13,4 +13,8 @@ export class XRAssets extends XREntity {
       throw new Error('XRAssets must be a child of XRScene');
     }
   }
+
+  remove(): void {
+    super.remove();
+  }
 }

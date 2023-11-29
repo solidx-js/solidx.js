@@ -8,7 +8,7 @@
   "types": "./dist/types.d.ts",
   "module": "./dist/index.js",
   "scripts": {
-    "dev": "parcel demo/index.html",
+    "dev": "parcel demo/index.html demo/assets/**/*",
     "build": "parcel build --no-cache --no-optimize",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
     "release": "npm run ci && rm -rf dist/* && npm run build && release-it"
@@ -21,6 +21,7 @@
     "@parcel/config-default": "^2.10.3",
     "@parcel/packager-ts": "2.10.3",
     "@parcel/transformer-less": "2.10.3",
+    "@parcel/transformer-raw": "^2.10.3",
     "@parcel/transformer-svg-react": "^2.10.3",
     "@parcel/transformer-typescript-types": "2.10.3",
     "@types/lodash": "^4.14.201",
