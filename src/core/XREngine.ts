@@ -1,7 +1,7 @@
 import { Engine } from '@babylonjs/core/Engines/engine';
-import { XRNode } from './XRNode';
+import { XRElement } from './XRElement';
 
-export class XREngine extends XRNode {
+export class XREngine extends XRElement {
   static createEngine(canvas: HTMLCanvasElement) {
     const engine = new Engine(canvas, true, { stencil: true, antialias: true, adaptToDeviceRatio: true, doNotHandleContextLost: true });
 

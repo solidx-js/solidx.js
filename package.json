@@ -8,7 +8,7 @@
   "types": "./dist/types.d.ts",
   "module": "./dist/index.js",
   "scripts": {
-    "dev": "parcel demo/index.html demo/assets/**/*",
+    "dev": "parcel demo/*.html demo/assets/**/*",
     "build": "parcel build --no-cache --no-optimize",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
     "release": "npm run ci && rm -rf dist/* && npm run build && release-it"

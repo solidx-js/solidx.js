@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>mesh</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <xr-engine width="1000" height="400">
+      <xr-scene>
+        <xr-geometry id="g1" type="box"></xr-geometry>
+        <xr-material id="m1" albedoColor="#ff0000"></xr-material>
+        <xr-mesh geometry="#g1" material="#m1"></xr-mesh>
+      </xr-scene>
+    </xr-engine>
+
+    <script src="../src/index.ts" type="module"></script>
+
+    <script>
+      const g1 = document.querySelector('#g1');
+
+      setInterval(() => {
+        // 顺序切换 type => box, sphere
+        g1.setAttribute('type', g1.getAttribute('type') === 'box' ? 'sphere' : 'box');
+      }, 1000);
+    </script>
+  </body>
+</html>

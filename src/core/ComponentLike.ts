@@ -1,7 +1,7 @@
 import { isEqual } from 'lodash';
 import { ISchema } from '../util';
-import { XREntity } from './XREntity';
-import { XRScene } from './XRScene';
+import { XRElement } from './XRElement';
+import type { XRScene } from './XRScene';
 
 export class ComponentLike<T = any> {
   /** @override */
@@ -18,7 +18,7 @@ export class ComponentLike<T = any> {
   private _timeDelta = 0;
 
   constructor(
-    readonly el: XREntity,
+    readonly el: XRElement,
     readonly key: string
   ) {}
 
@@ -35,11 +35,9 @@ export class ComponentLike<T = any> {
   }
 
   get sceneEle() {
-    return this.el.sceneEle;
-  }
-
-  get system() {
-    return this.sceneEle.system;
+    const sceneEle = this.el.closest<XRScene>('xr-scene');
+    if (!sceneEle) throw new Error('Entity: xr-scene not found');
+    return sceneEle;
   }
 
   get scene() {

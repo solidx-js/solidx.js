@@ -1,79 +1,47 @@
-import { CreateBoxVertexData, CreateSphereVertexData } from '@babylonjs/core/Meshes/Builders';
-import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
 import { ISchema } from '../util';
 import { Component } from './Component';
-import { Mesh } from '@babylonjs/core/Meshes/mesh';
+import { XRGeometry } from '../core/XRGeometry';
+import { XRMesh } from '../core';
+import { Geometry } from '@babylonjs/core/Meshes/geometry';
 
-export class GeometryComponent extends Component<{
-  primitive?: string;
-  size?: number;
-  width?: number;
-  height?: number;
-  depth?: number;
-}> {
-  static schema: ISchema = {
-    type: 'object',
-    properties: {
-      primitive: { type: 'string', default: 'box' },
+export class GeometryComponent extends Component<string> {
+  static schema: ISchema = { type: 'string' };
 
-      // common
-      size: { type: 'number' },
-      width: { type: 'number' },
-      height: { type: 'number' },
-      depth: { type: 'number' },
-    },
-  };
-
-  private _vert: VertexData | null = null;
+  private _geometry: Geometry | null = null;
+  private _geoNeedDispose = false;
 
   get name() {
     return 'GeometryComponent';
   }
 
-  get vert() {
-    return this._vert;
-  }
-
   init(): void {
     super.init();
-    this._vert = new VertexData();
-  }
-
-  private _createVert(): void {
-    if (!this.data) return;
-
-    const { primitive, ...extra } = this.data;
-
-    switch (primitive) {
-      case 'box':
-        this._vert = CreateBoxVertexData(extra);
-        break;
-
-      case 'sphere':
-        this._vert = CreateSphereVertexData({ diameter: extra.size });
-        break;
-    }
   }
 
   update(): void {
-    const lastPrimitive = this.prevData?.primitive;
-    const curPrimitive = this.data?.primitive;
+    if (!(this.el instanceof XRMesh) || !this.el.mesh) return;
+    if (!this.data || !this.data.startsWith('#')) throw new Error('GeometryComponent: data must start with #');
 
-    if (lastPrimitive !== curPrimitive) {
-      if (curPrimitive) this._createVert();
-      else {
-        this._vert = null;
-      }
+    const refEle = this.sceneEle.querySelector(this.data);
+
+    if (refEle instanceof XRGeometry) {
+      this._geometry = refEle.geometry;
+    } else {
+      throw new Error('GeometryComponent: data must be a XRGeometry');
     }
 
-    if (this._vert) {
-      if (!this.el.node) this.el.node = new Mesh('mesh', this.scene);
-      if (this.el.node instanceof Mesh) this._vert.applyToMesh(this.el.node, true);
+    if (this._geometry) {
+      this._geometry.applyToMesh(this.el.mesh);
     }
   }
 
   remove(): void {
     super.remove();
-    this._vert = null;
+
+    if (this._geoNeedDispose) {
+      this._geometry?.dispose();
+    }
+
+    this._geometry = null;
   }
 }

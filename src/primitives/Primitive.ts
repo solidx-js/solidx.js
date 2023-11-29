@@ -1,8 +1,8 @@
-import { XREntity } from '../core';
+import { XRElement } from '../core';
 import { ComponentRegistry } from '../registry';
 import { Schema } from '../util';
 
-export class Primitive extends XREntity {
+export class Primitive extends XRElement {
   constructor(
     readonly defaultComponents: Record<string, any> = {},
     readonly mappings: Record<string, string> = {}

@@ -1,16 +1,17 @@
 import { Scene } from '@babylonjs/core/scene';
-import { XREntity } from './XREntity';
-import { XREngine } from './XREngine';
-import { AssetsSystem } from '../system';
+import type { XREngine } from './XREngine';
+import { AssetsSystem, MeshSystem } from '../system';
+import { XRElement } from './XRElement';
+import { ArcRotateCamera, EnvironmentHelper, Vector3 } from '@babylonjs/core';
 
-export class XRScene extends XREntity {
+export class XRScene extends XRElement {
   private _scene: Scene | null = null;
-  _system: { assets: AssetsSystem } = null as any;
+  system: { assets: AssetsSystem; mesh: MeshSystem } = {} as any;
 
   get engine() {
-    const d = this.closest<XREngine>('xr-engine')?.engine;
-    if (!d) throw new Error('XRScene: xr-engine not found');
-    return d;
+    const ret = this.closest<XREngine>('xr-engine')!.engine;
+    if (!ret) throw new Error('Entity: XREngine not found');
+    return ret;
   }
 
   get scene() {
@@ -30,11 +31,16 @@ export class XRScene extends XREntity {
     super.init();
 
     this._scene = new Scene(this.engine);
+
+    this.system.assets = new AssetsSystem(this, 'assets');
+    this.system.mesh = new MeshSystem(this, 'mesh');
+
     this._scene.debugLayer.show(); // for debug
 
-    this._system = {
-      assets: new AssetsSystem(this, 'assets'),
-    };
+    new EnvironmentHelper({ createSkybox: true }, this._scene);
+
+    const cam = new ArcRotateCamera('camera', Math.PI / 4, Math.PI / 3, 10, new Vector3(0, 0, 0), this._scene);
+    cam.attachControl();
 
     this.engine.runRenderLoop(this._doRender);
   }
@@ -43,8 +49,6 @@ export class XRScene extends XREntity {
     super.remove();
 
     this._scene?.dispose();
-    Object.values(this.system).forEach(sys => sys.remove());
-
     this.engine.stopRenderLoop(this._doRender);
   }
 }
