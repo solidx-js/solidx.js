@@ -15,7 +15,7 @@ export class AssetsSystem extends System {
 
   set(key: string, value: IAssetData) {
     this._cache.set(key, value);
-    this.el.emit('assets:set', { key });
+    this.scene.emit('assets:set', { key });
   }
 
   async wait(key: string) {
@@ -28,7 +28,7 @@ export class AssetsSystem extends System {
           resolve();
         }
       };
-      this.el.addEventListener('assets:set', _onAssetsSet);
+      this.scene.addEventListener('assets:set', _onAssetsSet);
     });
 
     return this._cache.get(key)!;

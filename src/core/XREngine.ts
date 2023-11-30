@@ -7,10 +7,7 @@ import { styleMap } from 'lit/directives/style-map';
 import { XRElement } from './XRElement';
 import { randomID } from '../util';
 
-@customElement('xr-engine')
 export class XREngine extends XRElement {
-  static eleName = 'XREngine';
-
   static createEngine(canvas: HTMLCanvasElement) {
     const engine = new Engine(canvas, true, { stencil: true, antialias: true, adaptToDeviceRatio: true, doNotHandleContextLost: true });
 

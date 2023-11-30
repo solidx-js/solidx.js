@@ -2,6 +2,8 @@ import { isEqual } from 'lodash';
 import { ISchema } from '../util';
 import { XRElement } from './XRElement';
 import type { XRScene } from './XRScene';
+import { ContextConsumer } from '@lit/context';
+import { Context } from './Context';
 
 export class ComponentLike<T = any> {
   /** @override */
@@ -16,6 +18,10 @@ export class ComponentLike<T = any> {
 
   private _time = 0;
   private _timeDelta = 0;
+
+  private ctxs = {
+    Scene: new ContextConsumer(this.el, { context: Context.Scene }),
+  };
 
   constructor(
     readonly el: XRElement,
@@ -34,16 +40,8 @@ export class ComponentLike<T = any> {
     return this._prevData;
   }
 
-  get sceneEle() {
-    const sceneEle = this.el.closest<XRScene>('xr-scene');
-    if (!sceneEle) throw new Error('Entity: xr-scene not found');
-    return sceneEle;
-  }
-
   get scene() {
-    const _s = this.sceneEle?.scene;
-    if (!_s) throw new Error('Entity: xr-scene not found');
-    return _s;
+    return this.ctxs.Scene.value!;
   }
 
   get engine() {
