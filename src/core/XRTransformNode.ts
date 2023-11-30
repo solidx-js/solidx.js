@@ -1,6 +1,6 @@
 import { XRElement } from './XRElement';
-import { randomID } from '../util';
-import { consume, provide } from '@lit/context';
+import { ElementUtil, randomID } from '../util';
+import { consume } from '@lit/context';
 import { Context } from './Context';
 import { Scene } from '@babylonjs/core/scene';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
@@ -11,11 +11,14 @@ export class XRTransformNode extends XRElement {
 
   transformNode: TransformNode | null = null;
 
-  constructor() {
-    super();
+  connected(): void {
+    super.connected();
 
     const id = this.id || 'TransformNode:' + randomID();
     this.transformNode = new TransformNode(id, this.scene);
+
+    const parent = ElementUtil.closestTransformNodeLike(this);
+    this.transformNode.parent = parent;
   }
 
   disconnected(): void {

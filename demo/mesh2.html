@@ -18,7 +18,9 @@
         <xr-material id="m1" emissiveColor="#ff0000"></xr-material>
         <xr-geometry id="g1" type="box"></xr-geometry>
         <xr-transform-node id="n1">
-          <xr-mesh geometry="g1" material="m1"></xr-mesh>
+          <xr-transform-node id="n2">
+            <xr-mesh geometry="g1" material="m1"></xr-mesh>
+          </xr-transform-node>
         </xr-transform-node>
       </xr-scene>
     </xr-engine>
