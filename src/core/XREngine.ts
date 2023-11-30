@@ -2,7 +2,7 @@ import { Engine } from '@babylonjs/core/Engines/engine';
 import { provide } from '@lit/context';
 import { Context } from './Context';
 import { customElement, property, query } from 'lit/decorators';
-import { PropertyValueMap, html } from 'lit';
+import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map';
 import { XRElement } from './XRElement';
 import { randomID } from '../util';
@@ -28,6 +28,7 @@ export class XREngine extends XRElement {
   readonly ID = randomID();
 
   @provide({ context: Context.Engine })
+  @property({ attribute: false })
   engine: Engine;
 
   @property({ type: Number })

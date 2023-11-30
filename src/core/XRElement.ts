@@ -3,9 +3,9 @@ import { LitElement } from 'lit';
 
 export class XRElement extends LitElement {
   static requiredAttrs: string[] = [];
-  static eleName: string = 'XRElement2';
+  static eleName: string = 'XRElement';
 
-  readonly logger = DefaultBizLogger.extend(this._Cls.name);
+  readonly logger = DefaultBizLogger.extend(this._Cls.eleName);
 
   private get _Cls() {
     return this.constructor as any as typeof XRElement;

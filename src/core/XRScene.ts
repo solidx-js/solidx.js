@@ -1,6 +1,4 @@
 import { Scene } from '@babylonjs/core/scene';
-import type { XREngine } from './XREngine';
-import { AssetsSystem, MeshSystem } from '../system';
 import { XRElement } from './XRElement';
 import { customElement, property } from 'lit/decorators';
 import { consume, provide } from '@lit/context';
@@ -9,8 +7,6 @@ import { Engine } from '@babylonjs/core/Engines/engine';
 import { EnvironmentHelper } from '@babylonjs/core/Helpers/environmentHelper';
 import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { Logger } from 'ah-logger';
-import { PropertyValueMap, html } from 'lit';
 
 @customElement('xr-scene')
 export class XRScene extends XRElement {
