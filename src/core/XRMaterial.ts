@@ -1,12 +1,41 @@
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR';
 import { XRElement } from './XRElement';
-import type { XRScene } from './XRScene';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
+import { consume } from '@lit/context';
+import { Context } from './Context';
+import { property } from 'lit/decorators';
+import { Scene } from '@babylonjs/core/scene';
 
 export class XRMaterial extends XRElement {
   static requiredAttrs: string[] = ['id'];
 
   private _mat: PBRMaterial | null = null;
+
+  @consume({ context: Context.Scene, subscribe: true })
+  @property({ attribute: false })
+  scene!: Scene;
+
+  @property({
+    converter: {
+      fromAttribute: (value: string) => Color3.FromHexString(value),
+      toAttribute: (value: Color3) => value.toHexString(),
+    },
+  })
+  albedoColor?: Color3;
+
+  @property({ type: Number })
+  metallic?: number;
+
+  @property({ type: Number })
+  roughness?: number;
+
+  @property({
+    converter: {
+      fromAttribute: (value: string) => Color3.FromHexString(value),
+      toAttribute: (value: Color3) => value.toHexString(),
+    },
+  })
+  emissiveColor?: Color3;
 
   get material() {
     return this._mat;
@@ -16,21 +45,13 @@ export class XRMaterial extends XRElement {
     return 'XRMaterial';
   }
 
-  get sceneEle() {
-    return this.closest<XRScene>('xr-scene')!;
-  }
-
   private _updateMat(): void {
-    if (!this._mat) this._mat = new PBRMaterial(this.id, this.sceneEle.scene!);
+    if (!this._mat) this._mat = new PBRMaterial(this.id, this.scene);
 
-    if (this.hasAttribute('albedoColor')) this._mat.albedoColor = Color3.FromHexString(this.getAttribute('albedoColor')!);
-    if (this.hasAttribute('metallic')) this._mat.metallic = parseFloat(this.getAttribute('metallic')!);
-    if (this.hasAttribute('roughness')) this._mat.roughness = parseFloat(this.getAttribute('roughness')!);
-    if (this.hasAttribute('emissiveColor')) this._mat.emissiveColor = Color3.FromHexString(this.getAttribute('emissiveColor')!);
-    if (this.hasAttribute('emissiveIntensity')) this._mat.emissiveIntensity = parseFloat(this.getAttribute('emissiveIntensity')!);
-    if (this.hasAttribute('alpha')) this._mat.alpha = parseFloat(this.getAttribute('alpha')!);
-    if (this.hasAttribute('alphaMode')) this._mat.alphaMode = parseFloat(this.getAttribute('alphaMode')!);
-    if (this.hasAttribute('backFaceCulling')) this._mat.backFaceCulling = this.getAttribute('backFaceCulling') === 'true';
+    if (this.albedoColor) this._mat.albedoColor = this.albedoColor;
+    if (typeof this.metallic !== 'undefined') this._mat.metallic = this.metallic;
+    if (typeof this.roughness !== 'undefined') this._mat.roughness = this.roughness;
+    if (this.emissiveColor) this._mat.emissiveColor = this.emissiveColor;
   }
 
   init(): void {
@@ -38,7 +59,7 @@ export class XRMaterial extends XRElement {
     this._updateMat();
   }
 
-  update(attr: string | null, oldVal: string | null, newVal: string | null): void {
+  render() {
     this._updateMat();
   }
 
