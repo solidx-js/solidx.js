@@ -26,7 +26,7 @@ export class XREngine extends XRElement {
 
   @provide({ context: Context.Engine })
   @property({ attribute: false })
-  engine: Engine;
+  engine!: Engine;
 
   @property({ type: Number })
   width: number = 600;
@@ -37,9 +37,7 @@ export class XREngine extends XRElement {
   @query('[data-name=XREngine]')
   containerEle!: HTMLDivElement;
 
-  constructor() {
-    super();
-
+  connected(): void {
     const _canvas = document.createElement('canvas');
     _canvas.style.width = '100%';
     _canvas.style.height = '100%';
@@ -53,5 +51,10 @@ export class XREngine extends XRElement {
 
   render() {
     return html`<div id=${this.ID} data-name="XREngine" style=${styleMap({ width: this.width + 'px', height: this.height + 'px' })}></div>`;
+  }
+
+  disconnected(): void {
+    super.disconnected();
+    this.engine.dispose();
   }
 }

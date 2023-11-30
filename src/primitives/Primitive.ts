@@ -14,8 +14,8 @@ export class Primitive extends XRElement {
     return 'Primitive';
   }
 
-  init() {
-    super.init();
+  connected() {
+    super.connected();
 
     for (const [key, value] of Object.entries(this.defaultComponents)) {
       const Comp = ComponentRegistry.Instance.get(key);

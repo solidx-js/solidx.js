@@ -21,13 +21,13 @@ export class XRGeometry extends XRElement {
     return this._geometry;
   }
 
-  init(): void {
-    super.init();
+  connected(): void {
+    super.connected();
     this.render();
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
     this._geometry?.dispose();
     this._geometry = null;
   }

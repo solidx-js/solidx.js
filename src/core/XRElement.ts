@@ -86,7 +86,7 @@ export class XRElement extends LitElement {
       if (missingAttrs.length > 0) throw new Error(`[${this.tagName}] Missing required attributes: ${missingAttrs.join(', ')}`);
     }
 
-    this.init();
+    this.connected();
 
     this._setupMutationObserver();
     this._flushComponents();
@@ -96,14 +96,14 @@ export class XRElement extends LitElement {
     super.disconnectedCallback();
 
     this.logger.debug('remove');
-    this.remove();
+    this.disconnected();
   }
 
   /** @override 第一次被连接到文档 DOM */
-  init() {}
+  connected() {}
 
   /** @override 从文档 DOM 中删除 */
-  remove() {}
+  disconnected() {}
 
   render(): any {
     return null;

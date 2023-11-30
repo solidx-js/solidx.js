@@ -12,7 +12,7 @@ import { MeshSystem } from '../system';
 export class XRScene extends XRElement {
   @provide({ context: Context.Scene })
   @property({ attribute: false })
-  scene: Scene;
+  scene!: Scene;
 
   @consume({ context: Context.Engine, subscribe: true })
   @property({ attribute: false })
@@ -23,8 +23,8 @@ export class XRScene extends XRElement {
     this.scene.render();
   };
 
-  constructor() {
-    super();
+  connected(): void {
+    super.connected();
 
     this.scene = new Scene(this.engine);
 
@@ -36,10 +36,7 @@ export class XRScene extends XRElement {
 
     const cam = new ArcRotateCamera('camera', Math.PI / 4, Math.PI / 3, 10, new Vector3(0, 0, 0), this.scene);
     cam.attachControl();
-  }
 
-  init(): void {
-    super.init();
     this.engine.runRenderLoop(this._doRender);
   }
 
@@ -47,8 +44,8 @@ export class XRScene extends XRElement {
     this.scene.debugLayer.show(); // for debug
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
 
     this.scene?.dispose();
     this.engine.stopRenderLoop(this._doRender);

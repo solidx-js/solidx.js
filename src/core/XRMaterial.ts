@@ -45,8 +45,8 @@ export class XRMaterial extends XRElement {
     if (this.emissiveColor) this._mat.emissiveColor = this.emissiveColor;
   }
 
-  init(): void {
-    super.init();
+  connected(): void {
+    super.connected();
     this._updateMat();
   }
 
@@ -54,8 +54,8 @@ export class XRMaterial extends XRElement {
     this._updateMat();
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
     this._mat?.dispose();
     this._mat = null;
   }

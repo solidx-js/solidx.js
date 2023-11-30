@@ -2,6 +2,7 @@ import { customElement } from 'lit/decorators';
 import { Component, GeometryComponent, MaterialComponent } from './components';
 import { XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene } from './core';
 import { Primitive, CameraPrimitive, SkyPrimitive } from './primitives';
+import { XRTransformNode } from './core/XRTransformNode';
 
 /**
  * A registry for storing and retrieving Primitive by name.
@@ -56,6 +57,7 @@ customElement('xr-scene')(XRScene);
 customElement('xr-geometry')(XRGeometry);
 customElement('xr-material')(XRMaterial);
 customElement('xr-mesh')(XRMesh);
+customElement('xr-transform-node')(XRTransformNode);
 
 // 3. 注册 Primitive
 // PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);

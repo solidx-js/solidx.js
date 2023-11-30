@@ -16,19 +16,15 @@ export class XRMesh extends XRElement {
     return this._mesh;
   }
 
-  get name() {
-    return 'XRMesh';
-  }
-
-  init(): void {
-    super.init();
+  connected(): void {
+    super.connected();
 
     const id = this.getAttribute('id') || 'mesh:' + randomID();
     this._mesh = new Mesh(id, this.scene);
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
     this._mesh?.dispose();
     this._mesh = null;
   }
