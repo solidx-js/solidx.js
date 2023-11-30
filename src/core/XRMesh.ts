@@ -5,6 +5,7 @@ import { customElement } from 'lit/decorators';
 import { consume } from '@lit/context';
 import { Context } from './Context';
 import { Scene } from '@babylonjs/core/scene';
+import { XRTransformNode } from './XRTransformNode';
 
 export class XRMesh extends XRElement {
   @consume({ context: Context.Scene, subscribe: true })
@@ -19,8 +20,10 @@ export class XRMesh extends XRElement {
   connected(): void {
     super.connected();
 
-    const id = this.getAttribute('id') || 'mesh:' + randomID();
-    this._mesh = new Mesh(id, this.scene);
+    const id = this.id || 'mesh:' + randomID();
+
+    const parent = this.parentElement instanceof XRTransformNode ? this.parentElement.transformNode : null;
+    this._mesh = new Mesh(id, this.scene, parent);
   }
 
   disconnected(): void {

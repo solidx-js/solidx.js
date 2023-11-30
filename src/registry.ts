@@ -1,8 +1,26 @@
-import { customElement } from 'lit/decorators';
 import { Component, GeometryComponent, MaterialComponent } from './components';
 import { XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene } from './core';
 import { Primitive, CameraPrimitive, SkyPrimitive } from './primitives';
 import { XRTransformNode } from './core/XRTransformNode';
+
+export class ElementRegistry {
+  static Instance = new ElementRegistry();
+
+  private _elements: Record<string, typeof XRElement> = {};
+
+  register(name: string, element: typeof XRElement) {
+    this._elements[name] = element;
+    customElements.define(name, element);
+  }
+
+  get(name: string) {
+    return this._elements[name];
+  }
+
+  keys() {
+    return Object.keys(this._elements);
+  }
+}
 
 /**
  * A registry for storing and retrieving Primitive by name.
@@ -52,13 +70,22 @@ ComponentRegistry.Instance.register('material', MaterialComponent as any);
 // ComponentRegistry.Instance.register('model', ModelComponent as any);
 
 // 2. 注册原生元素
-customElement('xr-engine')(XREngine);
-customElement('xr-scene')(XRScene);
-customElement('xr-geometry')(XRGeometry);
-customElement('xr-material')(XRMaterial);
-customElement('xr-mesh')(XRMesh);
-customElement('xr-transform-node')(XRTransformNode);
+ElementRegistry.Instance.register('xr-engine', XREngine);
+ElementRegistry.Instance.register('xr-scene', XRScene);
+ElementRegistry.Instance.register('xr-geometry', XRGeometry);
+ElementRegistry.Instance.register('xr-material', XRMaterial);
+ElementRegistry.Instance.register('xr-mesh', XRMesh);
+ElementRegistry.Instance.register('xr-transform-node', XRTransformNode);
 
 // 3. 注册 Primitive
 // PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);
 // PrimitiveRegistry.Instance.register('xr-sky', SkyPrimitive);
+
+// 注册到 customElements
+// ===========================
+ElementRegistry.Instance.keys().forEach(tag => {
+  customElements.whenDefined(tag).then(() => {
+    if (customElements.get(tag)) return;
+    customElements.define(tag, ElementRegistry.Instance.get(tag));
+  });
+});
