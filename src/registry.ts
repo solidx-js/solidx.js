@@ -10,7 +10,6 @@ export class ElementRegistry {
 
   register(name: string, element: typeof XRElement) {
     this._elements[name] = element;
-    customElements.define(name, element);
   }
 
   get(name: string) {
@@ -81,11 +80,32 @@ ElementRegistry.Instance.register('xr-transform-node', XRTransformNode);
 // PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);
 // PrimitiveRegistry.Instance.register('xr-sky', SkyPrimitive);
 
-// 注册到 customElements
-// ===========================
-ElementRegistry.Instance.keys().forEach(tag => {
-  customElements.whenDefined(tag).then(() => {
-    if (customElements.get(tag)) return;
-    customElements.define(tag, ElementRegistry.Instance.get(tag));
+// 递归注册到 customElements
+// =======
+customElements.whenDefined('xr-engine').then(() => {
+  // 深度递归 tag，并调用 customElements.define
+  function defineRecursive(ele: Element) {
+    if (ele instanceof HTMLElement) {
+      const tag = ele.tagName.toLowerCase();
+      const Cls = ElementRegistry.Instance.get(tag);
+
+      if (!customElements.get(tag)) customElements.define(tag, Cls);
+
+      ele.childNodes.forEach(defineRecursive as any);
+    }
+  }
+
+  // for engine
+  const engines = document.querySelectorAll<XREngine>('xr-engine');
+  engines.forEach(eg => defineRecursive(eg));
+
+  // 补充注册剩下的
+  const tags = ElementRegistry.Instance.keys();
+  tags.forEach(tag => {
+    if (!customElements.get(tag)) {
+      const Cls = ElementRegistry.Instance.get(tag);
+      customElements.define(tag, Cls);
+    }
   });
 });
+customElements.define('xr-engine', XREngine);
