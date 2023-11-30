@@ -1,9 +1,16 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { XRElement } from './XRElement';
-import type { XRScene } from './XRScene';
 import { randomID } from '../util';
+import { customElement } from 'lit/decorators';
+import { consume } from '@lit/context';
+import { Context } from './Context';
+import { Scene } from '@babylonjs/core/scene';
 
+@customElement('xr-mesh')
 export class XRMesh extends XRElement {
+  @consume({ context: Context.Scene })
+  scene!: Scene;
+
   private _mesh: Mesh | null = null;
 
   get mesh() {
@@ -14,18 +21,12 @@ export class XRMesh extends XRElement {
     return 'XRMesh';
   }
 
-  get sceneEle() {
-    return this.closest<XRScene>('xr-scene')!;
-  }
-
   init(): void {
     super.init();
 
     const id = this.getAttribute('id') || 'mesh:' + randomID();
-    this._mesh = new Mesh(id, this.sceneEle.scene);
+    this._mesh = new Mesh(id, this.scene);
   }
-
-  update(attr: string | null, oldVal: string | null, newVal: string | null): void {}
 
   remove(): void {
     super.remove();

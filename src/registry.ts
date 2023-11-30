@@ -45,19 +45,19 @@ export class ComponentRegistry {
 
 // 1. 注册组件(必须先注册，否则下面 define 时会找不到注册组件导致报错)
 // ComponentRegistry.Instance.register('camera', CameraComponent);
-ComponentRegistry.Instance.register('geometry', GeometryComponent as any);
-ComponentRegistry.Instance.register('material', MaterialComponent as any);
+// ComponentRegistry.Instance.register('geometry', GeometryComponent as any);
+// ComponentRegistry.Instance.register('material', MaterialComponent as any);
 // ComponentRegistry.Instance.register('position', PositionComponent as any);
 // ComponentRegistry.Instance.register('rotation', RotationComponent as any);
 // ComponentRegistry.Instance.register('model', ModelComponent as any);
 
 // 2. 注册原生元素
-customElements.define('xr-engine', XREngine);
-customElements.define('xr-scene', XRScene);
-customElements.define('xr-geometry', XRGeometry);
-customElements.define('xr-material', XRMaterial);
-customElements.define('xr-mesh', XRMesh);
+// customElements.define('xr-engine', XREngine);
+// customElements.define('xr-scene', XRScene);
+// customElements.define('xr-geometry', XRGeometry);
+// customElements.define('xr-material', XRMaterial);
+// customElements.define('xr-mesh', XRMesh);
 
 // 3. 注册 Primitive
-PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);
-PrimitiveRegistry.Instance.register('xr-sky', SkyPrimitive);
+// PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);
+// PrimitiveRegistry.Instance.register('xr-sky', SkyPrimitive);

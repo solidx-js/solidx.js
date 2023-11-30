@@ -2,53 +2,59 @@ import { Scene } from '@babylonjs/core/scene';
 import type { XREngine } from './XREngine';
 import { AssetsSystem, MeshSystem } from '../system';
 import { XRElement } from './XRElement';
-import { ArcRotateCamera, EnvironmentHelper, Vector3 } from '@babylonjs/core';
+import { customElement, property } from 'lit/decorators';
+import { consume, provide } from '@lit/context';
+import { Context } from './Context';
+import { Engine } from '@babylonjs/core/Engines/engine';
+import { EnvironmentHelper } from '@babylonjs/core/Helpers/environmentHelper';
+import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Logger } from 'ah-logger';
+import { PropertyValueMap, html } from 'lit';
 
+@customElement('xr-scene')
 export class XRScene extends XRElement {
-  private _scene: Scene | null = null;
-  system: { assets: AssetsSystem; mesh: MeshSystem } = {} as any;
+  static eleName = 'XRScene';
 
-  get engine() {
-    const ret = this.closest<XREngine>('xr-engine')!.engine;
-    if (!ret) throw new Error('Entity: XREngine not found');
-    return ret;
-  }
+  @provide({ context: Context.Scene })
+  @property({ attribute: false })
+  scene!: Scene;
 
-  get scene() {
-    return this._scene;
-  }
+  @consume({ context: Context.Engine, subscribe: true })
+  @property({ attribute: false })
+  engine!: Engine;
 
-  get name() {
-    return 'XRScene';
-  }
+  // system: { assets: AssetsSystem; mesh: MeshSystem } = {} as any;
 
   private _doRender = () => {
-    if (!this._scene || !this._scene.activeCamera) return;
-    this._scene.render();
+    if (!this.scene.activeCamera) return;
+    this.scene.render();
   };
 
   init(): void {
     super.init();
 
-    this._scene = new Scene(this.engine);
+    this.scene = new Scene(this.engine);
 
-    this.system.assets = new AssetsSystem(this, 'assets');
-    this.system.mesh = new MeshSystem(this, 'mesh');
+    // this.system.assets = new AssetsSystem(this, 'assets');
+    // this.system.mesh = new MeshSystem(this, 'mesh');
 
-    this._scene.debugLayer.show(); // for debug
+    new EnvironmentHelper({ createSkybox: true }, this.scene);
 
-    new EnvironmentHelper({ createSkybox: true }, this._scene);
-
-    const cam = new ArcRotateCamera('camera', Math.PI / 4, Math.PI / 3, 10, new Vector3(0, 0, 0), this._scene);
+    const cam = new ArcRotateCamera('camera', Math.PI / 4, Math.PI / 3, 10, new Vector3(0, 0, 0), this.scene);
     cam.attachControl();
 
     this.engine.runRenderLoop(this._doRender);
   }
 
+  protected firstUpdated(): void {
+    this.scene.debugLayer.show(); // for debug
+  }
+
   remove(): void {
     super.remove();
 
-    this._scene?.dispose();
+    this.scene?.dispose();
     this.engine.stopRenderLoop(this._doRender);
   }
 }

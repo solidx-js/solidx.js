@@ -18,6 +18,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
     "@babylonjs/inspector": "^6.31.0",
     "@parcel/config-default": "^2.10.3",
     "@parcel/packager-ts": "2.10.3",
@@ -35,13 +38,12 @@
     "prettier": "^3.1.0",
     "process": "^0.11.10",
     "release-it": "^17.0.0",
-    "typescript": "^5.2.2",
-    "@babel/core": "^7.23.3",
-    "@babel/preset-env": "^7.23.3",
-    "@babel/preset-typescript": "^7.23.3"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@babylonjs/core": "^6.31.0",
-    "ah-logger": "^3.2.8"
+    "@lit/context": "^1.1.0",
+    "ah-logger": "^3.2.8",
+    "lit": "^3.1.0"
   }
 }

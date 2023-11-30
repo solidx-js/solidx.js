@@ -1,7 +1,16 @@
 import { Engine } from '@babylonjs/core/Engines/engine';
+import { provide } from '@lit/context';
+import { Context } from './Context';
+import { customElement, property, query } from 'lit/decorators';
+import { PropertyValueMap, html } from 'lit';
+import { styleMap } from 'lit/directives/style-map';
 import { XRElement } from './XRElement';
+import { randomID } from '../util';
 
+@customElement('xr-engine')
 export class XREngine extends XRElement {
+  static eleName = 'XREngine';
+
   static createEngine(canvas: HTMLCanvasElement) {
     const engine = new Engine(canvas, true, { stencil: true, antialias: true, adaptToDeviceRatio: true, doNotHandleContextLost: true });
 
@@ -16,45 +25,35 @@ export class XREngine extends XRElement {
     return engine;
   }
 
-  private _engine: Engine | null = null;
-  private _container: HTMLDivElement | null = null;
+  readonly ID = randomID();
 
-  get engine() {
-    return this._engine;
+  @provide({ context: Context.Engine })
+  engine: Engine;
+
+  @property({ type: Number })
+  width: number = 600;
+
+  @property({ type: Number })
+  height: number = 400;
+
+  @query('[data-name=XREngine]')
+  containerEle!: HTMLDivElement;
+
+  constructor() {
+    super();
+
+    const _canvas = document.createElement('canvas');
+    _canvas.style.width = '100%';
+    _canvas.style.height = '100%';
+
+    this.engine = XREngine.createEngine(_canvas);
   }
 
-  get name() {
-    return 'XREngine';
+  protected firstUpdated(): void {
+    this.containerEle.appendChild(this.engine.getRenderingCanvas()!);
   }
 
-  init(): void {
-    super.init();
-
-    const width = this.getAttribute('width') || window.innerWidth;
-    const height = this.getAttribute('height') || window.innerHeight;
-
-    // 设置自己的 style
-    this.style.display = 'block';
-    this.style.width = `${width}px`;
-    this.style.height = `${height}px`;
-
-    // 创建 container
-    this._container = document.createElement('div');
-    this._container.style.width = `${width}px`;
-    this._container.style.height = `${height}px`;
-    this.appendChild(this._container);
-
-    const canvas = document.createElement('canvas');
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    this._container.appendChild(canvas);
-
-    this._engine = XREngine.createEngine(canvas);
-  }
-
-  remove(): void {
-    super.remove();
-
-    this._engine?.dispose();
+  render() {
+    return html`<div id=${this.ID} data-name="XREngine" style=${styleMap({ width: this.width + 'px', height: this.height + 'px' })}></div>`;
   }
 }
