@@ -11,7 +11,7 @@ export class ComponentLike<T = any> {
 
   readonly logger = this.el.logger.extend(this.name);
 
-  private _disposes: (() => any)[] = [];
+  protected _disposes: (() => any)[] = [];
 
   private _data: T | null = null;
   private _prevData: T | null = null;

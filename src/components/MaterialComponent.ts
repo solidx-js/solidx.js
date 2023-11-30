@@ -1,36 +1,24 @@
-import { PBRMaterial } from '@babylonjs/core/Materials/PBR';
-import { ISchema } from '../util';
-import { Component } from './Component';
 import { XRMesh } from '../core/XRMesh';
+import { RefComponent } from './RefComponent';
+import { Material } from '@babylonjs/core/Materials';
 
-export class MaterialComponent extends Component<string> {
-  static schema: ISchema = { type: 'string' };
-
-  private _material: PBRMaterial | null = null;
-  private _matNeedDispose = false;
-
+export class MaterialComponent extends RefComponent<Material> {
   get name(): string {
     return 'MaterialComponent';
   }
 
-  update(): void {
-    if (!(this.el instanceof XRMesh) || !this.el.mesh) return;
-    if (!this.data || !this.data.startsWith('#')) throw new Error('MaterialComponent: data must start with #');
-
-    this._material = this.scene.getMaterialById(this.data.slice(1)) as any;
-
-    if (this._material) {
-      this.el.mesh.material = this._material;
-    }
+  onFetchTarget(): Material | null {
+    if (!this.data) return null;
+    return this.scene.getMaterialById(this.data);
   }
 
-  remove(): void {
-    super.remove();
+  onConnect(): void {
+    if (!(this.el instanceof XRMesh) || !this.el.mesh) return;
+    this.el.mesh.material = this._target;
+  }
 
-    if (this._matNeedDispose) {
-      this._material?.dispose();
-    }
-
-    this._material = null;
+  onDisconnect(): void {
+    if (!(this.el instanceof XRMesh) || !this.el.mesh) return;
+    if (this.el.mesh.material === this._target) this.el.mesh.material = null;
   }
 }

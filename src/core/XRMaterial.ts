@@ -5,6 +5,7 @@ import { consume } from '@lit/context';
 import { Context } from './Context';
 import { property } from 'lit/decorators';
 import { Scene } from '@babylonjs/core/scene';
+import { Decorator } from './Decorator';
 
 export class XRMaterial extends XRElement {
   static requiredAttrs: string[] = ['id'];
@@ -15,26 +16,16 @@ export class XRMaterial extends XRElement {
   @property({ attribute: false })
   scene!: Scene;
 
-  @property({
-    converter: {
-      fromAttribute: (value: string) => Color3.FromHexString(value),
-      toAttribute: (value: Color3) => value.toHexString(),
-    },
-  })
+  @Decorator.property_Color3()
   albedoColor?: Color3;
 
-  @property({ type: Number })
+  @Decorator.property_Number()
   metallic?: number;
 
-  @property({ type: Number })
+  @Decorator.property_Number()
   roughness?: number;
 
-  @property({
-    converter: {
-      fromAttribute: (value: string) => Color3.FromHexString(value),
-      toAttribute: (value: Color3) => value.toHexString(),
-    },
-  })
+  @Decorator.property_Color3()
   emissiveColor?: Color3;
 
   get material() {

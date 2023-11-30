@@ -1,43 +1,19 @@
-import { ISchema } from '../util';
-import { Component } from './Component';
 import { XRMesh } from '../core';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
+import { RefComponent } from './RefComponent';
 
-export class GeometryComponent extends Component<string> {
-  static schema: ISchema = { type: 'string' };
-
-  private _geometry: Geometry | null = null;
-  private _geoNeedDispose = false;
-
+export class GeometryComponent extends RefComponent<Geometry> {
   get name() {
     return 'GeometryComponent';
   }
 
-  init(): void {
-    super.init();
+  onFetchTarget(): Geometry | null {
+    if (!this.data) return null;
+    return this.scene.getGeometryById(this.data);
   }
 
-  update(): void {
-    super.update();
-
-    if (!(this.el instanceof XRMesh) || !this.el.mesh) return;
-    if (!this.data || !this.data.startsWith('#')) throw new Error('GeometryComponent: data must start with #');
-
-    this._geometry = this.scene.getGeometryById(this.data.slice(1));
-    console.log('@@@', '  this._geometry ->', this._geometry, this.scene.geometries);
-
-    if (this._geometry) {
-      this._geometry.applyToMesh(this.el.mesh);
-    }
-  }
-
-  remove(): void {
-    super.remove();
-
-    if (this._geoNeedDispose) {
-      this._geometry?.dispose();
-    }
-
-    this._geometry = null;
+  onConnect(): void {
+    if (!(this.el instanceof XRMesh) || !this.el.mesh || !this._target) return;
+    this._target.applyToMesh(this.el.mesh);
   }
 }
