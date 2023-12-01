@@ -5,13 +5,17 @@ import { consume } from '@lit/context';
 import { Context } from './Context';
 import { Scene } from '@babylonjs/core/scene';
 
-export class XRMesh extends XRElement {
+export class XRMesh extends XRElement<Mesh> {
   @consume({ context: Context.Scene, subscribe: true })
   scene!: Scene;
 
   private _mesh: Mesh | null = null;
 
   get mesh() {
+    return this._mesh;
+  }
+
+  get entity() {
     return this._mesh;
   }
 

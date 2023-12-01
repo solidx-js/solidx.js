@@ -10,69 +10,63 @@ export const Decorator = {
   },
 
   property_Number: () => {
-    return property({ type: Number });
+    return property({ reflect: true, type: Number });
   },
 
   property_String: () => {
-    return property();
+    return property({ reflect: true });
   },
 
   property_Vector2: (ref: Vector2) => {
-    let _isDirty = false;
-
     return property({
+      reflect: true,
       converter: {
         fromAttribute: (value: string) => {
           const values = value.split(' ').map(v => parseFloat(v));
-          // dirty check
-          _isDirty = ref.x !== values[0] || ref.y !== values[1];
           return ref.copyFromFloats(values[0], values[1]);
         },
         toAttribute: (value: Vector2) => value.asArray().join(' '),
       },
+      hasChanged: () => true,
     });
   },
 
   property_Vector3: (ref: Vector3) => {
-    let _isDirty = false;
-
     return property({
+      reflect: true,
       converter: {
         fromAttribute: (value: string) => {
           const values = value.split(' ').map(v => parseFloat(v));
-          // dirty check
-          _isDirty = ref.x !== values[0] || ref.y !== values[1] || ref.z !== values[2];
           return ref.copyFromFloats(values[0], values[1], values[2]);
         },
         toAttribute: (value: Vector3) => value.asArray().join(' '),
       },
-      hasChanged: () => _isDirty,
+      hasChanged: () => true,
     });
   },
 
   property_Vector4: (ref: Vector4) => {
-    let _isDirty = false;
-
     return property({
+      reflect: true,
       converter: {
         fromAttribute: (value: string) => {
           const values = value.split(' ').map(v => parseFloat(v));
-          // dirty check
-          _isDirty = ref.x !== values[0] || ref.y !== values[1] || ref.z !== values[2] || ref.w !== values[3];
           return ref.copyFromFloats(values[0], values[1], values[2], values[3]);
         },
         toAttribute: (value: Vector4) => `${value.x} ${value.y} ${value.z} ${value.w}`,
       },
-      hasChanged: () => _isDirty,
+      hasChanged: () => true,
     });
   },
 
   property_Color3: () => {
     return property({
+      reflect: true,
       converter: {
         fromAttribute: (value: string) => Color3.FromHexString(value),
         toAttribute: (value: Color3) => value.toHexString(),
       },
+      hasChanged: () => true,
     });
   },
 };

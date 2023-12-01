@@ -7,7 +7,7 @@ import { property } from 'lit/decorators';
 import { Scene } from '@babylonjs/core/scene';
 import { Decorator } from './Decorator';
 
-export class XRMaterial extends XRElement {
+export class XRMaterial extends XRElement<PBRMaterial> {
   static requiredAttrs: string[] = ['id'];
 
   private _mat: PBRMaterial | null = null;
@@ -32,8 +32,8 @@ export class XRMaterial extends XRElement {
     return this._mat;
   }
 
-  get name() {
-    return 'XRMaterial';
+  get entity() {
+    return this._mat;
   }
 
   private _updateMat(): void {

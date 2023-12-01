@@ -7,8 +7,8 @@ import { IAnimationKey } from '@babylonjs/core/Animations/animationKey';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
-export class XRAnimation extends XRElement {
-  static requiredAttrs: string[] = ['id'];
+export class XRAnimation extends XRElement<Animation> {
+  static requiredAttrs: string[] = ['id', 'targetProperty'];
 
   @Decorator.scene()
   scene!: Scene;
@@ -23,6 +23,10 @@ export class XRAnimation extends XRElement {
   loopMode: 'cycle' | 'constant' | 'relative' | 'yoyo' = 'cycle';
 
   animation: Animation | null = null;
+
+  get entity() {
+    return this.animation;
+  }
 
   connected(): void {
     super.connected();
@@ -60,18 +64,15 @@ export class XRAnimation extends XRElement {
 
     // 遍历直接子元素 XRAnimationFrame, 收集 frame 和 value, 然后设置到 animation 中
     Array.from(this.children).forEach(ele => {
-      console.log('@@@', 'ele ->', ele, ele.constructor.name);
       if (!(ele instanceof XRKeyFrame)) return;
 
-      const frame = ele.frame;
+      const frame = ele.time * 60;
       const value = parseValueString(this.dataType, ele.value);
       keys.push({ frame, value });
     });
 
     // sort by frame
     keys.sort((a, b) => a.frame - b.frame);
-
-    console.log('@@@', 'keys ->', keys);
 
     this.animation.setKeys(keys);
   }

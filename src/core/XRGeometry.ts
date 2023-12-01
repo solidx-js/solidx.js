@@ -5,7 +5,7 @@ import { Context } from './Context';
 import { Scene } from '@babylonjs/core/scene';
 import { customElement, property } from 'lit/decorators';
 
-export class XRGeometry extends XRElement {
+export class XRGeometry extends XRElement<Geometry> {
   static requiredAttrs: string[] = ['id'];
 
   @consume({ context: Context.Scene, subscribe: true })
@@ -18,6 +18,10 @@ export class XRGeometry extends XRElement {
   type = 'custom';
 
   get geometry() {
+    return this._geometry;
+  }
+
+  get entity() {
     return this._geometry;
   }
 

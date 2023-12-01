@@ -1,4 +1,4 @@
-import { Component, GeometryComponent, MaterialComponent } from './components';
+import { AnimationComponent, Component, GeometryComponent, MaterialComponent } from './components';
 import { XRAnimation, XRKeyFrame, XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene } from './core';
 import { Primitive, CameraPrimitive, SkyPrimitive } from './primitives';
 import { XRTransformNode } from './core/XRTransformNode';
@@ -64,19 +64,21 @@ export class ComponentRegistry {
 // ComponentRegistry.Instance.register('camera', CameraComponent);
 ComponentRegistry.Instance.register('geometry', GeometryComponent as any);
 ComponentRegistry.Instance.register('material', MaterialComponent as any);
+ComponentRegistry.Instance.register('animation', AnimationComponent as any);
+
 // ComponentRegistry.Instance.register('position', PositionComponent as any);
 // ComponentRegistry.Instance.register('rotation', RotationComponent as any);
 // ComponentRegistry.Instance.register('model', ModelComponent as any);
 
 // 2. 注册原生元素
-ElementRegistry.Instance.register('xr-engine', XREngine);
-ElementRegistry.Instance.register('xr-scene', XRScene);
-ElementRegistry.Instance.register('xr-geometry', XRGeometry);
-ElementRegistry.Instance.register('xr-material', XRMaterial);
-ElementRegistry.Instance.register('xr-mesh', XRMesh);
-ElementRegistry.Instance.register('xr-transform-node', XRTransformNode);
-ElementRegistry.Instance.register('xr-animation', XRAnimation);
-ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame);
+ElementRegistry.Instance.register('xr-engine', XREngine as any);
+ElementRegistry.Instance.register('xr-scene', XRScene as any);
+ElementRegistry.Instance.register('xr-geometry', XRGeometry as any);
+ElementRegistry.Instance.register('xr-material', XRMaterial as any);
+ElementRegistry.Instance.register('xr-mesh', XRMesh as any);
+ElementRegistry.Instance.register('xr-transform-node', XRTransformNode as any);
+ElementRegistry.Instance.register('xr-animation', XRAnimation as any);
+ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame as any);
 
 // 3. 注册 Primitive
 // PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);
@@ -84,8 +86,30 @@ ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame);
 
 // 递归注册到 customElements
 // =======
-const tags = ElementRegistry.Instance.keys();
-tags.forEach(tag => {
-  const Cls = ElementRegistry.Instance.get(tag);
-  customElements.define(tag, Cls);
+customElements.whenDefined('xr-engine').then(() => {
+  // 深度递归 tag，并调用 customElements.define
+  function defineRecursive(ele: Element) {
+    if (ele instanceof HTMLElement) {
+      const tag = ele.tagName.toLowerCase();
+      const Cls = ElementRegistry.Instance.get(tag);
+
+      if (!customElements.get(tag)) customElements.define(tag, Cls);
+
+      ele.childNodes.forEach(defineRecursive as any);
+    }
+  }
+
+  // for engine
+  const engines = document.querySelectorAll<XREngine>('xr-engine');
+  engines.forEach(eg => defineRecursive(eg));
+
+  // 补充注册剩下的
+  const tags = ElementRegistry.Instance.keys();
+  tags.forEach(tag => {
+    if (!customElements.get(tag)) {
+      const Cls = ElementRegistry.Instance.get(tag);
+      customElements.define(tag, Cls);
+    }
+  });
 });
+customElements.define('xr-engine', XREngine);

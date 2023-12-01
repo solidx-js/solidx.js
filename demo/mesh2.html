@@ -15,15 +15,21 @@
   <body>
     <xr-engine width="1000" height="400">
       <xr-scene>
-        <xr-material id="m1" emissiveColor="#ff0000"></xr-material>
-        <xr-geometry id="g1" type="box"></xr-geometry>
-
-        <xr-animation id="ani1">
-          <xr-keyframe frame="0" value="0"></xr-keyframe>
-          <xr-keyframe frame="60" value="2"></xr-keyframe>
+        <xr-animation id="ani-pos" targetProperty="position" dataType="vector3" loopMode="yoyo">
+          <xr-keyframe time="0" value="0 0 0"></xr-keyframe>
+          <xr-keyframe time="2" value="0 2 0"></xr-keyframe>
         </xr-animation>
 
-        <xr-transform-node id="n1" position="0 0 0">
+        <xr-animation id="ani-mat" targetProperty="emissiveColor" dataType="color3" loopMode="yoyo">
+          <xr-keyframe time="0" value="#ff0000"></xr-keyframe>
+          <xr-keyframe time="1" value="#00ff00"></xr-keyframe>
+          <xr-keyframe time="2" value="#0000ff"></xr-keyframe>
+        </xr-animation>
+
+        <xr-material id="m1" emissiveColor="#ff0000" animation="ani-mat"></xr-material>
+        <xr-geometry id="g1" type="box"></xr-geometry>
+
+        <xr-transform-node id="n1" position="0 0 0" animation="ani-pos">
           <xr-transform-node id="n2">
             <xr-mesh geometry="g1" material="m1"></xr-mesh>
           </xr-transform-node>
@@ -34,11 +40,6 @@
     <script src="../src/index.ts" type="module"></script>
     <script>
       const n1 = document.getElementById('n1');
-
-      setInterval(() => {
-        // n1 随机位置
-        n1.setAttribute('position', `${Math.random() * 2} ${Math.random() * 2} ${Math.random() * 2}`);
-      }, 1000);
     </script>
   </body>
 </html>

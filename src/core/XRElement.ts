@@ -5,12 +5,16 @@ import { difference, range } from 'lodash';
 import type { Component } from '../components';
 import { ComponentRegistry } from '../registry';
 import { Schema } from '../util';
+import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
+import { Material } from '@babylonjs/core/Materials/material';
 
-export class XRElement extends LitElement {
+export class XRElement<T = TransformNode | Material> extends LitElement {
   static requiredAttrs: string[] = [];
 
   readonly logger = DefaultBizLogger.extend(this.tagName);
+
   components: { [key: string]: ComponentLike } = {};
+  animations: any[] = [];
 
   private get _Cls() {
     return this.constructor as any as typeof XRElement;
@@ -57,7 +61,7 @@ export class XRElement extends LitElement {
       const Comp = ComponentRegistry.Instance.get(key);
       if (!Comp) continue;
 
-      const comp = new Comp(this, key);
+      const comp = new Comp(this as any, key);
       this.components[key] = comp;
       comp.init();
 
@@ -74,7 +78,11 @@ export class XRElement extends LitElement {
       this.components[key].flush(value);
     }
   }
- 
+
+  get entity(): T | null {
+    return null;
+  }
+
   connectedCallback() {
     super.connectedCallback();
 
