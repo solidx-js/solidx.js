@@ -17,7 +17,7 @@
       <xr-scene>
         <xr-material id="m1" emissiveColor="#ff0000"></xr-material>
         <xr-geometry id="g1" type="box"></xr-geometry>
-        <xr-transform-node id="n1">
+        <xr-transform-node id="n1" position="0 0 0">
           <xr-transform-node id="n2">
             <xr-mesh geometry="g1" material="m1"></xr-mesh>
           </xr-transform-node>
@@ -26,6 +26,13 @@
     </xr-engine>
 
     <script src="../src/index.ts" type="module"></script>
-    <script></script>
+    <script>
+      const n1 = document.getElementById('n1');
+
+      setInterval(() => {
+        // n1 随机位置
+        n1.setAttribute('position', `${Math.random() * 10} ${Math.random() * 10} ${Math.random() * 10}`);
+      }, 1000);
+    </script>
   </body>
 </html>

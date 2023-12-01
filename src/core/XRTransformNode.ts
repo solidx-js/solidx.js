@@ -4,10 +4,15 @@ import { consume } from '@lit/context';
 import { Context } from './Context';
 import { Scene } from '@babylonjs/core/scene';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
+import { Decorator } from './Decorator';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
 export class XRTransformNode extends XRElement {
   @consume({ context: Context.Scene, subscribe: true })
   scene!: Scene;
+
+  @Decorator.property_Vector3(Vector3.Zero())
+  position: Vector3 = Vector3.Zero();
 
   transformNode: TransformNode | null = null;
 
@@ -28,6 +33,6 @@ export class XRTransformNode extends XRElement {
   }
 
   render() {
-    return null;
+    this.transformNode?.position.copyFrom(this.position);
   }
 }
