@@ -14,6 +14,9 @@ export class XRTransformNode extends XRElement {
   @Decorator.property_Vector3(Vector3.Zero())
   position: Vector3 = Vector3.Zero();
 
+  @Decorator.property_Vector3(Vector3.Zero())
+  rotation: Vector3 = Vector3.Zero();
+
   transformNode: TransformNode | null = null;
 
   connected(): void {
@@ -33,6 +36,9 @@ export class XRTransformNode extends XRElement {
   }
 
   render() {
-    this.transformNode?.position.copyFrom(this.position);
+    if (!this.transformNode) return;
+
+    this.transformNode.position.copyFrom(this.position);
+    this.transformNode.rotation.copyFrom(this.rotation);
   }
 }
