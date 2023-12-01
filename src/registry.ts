@@ -84,30 +84,8 @@ ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame);
 
 // 递归注册到 customElements
 // =======
-customElements.whenDefined('xr-engine').then(() => {
-  // 深度递归 tag，并调用 customElements.define
-  function defineRecursive(ele: Element) {
-    if (ele instanceof HTMLElement) {
-      const tag = ele.tagName.toLowerCase();
-      const Cls = ElementRegistry.Instance.get(tag);
-
-      if (!customElements.get(tag)) customElements.define(tag, Cls);
-
-      ele.childNodes.forEach(defineRecursive as any);
-    }
-  }
-
-  // for engine
-  const engines = document.querySelectorAll<XREngine>('xr-engine');
-  engines.forEach(eg => defineRecursive(eg));
-
-  // 补充注册剩下的
-  const tags = ElementRegistry.Instance.keys();
-  tags.forEach(tag => {
-    if (!customElements.get(tag)) {
-      const Cls = ElementRegistry.Instance.get(tag);
-      customElements.define(tag, Cls);
-    }
-  });
+const tags = ElementRegistry.Instance.keys();
+tags.forEach(tag => {
+  const Cls = ElementRegistry.Instance.get(tag);
+  customElements.define(tag, Cls);
 });
-customElements.define('xr-engine', XREngine);
