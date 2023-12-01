@@ -20,13 +20,18 @@
           <xr-keyframe time="2" value="0 2 0"></xr-keyframe>
         </xr-animation>
 
-        <xr-animation id="ani-mat" targetProperty="emissiveColor" dataType="color3" loopMode="yoyo">
+        <xr-animation id="ani-mat-color" targetProperty="emissiveColor" dataType="color3" loopMode="yoyo">
           <xr-keyframe time="0" value="#ff0000"></xr-keyframe>
           <xr-keyframe time="1" value="#00ff00"></xr-keyframe>
           <xr-keyframe time="2" value="#0000ff"></xr-keyframe>
         </xr-animation>
 
-        <xr-material id="m1" emissiveColor="#ff0000" animation="ani-mat"></xr-material>
+        <xr-animation id="ani-mat-metallic" targetProperty="metallic" loopMode="yoyo">
+          <xr-keyframe time="0" value="0"></xr-keyframe>
+          <xr-keyframe time="1" value="1"></xr-keyframe>
+        </xr-animation>
+
+        <xr-material id="m1" emissiveColor="#ff0000" animation="ani-mat-color ani-mat-metallic"></xr-material>
         <xr-geometry id="g1" type="box"></xr-geometry>
 
         <xr-transform-node id="n1" position="0 0 0" animation="ani-pos">

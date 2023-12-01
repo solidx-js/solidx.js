@@ -7,6 +7,7 @@ import { ComponentRegistry } from '../registry';
 import { Schema } from '../util';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { Material } from '@babylonjs/core/Materials/material';
+import { Animation } from '@babylonjs/core/Animations/animation';
 
 export class XRElement<T = TransformNode | Material> extends LitElement {
   static requiredAttrs: string[] = [];
@@ -14,7 +15,7 @@ export class XRElement<T = TransformNode | Material> extends LitElement {
   readonly logger = DefaultBizLogger.extend(this.tagName);
 
   components: { [key: string]: ComponentLike } = {};
-  animations: any[] = [];
+  animations: Animation[] = [];
 
   private get _Cls() {
     return this.constructor as any as typeof XRElement;
