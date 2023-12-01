@@ -41,7 +41,7 @@ export class XRScene extends XRElement {
   }
 
   protected firstUpdated(): void {
-    this.scene.debugLayer.show(); // for debug
+    // this.scene.debugLayer.show(); // for debug
   }
 
   disconnected(): void {

@@ -47,6 +47,7 @@ export class XREngine extends XRElement {
 
   protected firstUpdated(): void {
     this.containerEle.appendChild(this.engine.getRenderingCanvas()!);
+    this.engine.resize();
   }
 
   render() {

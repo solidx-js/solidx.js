@@ -4,12 +4,11 @@
   "files": [
     "dist"
   ],
-  "source": "./src/index.ts",
-  "types": "./dist/types.d.ts",
-  "module": "./dist/index.js",
+  "main": "dist/lib/index.js",
+  "module": "dist/esm/index.js",
   "scripts": {
-    "dev": "parcel demo/*.html demo/assets/**/*",
-    "build": "parcel build --no-cache --no-optimize",
+    "dev": "parcel serve --dist-dir=node_modules/.dist demo/*.html demo/assets/**/*",
+    "build": "rm -rf dist/* && parcel build ./src/index.ts --no-cache",
     "test": "jest -i",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit && npm test",
     "release": "npm run ci && rm -rf dist/* && npm run build && release-it"
@@ -27,6 +26,7 @@
     "@parcel/transformer-less": "2.10.3",
     "@parcel/transformer-raw": "^2.10.3",
     "@parcel/transformer-svg-react": "^2.10.3",
+    "@parcel/transformer-typescript-tsc": "^2.10.3",
     "@parcel/transformer-typescript-types": "2.10.3",
     "@types/jest": "^29.5.10",
     "@types/lodash": "^4.14.201",
@@ -44,6 +44,12 @@
     "@babylonjs/core": "^6.31.0",
     "@lit/context": "^1.1.0",
     "ah-logger": "^3.2.8",
+    "lodash": "^4.17.21",
     "lit": "^3.1.0"
+  },
+  "targets": {
+    "global": {
+      "outputFormat": "global"
+    }
   }
 }
