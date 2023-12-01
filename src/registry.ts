@@ -1,5 +1,5 @@
 import { Component, GeometryComponent, MaterialComponent } from './components';
-import { XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene } from './core';
+import { XRAnimation, XRKeyFrame, XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene } from './core';
 import { Primitive, CameraPrimitive, SkyPrimitive } from './primitives';
 import { XRTransformNode } from './core/XRTransformNode';
 
@@ -75,6 +75,8 @@ ElementRegistry.Instance.register('xr-geometry', XRGeometry);
 ElementRegistry.Instance.register('xr-material', XRMaterial);
 ElementRegistry.Instance.register('xr-mesh', XRMesh);
 ElementRegistry.Instance.register('xr-transform-node', XRTransformNode);
+ElementRegistry.Instance.register('xr-animation', XRAnimation);
+ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame);
 
 // 3. 注册 Primitive
 // PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);

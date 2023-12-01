@@ -1,8 +1,14 @@
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
+import { consume } from '@lit/context';
 import { property } from 'lit/decorators';
+import { Context } from './Context';
 
 export const Decorator = {
+  scene: () => {
+    return consume({ context: Context.Scene, subscribe: true });
+  },
+
   property_Number: () => {
     return property({ type: Number });
   },

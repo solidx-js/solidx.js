@@ -1,0 +1,29 @@
+{
+  "export XRElement": {
+		"prefix": "ele",
+		"body": [
+			"import { Scene } from '@babylonjs/core/scene';",
+			"import { Decorator } from './Decorator';",
+			"import { XRElement } from './XRElement';",
+			"",
+			"export class XRAnimationFrame extends XRElement {",
+			"  static requiredAttrs: string[] = ['id'];",
+			"",
+			"  @Decorator.scene()",
+			"  scene!: Scene;",
+			"",
+			"  connected(): void {",
+			"    super.connected();",
+			"  }",
+			"",
+			"  remove(): void {",
+			"    super.remove();",
+			"  }",
+			"",
+			"  render() {}",
+			"}",
+			""
+		],
+		"description": "export XRElement"
+	}
+}

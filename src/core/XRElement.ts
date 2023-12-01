@@ -74,7 +74,7 @@ export class XRElement extends LitElement {
       this.components[key].flush(value);
     }
   }
-
+ 
   connectedCallback() {
     super.connectedCallback();
 

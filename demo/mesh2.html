@@ -17,6 +17,12 @@
       <xr-scene>
         <xr-material id="m1" emissiveColor="#ff0000"></xr-material>
         <xr-geometry id="g1" type="box"></xr-geometry>
+
+        <xr-animation id="ani1">
+          <xr-keyframe frame="0" value="0"></xr-keyframe>
+          <xr-keyframe frame="60" value="2"></xr-keyframe>
+        </xr-animation>
+
         <xr-transform-node id="n1" position="0 0 0">
           <xr-transform-node id="n2">
             <xr-mesh geometry="g1" material="m1"></xr-mesh>
