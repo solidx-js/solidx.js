@@ -6,6 +6,10 @@ import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 export class PositionComponent extends Component<{ x: number; y: number; z: number }> {
   static schema: ISchema = { type: 'vec3' };
 
+  get name() {
+    return 'PositionComponent';
+  }
+
   position: Vector3 = Vector3.Zero();
 
   update(): void {

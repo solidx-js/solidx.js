@@ -23,7 +23,17 @@ export class AnimationComponent extends RefComponent<Animation[]> {
       const [from, to] = MathUtil.minmax(ani.getKeys(), k => k.frame);
       const loop = ani.loopMode === Animation.ANIMATIONLOOPMODE_CYCLE || ani.loopMode === Animation.ANIMATIONLOOPMODE_YOYO;
 
-      const animatable = this.scene.beginDirectAnimation(this.el, [ani], from, to, loop);
+      const el = this.el;
+
+      const target = el._Cls.observedAttributes.includes(ani.targetProperty)
+        ? el
+        : {
+            set [ani.targetProperty](v: any) {
+              el.setAttribute(ani.targetProperty, v);
+            },
+          };
+
+      const animatable = this.scene.beginDirectAnimation(target, [ani], from, to, loop);
       this._disposes.push(() => animatable.stop());
     }
   }

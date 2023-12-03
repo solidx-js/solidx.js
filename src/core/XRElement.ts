@@ -16,7 +16,7 @@ export class XRElement extends LitElement {
   animations: Animation[] = [];
   entity: any = null;
 
-  private get _Cls() {
+  get _Cls() {
     return this.constructor as any as typeof XRElement;
   }
 

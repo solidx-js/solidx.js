@@ -6,6 +6,10 @@ import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 export class RotationComponent extends Component<{ x: number; y: number; z: number }> {
   static schema: ISchema = { type: 'vec3' };
 
+  get name() {
+    return 'RotationComponent';
+  }
+
   rotation: Vector3 = Vector3.Zero();
 
   update(): void {
