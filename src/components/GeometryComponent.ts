@@ -1,19 +1,17 @@
 import { XRMesh } from '../core';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
-import { RefComponent } from './RefComponent';
+import { RefComponent2 } from './RefComponent';
+import { Mesh } from '@babylonjs/core/Meshes/mesh';
 
-export class GeometryComponent extends RefComponent<Geometry> {
+export class GeometryComponent extends RefComponent2<Geometry> {
+  protected _type = 'geometry' as const;
+
   get name() {
     return 'GeometryComponent';
   }
 
-  onFetchTarget(): Geometry | null {
-    if (!this.data) return null;
-    return this.scene.getGeometryById(this.data);
-  }
-
   onConnect(): void {
-    if (!(this.el instanceof XRMesh) || !this.el.mesh || !this._target) return;
-    this._target.applyToMesh(this.el.mesh);
+    if (!this.el.entity || !(this.el.entity instanceof Mesh) || !this._target) return;
+    this._target.applyToMesh(this.el.entity);
   }
 }

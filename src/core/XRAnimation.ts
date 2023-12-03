@@ -7,7 +7,7 @@ import { IAnimationKey } from '@babylonjs/core/Animations/animationKey';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
-export class XRAnimation extends XRElement<Animation> {
+export class XRAnimation extends XRElement {
   static requiredAttrs: string[] = ['id', 'targetProperty'];
 
   @Decorator.scene()
@@ -23,10 +23,6 @@ export class XRAnimation extends XRElement<Animation> {
   loopMode: 'cycle' | 'constant' | 'relative' | 'yoyo' = 'cycle';
 
   animation: Animation | null = null;
-
-  get entity() {
-    return this.animation;
-  }
 
   connected(): void {
     super.connected();

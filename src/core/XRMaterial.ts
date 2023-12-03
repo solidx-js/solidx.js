@@ -7,7 +7,7 @@ import { property } from 'lit/decorators';
 import { Scene } from '@babylonjs/core/scene';
 import { Decorator } from './Decorator';
 
-export class XRMaterial extends XRElement<PBRMaterial> {
+export class XRMaterial extends XRElement {
   static requiredAttrs: string[] = ['id'];
 
   private _mat: PBRMaterial | null = null;
@@ -29,10 +29,6 @@ export class XRMaterial extends XRElement<PBRMaterial> {
   emissiveColor?: Color3;
 
   get material() {
-    return this._mat;
-  }
-
-  get entity() {
     return this._mat;
   }
 

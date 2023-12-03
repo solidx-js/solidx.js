@@ -7,7 +7,7 @@ import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { Decorator } from './Decorator';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
-export class XRTransformNode extends XRElement<TransformNode> {
+export class XRTransformNode extends XRElement {
   @consume({ context: Context.Scene, subscribe: true })
   scene!: Scene;
 
@@ -18,10 +18,6 @@ export class XRTransformNode extends XRElement<TransformNode> {
   rotation: Vector3 = Vector3.Zero();
 
   transformNode: TransformNode | null = null;
-
-  get entity() {
-    return this.transformNode;
-  }
 
   connected(): void {
     super.connected();

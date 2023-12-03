@@ -3,4 +3,7 @@ export * from './CameraComponent';
 export * from './Component';
 export * from './GeometryComponent';
 export * from './MaterialComponent';
+export * from './MeshComponent';
+export * from './PositionComponent';
 export * from './RefComponent';
+export * from './RotationComponent';

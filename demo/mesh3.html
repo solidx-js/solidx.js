@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>mesh</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <xr-engine width="1000" height="400">
+      <xr-scene>
+        <xr-animation id="ani-pos" targetProperty="position" dataType="vector3" loopMode="yoyo">
+          <xr-keyframe time="0" value="0 0 0"></xr-keyframe>
+          <xr-keyframe time="2" value="0 2 0"></xr-keyframe>
+        </xr-animation>
+
+        <xr-animation id="ani-rot" targetProperty="rotation" dataType="vector3" loopMode="yoyo">
+          <xr-keyframe time="0" value="0 0 0"></xr-keyframe>
+          <xr-keyframe time="2" value="0 359 0"></xr-keyframe>
+        </xr-animation>
+
+        <xr-material id="m1" emissiveColor="#ff0000"></xr-material>
+        <xr-geometry id="g1" type="box"></xr-geometry>
+        <xr-mesh id="box1" geometry="g1" material="m1"></xr-mesh>
+
+        <xr-node mesh="box1" animation="ani-pos ani-rot"></xr-node>
+      </xr-scene>
+    </xr-engine>
+
+    <script src="../src/index.ts" type="module"></script>
+  </body>
+</html>

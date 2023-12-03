@@ -7,7 +7,7 @@ import { Engine } from '@babylonjs/core/Engines/engine';
 import { EnvironmentHelper } from '@babylonjs/core/Helpers/environmentHelper';
 import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { MeshSystem } from '../system';
+import { EntitySystem, MeshSystem } from '../system';
 
 export class XRScene extends XRElement {
   @provide({ context: Context.Scene })
@@ -30,6 +30,7 @@ export class XRScene extends XRElement {
 
     this.scene.systems = {
       mesh: new MeshSystem(this.scene),
+      entity: new EntitySystem(this.scene),
     };
 
     new EnvironmentHelper({ createSkybox: true }, this.scene);
@@ -41,7 +42,7 @@ export class XRScene extends XRElement {
   }
 
   protected firstUpdated(): void {
-    // this.scene.debugLayer.show(); // for debug
+    this.scene.debugLayer.show(); // for debug
   }
 
   disconnected(): void {

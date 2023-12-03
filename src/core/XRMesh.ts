@@ -5,18 +5,16 @@ import { consume } from '@lit/context';
 import { Context } from './Context';
 import { Scene } from '@babylonjs/core/scene';
 
-export class XRMesh extends XRElement<Mesh> {
+export class XRMesh extends XRElement {
   @consume({ context: Context.Scene, subscribe: true })
   scene!: Scene;
 
-  private _mesh: Mesh | null = null;
-
   get mesh() {
-    return this._mesh;
+    return this.entity;
   }
 
-  get entity() {
-    return this._mesh;
+  set mesh(mesh: Mesh | null) {
+    this.entity = mesh;
   }
 
   connected(): void {
@@ -25,13 +23,13 @@ export class XRMesh extends XRElement<Mesh> {
     const id = this.id || 'mesh:' + randomID();
 
     const parent = ElementUtil.closestTransformNodeLike(this);
-    this._mesh = new Mesh(id, this.scene, parent);
+    this.mesh = new Mesh(id, this.scene, parent);
   }
 
   disconnected(): void {
     super.disconnected();
-    this._mesh?.dispose();
-    this._mesh = null;
+    this.mesh?.dispose();
+    this.mesh = null;
   }
 
   render() {

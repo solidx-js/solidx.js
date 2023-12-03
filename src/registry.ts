@@ -1,5 +1,13 @@
-import { AnimationComponent, Component, GeometryComponent, MaterialComponent } from './components';
-import { XRAnimation, XRKeyFrame, XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene } from './core';
+import {
+  AnimationComponent,
+  Component,
+  GeometryComponent,
+  MaterialComponent,
+  MeshComponent,
+  PositionComponent,
+  RotationComponent,
+} from './components';
+import { XRAnimation, XRKeyFrame, XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene, XRNode } from './core';
 import { Primitive, CameraPrimitive, SkyPrimitive } from './primitives';
 import { XRTransformNode } from './core/XRTransformNode';
 
@@ -65,9 +73,9 @@ export class ComponentRegistry {
 ComponentRegistry.Instance.register('geometry', GeometryComponent as any);
 ComponentRegistry.Instance.register('material', MaterialComponent as any);
 ComponentRegistry.Instance.register('animation', AnimationComponent as any);
-
-// ComponentRegistry.Instance.register('position', PositionComponent as any);
-// ComponentRegistry.Instance.register('rotation', RotationComponent as any);
+ComponentRegistry.Instance.register('mesh', MeshComponent as any);
+ComponentRegistry.Instance.register('position', PositionComponent as any);
+ComponentRegistry.Instance.register('rotation', RotationComponent as any);
 // ComponentRegistry.Instance.register('model', ModelComponent as any);
 
 // 2. 注册原生元素
@@ -76,6 +84,7 @@ ElementRegistry.Instance.register('xr-scene', XRScene as any);
 ElementRegistry.Instance.register('xr-geometry', XRGeometry as any);
 ElementRegistry.Instance.register('xr-material', XRMaterial as any);
 ElementRegistry.Instance.register('xr-mesh', XRMesh as any);
+ElementRegistry.Instance.register('xr-node', XRNode as any);
 ElementRegistry.Instance.register('xr-transform-node', XRTransformNode as any);
 ElementRegistry.Instance.register('xr-animation', XRAnimation as any);
 ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame as any);
@@ -93,8 +102,7 @@ customElements.whenDefined('xr-engine').then(() => {
       const tag = ele.tagName.toLowerCase();
       const Cls = ElementRegistry.Instance.get(tag);
 
-      if (!customElements.get(tag)) customElements.define(tag, Cls);
-
+      if (!customElements.get(tag) && Cls) customElements.define(tag, Cls);
       ele.childNodes.forEach(defineRecursive as any);
     }
   }
