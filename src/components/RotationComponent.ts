@@ -1,10 +1,10 @@
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { ISchema } from '../util';
-import { Component } from './Component';
+import { IDataType } from '../util';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
+import { Component } from '../core';
 
 export class RotationComponent extends Component<{ x: number; y: number; z: number }> {
-  static schema: ISchema = { type: 'vec3' };
+  static dataType: IDataType = 'Vector3';
 
   get name() {
     return 'RotationComponent';

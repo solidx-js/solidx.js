@@ -1,66 +1,32 @@
-export type ISchemaBase<T> = {
-  default?: T;
-};
-
-export type ISchemaNumber = ISchemaBase<number> & { type: 'number'; min?: number; max?: number };
-export type ISchemaString = ISchemaBase<string> & { type: 'string' };
-export type ISchemaBoolean = ISchemaBase<boolean> & { type: 'boolean' };
-export type ISchemaArray = ISchemaBase<string> & { type: 'array' };
-
-export type ISchemaVec2 = ISchemaBase<{ x: number; y: number }> & { type: 'vec2' };
-export type ISchemaVec3 = ISchemaBase<{ x: number; y: number; z: number }> & { type: 'vec3' };
-export type ISchemaVec4 = ISchemaBase<{ x: number; y: number; z: number; w: number }> & { type: 'vec4' };
-
-export type ISchemaObject = ISchemaBase<{ [key: string]: any }> & {
-  type: 'object';
-  properties: { [key: string]: ISchema };
-  required?: string[];
-};
-
-export type ISchema =
-  | ISchemaNumber
-  | ISchemaString
-  | ISchemaBoolean
-  | ISchemaArray
-  | ISchemaVec2
-  | ISchemaVec3
-  | ISchemaVec4
-  | ISchemaObject;
+export type IDataType = 'Number' | 'String' | 'Boolean' | 'Array' | 'Vector2' | 'Vector3' | 'Vector4' | 'Object' | 'Color3';
 
 export const Schema = {
-  parse(schema: ISchema, data: any): any {
-    if (schema.type === 'number') {
+  parse(type: IDataType, data: any): any {
+    if (type === 'Number') {
       const ret = Number(data);
-      if (isNaN(ret)) {
-        if (schema.default !== undefined) return schema.default;
-        throw new Error(`Schema.parse: invalid number ${data}`);
-      }
-
-      if (schema.min !== undefined && ret < schema.min) return schema.min;
-      if (schema.max !== undefined && ret > schema.max) return schema.max;
-
+      if (isNaN(ret)) throw new Error(`Schema.parse: invalid number ${data}`);
       return ret;
     }
 
     // string
-    else if (schema.type === 'string') {
-      return String(data) || schema.default;
+    else if (type === 'String') {
+      return String(data);
     }
 
     // boolean
-    else if (schema.type === 'boolean') {
+    else if (type === 'Boolean') {
       return Boolean(data);
     }
 
     // array
-    else if (schema.type === 'array') {
+    else if (type === 'Array') {
       if (Array.isArray(data)) return data;
-      if (typeof data === 'string') return data.split(',').map(v => v.trim());
+      if (typeof data === 'string') return data.split(' ').map(v => v.trim());
       return [];
     }
 
     // vec2
-    else if (schema.type === 'vec2') {
+    else if (type === 'Vector2') {
       if (typeof data === 'string') {
         const [x, y] = data.split(' ').map(v => Number(v.trim()));
         return { x, y };
@@ -69,7 +35,7 @@ export const Schema = {
     }
 
     // vec3
-    else if (schema.type === 'vec3') {
+    else if (type === 'Vector3') {
       if (typeof data === 'string') {
         const [x, y, z] = data.split(' ').map(v => Number(v.trim()));
         return { x, y, z };
@@ -78,7 +44,7 @@ export const Schema = {
     }
 
     // vec4
-    else if (schema.type === 'vec4') {
+    else if (type === 'Vector4') {
       if (typeof data === 'string') {
         const [x, y, z, w] = data.split(' ').map(v => Number(v.trim()));
         return { x, y, z, w };
@@ -86,8 +52,17 @@ export const Schema = {
       return data;
     }
 
+    // color3
+    else if (type === 'Color3') {
+      if (typeof data === 'string') {
+        const [r, g, b] = data.split(' ').map(v => Number(v.trim()));
+        return { r, g, b };
+      }
+      return data;
+    }
+
     // object
-    else if (schema.type === 'object') {
+    else if (type === 'Object') {
       if (!data) return {};
 
       // 按照 key: value; key: value 的格式解析
@@ -97,11 +72,7 @@ export const Schema = {
 
         for (const item of list) {
           const [key, value] = item.split(':').map(v => v.trim());
-
-          const subSchema = schema.properties[key];
-          if (!subSchema) continue;
-
-          obj[key] = Schema.parse(subSchema, value);
+          obj[key] = value;
         }
 
         return obj;
@@ -112,55 +83,57 @@ export const Schema = {
 
     // throw
     else {
-      throw new Error(`Schema.parse: unknown schema type ${(schema as any).type}`);
+      throw new Error(`Schema.parse: unknown schema type ${type}`);
     }
   },
 
-  stringify(schema: ISchema, data: any): string {
+  stringify(type: IDataType, data: any): string {
     // number
-    if (schema.type === 'number') {
+    if (type === 'Number') {
       return String(data);
     }
 
     // string
-    else if (schema.type === 'string') {
+    else if (type === 'String') {
       return String(data);
     }
 
     // boolean
-    else if (schema.type === 'boolean') {
+    else if (type === 'Boolean') {
       return String(data);
     }
 
     // array
-    else if (schema.type === 'array') {
-      return data.join(',');
+    else if (type === 'Array') {
+      return data.join(' ');
     }
 
     // vec2
-    else if (schema.type === 'vec2') {
+    else if (type === 'Vector2') {
       return `${data.x} ${data.y}`;
     }
 
     // vec3
-    else if (schema.type === 'vec3') {
+    else if (type === 'Vector3') {
       return `${data.x} ${data.y} ${data.z}`;
     }
 
     // vec4
-    else if (schema.type === 'vec4') {
+    else if (type === 'Vector4') {
       return `${data.x} ${data.y} ${data.z} ${data.w}`;
     }
 
+    // color3
+    else if (type === 'Color3') {
+      return `${data.r} ${data.g} ${data.b}`;
+    }
+
     // object
-    else if (schema.type === 'object') {
+    else if (type === 'Object') {
       const list: string[] = [];
 
-      for (const key of Object.keys(schema.properties)) {
-        const subSchema = schema.properties[key];
-        if (typeof data[key] === 'undefined') continue;
-
-        const stringified = Schema.stringify(subSchema, data[key]);
+      for (const key of Object.keys(data)) {
+        const stringified = data[key] + '';
         list.push(`${key}: ${stringified}`);
       }
 
@@ -169,7 +142,7 @@ export const Schema = {
 
     // throw
     else {
-      throw new Error(`Schema.stringify: unknown schema type ${(schema as any).type}`);
+      throw new Error(`Schema.stringify: unknown schema type ${type}`);
     }
   },
 };

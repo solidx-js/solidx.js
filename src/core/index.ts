@@ -1,4 +1,4 @@
-export * from './ComponentLike';
+export * from './Component';
 export * from './Context';
 export * from './Decorator';
 export * from './XRAnimation';

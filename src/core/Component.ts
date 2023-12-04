@@ -1,20 +1,17 @@
-import { isEqual } from 'lodash';
-import { ISchema } from '../util';
+import { IDataType } from '../util';
 import { XRElement } from './XRElement';
-import type { XRScene } from './XRScene';
 import { ContextConsumer } from '@lit/context';
 import { Context } from './Context';
 
-export class ComponentLike<T = any> {
+export class Component<T = any> {
   /** @override */
-  static schema: ISchema = { type: 'boolean' };
+  static dataType: IDataType = 'String';
 
   readonly logger = this.el.logger.extend(this.name);
 
   protected _disposes: (() => any)[] = [];
 
   private _data: T | null = null;
-  private _prevData: T | null = null;
 
   private _time = 0;
   private _timeDelta = 0;
@@ -36,10 +33,6 @@ export class ComponentLike<T = any> {
     return this._data;
   }
 
-  get prevData() {
-    return this._prevData;
-  }
-
   get scene() {
     return this.ctxs.Scene.value!;
   }
@@ -49,9 +42,6 @@ export class ComponentLike<T = any> {
   }
 
   flush(data: any) {
-    if (isEqual(this._data, data)) return; // no change
-
-    this._prevData = this._data;
     this._data = data;
 
     this.update();
@@ -95,7 +85,6 @@ export class ComponentLike<T = any> {
     this.logger.debug('remove');
 
     this._data = null;
-    this._prevData = null;
 
     for (const dispose of this._disposes) {
       dispose();

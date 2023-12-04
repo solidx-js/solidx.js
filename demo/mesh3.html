@@ -15,7 +15,7 @@
   <body>
     <xr-engine width="1000" height="400">
       <xr-scene>
-        <!-- <xr-animation id="ani-pos" targetProperty="position" dataType="vector3" loopMode="yoyo">
+        <xr-animation id="ani-pos" targetProperty="position" dataType="vector3" loopMode="yoyo">
           <xr-keyframe time="0" value="0 0 0"></xr-keyframe>
           <xr-keyframe time="2" value="0 2 0"></xr-keyframe>
         </xr-animation>
@@ -23,13 +23,13 @@
         <xr-animation id="ani-rot" targetProperty="rotation" dataType="vector3" loopMode="yoyo">
           <xr-keyframe time="0" value="0 0 0"></xr-keyframe>
           <xr-keyframe time="2" value="0 359 0"></xr-keyframe>
-        </xr-animation> -->
+        </xr-animation>
 
         <xr-material id="m1" emissiveColor="#ff0000"></xr-material>
         <xr-geometry id="g1" type="box"></xr-geometry>
         <xr-mesh id="box1" geometry="g1" material="m1"></xr-mesh>
 
-        <xr-node mesh="box1"></xr-node>
+        <xr-node mesh="box1" animation="ani-pos ani-rot"></xr-node>
       </xr-scene>
     </xr-engine>
 

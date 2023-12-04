@@ -1,45 +1,18 @@
-import { ISchema } from '../util';
-import { Component } from './Component';
+import { Component } from '../core';
+import { IDataType } from '../util';
 
-export class RefComponent<T> extends Component<string> {
-  static schema: ISchema = { type: 'string' };
+export class RefComponent<T> extends Component<string[]> {
+  static dataType: IDataType = 'Array';
 
-  protected _target: T | null = null;
-
-  update(): void {
-    this._target = this.onFetchTarget();
-    this.onConnect();
-  }
-
-  remove(): void {
-    super.remove();
-    this.onDisconnect();
-  }
-
-  /** @override */
-  onFetchTarget(): T | null {
-    return null;
-  }
-
-  /** @override */
-  onConnect() {}
-
-  /** @override */
-  onDisconnect() {}
-}
-
-export class RefComponent2<T> extends Component<string> {
-  static schema: ISchema = { type: 'string' };
-
-  protected _type: 'mesh' | 'material' | 'geometry' = 'mesh';
-  protected _target: T | null = null;
+  protected _type: 'mesh' | 'material' | 'geometry' | 'animation' = 'mesh';
+  protected _targets: T[] | null = null;
 
   private _ab: AbortController | null = null;
 
   update(): void {
     if (!this.data) {
-      if (this._target) {
-        this._target = null;
+      if (this._targets) {
+        this._targets = null;
         this.onDisconnect();
       }
 
@@ -52,9 +25,10 @@ export class RefComponent2<T> extends Component<string> {
     }
 
     this._ab = new AbortController();
+    const signal = this._ab.signal;
 
-    this.scene.systems.entity.waitFor(this._type as any, this.data, this._ab.signal).then(entity => {
-      this._target = entity as any;
+    Promise.all(this.data.map(id => this.scene.systems.entity.waitFor(this._type as any, id, signal))).then(entities => {
+      this._targets = entities as any;
       this.onConnect();
     });
   }

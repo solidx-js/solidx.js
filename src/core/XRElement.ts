@@ -1,6 +1,6 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import { ComponentLike } from './ComponentLike';
+import { Component } from './Component';
 import { ComponentRegistry } from '../registry';
 import { Animation } from '@babylonjs/core/Animations/animation';
 
@@ -9,7 +9,7 @@ export class XRElement<T = any> extends LitElement {
 
   readonly logger = DefaultBizLogger.extend(this.tagName);
 
-  components: { [key: string]: ComponentLike } = {};
+  components: { [key: string]: Component } = {};
   animations: Animation[] = [];
   entity: T | null = null;
 
@@ -55,7 +55,6 @@ export class XRElement<T = any> extends LitElement {
 
       // 更新
       if (typeof lastValue !== 'undefined' && typeof inValue !== 'undefined') {
-        this.logger.debug('update %s', inKey);
         this.components[inKey].flush(inValue);
       }
     }

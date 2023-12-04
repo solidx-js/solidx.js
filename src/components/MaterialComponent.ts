@@ -1,8 +1,8 @@
 import { XRMesh } from '../core/XRMesh';
-import { RefComponent2 } from './RefComponent';
+import { RefComponent } from './RefComponent';
 import { Material } from '@babylonjs/core/Materials';
 
-export class MaterialComponent extends RefComponent2<Material> {
+export class MaterialComponent extends RefComponent<Material> {
   protected _type = 'material' as const;
 
   get name(): string {
@@ -10,7 +10,7 @@ export class MaterialComponent extends RefComponent2<Material> {
   }
 
   onConnect(): void {
-    this.el.entity.material = this._target;
+    this.el.entity.material = this._targets?.[0];
   }
 
   onDisconnect(): void {

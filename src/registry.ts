@@ -1,16 +1,27 @@
 import {
   AnimationComponent,
-  Component,
   GeometryComponent,
   MaterialComponent,
   MeshComponent,
   PositionComponent,
   RotationComponent,
 } from './components';
-import { XRAnimation, XRKeyFrame, XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene, XRNode, Decorator } from './core';
-import { Primitive, CameraPrimitive, SkyPrimitive } from './primitives';
-import { XRTransformNode } from './core/XRTransformNode';
+import {
+  XRAnimation,
+  XRKeyFrame,
+  XRElement,
+  XREngine,
+  XRGeometry,
+  XRMaterial,
+  XRMesh,
+  XRScene,
+  XRNode,
+  Decorator,
+  Component,
+} from './core';
+import { Primitive } from './primitives';
 import { customElement } from 'lit/decorators';
+import { DefaultBizLogger } from './BizLogger';
 
 export class ElementRegistry {
   static Instance = new ElementRegistry();
@@ -86,7 +97,12 @@ export class ComponentRegistry {
       const Cls = this._components[key];
       if (!Cls) return;
 
-      Decorator.property_String()(Ele.prototype, key);
+      if (Ele.elementProperties.has(key)) {
+        DefaultBizLogger.warn('[ComponentRegistry][%s] attribute %s already exists', Ele.name, key);
+        return;
+      }
+
+      Decorator.property(Cls.dataType)(Ele.prototype, key);
     });
   }
 }
@@ -108,7 +124,6 @@ ElementRegistry.Instance.register('xr-geometry', XRGeometry as any);
 ElementRegistry.Instance.register('xr-material', XRMaterial as any);
 ElementRegistry.Instance.register('xr-mesh', XRMesh as any);
 ElementRegistry.Instance.register('xr-node', XRNode as any);
-ElementRegistry.Instance.register('xr-transform-node', XRTransformNode as any);
 ElementRegistry.Instance.register('xr-animation', XRAnimation as any);
 ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame as any);
 

@@ -7,7 +7,7 @@ import { IAnimationKey } from '@babylonjs/core/Animations/animationKey';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
-export class XRAnimation extends XRElement {
+export class XRAnimation extends XRElement<Animation> {
   static requiredAttrs: string[] = ['id', 'targetProperty'];
 
   @Decorator.scene()
@@ -22,12 +22,10 @@ export class XRAnimation extends XRElement {
   @Decorator.property_String()
   loopMode: 'cycle' | 'constant' | 'relative' | 'yoyo' = 'cycle';
 
-  animation: Animation | null = null;
-
   connected(): void {
     super.connected();
 
-    this.animation = new Animation(
+    this.entity = new Animation(
       this.id,
       this.targetProperty,
       60,
@@ -35,7 +33,7 @@ export class XRAnimation extends XRElement {
       loopModeStringToAnimationLoopMode(this.loopMode)
     );
 
-    this.scene.addAnimation(this.animation);
+    this.scene.addAnimation(this.entity);
 
     this.reloadFrames();
   }
@@ -43,18 +41,18 @@ export class XRAnimation extends XRElement {
   remove(): void {
     super.remove();
 
-    if (this.animation) {
-      this.scene.removeAnimation(this.animation);
+    if (this.entity) {
+      this.scene.removeAnimation(this.entity);
     }
 
-    this.animation = null;
+    this.entity = null;
   }
 
   /**
    * Reloads the frames of the animation.
    */
   reloadFrames() {
-    if (!this.animation) return;
+    if (!this.entity) return;
 
     const keys: IAnimationKey[] = [];
 
@@ -70,7 +68,7 @@ export class XRAnimation extends XRElement {
     // sort by frame
     keys.sort((a, b) => a.frame - b.frame);
 
-    this.animation.setKeys(keys);
+    this.entity.setKeys(keys);
   }
 }
 

@@ -2,22 +2,17 @@ import { Animation } from '@babylonjs/core/Animations/animation';
 import { RefComponent } from './RefComponent';
 import { MathUtil } from '../util';
 
-export class AnimationComponent extends RefComponent<Animation[]> {
+export class AnimationComponent extends RefComponent<Animation> {
+  protected _type = 'animation' as const;
+
   get name() {
     return 'AnimationComponent';
   }
 
-  onFetchTarget(): Animation[] | null {
-    if (!this.data) return null;
-
-    const ids = this.data.split(' ');
-    return this.scene.animations.filter(a => ids.includes(a.name));
-  }
-
   onConnect(): void {
-    if (!this._target) return;
+    if (!this._targets) return;
 
-    this.el.animations = [...this._target];
+    this.el.animations = [...this._targets];
 
     for (const ani of this.el.animations) {
       const [from, to] = MathUtil.minmax(ani.getKeys(), k => k.frame);

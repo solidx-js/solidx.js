@@ -1,21 +1,24 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
-import { RefComponent2 } from './RefComponent';
+import { RefComponent } from './RefComponent';
 import { PositionComponent } from './PositionComponent';
 import { RotationComponent } from './RotationComponent';
 
-export class MeshComponent extends RefComponent2<Mesh> {
+export class MeshComponent extends RefComponent<Mesh> {
   get name(): string {
     return 'MeshComponent';
   }
 
   onConnect(): void {
-    if (!this._target) return;
+    if (!this._targets) return;
 
-    this.el.entity = this._target;
+    const target = this._targets[0];
+    if (!target) return;
+
+    this.el.entity = target;
 
     for (const comp of Object.values(this.el.components)) {
-      if (comp instanceof PositionComponent) this._target.position.copyFrom(comp.position);
-      if (comp instanceof RotationComponent) this._target.rotation.copyFrom(comp.rotation);
+      if (comp instanceof PositionComponent) target.position.copyFrom(comp.position);
+      if (comp instanceof RotationComponent) target.rotation.copyFrom(comp.rotation);
     }
   }
 
