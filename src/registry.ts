@@ -1,6 +1,7 @@
 import {
   AnimationComponent,
   GeometryComponent,
+  IntensityComponent,
   MaterialComponent,
   MeshComponent,
   PositionComponent,
@@ -20,6 +21,7 @@ import {
   Decorator,
   Component,
   XRCamera,
+  XRDirectionalLight,
 } from './core';
 import { Primitive } from './primitives';
 import { customElement } from 'lit/decorators';
@@ -118,6 +120,7 @@ ComponentRegistry.Instance.register('mesh', MeshComponent as any);
 ComponentRegistry.Instance.register('position', PositionComponent as any);
 ComponentRegistry.Instance.register('rotation', RotationComponent as any);
 ComponentRegistry.Instance.register('target', TargetComponent as any);
+ComponentRegistry.Instance.register('intensity', IntensityComponent as any);
 
 // 2. 注册原生元素
 ElementRegistry.Instance.register('xr-engine', XREngine as any);
@@ -129,6 +132,7 @@ ElementRegistry.Instance.register('xr-node', XRNode as any);
 ElementRegistry.Instance.register('xr-animation', XRAnimation as any);
 ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame as any);
 ElementRegistry.Instance.register('xr-camera', XRCamera as any);
+ElementRegistry.Instance.register('xr-directional-light', XRDirectionalLight as any);
 
 // 3. 注册 Primitive
 // PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);

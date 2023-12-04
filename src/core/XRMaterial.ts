@@ -18,10 +18,10 @@ export class XRMaterial extends XRElement<PBRMaterial> {
   albedoColor?: Color3;
 
   @Decorator.property_Number()
-  metallic?: number;
+  metallic: number = 0.2;
 
   @Decorator.property_Number()
-  roughness?: number;
+  roughness: number = 0.8;
 
   @Decorator.property_Color3()
   emissiveColor?: Color3;

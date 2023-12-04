@@ -2,6 +2,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { IDataType } from '../util';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { Component } from '../core';
+import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 
 export class RotationComponent extends Component<{ x: number; y: number; z: number }> {
   static dataType: IDataType = 'Vector3';
@@ -22,6 +23,15 @@ export class RotationComponent extends Component<{ x: number; y: number; z: numb
     const entity = this.el.entity;
     if (!entity) return;
 
-    if (entity instanceof TransformNode) entity.rotation.copyFrom(this.rotation);
+    if (entity instanceof DirectionalLight) {
+      const alpha = this.rotation.x;
+      const beta = this.rotation.y;
+      entity.direction.x = Math.cos(alpha) * Math.sin(beta);
+      entity.direction.y = Math.sin(alpha);
+      entity.direction.z = Math.cos(alpha) * Math.cos(beta);
+      entity.direction.scaleInPlace(-1); // direction 是从光源指向场景的，所以需要取反
+    }
+    //
+    else if (entity instanceof TransformNode) entity.rotation.copyFrom(this.rotation);
   }
 }

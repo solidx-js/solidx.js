@@ -37,7 +37,7 @@ export class XRScene extends XRElement {
       entity: new EntitySystem(this.scene),
     };
 
-    new EnvironmentHelper({ createSkybox: false }, this.scene);
+    // new EnvironmentHelper({ createSkybox: false }, this.scene);
 
     this.engine.runRenderLoop(this._doRender);
   }

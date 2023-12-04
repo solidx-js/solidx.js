@@ -1,10 +1,10 @@
 import { Scene } from '@babylonjs/core/scene';
 import { Decorator } from './Decorator';
 import { XRElement } from './XRElement';
-import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
+import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
-export class XRCamera extends XRElement<ArcRotateCamera> {
+export class XRDirectionalLight extends XRElement<DirectionalLight> {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.scene()
@@ -12,9 +12,7 @@ export class XRCamera extends XRElement<ArcRotateCamera> {
 
   connected(): void {
     super.connected();
-
-    this.entity = new ArcRotateCamera(this.id, Math.PI / 2, Math.PI / 3, 10, new Vector3(0, 0, 0), this.scene);
-    this.entity.attachControl();
+    this.entity = new DirectionalLight(this.id, new Vector3(0, -1, 0), this.scene);
   }
 
   remove(): void {

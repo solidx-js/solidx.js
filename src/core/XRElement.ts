@@ -7,7 +7,7 @@ import { Animation } from '@babylonjs/core/Animations/animation';
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
 
-  readonly logger = DefaultBizLogger.extend(this.tagName);
+  readonly logger = DefaultBizLogger.extend(this.tagName.toLowerCase());
 
   components: { [key: string]: Component } = {};
   animations: Animation[] = [];

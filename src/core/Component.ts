@@ -51,18 +51,18 @@ export class Component<T = any> {
   init() {
     this.logger.debug('init');
 
-    // 绑定 tick & tock
-    const _tickOb = this.scene.onBeforeRenderObservable.add(() => {
-      const _cur = performance.now();
-      this._timeDelta = _cur - this._time;
-      this._time = _cur;
+    // // 绑定 tick & tock
+    // const _tickOb = this.scene.onBeforeRenderObservable.add(() => {
+    //   const _cur = performance.now();
+    //   this._timeDelta = _cur - this._time;
+    //   this._time = _cur;
 
-      this.tick();
-    });
-    this._disposes.push(() => _tickOb.remove());
+    //   this.tick();
+    // });
+    // this._disposes.push(() => _tickOb.remove());
 
-    const _tockOb = this.scene.onAfterRenderObservable.add(() => this.tock());
-    this._disposes.push(() => _tockOb.remove());
+    // const _tockOb = this.scene.onAfterRenderObservable.add(() => this.tock());
+    // this._disposes.push(() => _tockOb.remove());
   }
 
   /** @override */
