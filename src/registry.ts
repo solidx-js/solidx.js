@@ -10,19 +10,18 @@ import {
 import { XRAnimation, XRKeyFrame, XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene, XRNode, Decorator } from './core';
 import { Primitive, CameraPrimitive, SkyPrimitive } from './primitives';
 import { XRTransformNode } from './core/XRTransformNode';
+import { customElement } from 'lit/decorators';
 
 export class ElementRegistry {
   static Instance = new ElementRegistry();
 
   private _elements: Record<string, typeof XRElement> = {};
 
-  register(name: string, element: typeof XRElement) {
-    this._elements[name] = element;
+  register(name: string, Ele: typeof XRElement) {
+    this._elements[name] = Ele;
 
-    ComponentRegistry.Instance.keys().forEach(key => {
-      const Cls = ComponentRegistry.Instance.get(key);
-      if (Cls) Decorator.property_String()(element.prototype, key);
-    });
+    ComponentRegistry.Instance.applyToElement(Ele);
+    customElement(name)(Ele as any);
   }
 
   get(name: string) {
@@ -56,11 +55,17 @@ export class PrimitiveRegistry {
  * Represents a registry for components in the application.
  */
 export class ComponentRegistry {
+  static blackList = ['id', 'type', 'entity'];
   static Instance = new ComponentRegistry();
 
   private _components: Record<string, typeof Component> = {};
 
   register(name: string, component: typeof Component) {
+    // name 黑名单
+    if (ComponentRegistry.blackList.includes(name)) {
+      throw new Error(`Component name ${name} is in black list`);
+    }
+
     this._components[name] = component;
   }
 
@@ -74,6 +79,15 @@ export class ComponentRegistry {
 
   keys() {
     return Object.keys(this._components);
+  }
+
+  applyToElement(Ele: typeof XRElement) {
+    Object.keys(this._components).forEach(key => {
+      const Cls = this._components[key];
+      if (!Cls) return;
+
+      Decorator.property_String()(Ele.prototype, key);
+    });
   }
 }
 
@@ -101,32 +115,3 @@ ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame as any);
 // 3. 注册 Primitive
 // PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);
 // PrimitiveRegistry.Instance.register('xr-sky', SkyPrimitive);
-
-// 递归注册到 customElements
-// =======
-customElements.whenDefined('xr-engine').then(() => {
-  // 深度递归 tag，并调用 customElements.define
-  function defineRecursive(ele: Element) {
-    if (ele instanceof HTMLElement) {
-      const tag = ele.tagName.toLowerCase();
-      const Cls = ElementRegistry.Instance.get(tag);
-
-      if (!customElements.get(tag) && Cls) customElements.define(tag, Cls);
-      ele.childNodes.forEach(defineRecursive as any);
-    }
-  }
-
-  // for engine
-  const engines = document.querySelectorAll<XREngine>('xr-engine');
-  engines.forEach(eg => defineRecursive(eg));
-
-  // 补充注册剩下的
-  const tags = ElementRegistry.Instance.keys();
-  tags.forEach(tag => {
-    if (!customElements.get(tag)) {
-      const Cls = ElementRegistry.Instance.get(tag);
-      customElements.define(tag, Cls);
-    }
-  });
-});
-customElements.define('xr-engine', XREngine);
