@@ -22,6 +22,7 @@ import {
   Component,
   XRCamera,
   XRDirectionalLight,
+  XRHemisphericLight,
 } from './core';
 import { Primitive } from './primitives';
 import { customElement } from 'lit/decorators';
@@ -133,6 +134,7 @@ ElementRegistry.Instance.register('xr-animation', XRAnimation as any);
 ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame as any);
 ElementRegistry.Instance.register('xr-camera', XRCamera as any);
 ElementRegistry.Instance.register('xr-directional-light', XRDirectionalLight as any);
+ElementRegistry.Instance.register('xr-hemispheric-light', XRHemisphericLight as any);
 
 // 3. 注册 Primitive
 // PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);
