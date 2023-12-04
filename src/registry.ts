@@ -7,7 +7,7 @@ import {
   PositionComponent,
   RotationComponent,
 } from './components';
-import { XRAnimation, XRKeyFrame, XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene, XRNode } from './core';
+import { XRAnimation, XRKeyFrame, XRElement, XREngine, XRGeometry, XRMaterial, XRMesh, XRScene, XRNode, Decorator } from './core';
 import { Primitive, CameraPrimitive, SkyPrimitive } from './primitives';
 import { XRTransformNode } from './core/XRTransformNode';
 
@@ -18,6 +18,11 @@ export class ElementRegistry {
 
   register(name: string, element: typeof XRElement) {
     this._elements[name] = element;
+
+    ComponentRegistry.Instance.keys().forEach(key => {
+      const Cls = ComponentRegistry.Instance.get(key);
+      if (Cls) Decorator.property_String()(element.prototype, key);
+    });
   }
 
   get(name: string) {
@@ -65,6 +70,10 @@ export class ComponentRegistry {
 
   has(name: string) {
     return !!this._components[name];
+  }
+
+  keys() {
+    return Object.keys(this._components);
   }
 }
 

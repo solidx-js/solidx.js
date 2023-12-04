@@ -1,20 +1,19 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
 import { ComponentLike } from './ComponentLike';
-import { difference, range } from 'lodash';
-import type { Component } from '../components';
 import { ComponentRegistry } from '../registry';
-import { Schema } from '../util';
 import { Animation } from '@babylonjs/core/Animations/animation';
 
-export class XRElement extends LitElement {
+export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
 
   readonly logger = DefaultBizLogger.extend(this.tagName);
 
   components: { [key: string]: ComponentLike } = {};
   animations: Animation[] = [];
-  entity: any = null;
+  entity: T | null = null;
+
+  private _disposes: (() => void)[] = [];
 
   get _Cls() {
     return this.constructor as any as typeof XRElement;
@@ -24,58 +23,41 @@ export class XRElement extends LitElement {
     return this;
   }
 
-  private _setupMutationObserver() {
-    const observer = new MutationObserver(mutationList => {
-      for (let i = 0; i < mutationList.length; i++) {
-        if (mutationList[i].type === 'attributes') {
-          const attributeName = mutationList[i].attributeName;
-          if (!attributeName) continue;
+  private _flushComponents(changed: Map<string, any>) {
+    for (const [inKey, lastValue] of changed.entries()) {
+      const inValue = (this as any)[inKey];
 
-          this._flushComponents(); // 更新组件
-        }
+      const Comp = ComponentRegistry.Instance.get(inKey);
+      if (!Comp) continue; // 不存在的组件, 忽略
+
+      // 新增
+      if (typeof lastValue === 'undefined' && typeof inValue !== 'undefined') {
+        this.logger.debug('add %s', inKey);
+
+        const comp = new Comp(this as any, inKey);
+        this.components[inKey] = comp;
+        comp.init();
+        comp.flush(inValue);
       }
-    });
-    observer.observe(this, { attributes: true });
-  }
 
-  private _flushComponents() {
-    const existKeys = Object.keys(this.components);
-    const newKeys = range(this.attributes.length).map(i => this.attributes[i].name);
+      // 删除
+      if (typeof lastValue !== 'undefined' && typeof inValue === 'undefined') {
+        this.logger.debug('remove %s', inKey);
+        this.components[inKey].remove();
+        delete this.components[inKey];
+      }
 
-    const removedKeys = difference(existKeys, newKeys);
-    const addedKeys = difference(newKeys, existKeys);
-    const updatedKeys = difference(newKeys, addedKeys);
+      const comp = this.components[inKey];
+      if (!comp) {
+        this.logger.warn('component %s not found', inKey);
+        continue;
+      }
 
-    // 1. Remove components that are no longer in the entity
-    for (const key of removedKeys) {
-      this.components[key].remove();
-      delete this.components[key];
-    }
-
-    const _getValue = (Comp: typeof Component, key: string) => {
-      return Schema.parse(Comp.schema, this.getAttribute(key) || Comp.schema.default);
-    };
-
-    // 2. Add new components
-    for (const key of addedKeys) {
-      const Comp = ComponentRegistry.Instance.get(key);
-      if (!Comp) continue;
-
-      const comp = new Comp(this as any, key);
-      this.components[key] = comp;
-      comp.init();
-
-      const value = _getValue(Comp, key);
-      comp.flush(value);
-    }
-
-    // 3. Update existing components
-    for (const key of updatedKeys) {
-      const Comp = ComponentRegistry.Instance.get(key);
-      if (!Comp) continue;
-
-      const value = _getValue(Comp, key);
-      this.components[key].flush(value);
+      // 更新
+      if (typeof lastValue !== 'undefined' && typeof inValue !== 'undefined') {
+        this.logger.debug('update %s', inKey);
+        this.components[inKey].flush(inValue);
+      }
     }
   }
 
@@ -91,15 +73,20 @@ export class XRElement extends LitElement {
     }
 
     this.connected();
+  }
 
-    this._setupMutationObserver();
-    this._flushComponents();
+  protected willUpdate(changed: Map<string, any>): void {
+    this._flushComponents(changed); // 更新组件
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
 
     this.logger.debug('remove');
+
+    for (const dispose of this._disposes) dispose();
+    this._disposes = [];
+
     this.disconnected();
   }
 
