@@ -1,4 +1,4 @@
-import { Color3 } from '@babylonjs/core/Maths/math.color';
+import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 import { consume } from '@lit/context';
 import { property } from 'lit/decorators';
@@ -76,6 +76,18 @@ export const Decorator = {
       converter: {
         fromAttribute: (value: string) => Color3.FromHexString(value),
         toAttribute: (value: Color3) => value.toHexString(),
+      },
+      hasChanged: () => true,
+    });
+  },
+
+  property_Color4: (attribute?: string) => {
+    return property({
+      attribute,
+      reflect: true,
+      converter: {
+        fromAttribute: (value: string) => Color4.FromHexString(value),
+        toAttribute: (value: Color4) => value.toHexString(),
       },
       hasChanged: () => true,
     });

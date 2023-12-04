@@ -4,6 +4,8 @@ import { PositionComponent } from './PositionComponent';
 import { RotationComponent } from './RotationComponent';
 
 export class MeshComponent extends RefComponent<Mesh> {
+  _type = 'mesh' as const;
+
   get name(): string {
     return 'MeshComponent';
   }

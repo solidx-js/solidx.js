@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>DEMO</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <select name="type" id="selector">
+      <option value="box">box</option>
+    </select>
+
+    <div id="container" style="margin-top: 8px"></div>
+
+    <script src="../src/index.ts" type="module"></script>
+    <script>
+      const query = new URLSearchParams(location.search);
+      const type = query.get('type');
+
+      // select 选中一项，然后 fetch 插入到 container 中
+      const selector = document.querySelector('#selector');
+      const container = document.querySelector('#container');
+
+      selector.addEventListener('change', async () => {
+        const res = await fetch(`./${selector.value}.html`);
+        const html = await res.text();
+        container.innerHTML = html;
+
+        // selector.value 写入到 url search 中
+        query.set('type', selector.value);
+        history.replaceState(null, '', `?${query.toString()}`);
+      });
+
+      // selector 选中上次选中的项
+      selector.value = type || 'box';
+      selector.dispatchEvent(new Event('change'));
+    </script>
+  </body>
+</html>

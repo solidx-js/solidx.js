@@ -1,10 +1,11 @@
 import { Component } from '../core';
+import type { IEntityType } from '../system';
 import { IDataType } from '../util';
 
-export class RefComponent<T> extends Component<string[]> {
+export abstract class RefComponent<T> extends Component<string[]> {
   static dataType: IDataType = 'Array';
 
-  protected _type: 'mesh' | 'material' | 'geometry' | 'animation' = 'mesh';
+  abstract _type: IEntityType;
   protected _targets: T[] | null = null;
 
   private _ab: AbortController | null = null;
@@ -41,8 +42,8 @@ export class RefComponent<T> extends Component<string[]> {
   }
 
   /** @override */
-  onConnect() {}
+  abstract onConnect(): void;
 
   /** @override */
-  onDisconnect() {}
+  abstract onDisconnect(): void;
 }

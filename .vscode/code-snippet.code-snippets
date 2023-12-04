@@ -6,7 +6,7 @@
 			"import { Decorator } from './Decorator';",
 			"import { XRElement } from './XRElement';",
 			"",
-			"export class XRAnimationFrame extends XRElement {",
+			"export class ${TM_FILENAME_BASE} extends XRElement<$1> {",
 			"  static requiredAttrs: string[] = ['id'];",
 			"",
 			"  @Decorator.scene()",
@@ -19,8 +19,6 @@
 			"  remove(): void {",
 			"    super.remove();",
 			"  }",
-			"",
-			"  render() {}",
 			"}",
 			""
 		],

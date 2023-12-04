@@ -1,13 +1,13 @@
 import { Scene } from '@babylonjs/core/scene';
 import { XRElement } from './XRElement';
-import { customElement, property } from 'lit/decorators';
+import { property } from 'lit/decorators';
 import { consume, provide } from '@lit/context';
 import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { EnvironmentHelper } from '@babylonjs/core/Helpers/environmentHelper';
-import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
-import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { EntitySystem, MeshSystem } from '../system';
+import { Decorator } from './Decorator';
+import { Color4 } from '@babylonjs/core/Maths/math.color';
 
 export class XRScene extends XRElement {
   @provide({ context: Context.Scene })
@@ -18,6 +18,9 @@ export class XRScene extends XRElement {
   @property({ attribute: false })
   engine!: Engine;
 
+  @Decorator.property_Color4('clear-color')
+  clearColor?: Color4;
+
   private _doRender = () => {
     if (!this.scene.activeCamera) return;
     this.scene.render();
@@ -27,22 +30,28 @@ export class XRScene extends XRElement {
     super.connected();
 
     this.scene = new Scene(this.engine);
+    this.scene.autoClear = true;
 
     this.scene.systems = {
       mesh: new MeshSystem(this.scene),
       entity: new EntitySystem(this.scene),
     };
 
-    new EnvironmentHelper({ createSkybox: true }, this.scene);
-
-    const cam = new ArcRotateCamera('camera', Math.PI / 4, Math.PI / 3, 10, new Vector3(0, 0, 0), this.scene);
-    cam.attachControl();
+    new EnvironmentHelper({ createSkybox: false }, this.scene);
 
     this.engine.runRenderLoop(this._doRender);
   }
 
   protected firstUpdated(): void {
     this.scene.debugLayer.show(); // for debug
+  }
+
+  protected willUpdate(changed: Map<string, any>): void {
+    super.willUpdate(changed);
+
+    if (changed.has('clearColor')) {
+      this.scene.clearColor = this.clearColor ?? new Color4(0.2, 0.2, 0.3, 1.0);
+    }
   }
 
   disconnected(): void {
