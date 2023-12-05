@@ -1,11 +1,18 @@
-import { XRTransformNode } from '../core/XRTransformNode';
-import { XRMesh } from '../core/XRMesh';
+import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
+import type { XRElement } from '../core';
 
 export const ElementUtil = {
-  closestTransformNodeLike: (ele: HTMLElement) => {
-    const target = ele.parentElement ? ele.parentElement.closest<XRTransformNode | XRMesh>('xr-transform-node, xr-mesh') : null;
-    if (!target) return null;
+  closestTransformNodeLike: (ele: HTMLElement): TransformNode | null => {
+    // 向上查找最近的 .entity 是 TransformNode 子类的元素
+    let cur = ele.parentElement;
 
-    return (target as XRTransformNode).transformNode || (target as XRMesh).mesh;
+    while (cur) {
+      const entity = (cur as XRElement).entity;
+      if (entity && entity instanceof TransformNode) return entity;
+
+      cur = cur.parentElement;
+    }
+
+    return null;
   },
 };
