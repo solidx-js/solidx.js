@@ -72,7 +72,7 @@ export const Schema = {
 
         for (const item of list) {
           const [key, value] = item.split(':').map(v => v.trim());
-          obj[key] = value;
+          obj[key] = JSON.parse(value);
         }
 
         return obj;
@@ -133,7 +133,7 @@ export const Schema = {
       const list: string[] = [];
 
       for (const key of Object.keys(data)) {
-        const stringified = data[key] + '';
+        const stringified = JSON.stringify(data[key]);
         list.push(`${key}: ${stringified}`);
       }
 

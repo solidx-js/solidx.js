@@ -3,7 +3,7 @@ import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 import { consume } from '@lit/context';
 import { property } from 'lit/decorators';
 import { Context } from './Context';
-import { IDataType } from '../util';
+import { IDataType, Schema } from '../util';
 
 export const Decorator = {
   scene: () => {
@@ -97,6 +97,17 @@ export const Decorator = {
     return property({ reflect: true, type: Boolean, attribute });
   },
 
+  property_Object: (attribute?: string) => {
+    return property({
+      reflect: true,
+      attribute,
+      converter: {
+        fromAttribute: (value: string) => Schema.parse('Object', value),
+        toAttribute: (value: any) => Schema.stringify('Object', value),
+      },
+    });
+  },
+
   property: (dType: IDataType) => {
     if (dType === 'Number') return Decorator.property_Number();
     if (dType === 'String') return Decorator.property_String();
@@ -105,6 +116,7 @@ export const Decorator = {
     if (dType === 'Vector3') return Decorator.property_Vector3(new Vector3());
     if (dType === 'Vector4') return Decorator.property_Vector4(new Vector4());
     if (dType === 'Color3') return Decorator.property_Color3();
+    if (dType === 'Object') return Decorator.property_Object();
 
     throw new Error(`Decorator.property: unknown data type ${dType}`);
   },
