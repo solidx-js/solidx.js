@@ -1,14 +1,27 @@
 import { Scene } from '@babylonjs/core/scene';
 import { Decorator } from './Decorator';
-import { XRElement } from './XRElement';
 import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { RefController } from './controller';
+import { XRSceneScopeElement } from './XRSceneScopeElement';
 
-export class XRCamera extends XRElement<ArcRotateCamera> {
+export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
   static requiredAttrs: string[] = ['id'];
+
+  private _refCtrl = new RefController(
+    this,
+    'transformNodeLike',
+    () => this.target || null,
+    target => {
+      if (this.entity) this.entity.lockedTarget = target;
+    }
+  );
 
   @Decorator.scene()
   scene!: Scene;
+
+  @Decorator.property_String()
+  target?: string;
 
   connected(): void {
     super.connected();

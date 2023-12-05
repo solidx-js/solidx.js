@@ -1,16 +1,9 @@
-import { consume } from '@lit/context';
-import { XRElement } from './XRElement';
+import { XRSceneScopeElement } from './XRSceneScopeElement';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
-import { Context } from './Context';
-import { Scene } from '@babylonjs/core/scene';
 import { property } from 'lit/decorators';
 
-export class XRGeometry extends XRElement<Geometry> {
+export class XRGeometry extends XRSceneScopeElement<Geometry> {
   static requiredAttrs: string[] = ['id'];
-
-  @consume({ context: Context.Scene, subscribe: true })
-  @property({ attribute: false })
-  scene!: Scene;
 
   @property({ type: String })
   type = 'custom';
@@ -26,9 +19,9 @@ export class XRGeometry extends XRElement<Geometry> {
     this.entity = null;
   }
 
-  render() {
+  protected willUpdate(changed: Map<string, any>): void {
     const type = this.type;
-    const vert = this.scene.systems.mesh.createVert({ type: type as any });
+    const vert = this.scene.createVert({ type: type as any });
 
     if (!this.entity) {
       this.entity = new Geometry(this.id, this.scene, vert, true);

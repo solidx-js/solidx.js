@@ -1,13 +1,33 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
-import { XRElement } from './XRElement';
+import { XRSceneScopeElement } from './XRSceneScopeElement';
 import { ElementUtil, randomID } from '../util';
-import { consume } from '@lit/context';
-import { Context } from './Context';
-import { Scene } from '@babylonjs/core/scene';
+import { RefController } from './controller';
+import { Decorator } from './Decorator';
 
-export class XRMesh extends XRElement<Mesh> {
-  @consume({ context: Context.Scene, subscribe: true })
-  scene!: Scene;
+export class XRMesh extends XRSceneScopeElement<Mesh> {
+  private _geoCtrl = new RefController(
+    this,
+    'geometry',
+    () => this.geometry || null,
+    geo => {
+      if (this.entity && geo) geo.applyToMesh(this.entity);
+    }
+  );
+
+  private _matCtrl = new RefController(
+    this,
+    'material',
+    () => this.material || null,
+    mat => {
+      if (this.entity) this.entity.material = mat;
+    }
+  );
+
+  @Decorator.property_String()
+  geometry?: string;
+
+  @Decorator.property_String()
+  material?: string;
 
   connected(): void {
     super.connected();
@@ -22,9 +42,5 @@ export class XRMesh extends XRElement<Mesh> {
     super.disconnected();
     this.entity?.dispose();
     this.entity = null;
-  }
-
-  render() {
-    return null;
   }
 }

@@ -1,7 +1,5 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import { Component } from './Component';
-import { ComponentRegistry } from '../registry';
 import { Animation } from '@babylonjs/core/Animations/animation';
 
 export class XRElement<T = any> extends LitElement {
@@ -9,7 +7,6 @@ export class XRElement<T = any> extends LitElement {
 
   readonly logger = DefaultBizLogger.extend(this.tagName.toLowerCase());
 
-  components: { [key: string]: Component } = {};
   animations: Animation[] = [];
   entity: T | null = null;
 
@@ -21,43 +18,6 @@ export class XRElement<T = any> extends LitElement {
 
   protected createRenderRoot() {
     return this;
-  }
-
-  private _flushComponents(changed: Map<string, any>) {
-    for (const [inKey, lastValue] of changed.entries()) {
-      const inValue = (this as any)[inKey];
-
-      const Comp = ComponentRegistry.Instance.get(inKey);
-      if (!Comp) continue; // 不存在的组件, 忽略
-
-      // 新增
-      if (typeof lastValue === 'undefined' && typeof inValue !== 'undefined') {
-        this.logger.debug('add %s', inKey);
-
-        const comp = new Comp(this as any, inKey);
-        this.components[inKey] = comp;
-        comp.init();
-        comp.flush(inValue);
-      }
-
-      // 删除
-      if (typeof lastValue !== 'undefined' && typeof inValue === 'undefined') {
-        this.logger.debug('remove %s', inKey);
-        this.components[inKey].remove();
-        delete this.components[inKey];
-      }
-
-      const comp = this.components[inKey];
-      if (!comp) {
-        this.logger.warn('component %s not found', inKey);
-        continue;
-      }
-
-      // 更新
-      if (typeof lastValue !== 'undefined' && typeof inValue !== 'undefined') {
-        this.components[inKey].flush(inValue);
-      }
-    }
   }
 
   connectedCallback() {
@@ -74,9 +34,7 @@ export class XRElement<T = any> extends LitElement {
     this.connected();
   }
 
-  protected willUpdate(changed: Map<string, any>): void {
-    this._flushComponents(changed); // 更新组件
-  }
+  protected willUpdate(changed: Map<string, any>): void {}
 
   disconnectedCallback() {
     super.disconnectedCallback();

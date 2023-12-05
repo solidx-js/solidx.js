@@ -93,6 +93,10 @@ export const Decorator = {
     });
   },
 
+  property_Boolean: (attribute?: string) => {
+    return property({ reflect: true, type: Boolean, attribute });
+  },
+
   property: (dType: IDataType) => {
     if (dType === 'Number') return Decorator.property_Number();
     if (dType === 'String') return Decorator.property_String();

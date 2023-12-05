@@ -1,4 +1,3 @@
-export * from './Component';
 export * from './Context';
 export * from './Decorator';
 export * from './XRAnimation';
@@ -13,4 +12,6 @@ export * from './XRMaterial';
 export * from './XRMesh';
 export * from './XRNode';
 export * from './XRScene';
+export * from './XRSceneScopeElement';
 export * from './XRTransformNode';
+export * from './controller';

@@ -1,13 +1,9 @@
-import { Scene } from '@babylonjs/core/scene';
 import { Decorator } from './Decorator';
-import { XRElement } from './XRElement';
+import { XRSceneScopeElement } from './XRSceneScopeElement';
 import type { XRAnimation } from './XRAnimation';
 
-export class XRKeyFrame extends XRElement {
+export class XRKeyFrame extends XRSceneScopeElement {
   static requiredAttrs: string[] = ['time', 'value'];
-
-  @Decorator.scene()
-  scene!: Scene;
 
   @Decorator.property_Number()
   time: number = 0;
@@ -28,6 +24,4 @@ export class XRKeyFrame extends XRElement {
     super.remove();
     this.aniEle.reloadFrames();
   }
-
-  render() {}
 }

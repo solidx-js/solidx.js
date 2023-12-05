@@ -6,5 +6,7 @@ import '@babylonjs/core/Animations';
 
 import '@babylonjs/inspector';
 
+import './patch';
+
 export * from './registry';
 export * from './core';

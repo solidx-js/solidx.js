@@ -4,8 +4,6 @@ import { property } from 'lit/decorators';
 import { consume, provide } from '@lit/context';
 import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
-import { EnvironmentHelper } from '@babylonjs/core/Helpers/environmentHelper';
-import { EntitySystem, MeshSystem } from '../system';
 import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
 
@@ -31,13 +29,6 @@ export class XRScene extends XRElement {
 
     this.scene = new Scene(this.engine);
     this.scene.autoClear = true;
-
-    this.scene.systems = {
-      mesh: new MeshSystem(this.scene),
-      entity: new EntitySystem(this.scene),
-    };
-
-    // new EnvironmentHelper({ createSkybox: false }, this.scene);
 
     this.engine.runRenderLoop(this._doRender);
   }
