@@ -1,3 +1,4 @@
+import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import {
   XRAnimation,
   XRKeyFrame,
@@ -15,6 +16,7 @@ import {
 } from './core';
 import { Primitive } from './primitives';
 import { customElement } from 'lit/decorators';
+import { CTMFileLoader } from './loader';
 
 export class ElementRegistry {
   static Instance = new ElementRegistry();
@@ -35,9 +37,6 @@ export class ElementRegistry {
   }
 }
 
-/**
- * A registry for storing and retrieving Primitive by name.
- */
 export class PrimitiveRegistry {
   static Instance = new PrimitiveRegistry();
 
@@ -53,6 +52,9 @@ export class PrimitiveRegistry {
   }
 }
 
+// loaders
+SceneLoader.RegisterPlugin(new CTMFileLoader());
+
 ElementRegistry.Instance.register('xr-engine', XREngine as any);
 ElementRegistry.Instance.register('xr-scene', XRScene as any);
 ElementRegistry.Instance.register('xr-geometry', XRGeometry as any);
@@ -65,7 +67,3 @@ ElementRegistry.Instance.register('xr-camera', XRCamera as any);
 ElementRegistry.Instance.register('xr-directional-light', XRDirectionalLight as any);
 ElementRegistry.Instance.register('xr-hemispheric-light', XRHemisphericLight as any);
 ElementRegistry.Instance.register('xr-model', XRModel as any);
-
-// 3. 注册 Primitive
-// PrimitiveRegistry.Instance.register('xr-camera', CameraPrimitive);
-// PrimitiveRegistry.Instance.register('xr-sky', SkyPrimitive);

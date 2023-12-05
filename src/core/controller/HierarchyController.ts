@@ -20,6 +20,11 @@ export class HierarchyController implements ReactiveController {
     this._onParentChanged(parent);
   }
 
+  hostUpdate(): void {
+    const parent = ElementUtil.closestTransformNodeLike(this.host);
+    this._onParentChanged(parent);
+  }
+
   hostDisconnected() {
     this._onParentChanged(null);
   }

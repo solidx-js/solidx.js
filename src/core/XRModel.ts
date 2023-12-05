@@ -12,6 +12,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   private _container: AssetContainer | null = null;
 
   private _parentCtrl = new HierarchyController(this, parent => {
+    this.logger.debug('parent changed: %s', parent?.name, this.entity);
     if (this.entity) this.entity.parent = parent;
   });
 
@@ -28,6 +29,9 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
   @Decorator.property_Vector3(Vector3.One())
   scaling!: Vector3;
+
+  @Decorator.property_String()
+  extension?: string;
 
   connected(): void {
     super.connected();
@@ -60,22 +64,33 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
     const rootUrl = Path.dirname(this.src) + '/';
     const fileName = Path.basename(this.src);
+    const forceExt = this.extension;
 
-    SceneLoader.LoadAssetContainer(rootUrl, fileName, this.scene, container => {
-      if (!this.entity) return;
+    SceneLoader.LoadAssetContainer(
+      rootUrl,
+      fileName,
+      this.scene,
+      container => {
+        if (!this.entity) return;
 
-      this.logger.info('Loaded model from: %s', this.src);
+        this.logger.info('Loaded model from: %s', this.src);
 
-      container.transformNodes.push(this.entity);
+        container.transformNodes.push(this.entity);
 
-      // 把根节点的父节点设置为当前实体
-      for (const node of container.rootNodes) {
-        node.parent = this.entity;
-      }
+        // 把根节点的父节点设置为当前实体
+        for (const node of container.rootNodes) {
+          node.parent = this.entity;
+        }
 
-      this._container = container;
-      container.addAllToScene();
-    });
+        this._container = container;
+        container.addAllToScene();
+
+        this.requestUpdate();
+      },
+      null,
+      null,
+      forceExt
+    );
   }
 
   protected willUpdate(changed: Map<string, any>): void {

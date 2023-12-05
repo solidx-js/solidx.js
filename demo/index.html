@@ -17,6 +17,7 @@
       <option value="box">box</option>
       <option value="hierarchy">hierarchy</option>
       <option value="gltf">gltf</option>
+      <option value="tooth">tooth</option>
     </select>
 
     <div id="container" style="margin-top: 8px"></div>
@@ -32,8 +33,24 @@
 
       selector.addEventListener('change', async () => {
         const res = await fetch(`./${selector.value}.html`);
-        const html = await res.text();
-        container.innerHTML = html;
+        const htmlStr = await res.text();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlStr, 'text/html');
+
+        container.innerHTML = '';
+
+        // xr-engine
+        for (const ele of doc.querySelectorAll('xr-engine')) {
+          container.appendChild(ele);
+        }
+
+        // script
+        for (const ele of doc.scripts) {
+          const script = document.createElement('script');
+          script.innerHTML = ele.innerHTML;
+          container.appendChild(script);
+        }
 
         // selector.value 写入到 url search 中
         query.set('type', selector.value);

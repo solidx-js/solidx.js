@@ -21,9 +21,20 @@ export class TransformController implements ReactiveController {
     const rotationQuaternion = (this.host as any).rotationQuaternion as Quaternion | undefined;
     const scaling = (this.host as any).scaling as Vector3 | undefined;
 
-    if (position && entity.position) entity.position.copyFrom(position);
-    if (rotation && entity.rotation) entity.rotation.copyFrom(rotation);
-    if (rotationQuaternion && entity.rotationQuaternion) entity.rotationQuaternion.copyFrom(rotationQuaternion);
-    if (scaling && entity.scaling) entity.scaling.copyFrom(scaling);
+    if (position && entity.position instanceof Vector3) {
+      entity.position.copyFrom(position);
+    }
+
+    if (rotation && entity.rotation instanceof Vector3) {
+      (entity.rotation as Vector3).copyFrom(rotation).scaleInPlace(Math.PI / 180); // deg -> rad
+    }
+
+    if (rotationQuaternion && entity.rotationQuaternion instanceof Quaternion) {
+      entity.rotationQuaternion.copyFrom(rotationQuaternion);
+    }
+
+    if (scaling && entity.scaling instanceof Vector3) {
+      entity.scaling.copyFrom(scaling);
+    }
   }
 }

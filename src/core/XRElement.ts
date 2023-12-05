@@ -1,6 +1,7 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement, PropertyValueMap } from 'lit';
 import { Animation } from '@babylonjs/core/Animations/animation';
+import type { Logger } from 'ah-logger';
 
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
@@ -10,7 +11,6 @@ export class XRElement<T = any> extends LitElement {
   animations: Animation[] = [];
   entity: T | null = null;
 
-  private _isConnected = false;
   private _disposes: (() => void)[] = [];
 
   get _Cls() {
@@ -32,7 +32,6 @@ export class XRElement<T = any> extends LitElement {
       if (missingAttrs.length > 0) throw new Error(`[${this.tagName}] Missing required attributes: ${missingAttrs.join(', ')}`);
     }
 
-    this._isConnected = true;
     this.connected();
   }
 
@@ -50,7 +49,6 @@ export class XRElement<T = any> extends LitElement {
     for (const dispose of this._disposes) dispose();
     this._disposes = [];
 
-    this._isConnected = false;
     this.disconnected();
   }
 
