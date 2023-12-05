@@ -4,7 +4,7 @@ import { XRSceneScopeElement } from './XRSceneScopeElement';
 import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { randomID } from '../util';
-import { HierarchyController, TransformController } from './controller';
+import { HierarchyController, RefController, TransformController } from './controller';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import Path from 'path';
 
@@ -12,11 +12,23 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   private _container: AssetContainer | null = null;
 
   private _parentCtrl = new HierarchyController(this, parent => {
-    this.logger.debug('parent changed: %s', parent?.name, this.entity);
     if (this.entity) this.entity.parent = parent;
   });
 
   private _transCtrl = new TransformController(this);
+
+  private _matCtrl = new RefController(
+    this,
+    'material',
+    () => this.material || null,
+    mat => {
+      if (this._container && mat) {
+        this._container.meshes.forEach(mesh => {
+          mesh.material = mat;
+        });
+      }
+    }
+  );
 
   @Decorator.property_String()
   src: string = '';
@@ -32,6 +44,9 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
   @Decorator.property_String()
   extension?: string;
+
+  @Decorator.property_String()
+  material?: string;
 
   connected(): void {
     super.connected();
@@ -73,7 +88,8 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
       container => {
         if (!this.entity) return;
 
-        this.logger.info('Loaded model from: %s', this.src);
+        container.addAllToScene();
+        this._container = container;
 
         container.transformNodes.push(this.entity);
 
@@ -82,10 +98,8 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
           node.parent = this.entity;
         }
 
-        this._container = container;
-        container.addAllToScene();
-
-        this.requestUpdate();
+        // 重新加载材质
+        this._matCtrl.reload(true);
       },
       null,
       null,

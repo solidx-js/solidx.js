@@ -6,8 +6,23 @@ import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
+import { RefController } from './controller';
+import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 
 export class XRScene extends XRElement {
+  private _environmentTextureRefCtrl = new RefController(
+    this,
+    'texture',
+    () => this.environmentTexture || null,
+    texture => {
+      this.scene.environmentTexture = texture;
+    },
+    async ref => {
+      const tex = CubeTexture.CreateFromPrefilteredData(ref, this.scene);
+      return { entity: tex, dispose: () => tex.dispose() };
+    }
+  );
+
   @provide({ context: Context.Scene })
   @property({ attribute: false })
   scene!: Scene;
@@ -18,6 +33,9 @@ export class XRScene extends XRElement {
 
   @Decorator.property_Color4('clear-color')
   clearColor?: Color4;
+
+  @Decorator.property_String()
+  environmentTexture?: string;
 
   private _doRender = () => {
     if (!this.scene.activeCamera) return;
