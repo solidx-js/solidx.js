@@ -10,6 +10,7 @@ export * from './XRHemisphericLight';
 export * from './XRKeyFrame';
 export * from './XRMaterial';
 export * from './XRMesh';
+export * from './XRModel';
 export * from './XRNode';
 export * from './XRScene';
 export * from './XRSceneScopeElement';

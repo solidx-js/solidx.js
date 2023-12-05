@@ -2,15 +2,10 @@
   "export XRElement": {
 		"prefix": "ele",
 		"body": [
-			"import { Scene } from '@babylonjs/core/scene';",
-			"import { Decorator } from './Decorator';",
-			"import { XRElement } from './XRElement';",
+			"import { XRSceneScopeElement } from './XRSceneScopeElement';",
 			"",
-			"export class ${TM_FILENAME_BASE} extends XRElement<$1> {",
+			"export class ${TM_FILENAME_BASE} extends XRSceneScopeElement<$1> {",
 			"  static requiredAttrs: string[] = ['id'];",
-			"",
-			"  @Decorator.scene()",
-			"  scene!: Scene;",
 			"",
 			"  connected(): void {",
 			"    super.connected();",

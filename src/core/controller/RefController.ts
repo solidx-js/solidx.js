@@ -25,7 +25,10 @@ export class RefController<T extends IEntityType> implements ReactiveController 
 
     if (ref) {
       this._waitFor(this._type, ref)
-        .then(entity => this._onResult(entity))
+        .then(entity => {
+          this.host.logger.debug('RefController resolved: %s - %s', entity.id, (entity as any).getClassName?.());
+          this._onResult(entity);
+        })
         .catch(() => this._onResult(null));
     } else {
       this._onResult(null);
