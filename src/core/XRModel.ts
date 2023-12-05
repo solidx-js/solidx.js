@@ -6,6 +6,7 @@ import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { randomID } from '../util';
 import { HierarchyController, TransformController } from './controller';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import Path from 'path';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> {
   private _container: AssetContainer | null = null;
@@ -57,7 +58,10 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
     if (!this.src) return;
 
-    SceneLoader.LoadAssetContainer('', this.src, this.scene, container => {
+    const rootUrl = Path.dirname(this.src) + '/';
+    const fileName = Path.basename(this.src);
+
+    SceneLoader.LoadAssetContainer(rootUrl, fileName, this.scene, container => {
       if (!this.entity) return;
 
       this.logger.info('Loaded model from: %s', this.src);
