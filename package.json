@@ -7,7 +7,7 @@
   "main": "dist/lib/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
-    "dev": "parcel serve --dist-dir=node_modules/.dist demo/*.html demo/assets/**/*",
+    "dev": "parcel serve --dist-dir=node_modules/.dist demo/*.html demo/assets/**/*.*",
     "build": "rm -rf dist/* && parcel build ./src/index.ts --no-cache",
     "test": "jest -i",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit && npm test",
@@ -42,12 +42,14 @@
     "prettier": "^3.1.0",
     "process": "^0.11.10",
     "release-it": "^17.0.0",
+    "serve-static": "^1.15.0",
     "typescript": "^5.2.2",
     "vue": "^3.3.9",
     "vuepress": "2.0.0-rc.0"
   },
   "dependencies": {
     "@babylonjs/core": "^6.31.0",
+    "@babylonjs/loaders": "^6.32.1",
     "@lit/context": "^1.1.0",
     "ah-logger": "^3.2.8",
     "lit": "^3.1.0",

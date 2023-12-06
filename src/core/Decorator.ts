@@ -10,12 +10,16 @@ export const Decorator = {
     return consume({ context: Context.Scene, subscribe: true });
   },
 
+  AssetContainer: () => {
+    return consume({ context: Context.AssetContainer, subscribe: true });
+  },
+
   property_Number: () => {
     return property({ reflect: true, type: Number });
   },
 
-  property_String: () => {
-    return property({ reflect: true });
+  property_String: (attribute?: string) => {
+    return property({ reflect: true, attribute });
   },
 
   property_Array: () => {

@@ -1,14 +1,18 @@
-import { SceneLoader } from '@babylonjs/core/Loading';
 import { Decorator } from './Decorator';
 import { XRSceneScopeElement } from './XRSceneScopeElement';
 import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
-import { randomID } from '../util';
+import { Schema, randomID } from '../util';
 import { HierarchyController, RefController, TransformController } from './controller';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import Path from 'path';
+import { provide } from '@lit/context';
+import { Context } from './Context';
+import { state } from 'lit/decorators';
+import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> {
+  @provide({ context: Context.AssetContainer })
+  @state()
   private _container: AssetContainer | null = null;
 
   private _parentCtrl = new HierarchyController(this, parent => {
@@ -48,6 +52,12 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   @Decorator.property_String()
   material?: string;
 
+  @Decorator.property_String('auto-play')
+  autoPlay?: string;
+
+  @Decorator.property_Boolean()
+  loop = false;
+
   connected(): void {
     super.connected();
 
@@ -77,34 +87,38 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
     if (!this.src) return;
 
-    const rootUrl = Path.dirname(this.src) + '/';
-    const fileName = Path.basename(this.src);
-    const forceExt = this.extension;
+    this.scene.loadModel(this.src, this.extension).then(_container => {
+      if (!this.entity) return;
 
-    SceneLoader.LoadAssetContainer(
-      rootUrl,
-      fileName,
-      this.scene,
-      container => {
-        if (!this.entity) return;
+      _container.addAllToScene();
+      this._container = _container;
 
-        container.addAllToScene();
-        this._container = container;
+      _container.transformNodes.push(this.entity);
 
-        container.transformNodes.push(this.entity);
+      // 把根节点的父节点设置为当前实体
+      for (const node of _container.rootNodes) {
+        node.parent = this.entity;
+      }
 
-        // 把根节点的父节点设置为当前实体
-        for (const node of container.rootNodes) {
-          node.parent = this.entity;
+      // 重新加载材质
+      this._matCtrl.reload(true);
+
+      // 处理 auto-play
+      if (typeof this.autoPlay !== 'undefined') {
+        let ags: AnimationGroup[] = [];
+
+        if (this.autoPlay === '') {
+          ags = _container.animationGroups;
+        } else {
+          const _names = Schema.parse('Array', this.autoPlay) as string[];
+          ags = _container.animationGroups.filter(a => _names.includes(a.name));
         }
 
-        // 重新加载材质
-        this._matCtrl.reload(true);
-      },
-      null,
-      null,
-      forceExt
-    );
+        for (const ag of ags) {
+          ag.play(this.loop);
+        }
+      }
+    });
   }
 
   protected willUpdate(changed: Map<string, any>): void {
