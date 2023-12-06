@@ -103,7 +103,14 @@ export const Decorator = {
   },
 
   property_Boolean: (attribute?: string) => {
-    return property({ reflect: true, type: Boolean, attribute });
+    return property({
+      reflect: true,
+      attribute,
+      converter: {
+        fromAttribute: value => value !== null,
+        toAttribute: (value: boolean) => !!value || null,
+      },
+    });
   },
 
   property_Object: (attribute?: string) => {

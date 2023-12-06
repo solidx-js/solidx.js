@@ -1,7 +1,8 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
 import { Animation } from '@babylonjs/core/Animations/animation';
-import { EventDispatchController } from './controller';
+import { EventDispatchController, NodeStateController } from './controller';
+import { Decorator } from './Decorator';
 
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
@@ -14,9 +15,16 @@ export class XRElement<T = any> extends LitElement {
 
   private _disposes: (() => void)[] = [];
 
+  // 基础属性
+  @Decorator.property_Boolean('disabled')
+  disabled?: boolean;
+
   constructor() {
     super();
+
+    // 这里初始化一些基础控制器
     new EventDispatchController(this);
+    new NodeStateController(this);
   }
 
   get _Cls() {

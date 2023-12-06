@@ -41,8 +41,10 @@ export class XREngine extends XRElement {
     super.connected();
 
     const rect = this.getBoundingClientRect();
-    this.width = rect.width;
-    this.height = rect.height;
+    if (rect.width && rect.height) {
+      this.width = rect.width;
+      this.height = rect.height;
+    }
 
     const _canvas = document.createElement('canvas');
     _canvas.style.width = '100%';

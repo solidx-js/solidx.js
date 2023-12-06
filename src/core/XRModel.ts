@@ -87,7 +87,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
       this._container = null;
     }
 
-    if (!this.src) return;
+    if (!this.src || this.disabled) return;
 
     this.scene.loadModel(this.src, this.extension).then(_container => {
       if (!this.entity) return;
@@ -121,6 +121,8 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
         }
       }
 
+      this.requestUpdate('disabled');
+
       this.emit('model-loaded', { container: _container });
     });
   }
@@ -128,6 +130,14 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   protected willUpdate(changed: Map<string, any>): void {
     super.willUpdate(changed);
 
-    if (changed.has('src')) this.reloadModel();
+    console.log('@@@', 'changed ->', this.id, [...changed.keys()], this.disabled, this._container);
+
+    if (changed.has('src') || !this._container) this.reloadModel();
+
+    if (changed.has('disabled') && this._container) {
+      for (const item of [...this._container.meshes, ...this._container.transformNodes]) {
+        item.setEnabled(!this.disabled);
+      }
+    }
   }
 }
