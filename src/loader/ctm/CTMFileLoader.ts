@@ -1,6 +1,10 @@
 import { ISceneLoaderPlugin, ISceneLoaderPluginExtensions } from '@babylonjs/core/Loading/sceneLoader';
 import { AssetContainer } from '@babylonjs/core/assetContainer';
-import { Scene, Mesh, VertexBuffer, VertexData, Nullable, AbstractMesh } from '@babylonjs/core';
+import type { Scene, Nullable } from '@babylonjs/core';
+import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh';
+import { Mesh } from '@babylonjs/core/Meshes/mesh';
+import { VertexBuffer } from '@babylonjs/core/Meshes/buffer';
+import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
 import { CTM } from './CTM';
 
 export class CTMFileLoader implements ISceneLoaderPlugin {

@@ -6,6 +6,7 @@
   ],
   "main": "dist/lib/index.js",
   "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "scripts": {
     "dev": "parcel serve --dist-dir=node_modules/.dist demo/*.html demo/assets/**/*.*",
     "build": "rm -rf dist/* && parcel build ./src/index.ts --no-cache",

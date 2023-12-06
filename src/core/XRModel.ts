@@ -7,7 +7,7 @@ import { HierarchyController, RefController, TransformController } from './contr
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { provide } from '@lit/context';
 import { Context } from './Context';
-import { state } from 'lit/decorators';
+import { state } from 'lit/decorators.js';
 import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> {

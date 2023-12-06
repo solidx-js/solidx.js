@@ -1,9 +1,9 @@
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { provide } from '@lit/context';
 import { Context } from './Context';
-import { customElement, property, query } from 'lit/decorators';
+import { property, query } from 'lit/decorators.js';
 import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map';
+import { styleMap } from 'lit/directives/style-map.js';
 import { XRElement } from './XRElement';
 import { randomID } from '../util';
 
@@ -38,6 +38,12 @@ export class XREngine extends XRElement {
   containerEle!: HTMLDivElement;
 
   connected(): void {
+    super.connected();
+
+    const rect = this.getBoundingClientRect();
+    this.width = rect.width;
+    this.height = rect.height;
+
     const _canvas = document.createElement('canvas');
     _canvas.style.width = '100%';
     _canvas.style.height = '100%';
@@ -47,7 +53,10 @@ export class XREngine extends XRElement {
 
   protected firstUpdated(): void {
     this.containerEle.appendChild(this.engine.getRenderingCanvas()!);
-    this.engine.resize();
+  }
+
+  protected updated(_changed: Map<string, any>): void {
+    if (_changed.has('width') || _changed.has('height')) this.engine.resize();
   }
 
   render() {

@@ -1,6 +1,6 @@
 import { Scene } from '@babylonjs/core/scene';
 import { XRElement } from './XRElement';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 import { consume, provide } from '@lit/context';
 import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
@@ -64,7 +64,7 @@ export class XRScene extends XRElement {
   }
 
   protected firstUpdated(): void {
-    this.scene.debugLayer.show(); // for debug
+    // this.scene.debugLayer.show(); // for debug
   }
 
   protected willUpdate(changed: Map<string, any>): void {

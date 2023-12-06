@@ -1,7 +1,7 @@
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 import { consume } from '@lit/context';
-import { property } from 'lit/decorators';
+import { property } from 'lit/decorators.js';
 import { Context } from './Context';
 import { IDataType, Schema } from '../util';
 

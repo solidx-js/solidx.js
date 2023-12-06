@@ -51,6 +51,8 @@ export class XRElement<T = any> extends LitElement {
     return super.shouldUpdate(changed);
   }
 
+  protected updated(_changed: Map<string, any>): void {}
+
   disconnectedCallback() {
     super.disconnectedCallback();
 

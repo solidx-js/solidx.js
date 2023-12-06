@@ -14,8 +14,7 @@ import {
   XRHemisphericLight,
   XRModel,
 } from './core';
-import { Primitive } from './primitives';
-import { customElement } from 'lit/decorators';
+import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
 
 export class ElementRegistry {
@@ -34,21 +33,6 @@ export class ElementRegistry {
 
   keys() {
     return Object.keys(this._elements);
-  }
-}
-
-export class PrimitiveRegistry {
-  static Instance = new PrimitiveRegistry();
-
-  private _primitives: Record<string, typeof Primitive> = {};
-
-  register(name: string, primitive: typeof Primitive) {
-    this._primitives[name] = primitive;
-    customElements.define(name, primitive);
-  }
-
-  get(name: string) {
-    return this._primitives[name];
   }
 }
 
