@@ -14,25 +14,26 @@ export const Decorator = {
     return consume({ context: Context.AssetContainer, subscribe: true });
   },
 
-  property_Number: () => {
-    return property({ reflect: true, type: Number });
+  property_Number: (attribute?: string) => {
+    return property({ reflect: true, type: Number, attribute });
   },
 
   property_String: (attribute?: string) => {
     return property({ reflect: true, attribute });
   },
 
-  property_Array: () => {
+  property_Array: (attribute?: string) => {
     return property({
       reflect: true,
       converter: {
         fromAttribute: (value: string) => value.split(' '),
         toAttribute: (value: string[]) => value.join(' '),
       },
+      attribute,
     });
   },
 
-  property_Vector2: (ref: Vector2) => {
+  property_Vector2: (ref: Vector2, attribute?: string) => {
     return property({
       reflect: true,
       converter: {
@@ -43,10 +44,11 @@ export const Decorator = {
         toAttribute: (value: Vector2) => value.asArray().join(' '),
       },
       hasChanged: () => true,
+      attribute,
     });
   },
 
-  property_Vector3: (ref: Vector3) => {
+  property_Vector3: (ref: Vector3, attribute?: string) => {
     return property({
       reflect: true,
       converter: {
@@ -57,10 +59,11 @@ export const Decorator = {
         toAttribute: (value: Vector3) => value.asArray().join(' '),
       },
       hasChanged: () => true,
+      attribute,
     });
   },
 
-  property_Vector4: (ref: Vector4) => {
+  property_Vector4: (ref: Vector4, attribute?: string) => {
     return property({
       reflect: true,
       converter: {
@@ -71,10 +74,11 @@ export const Decorator = {
         toAttribute: (value: Vector4) => `${value.x} ${value.y} ${value.z} ${value.w}`,
       },
       hasChanged: () => true,
+      attribute,
     });
   },
 
-  property_Color3: () => {
+  property_Color3: (attribute?: string) => {
     return property({
       reflect: true,
       converter: {
@@ -82,6 +86,7 @@ export const Decorator = {
         toAttribute: (value: Color3) => value.toHexString(),
       },
       hasChanged: () => true,
+      attribute,
     });
   },
 
@@ -112,15 +117,15 @@ export const Decorator = {
     });
   },
 
-  property: (dType: IDataType) => {
-    if (dType === 'Number') return Decorator.property_Number();
-    if (dType === 'String') return Decorator.property_String();
-    if (dType === 'Array') return Decorator.property_Array();
-    if (dType === 'Vector2') return Decorator.property_Vector2(new Vector2());
-    if (dType === 'Vector3') return Decorator.property_Vector3(new Vector3());
-    if (dType === 'Vector4') return Decorator.property_Vector4(new Vector4());
-    if (dType === 'Color3') return Decorator.property_Color3();
-    if (dType === 'Object') return Decorator.property_Object();
+  property: (dType: IDataType, attribute?: string) => {
+    if (dType === 'Number') return Decorator.property_Number(attribute);
+    if (dType === 'String') return Decorator.property_String(attribute);
+    if (dType === 'Array') return Decorator.property_Array(attribute);
+    if (dType === 'Vector2') return Decorator.property_Vector2(new Vector2(), attribute);
+    if (dType === 'Vector3') return Decorator.property_Vector3(new Vector3(), attribute);
+    if (dType === 'Vector4') return Decorator.property_Vector4(new Vector4(), attribute);
+    if (dType === 'Color3') return Decorator.property_Color3(attribute);
+    if (dType === 'Object') return Decorator.property_Object(attribute);
 
     throw new Error(`Decorator.property: unknown data type ${dType}`);
   },

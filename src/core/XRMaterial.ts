@@ -6,7 +6,7 @@ import { Decorator } from './Decorator';
 export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property_Color3()
+  @Decorator.property_Color3('albedo-color')
   albedoColor?: Color3;
 
   @Decorator.property_Number()
@@ -15,7 +15,7 @@ export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
   @Decorator.property_Number()
   roughness: number = 0.8;
 
-  @Decorator.property_Color3()
+  @Decorator.property_Color3('emissive-color')
   emissiveColor?: Color3;
 
   @Decorator.property_Boolean('backface-culling')
