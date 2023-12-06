@@ -1,8 +1,12 @@
 <xr-engine width="1000" height="400">
-  <xr-scene clear-color="#4FC690">
+  <xr-scene
+    environmentTexture="https://rshop.tech/gw/exr/EnvMap_3.0-256.env"
+    exposure="1.2"
+    contrast="1.2"
+    ssao="samples: 32; radius:5; totalStrength: 0.8; expensiveBlur: false"
+  >
     <xr-camera id="cam1" lock-target="model" lock-to-center radius="2"></xr-camera>
     <xr-directional-light id="light1" intensity="3" rotation="40 70"></xr-directional-light>
-    <xr-hemispheric-light id="light2" intensity="3" rotation="0 0"></xr-hemispheric-light>
 
     <xr-model id="model" src="./assets/animation.glb" rotation="0 180 0" auto-play loop></xr-model>
   </xr-scene>

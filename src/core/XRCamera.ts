@@ -25,6 +25,12 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
   @Decorator.property_Boolean('lock-to-center')
   lockToCenter = false;
 
+  @Decorator.property_Number()
+  minZ = 0.1;
+
+  @Decorator.property_Number()
+  maxZ = 100;
+
   constructor() {
     super();
 
@@ -79,6 +85,8 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
     if (changed.has('beta')) this.entity.beta = (this.beta * Math.PI) / 180;
     if (changed.has('radius')) this.entity.radius = this.radius;
     if (changed.has('target')) this.entity.lockedTarget = this.target;
+    if (changed.has('minZ')) this.entity.minZ = this.minZ;
+    if (changed.has('maxZ')) this.entity.maxZ = this.maxZ;
   }
 
   remove(): void {
