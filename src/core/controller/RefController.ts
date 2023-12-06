@@ -1,4 +1,4 @@
-import { ReactiveController, ReactiveControllerHost } from 'lit';
+import { ReactiveController } from 'lit';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { IBjsEntityType, IEntityType } from '../../type';
 
@@ -7,6 +7,8 @@ export class RefController<T extends IEntityType> implements ReactiveController 
   private _customResolvedInfo: { entity: IBjsEntityType<T>; dispose: () => any } | null = null;
 
   private _lastRef: string | null = null;
+
+  target: IBjsEntityType<T> | null = null;
 
   constructor(
     private host: XRSceneScopeElement,
@@ -28,17 +30,22 @@ export class RefController<T extends IEntityType> implements ReactiveController 
 
     if (ref) {
       this._waitFor(this._type, ref)
-        .then(entity => {
+        .then(target => {
           this.host.logger.debug(
             'RefController resolved: %s - %s',
-            (entity as any).id || (entity as any).name,
-            (entity as any).getClassName?.()
+            (target as any).id || (target as any).name,
+            (target as any).getClassName?.()
           );
 
-          this._onResult(entity);
+          this.target = target;
+          this._onResult(target);
         })
-        .catch(() => this._onResult(null));
+        .catch(() => {
+          this.target = null;
+          this._onResult(null);
+        });
     } else {
+      this.target = null;
       this._onResult(null);
     }
 
