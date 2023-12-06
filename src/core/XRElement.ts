@@ -1,10 +1,11 @@
 import { DefaultBizLogger } from '../BizLogger';
-import { LitElement, PropertyValueMap } from 'lit';
+import { LitElement } from 'lit';
 import { Animation } from '@babylonjs/core/Animations/animation';
-import type { Logger } from 'ah-logger';
+import { EventDispatchController } from './controller';
 
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
+  static events: string[] = [];
 
   readonly logger = DefaultBizLogger.extend(this.tagName.toLowerCase());
 
@@ -13,12 +14,21 @@ export class XRElement<T = any> extends LitElement {
 
   private _disposes: (() => void)[] = [];
 
+  constructor() {
+    super();
+    new EventDispatchController(this);
+  }
+
   get _Cls() {
     return this.constructor as any as typeof XRElement;
   }
 
   protected createRenderRoot() {
     return this;
+  }
+
+  emit(evType: string, detail?: any) {
+    this.dispatchEvent(new CustomEvent(evType, { detail, bubbles: true }));
   }
 
   connectedCallback() {

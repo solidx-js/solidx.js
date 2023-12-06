@@ -11,6 +11,8 @@ import { state } from 'lit/decorators';
 import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> {
+  static events: string[] = ['model-loaded'];
+
   @provide({ context: Context.AssetContainer })
   @state()
   private _container: AssetContainer | null = null;
@@ -118,6 +120,8 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
           ag.play(this.loop);
         }
       }
+
+      this.emit('model-loaded', { container: _container });
     });
   }
 
