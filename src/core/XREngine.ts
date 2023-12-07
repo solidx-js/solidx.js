@@ -41,16 +41,12 @@ export class XREngine extends XRElement {
   @query('[data-name=XREngine]')
   containerEle!: HTMLDivElement;
 
-  constructor() {
-    super();
+  connected(): void {
+    super.connected();
 
     this.style.display = 'block';
     this.style.width = '100%';
     this.style.height = '100%';
-  }
-
-  connected(): void {
-    super.connected();
 
     if (this.autoResize) this.reCalcContainerSize();
 
