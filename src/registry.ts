@@ -24,7 +24,10 @@ export class ElementRegistry {
 
   register(name: string, Ele: typeof XRElement) {
     this._elements[name] = Ele;
-    customElement(name)(Ele as any);
+
+    if (!customElements.get(name)) {
+      customElement(name)(Ele as any);
+    }
   }
 
   get(name: string) {

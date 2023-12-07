@@ -6,6 +6,7 @@ import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { XRElement } from './XRElement';
 import { randomID } from '../util';
+import { Decorator } from './Decorator';
 
 export class XREngine extends XRElement {
   static createEngine(canvas: HTMLCanvasElement) {
@@ -28,23 +29,30 @@ export class XREngine extends XRElement {
   @property({ attribute: false })
   engine!: Engine;
 
-  @property({ type: Number })
+  @Decorator.property_Number()
   width: number = 600;
 
-  @property({ type: Number })
+  @Decorator.property_Number()
   height: number = 400;
+
+  @Decorator.property_Boolean('auto-resize')
+  autoResize?: boolean;
 
   @query('[data-name=XREngine]')
   containerEle!: HTMLDivElement;
 
+  constructor() {
+    super();
+
+    this.style.display = 'block';
+    this.style.width = '100%';
+    this.style.height = '100%';
+  }
+
   connected(): void {
     super.connected();
 
-    const rect = this.getBoundingClientRect();
-    if (rect.width && rect.height) {
-      this.width = rect.width;
-      this.height = rect.height;
-    }
+    if (this.autoResize) this.reCalcContainerSize();
 
     const _canvas = document.createElement('canvas');
     _canvas.style.width = '100%';
@@ -55,10 +63,21 @@ export class XREngine extends XRElement {
 
   protected firstUpdated(): void {
     this.containerEle.appendChild(this.engine.getRenderingCanvas()!);
+    this.engine.resize();
+
+    if (this.autoResize) this.reCalcContainerSize();
   }
 
   protected updated(_changed: Map<string, any>): void {
     if (_changed.has('width') || _changed.has('height')) this.engine.resize();
+  }
+
+  private reCalcContainerSize() {
+    const rect = this.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      this.width = rect.width;
+      this.height = rect.height;
+    }
   }
 
   render() {
