@@ -59,3 +59,7 @@ export class System {
     this._disposes = [];
   }
 }
+
+export interface ISystemImpl {
+  dispose(): void;
+}

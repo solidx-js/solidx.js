@@ -31,6 +31,10 @@ export class XRElement<T = any> extends LitElement {
     return this.constructor as any as typeof XRElement;
   }
 
+  get changed() {
+    return (this as any)._$changedProperties as Map<string, any>;
+  }
+
   protected createRenderRoot() {
     return this;
   }
