@@ -54,8 +54,10 @@
   },
   "dependencies": {
     "@babylonjs/core": "^6.31.0",
+    "@babylonjs/inspector": "^6.31.0",
     "@babylonjs/loaders": "^6.32.1",
     "@lit/context": "^1.1.0",
+    "@swc/helpers": "^0.5.3",
     "ah-logger": "^3.2.8",
     "lit": "^3.1.0",
     "lodash": "^4.17.21"

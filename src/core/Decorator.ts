@@ -26,7 +26,7 @@ export const Decorator = {
     return property({
       reflect: true,
       converter: {
-        fromAttribute: (value: string) => value.split(' '),
+        fromAttribute: (value: string | null) => (value ? value.split(' ') : []),
         toAttribute: (value: string[]) => value.join(' '),
       },
       attribute,
@@ -37,7 +37,8 @@ export const Decorator = {
     return property({
       reflect: true,
       converter: {
-        fromAttribute: (value: string) => {
+        fromAttribute: (value: string | null) => {
+          if (!value) return;
           const values = value.split(' ').map(v => parseFloat(v));
           return Vector2.FromArray(values);
         },
@@ -51,7 +52,8 @@ export const Decorator = {
     return property({
       reflect: true,
       converter: {
-        fromAttribute: (value: string) => {
+        fromAttribute: (value: string | null) => {
+          if (!value) return;
           const values = value.split(' ').map(v => parseFloat(v));
           return Vector3.FromArray(values);
         },
@@ -66,7 +68,8 @@ export const Decorator = {
     return property({
       reflect: true,
       converter: {
-        fromAttribute: (value: string) => {
+        fromAttribute: (value: string | null) => {
+          if (!value) return;
           const values = value.split(' ').map(v => parseFloat(v));
           return Vector4.FromArray(values);
         },
@@ -81,7 +84,7 @@ export const Decorator = {
     return property({
       reflect: true,
       converter: {
-        fromAttribute: (value: string) => Color3.FromHexString(value),
+        fromAttribute: (value: string | null) => (value ? Color3.FromHexString(value) : undefined),
         toAttribute: (value: Color3) => value.toHexString(),
       },
       hasChanged: () => true,
@@ -94,7 +97,7 @@ export const Decorator = {
       attribute,
       reflect: true,
       converter: {
-        fromAttribute: (value: string) => Color4.FromHexString(value),
+        fromAttribute: (value: string | null) => (value ? Color4.FromHexString(value) : undefined),
         toAttribute: (value: Color4) => value.toHexString(),
       },
       hasChanged: () => true,
@@ -102,14 +105,7 @@ export const Decorator = {
   },
 
   property_Boolean: (attribute?: string) => {
-    return property({
-      reflect: true,
-      attribute,
-      converter: {
-        fromAttribute: value => value !== null,
-        toAttribute: (value: boolean) => !!value || null,
-      },
-    });
+    return property({ reflect: true, attribute, type: Boolean });
   },
 
   property_Object: (attribute?: string) => {
@@ -117,7 +113,7 @@ export const Decorator = {
       reflect: true,
       attribute,
       converter: {
-        fromAttribute: (value: string) => Schema.parse('Object', value),
+        fromAttribute: (value: string | null) => Schema.parse('Object', value),
         toAttribute: (value: any) => Schema.stringify('Object', value),
       },
     });

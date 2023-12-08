@@ -4,12 +4,26 @@
     <xr-directional-light id="light1" intensity="3" rotation="40 70"></xr-directional-light>
     <xr-hemispheric-light id="light2" intensity="3" rotation="0 0"></xr-hemispheric-light>
 
-    <xr-model
+    <xr-material id="attachment-mat" metallic="0.8" roughness="0.2"></xr-material>
+
+    <!-- <xr-model
       id="helmet"
       disabled
       src="./assets/DamagedHelmet/DamagedHelmet.gltf"
       rotation="0 180 0"
       forward-model-loaded="#light1: intensity=5; #light2: intensity=5"
+    ></xr-model> -->
+
+    <xr-model
+      id="attachment-42"
+      preload="true"
+      src="https://prod-ortho-oss-oss-process-base.ing-club.com/ortho_plan_core/ATACHMENT/DEFAULT/42/2022/03/04/01/34/4380095e3b114fbeb2944238120ef549?Expires=1702026594&OSSAccessKeyId=LTAI5tES2LXYnPKyyCTYHpS1&Signature=T4M07xxOLA6hfIq2MMDEIvYTbJ0%3D"
+      extension=".ctm"
+      material="attachment-mat"
+      position="0 0 0"
+      rotation="0 0 0"
+      scaling="1 1 1"
+      flat-shading="true"
     ></xr-model>
   </xr-scene>
 </xr-engine>

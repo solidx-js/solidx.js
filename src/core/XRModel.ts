@@ -9,6 +9,7 @@ import { provide } from '@lit/context';
 import { Context } from './Context';
 import { state } from 'lit/decorators.js';
 import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
+import { Mesh } from '@babylonjs/core/Meshes/mesh';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> {
   static events: string[] = ['model-loaded'];
@@ -60,6 +61,9 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   @Decorator.property_Boolean()
   loop = false;
 
+  @Decorator.property_Boolean('flat-shading')
+  flatShading = false;
+
   @Decorator.property_Boolean()
   preload?: boolean;
 
@@ -103,6 +107,13 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
       // 把根节点的父节点设置为当前实体
       for (const node of _container.rootNodes) {
         node.parent = this.entity;
+      }
+
+      for (const mesh of _container.meshes) {
+        if (mesh instanceof Mesh) {
+          // 处理 flat-shading
+          if (this.flatShading) mesh.convertToFlatShadedMesh();
+        }
       }
 
       // 重新加载材质
