@@ -7,6 +7,5 @@ declare module '@babylonjs/core/scene' {
     waitFor<T extends IEntityType>(type: T, id: string, abortSignal: AbortSignal): Promise<IBjsEntityType<T>>;
     createVert(arg: { type: 'box' } | { type: 'sphere' } | { type: 'plane' }): VertexData;
     loadModel(url: string, forceExt?: string): Promise<AssetContainer>;
-    transactionSystem: TransactionSystem;
   }
 }

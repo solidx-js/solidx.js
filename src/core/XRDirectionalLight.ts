@@ -9,8 +9,8 @@ export class XRDirectionalLight extends XRSceneScopeElement<DirectionalLight> {
   @Decorator.property_Number()
   intensity = 1;
 
-  @Decorator.property_Vector2(new Vector2(40, 30))
-  rotation!: Vector2;
+  @Decorator.property_Vector2()
+  rotation = new Vector2(40, 30);
 
   connected(): void {
     super.connected();

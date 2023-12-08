@@ -8,7 +8,6 @@ import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import { InstancedMesh } from '@babylonjs/core/Meshes/instancedMesh';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders/glTF';
-import { TransactionSystem } from './system';
 
 Scene.prototype.waitFor = async function waitFor(type: IEntityType, id: string, abortSignal: AbortSignal): Promise<any> {
   abortSignal.throwIfAborted();
@@ -117,14 +116,3 @@ Scene.prototype.loadModel = async function loadModel(url: string, forceExt?: str
     }
   });
 };
-
-Object.defineProperty(Scene.prototype, 'transactionSystem', {
-  get() {
-    if (!this._transactionSystem) {
-      const ins = new TransactionSystem(this);
-      this._transactionSystem = ins;
-      this.onDisposeObservable.addOnce(() => ins.dispose());
-    }
-    return this._transactionSystem;
-  },
-});

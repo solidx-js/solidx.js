@@ -1,6 +1,7 @@
 import { ReactiveController } from 'lit';
-import { XRSceneScopeElement } from '../XRSceneScopeElement';
+import { XRElement } from '../XRElement';
 import { IBjsEntityType, IEntityType } from '../../type';
+import { Scene } from '@babylonjs/core/scene';
 
 export class RefController<T extends IEntityType> implements ReactiveController {
   private _ab: AbortController | null = null;
@@ -11,7 +12,7 @@ export class RefController<T extends IEntityType> implements ReactiveController 
   target: IBjsEntityType<T> | null = null;
 
   constructor(
-    private host: XRSceneScopeElement,
+    private host: XRElement & { scene: Scene },
     private _type: T,
     private _onGetRefString: () => string | null,
     private _onResult: (target: IBjsEntityType<T> | null) => void,

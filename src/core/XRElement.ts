@@ -1,38 +1,60 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
 import { Animation } from '@babylonjs/core/Animations/animation';
-import { EventDispatchController, NodeStateController } from './controller';
+import { EventDispatchController, NodeStateController, TransitionController } from './controller';
 import { Decorator } from './Decorator';
+import { parseDurationString } from '../util';
+import { property } from 'lit/decorators';
+import { PickStringKey, StringKeys } from '../type';
 
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
-  static events: string[] = [];
+  static events: string[] = ['xr-transitionend'];
 
   readonly logger = DefaultBizLogger.extend(this.tagName.toLowerCase());
 
   animations: Animation[] = [];
   entity: T | null = null;
 
+  private _transitionCtrl: TransitionController;
   private _disposes: (() => void)[] = [];
 
   // 基础属性
   @Decorator.property_Boolean('disabled')
   disabled?: boolean;
 
+  @property({ converter: { fromAttribute: (value: string) => parseTransitions(value) } })
+  transition: { property: string; duration: number; timingFunction: string; delay: number }[] = [];
+
+  private _transitionLerpData: { [key: string]: any } = {}; // 过渡期间的插值数据
+
+  // 求解后的属性
+  readonly evaluatedProps = new Proxy<PickStringKey<this>>(this._transitionLerpData as any, {
+    get: (_stash, p) => {
+      if (Object.prototype.hasOwnProperty.call(_stash, p)) return (_stash as any)[p];
+      return this[p as StringKeys<this>];
+    },
+    set(_stash, p) {
+      throw new Error(`Can't set property "${p as any}" of evaluatedProps`);
+    },
+  }); // 过渡期间的插值数据
+
   constructor() {
     super();
 
     // 这里初始化一些基础控制器
-    new EventDispatchController(this);
-    new NodeStateController(this);
+    new EventDispatchController(this as any);
+    new NodeStateController(this as any);
+    this._transitionCtrl = new TransitionController(
+      this as any,
+      this._transitionLerpData,
+      () => this.requestUpdate('_transitionLerpData'),
+      property => this.emit('xr-transitionend', { property })
+    );
   }
 
   get _Cls() {
     return this.constructor as any as typeof XRElement;
-  }
-
-  get changed() {
-    return (this as any)._$changedProperties as Map<string, any>;
   }
 
   protected createRenderRoot() {
@@ -57,7 +79,10 @@ export class XRElement<T = any> extends LitElement {
     this.connected();
   }
 
-  protected willUpdate(changed: Map<string, any>): void {}
+  protected willUpdate(changed: Map<string, any>): void {
+    super.willUpdate(changed);
+    this._transitionCtrl.trigger(changed); // 触发过渡
+  }
 
   protected shouldUpdate(changed: Map<string, any>): boolean {
     return super.shouldUpdate(changed);
@@ -85,4 +110,17 @@ export class XRElement<T = any> extends LitElement {
   render(): any {
     return null;
   }
+}
+
+function parseTransitions(attr: string) {
+  const list: { property: string; duration: number; timingFunction: string; delay: number }[] = [];
+
+  const parts = attr.split(',');
+
+  for (const part of parts) {
+    const [property, duration = '0s', timingFunction = '', delay = '0s'] = part.split(/\s+/g);
+    list.push({ property, duration: parseDurationString(duration), timingFunction, delay: parseFloat(delay) });
+  }
+
+  return list;
 }

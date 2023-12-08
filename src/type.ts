@@ -16,3 +16,11 @@ export type IIBjsEntityMap = {
 };
 
 export type IBjsEntityType<T extends IEntityType> = IIBjsEntityMap[T];
+
+export type StringKeys<T> = {
+  [K in keyof T]: T[K] extends string ? K : never;
+}[keyof T];
+
+export type PickStringKey<T> = {
+  [K in keyof T]: T[K] extends string ? K : never;
+};

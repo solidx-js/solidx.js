@@ -20,6 +20,8 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> {
   }
 
   protected willUpdate(changed: Map<string, any>): void {
+    super.willUpdate(changed);
+
     const type = this.type;
     const vert = this.scene.createVert({ type: type as any });
 

@@ -17,14 +17,14 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   @state()
   private _container: AssetContainer | null = null;
 
-  private _parentCtrl = new HierarchyController(this, parent => {
+  private _parentCtrl = new HierarchyController(this as any, parent => {
     if (this.entity) this.entity.parent = parent;
   });
 
-  private _transCtrl = new TransformController(this);
+  private _transCtrl = new TransformController(this as any);
 
   private _matCtrl = new RefController(
-    this,
+    this as any,
     'material',
     () => this.material || null,
     mat => {
@@ -39,14 +39,14 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   @Decorator.property_String()
   src: string = '';
 
-  @Decorator.property_Vector3(Vector3.Zero())
-  position!: Vector3;
+  @Decorator.property_Vector3()
+  position = Vector3.Zero();
 
-  @Decorator.property_Vector3(Vector3.Zero())
-  rotation!: Vector3;
+  @Decorator.property_Vector3()
+  rotation = Vector3.Zero();
 
-  @Decorator.property_Vector3(Vector3.One())
-  scaling!: Vector3;
+  @Decorator.property_Vector3()
+  scaling = Vector3.One();
 
   @Decorator.property_String()
   extension?: string;

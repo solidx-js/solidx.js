@@ -6,29 +6,33 @@ import { Decorator } from './Decorator';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
 export class XRMesh extends XRSceneScopeElement<Mesh> {
-  private _geoCtrl = new RefController(
-    this,
-    'geometry',
-    () => this.geometry || null,
-    geo => {
-      if (this.entity && geo) geo.applyToMesh(this.entity);
-    }
-  );
+  constructor() {
+    super();
 
-  private _matCtrl = new RefController(
-    this,
-    'material',
-    () => this.material || null,
-    mat => {
-      if (this.entity) this.entity.material = mat;
-    }
-  );
+    new RefController(
+      this as any,
+      'geometry',
+      () => this.geometry || null,
+      geo => {
+        if (this.entity && geo) geo.applyToMesh(this.entity);
+      }
+    );
 
-  private _parentCtrl = new HierarchyController(this, parent => {
-    if (this.entity) this.entity.parent = parent;
-  });
+    new RefController(
+      this as any,
+      'material',
+      () => this.material || null,
+      mat => {
+        if (this.entity) this.entity.material = mat;
+      }
+    );
 
-  private _transCtrl = new TransformController(this);
+    new HierarchyController(this as any, parent => {
+      if (this.entity) this.entity.parent = parent;
+    });
+
+    new TransformController(this as any);
+  }
 
   @Decorator.property_String()
   geometry?: string;
@@ -36,14 +40,14 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   @Decorator.property_String()
   material?: string;
 
-  @Decorator.property_Vector3(Vector3.Zero())
-  position!: Vector3;
+  @Decorator.property_Vector3()
+  position = Vector3.Zero();
 
-  @Decorator.property_Vector3(Vector3.Zero())
-  rotation!: Vector3;
+  @Decorator.property_Vector3()
+  rotation = Vector3.Zero();
 
-  @Decorator.property_Vector3(Vector3.One())
-  scaling!: Vector3;
+  @Decorator.property_Vector3()
+  scaling = Vector3.One();
 
   connected(): void {
     super.connected();

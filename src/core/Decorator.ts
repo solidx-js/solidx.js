@@ -33,28 +33,27 @@ export const Decorator = {
     });
   },
 
-  property_Vector2: (ref: Vector2, attribute?: string) => {
+  property_Vector2: (attribute?: string) => {
     return property({
       reflect: true,
       converter: {
         fromAttribute: (value: string) => {
           const values = value.split(' ').map(v => parseFloat(v));
-          return ref.copyFromFloats(values[0], values[1]);
+          return Vector2.FromArray(values);
         },
         toAttribute: (value: Vector2) => value.asArray().join(' '),
       },
-      hasChanged: () => true,
       attribute,
     });
   },
 
-  property_Vector3: (ref: Vector3, attribute?: string) => {
+  property_Vector3: (attribute?: string) => {
     return property({
       reflect: true,
       converter: {
         fromAttribute: (value: string) => {
           const values = value.split(' ').map(v => parseFloat(v));
-          return ref.copyFromFloats(values[0], values[1], values[2]);
+          return Vector3.FromArray(values);
         },
         toAttribute: (value: Vector3) => value.asArray().join(' '),
       },
@@ -63,13 +62,13 @@ export const Decorator = {
     });
   },
 
-  property_Vector4: (ref: Vector4, attribute?: string) => {
+  property_Vector4: (attribute?: string) => {
     return property({
       reflect: true,
       converter: {
         fromAttribute: (value: string) => {
           const values = value.split(' ').map(v => parseFloat(v));
-          return ref.copyFromFloats(values[0], values[1], values[2], values[3]);
+          return Vector4.FromArray(values);
         },
         toAttribute: (value: Vector4) => `${value.x} ${value.y} ${value.z} ${value.w}`,
       },
@@ -128,9 +127,9 @@ export const Decorator = {
     if (dType === 'Number') return Decorator.property_Number(attribute);
     if (dType === 'String') return Decorator.property_String(attribute);
     if (dType === 'Array') return Decorator.property_Array(attribute);
-    if (dType === 'Vector2') return Decorator.property_Vector2(new Vector2(), attribute);
-    if (dType === 'Vector3') return Decorator.property_Vector3(new Vector3(), attribute);
-    if (dType === 'Vector4') return Decorator.property_Vector4(new Vector4(), attribute);
+    if (dType === 'Vector2') return Decorator.property_Vector2(attribute);
+    if (dType === 'Vector3') return Decorator.property_Vector3(attribute);
+    if (dType === 'Vector4') return Decorator.property_Vector4(attribute);
     if (dType === 'Color3') return Decorator.property_Color3(attribute);
     if (dType === 'Object') return Decorator.property_Object(attribute);
 

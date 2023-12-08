@@ -12,7 +12,7 @@ import { SSAO2RenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipe
 
 export class XRScene extends XRElement {
   private _environmentTextureRefCtrl = new RefController(
-    this,
+    this as any,
     'texture',
     () => this.environmentTexture || null,
     texture => {

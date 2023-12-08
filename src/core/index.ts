@@ -14,5 +14,4 @@ export * from './XRModel';
 export * from './XRNode';
 export * from './XRScene';
 export * from './XRSceneScopeElement';
-export * from './XRTransformNode';
 export * from './controller';

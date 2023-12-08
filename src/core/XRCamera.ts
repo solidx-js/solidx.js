@@ -16,7 +16,7 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
   @Decorator.property_Number()
   radius = 10;
 
-  @Decorator.property_Vector3(Vector3.Zero())
+  @Decorator.property_Vector3()
   target = Vector3.Zero();
 
   @Decorator.property_String('lock-target')
@@ -35,13 +35,13 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
     super();
 
     const refCtrl = new RefController(
-      this,
+      this as any,
       'transformNodeLike',
       () => this.lockTarget || null,
       () => {}
     );
 
-    new TickController(this, () => {
+    new TickController(this as any, () => {
       if (!this.entity) return;
 
       if (refCtrl.target) {
