@@ -1,0 +1,19 @@
+<xr-engine width="1000" height="400">
+  <xr-scene clear-color="#4FC690">
+    <xr-camera id="cam1" radius="3" alpha="-45" beta="60"></xr-camera>
+    <xr-directional-light id="light1" intensity="1"></xr-directional-light>
+    <xr-hemispheric-light id="light2" intensity="1"></xr-hemispheric-light>
+
+    <xr-material id="m1"></xr-material>
+    <xr-geometry id="g1" type="box"></xr-geometry>
+
+    <xr-mesh id="box1" geometry="g1" material="m1" transition="position 1s, rotation 1s" onload="console.log('@@@ box1 loaded', event)">
+      <xr-ray rotation="0 0 0" debug="color: #ff0000"></xr-ray>
+      <xr-ray rotation="90 0 0" debug="color: #00ff00"></xr-ray>
+      <xr-ray rotation="180 0 0" debug="color: #0000ff"></xr-ray>
+      <xr-ray rotation="270 0 0" debug="color: #ffff00"></xr-ray>
+      <xr-ray rotation="0 90 0" debug="color: #ff00ff"></xr-ray>
+      <xr-ray rotation="0 -90 0" debug="color: #00ffff"></xr-ray>
+    </xr-mesh>
+  </xr-scene>
+</xr-engine>

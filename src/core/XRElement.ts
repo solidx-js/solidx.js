@@ -1,7 +1,7 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
 import { Animation } from '@babylonjs/core/Animations/animation';
-import { EventDispatchController, NodeStateController, TransitionController } from './controller';
+import { NodeStateController, TransitionController } from './controller';
 import { Decorator } from './Decorator';
 import { parseDurationString } from '../util';
 import { property } from 'lit/decorators';
@@ -9,7 +9,6 @@ import { PickStringKey, StringKeys } from '../type';
 
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
-  static events: string[] = ['xr-transitionend'];
 
   readonly logger = DefaultBizLogger.extend(this.tagName.toLowerCase());
 
@@ -20,6 +19,9 @@ export class XRElement<T = any> extends LitElement {
   private _disposes: (() => void)[] = [];
 
   // 基础属性
+  @Decorator.property_Object()
+  debug?: Record<string, string>;
+
   @Decorator.property_Boolean('disabled')
   disabled?: boolean;
 
@@ -39,17 +41,18 @@ export class XRElement<T = any> extends LitElement {
     },
   }); // 过渡期间的插值数据
 
+  readonly changed = new Map<string, any>();
+
   constructor() {
     super();
 
     // 这里初始化一些基础控制器
-    new EventDispatchController(this as any);
     new NodeStateController(this as any);
     this._transitionCtrl = new TransitionController(
       this as any,
       this._transitionLerpData,
       () => this.requestUpdate('_transitionLerpData'),
-      property => this.emit('xr-transitionend', { property })
+      property => this.emit('transitionend', { property })
     );
   }
 
@@ -81,6 +84,11 @@ export class XRElement<T = any> extends LitElement {
 
   protected willUpdate(changed: Map<string, any>): void {
     super.willUpdate(changed);
+
+    // 把 changed 复制到 this.changed
+    this.changed.clear();
+    for (const [key, value] of changed) this.changed.set(key, value);
+
     this._transitionCtrl.trigger(changed); // 触发过渡
   }
 
@@ -115,7 +123,7 @@ export class XRElement<T = any> extends LitElement {
 function parseTransitions(attr: string) {
   const list: { property: string; duration: number; timingFunction: string; delay: number }[] = [];
 
-  const parts = attr.split(',');
+  const parts = attr.split(',').map(v => v.trim());
 
   for (const part of parts) {
     const [property, duration = '0s', timingFunction = '', delay = '0s'] = part.split(/\s+/g);

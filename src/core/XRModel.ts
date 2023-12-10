@@ -12,8 +12,6 @@ import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> {
-  static events: string[] = ['model-loaded'];
-
   @provide({ context: Context.AssetContainer })
   @state()
   private _container: AssetContainer | null = null;
@@ -137,7 +135,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
       this.requestUpdate('disabled');
 
-      this.emit('model-loaded', { container: _container });
+      this.emit('loaded', { container: _container });
     });
   }
 

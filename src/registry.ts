@@ -13,6 +13,7 @@ import {
   XRDirectionalLight,
   XRHemisphericLight,
   XRModel,
+  XRRay,
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
@@ -54,3 +55,4 @@ ElementRegistry.Instance.register('xr-camera', XRCamera as any);
 ElementRegistry.Instance.register('xr-directional-light', XRDirectionalLight as any);
 ElementRegistry.Instance.register('xr-hemispheric-light', XRHemisphericLight as any);
 ElementRegistry.Instance.register('xr-model', XRModel as any);
+ElementRegistry.Instance.register('xr-ray', XRRay as any);

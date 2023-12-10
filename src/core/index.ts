@@ -12,6 +12,7 @@ export * from './XRMaterial';
 export * from './XRMesh';
 export * from './XRModel';
 export * from './XRNode';
+export * from './XRRay';
 export * from './XRScene';
 export * from './XRSceneScopeElement';
 export * from './controller';
