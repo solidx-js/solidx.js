@@ -1,4 +1,3 @@
-export * from './EventDispatchController';
 export * from './HierarchyController';
 export * from './NodeStateController';
 export * from './RefController';
