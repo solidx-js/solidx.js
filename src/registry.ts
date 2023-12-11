@@ -14,6 +14,7 @@ import {
   XRHemisphericLight,
   XRModel,
   XRRay,
+  XRDecal,
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
@@ -56,3 +57,4 @@ ElementRegistry.Instance.register('xr-directional-light', XRDirectionalLight as 
 ElementRegistry.Instance.register('xr-hemispheric-light', XRHemisphericLight as any);
 ElementRegistry.Instance.register('xr-model', XRModel as any);
 ElementRegistry.Instance.register('xr-ray', XRRay as any);
+ElementRegistry.Instance.register('xr-decal', XRDecal as any);

@@ -1,7 +1,7 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
 import { Animation } from '@babylonjs/core/Animations/animation';
-import { NodeStateController, TransitionController } from './controller';
+import { EventDispatchController, NodeStateController, TransitionController } from './controller';
 import { Decorator } from './Decorator';
 import { parseDurationString } from '../util';
 import { property } from 'lit/decorators';
@@ -48,6 +48,8 @@ export class XRElement<T = any> extends LitElement {
 
     // 这里初始化一些基础控制器
     new NodeStateController(this as any);
+    new EventDispatchController(this as any);
+
     this._transitionCtrl = new TransitionController(
       this as any,
       this._transitionLerpData,

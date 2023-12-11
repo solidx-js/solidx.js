@@ -2,6 +2,7 @@ export * from './Context';
 export * from './Decorator';
 export * from './XRAnimation';
 export * from './XRCamera';
+export * from './XRDecal';
 export * from './XRDirectionalLight';
 export * from './XRElement';
 export * from './XREngine';
