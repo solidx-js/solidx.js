@@ -127,6 +127,14 @@ export class EventDispatchController implements ReactiveController {
     });
 
     this._mob.observe(this.host, { attributes: true, attributeFilter: ['on*'] });
+
+    // 初始化绑定
+    const attrs = this.host.getAttributeNames();
+    attrs.forEach(attr => {
+      if (attr.startsWith('on')) {
+        this._handleAttributeChange(attr);
+      }
+    });
   }
 
   private _handleAttributeChange(attr: string) {
@@ -142,6 +150,7 @@ export class EventDispatchController implements ReactiveController {
     if (!hasBind && fnBody) {
       const fn = _createHandler(this.host, fnBody);
       this.host.addEventListener(evType as any, fn as any);
+
       this._bindEvents.set(evType, fn);
 
       this.host.logger.debug(`[EventDispatchController] addEventListener: ${evType}`);
@@ -172,6 +181,11 @@ export class EventDispatchController implements ReactiveController {
       this._mob.disconnect();
       this._mob = null;
     }
+
+    this._bindEvents.forEach((fn, evType) => {
+      this.host.removeEventListener(evType as any, fn as any);
+    });
+    this._bindEvents.clear();
   }
 }
 

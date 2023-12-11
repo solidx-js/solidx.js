@@ -135,7 +135,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
       this.requestUpdate('disabled');
 
-      this.emit('loaded', { container: _container });
+      this.emit('loadeddata', { container: _container });
     });
   }
 

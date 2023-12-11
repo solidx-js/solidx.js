@@ -54,7 +54,7 @@ export class XRRay extends XRSceneScopeElement<Ray> {
     this.entity = new Ray(Vector3.Zero(), Vector3.Forward(), this.length);
     this._onTick();
 
-    this.click(); // 默认 init 时执行一次
+    this.pick(); // 默认 init 时执行一次
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -80,13 +80,13 @@ export class XRRay extends XRSceneScopeElement<Ray> {
   }
 
   /** 点击 */
-  click() {
+  pick() {
     if (!this.entity) return;
 
     const pk = this.scene.pickWithRay(this.entity);
     if (!pk) return;
 
-    this.emit('click', pk);
+    this.emit('pick', pk);
   }
 
   remove(): void {

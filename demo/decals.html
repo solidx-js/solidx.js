@@ -12,8 +12,8 @@
       geometry="g1"
       material="m1"
       transition="position 1s, rotation 1s"
-      onload="event.currentTarget.querySelectorAll('xr-ray').forEach(ray => ray.click())"
-      onclick="console.log('hit:', event.target.id, event.detail.hit)"
+      onloadeddata="event.currentTarget.querySelectorAll('xr-ray').forEach(ray => ray.pick())"
+      onpick="console.log('@@@ hit:', event.target.id, event.detail.hit)"
     >
       <xr-ray id="ray-1" rotation="0 0 0" debug="color: #ff0000"></xr-ray>
       <xr-ray id="ray-2" rotation="90 0 0" debug="color: #00ff00"></xr-ray>
