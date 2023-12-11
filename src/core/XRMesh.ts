@@ -16,7 +16,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
       geo => {
         if (this.entity && geo) {
           geo.applyToMesh(this.entity);
-          this.emit('loadeddata');
+          this.emit('loadeddata', {});
         }
       }
     );

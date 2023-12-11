@@ -66,7 +66,7 @@ export class XRElement<T = any> extends LitElement {
     return this;
   }
 
-  emit(evType: string, detail?: any) {
+  emit<T extends keyof HTMLElementEventMap>(evType: T, detail: HTMLElementEventMap[T]['detail']) {
     this.dispatchEvent(new CustomEvent(evType, { detail, bubbles: true }));
   }
 

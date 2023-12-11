@@ -9,3 +9,9 @@ declare module '@babylonjs/core/scene' {
     loadModel(url: string, forceExt?: string): Promise<AssetContainer>;
   }
 }
+
+declare global {
+  interface HTMLElementEventMap {
+    pick: any;
+  }
+}
