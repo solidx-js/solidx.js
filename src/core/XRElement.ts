@@ -1,9 +1,9 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import { EventDispatchController, NodeStateController, TransitionController } from './controller';
+import { EntityDebugController, EventDispatchController, NodeStateController, TransitionController } from './controller';
 import { Decorator } from './Decorator';
 import { parseDurationString } from '../util';
-import { property } from 'lit/decorators';
+import { property, state } from 'lit/decorators';
 import { IAniItem, PickStringKey, StringKeys } from '../type';
 import { AnimationController } from './controller';
 
@@ -12,6 +12,7 @@ export class XRElement<T = any> extends LitElement {
 
   readonly logger = DefaultBizLogger.extend(this.tagName.toLowerCase());
 
+  @state()
   entity: T | null = null;
 
   readonly _transitionCtrl: TransitionController;
@@ -52,6 +53,7 @@ export class XRElement<T = any> extends LitElement {
     // 这里初始化一些基础控制器
     new NodeStateController(this as any);
     new EventDispatchController(this as any);
+    new EntityDebugController(this as any);
 
     this._transitionCtrl = new TransitionController(
       this as any,

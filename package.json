@@ -7,7 +7,7 @@
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
-    "dev": "parcel serve --dist-dir=node_modules/.dist demo/*.html demo/assets/**/*.*",
+    "dev": "parcel serve --dist-dir=node_modules/.dist demo/*.html demo/assets/*.* demo/assets/**/*.*",
     "build": "rm -rf dist/* && parcel build ./src/index.ts --no-cache",
     "test": "jest -i",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit && npm test",

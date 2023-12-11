@@ -5,8 +5,9 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { CreateDecal } from '@babylonjs/core/Meshes/Builders/decalBuilder';
 import { ElementUtil } from '../util/ElementUtil';
 import { CreateBox } from '@babylonjs/core/Meshes/Builders/boxBuilder';
-import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
+import { Color4 } from '@babylonjs/core/Maths/math.color';
+import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 
 export class XRDecal extends XRSceneScopeElement<Mesh> {
   @Decorator.property_Vector3()
@@ -21,20 +22,27 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
   @Decorator.property_Number()
   angle = 0;
 
+  @Decorator.property_String()
+  img?: string;
+
+  @Decorator.property_Number('img-level')
+  imgLevel = 1;
+
   private _projector?: Mesh;
-  private _material: PBRMaterial | null = null;
+  private _material: StandardMaterial | null = null;
+  private _texture: Texture | null = null;
 
   connected(): void {
     super.connected();
 
-    this._material = new PBRMaterial('decal_material', this.scene);
-    this._material.zOffset = -2;
+    this._texture = new Texture(this.img || null, this.scene);
+    this._texture.hasAlpha = true;
 
-    const tex = new Texture('https://rshop.tech/gw/assets/upload/202312111316365.png', this.scene);
-    tex.hasAlpha = true;
-    this._material.albedoTexture = tex;
-    this._material.emissiveTexture = tex;
-    this._material.emissiveColor.set(1, 1, 1);
+    this._material = new StandardMaterial('decal_material', this.scene);
+    this._material.zOffset = -2; // 保证贴图在模型表面, 而不是在模型内部
+    this._material.diffuseTexture = this._texture;
+    this._material.emissiveTexture = this._texture;
+    this._material.disableLighting = true;
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -62,11 +70,18 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       }
     }
 
+    // _texture
+    if (this._texture) {
+      if (changed.has('img')) this._texture.updateURL(this.img || '');
+      this._texture.level = this.imgLevel;
+    }
+
     this._updateProjector();
   }
 
   /** 更新 projector (for debug) */
   private _updateProjector(): void {
+    // 创建
     if (this.debug && !this._projector) {
       this._projector = CreateBox('projector', { size: 1 }, this.scene);
       this._projector.enableEdgesRendering(0.99);
@@ -74,12 +89,14 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       this._projector.visibility = 0.001;
     }
 
+    // 销毁
     if (!this.debug && this._projector) {
       this._projector.dispose(false, true);
       this._projector = undefined;
     }
 
-    if (this._projector && this.entity && (this.entity as any).__createArgs) {
+    // 更新
+    if (this.debug && this._projector && this.entity && (this.entity as any).__createArgs) {
       const position = (this.entity as any).__createArgs.position as Vector3;
       const size = (this.entity as any).__createArgs.size as Vector3;
       const normal = (this.entity as any).__createArgs.normal as Vector3;
@@ -87,6 +104,9 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
 
       this._projector.position.copyFrom(position);
       this._projector.scaling.copyFrom(size);
+
+      const color = this.debug.color || '#ff0000';
+      this._projector.edgesColor = Color4.FromHexString(color);
 
       // rotation: copy from https://playground.babylonjs.com/#EEUVTY#199
       const yaw = -Math.atan2(normal.z, normal.x) - Math.PI / 2;
@@ -99,6 +119,12 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
 
   remove(): void {
     super.remove();
+
+    if (this._material) this._material.dispose();
+    this._material = null;
+
+    if (this._texture) this._texture.dispose();
+    this._texture = null;
 
     if (this.entity) this.entity.dispose();
     this.entity = null;

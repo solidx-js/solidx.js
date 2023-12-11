@@ -1,4 +1,4 @@
-import type { AssetContainer } from '@babylonjs/core';
+import type { AssetContainer, UtilityLayerRenderer } from '@babylonjs/core';
 import { IBjsEntityType, IEntityType } from './type';
 import { TransactionSystem } from './system';
 
@@ -13,6 +13,8 @@ declare module '@babylonjs/core/scene' {
     ): any;
     createVert(arg: { type: 'box' } | { type: 'sphere' } | { type: 'plane' }): VertexData;
     loadModel(url: string, forceExt?: string): Promise<AssetContainer>;
+
+    defaultUtilityLayer: UtilityLayerRenderer;
   }
 }
 

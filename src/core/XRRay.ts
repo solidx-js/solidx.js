@@ -2,8 +2,6 @@ import { Ray } from '@babylonjs/core/Culling/ray';
 import { XRSceneScopeElement } from './XRSceneScopeElement';
 import { Decorator } from './Decorator';
 import { Quaternion, TmpVectors, Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { RayHelper } from '@babylonjs/core/Debug/rayHelper';
-import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { ElementUtil } from '../util';
 import { TickController } from './controller';
 
@@ -16,8 +14,6 @@ export class XRRay extends XRSceneScopeElement<Ray> {
 
   @Decorator.property_Number()
   length = 1;
-
-  private _rayHelper: RayHelper | null = null;
 
   constructor() {
     super();
@@ -57,28 +53,6 @@ export class XRRay extends XRSceneScopeElement<Ray> {
     this.pick(); // 默认 init 时执行一次
   }
 
-  protected willUpdate(changed: Map<string, any>): void {
-    super.willUpdate(changed);
-
-    if (!this.entity) return;
-
-    if (changed.has('debug')) {
-      if (this.debug && !this._rayHelper) {
-        this._rayHelper = new RayHelper(this.entity);
-      }
-
-      if (!this.debug && this._rayHelper) {
-        this._rayHelper.dispose();
-        this._rayHelper = null;
-      }
-
-      if (this._rayHelper && this.debug) {
-        const color = this.debug.color || '#ff0000';
-        this._rayHelper.show(this.scene, Color3.FromHexString(color));
-      }
-    }
-  }
-
   /** 点击 */
   pick() {
     if (!this.entity) return;
@@ -91,12 +65,6 @@ export class XRRay extends XRSceneScopeElement<Ray> {
 
   remove(): void {
     super.remove();
-
-    if (this._rayHelper) {
-      this._rayHelper.dispose();
-      this._rayHelper = null;
-    }
-
     this.entity = null;
   }
 }

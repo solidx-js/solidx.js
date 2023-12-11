@@ -8,6 +8,7 @@ import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import { InstancedMesh } from '@babylonjs/core/Meshes/instancedMesh';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders/glTF';
+import { UtilityLayerRenderer } from '@babylonjs/core/Rendering/utilityLayerRenderer';
 
 Scene.prototype.waitFor = function waitFor(
   type: IEntityType,
@@ -122,3 +123,10 @@ Scene.prototype.loadModel = async function loadModel(url: string, forceExt?: str
     }
   });
 };
+
+Object.defineProperty(Scene.prototype, 'defaultUtilityLayer', {
+  get: function () {
+    if (!this._defaultUtilityLayer) this._defaultUtilityLayer = new UtilityLayerRenderer(this);
+    return this._defaultUtilityLayer;
+  },
+});
