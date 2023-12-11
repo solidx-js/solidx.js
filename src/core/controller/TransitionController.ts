@@ -43,12 +43,12 @@ export class TransitionController implements ReactiveController {
 
   hostConnected() {
     const _flushLoop = () => {
-      this.flush();
+      this._handleTick();
       requestAnimationFrame(_flushLoop);
     };
 
     this._rafId = requestAnimationFrame(_flushLoop);
-    this.flush(); // 立即执行一次
+    this._handleTick(); // 立即执行一次
   }
 
   set(item: ITransactionItem) {
@@ -68,7 +68,7 @@ export class TransitionController implements ReactiveController {
     if (index !== -1) this.list.splice(index, 1);
   }
 
-  private flush() {
+  private _handleTick() {
     if (this.list.length === 0) return;
 
     const now = performance.now();
@@ -142,7 +142,7 @@ export class TransitionController implements ReactiveController {
         const startTime = performance.now() + transDef.delay;
         this.set({ ...transDef, startValue: oldValue, endValue, startTime, dtType });
 
-        this.flush(); // 立即执行一次, 使 host 的过渡值立即生效
+        this._handleTick(); // 立即执行一次, 使 host 的过渡值立即生效
 
         this.host.logger.debug('[%s] start transition: %s -> %s, %sms', property, oldValue, endValue, transDef.duration);
       }

@@ -1,7 +1,6 @@
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import {
-  XRAnimation,
-  XRKeyFrame,
+  XRKeyFrames,
   XRElement,
   XREngine,
   XRGeometry,
@@ -50,8 +49,7 @@ ElementRegistry.Instance.register('xr-geometry', XRGeometry as any);
 ElementRegistry.Instance.register('xr-material', XRMaterial as any);
 ElementRegistry.Instance.register('xr-mesh', XRMesh as any);
 ElementRegistry.Instance.register('xr-node', XRNode as any);
-ElementRegistry.Instance.register('xr-animation', XRAnimation as any);
-ElementRegistry.Instance.register('xr-keyframe', XRKeyFrame as any);
+ElementRegistry.Instance.register('xr-keyframes', XRKeyFrames as any);
 ElementRegistry.Instance.register('xr-camera', XRCamera as any);
 ElementRegistry.Instance.register('xr-directional-light', XRDirectionalLight as any);
 ElementRegistry.Instance.register('xr-hemispheric-light', XRHemisphericLight as any);

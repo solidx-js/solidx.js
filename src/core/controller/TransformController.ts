@@ -19,7 +19,7 @@ export class TransformController implements ReactiveController {
     const position = (this.host.evaluatedProps as any).position as Vector3 | undefined;
     const rotation = (this.host.evaluatedProps as any).rotation as Vector3 | undefined;
     const rotationQuaternion = (this.host.evaluatedProps as any).rotationQuaternion as Quaternion | undefined;
-    const scaling = (this.host.evaluatedProps as any).scaling as Vector3 | undefined;
+    const scale = (this.host.evaluatedProps as any).scale as Vector3 | undefined;
 
     if (position && entity.position instanceof Vector3) {
       entity.position.copyFrom(position);
@@ -33,8 +33,8 @@ export class TransformController implements ReactiveController {
       entity.rotationQuaternion.copyFrom(rotationQuaternion);
     }
 
-    if (scaling && entity.scaling instanceof Vector3) {
-      entity.scaling.copyFrom(scaling);
+    if (scale && entity.scaling instanceof Vector3) {
+      entity.scaling.copyFrom(scale);
     }
   }
 }

@@ -24,3 +24,14 @@ export type StringKeys<T> = {
 export type PickStringKey<T> = {
   [K in keyof T]: T[K] extends string ? K : never;
 };
+
+export type IAniItem = {
+  iterationCount: number;
+  direction: string;
+  fillMode: string;
+  playState: string;
+  duration: number;
+  timingFunction: string;
+  delay: number;
+  name: string;
+};

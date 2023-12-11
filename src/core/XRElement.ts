@@ -1,21 +1,21 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import { Animation } from '@babylonjs/core/Animations/animation';
 import { EventDispatchController, NodeStateController, TransitionController } from './controller';
 import { Decorator } from './Decorator';
 import { parseDurationString } from '../util';
 import { property } from 'lit/decorators';
-import { PickStringKey, StringKeys } from '../type';
+import { IAniItem, PickStringKey, StringKeys } from '../type';
+import { AnimationController } from './controller';
 
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
 
   readonly logger = DefaultBizLogger.extend(this.tagName.toLowerCase());
 
-  animations: Animation[] = [];
   entity: T | null = null;
 
-  private _transitionCtrl: TransitionController;
+  readonly _transitionCtrl: TransitionController;
+  private _animationCtrl: AnimationController;
   private _disposes: (() => void)[] = [];
 
   // 基础属性
@@ -27,6 +27,9 @@ export class XRElement<T = any> extends LitElement {
 
   @property({ converter: { fromAttribute: (value: string) => parseTransitions(value) } })
   transition: { property: string; duration: number; timingFunction: string; delay: number }[] = [];
+
+  @property({ converter: { fromAttribute: (value: string) => parseAnimations(value) } })
+  animation: IAniItem[] = [];
 
   private _transitionLerpData: { [key: string]: any } = {}; // 过渡期间的插值数据
 
@@ -56,6 +59,8 @@ export class XRElement<T = any> extends LitElement {
       () => this.requestUpdate('_transitionLerpData'),
       property => this.emit('transitionend', { property })
     );
+
+    this._animationCtrl = new AnimationController(this as any);
   }
 
   get _Cls() {
@@ -92,6 +97,7 @@ export class XRElement<T = any> extends LitElement {
     for (const [key, value] of changed) this.changed.set(key, value);
 
     this._transitionCtrl.trigger(changed); // 触发过渡
+    this._animationCtrl.trigger(changed); // 触发动画
   }
 
   protected shouldUpdate(changed: Map<string, any>): boolean {
@@ -130,6 +136,33 @@ function parseTransitions(attr: string) {
   for (const part of parts) {
     const [property, duration = '0s', timingFunction = '', delay = '0s'] = part.split(/\s+/g);
     list.push({ property, duration: parseDurationString(duration), timingFunction, delay: parseFloat(delay) });
+  }
+
+  return list;
+}
+
+function parseAnimations(animation: string) {
+  const list: IAniItem[] = [];
+  const parts = animation.split(',').map(v => v.trim());
+
+  for (const part of parts) {
+    const segs = part.split(/\s+/g);
+
+    const name = segs.pop() as string;
+    if (!name) continue;
+
+    const [duration = '0s', ...args] = segs;
+
+    list.push({
+      name,
+      duration: parseDurationString(duration),
+      timingFunction: '',
+      delay: 0,
+      iterationCount: 1,
+      direction: 'normal',
+      fillMode: 'none',
+      playState: 'running',
+    });
   }
 
   return list;

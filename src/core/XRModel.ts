@@ -45,7 +45,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   rotation = Vector3.Zero();
 
   @Decorator.property_Vector3()
-  scaling = Vector3.One();
+  scale = Vector3.One();
 
   @Decorator.property_String()
   extension?: string;

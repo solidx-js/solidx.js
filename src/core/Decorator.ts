@@ -15,16 +15,15 @@ export const Decorator = {
   },
 
   property_Number: (attribute?: string) => {
-    return property({ reflect: true, type: Number, attribute });
+    return property({ type: Number, attribute });
   },
 
   property_String: (attribute?: string) => {
-    return property({ reflect: true, attribute });
+    return property({ attribute });
   },
 
   property_Array: (attribute?: string) => {
     return property({
-      reflect: true,
       converter: {
         fromAttribute: (value: string | null) => (value ? value.split(' ') : []),
         toAttribute: (value: string[]) => value.join(' '),
@@ -35,7 +34,6 @@ export const Decorator = {
 
   property_Vector2: (attribute?: string) => {
     return property({
-      reflect: true,
       converter: {
         fromAttribute: (value: string | null) => {
           if (!value) return;
@@ -50,7 +48,6 @@ export const Decorator = {
 
   property_Vector3: (attribute?: string) => {
     return property({
-      reflect: true,
       converter: {
         fromAttribute: (value: string | null) => {
           if (!value) return;
@@ -66,7 +63,6 @@ export const Decorator = {
 
   property_Vector4: (attribute?: string) => {
     return property({
-      reflect: true,
       converter: {
         fromAttribute: (value: string | null) => {
           if (!value) return;
@@ -82,7 +78,6 @@ export const Decorator = {
 
   property_Color3: (attribute?: string) => {
     return property({
-      reflect: true,
       converter: {
         fromAttribute: (value: string | null) => (value ? Color3.FromHexString(value) : undefined),
         toAttribute: (value: Color3) => value.toHexString(),
@@ -95,7 +90,7 @@ export const Decorator = {
   property_Color4: (attribute?: string) => {
     return property({
       attribute,
-      reflect: true,
+
       converter: {
         fromAttribute: (value: string | null) => (value ? Color4.FromHexString(value) : undefined),
         toAttribute: (value: Color4) => value.toHexString(),
@@ -105,12 +100,11 @@ export const Decorator = {
   },
 
   property_Boolean: (attribute?: string) => {
-    return property({ reflect: true, attribute, type: Boolean });
+    return property({ attribute, type: Boolean });
   },
 
   property_Object: (attribute?: string) => {
     return property({
-      reflect: true,
       attribute,
       converter: {
         fromAttribute: (value: string | null) => (typeof value === 'string' ? Schema.parse('Object', value) : undefined),

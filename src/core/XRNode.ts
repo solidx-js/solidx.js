@@ -19,7 +19,7 @@ export class XRNode extends XRSceneScopeElement<TransformNode> {
   rotation = Vector3.Zero();
 
   @Decorator.property_Vector3()
-  scaling = Vector3.One();
+  scale = Vector3.One();
 
   connected(): void {
     super.connected();

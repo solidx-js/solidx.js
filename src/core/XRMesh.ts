@@ -50,7 +50,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   rotation = Vector3.Zero();
 
   @Decorator.property_Vector3()
-  scaling = Vector3.One();
+  scale = Vector3.One();
 
   connected(): void {
     super.connected();

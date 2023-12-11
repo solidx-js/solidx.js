@@ -1,3 +1,5 @@
+export * from './AnimationController';
+export * from './AttributeObserverController';
 export * from './EventDispatchController';
 export * from './HierarchyController';
 export * from './NodeStateController';
