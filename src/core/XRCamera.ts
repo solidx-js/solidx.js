@@ -73,6 +73,9 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
       new Vector3(0, 0, 0),
       this.scene
     );
+
+    this.entity.lowerRadiusLimit = this.minZ;
+
     this.entity.attachControl();
   }
 
