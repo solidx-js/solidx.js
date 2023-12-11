@@ -18,7 +18,7 @@ export class XRScene extends XRElement {
     texture => {
       this.scene.environmentTexture = texture;
     },
-    async ref => {
+    ref => {
       const tex = CubeTexture.CreateFromPrefilteredData(ref, this.scene);
       return { entity: tex, dispose: () => tex.dispose() };
     }

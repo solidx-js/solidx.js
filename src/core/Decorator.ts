@@ -113,7 +113,7 @@ export const Decorator = {
       reflect: true,
       attribute,
       converter: {
-        fromAttribute: (value: string | null) => Schema.parse('Object', value),
+        fromAttribute: (value: string | null) => (typeof value === 'string' ? Schema.parse('Object', value) : undefined),
         toAttribute: (value: any) => Schema.stringify('Object', value),
       },
     });

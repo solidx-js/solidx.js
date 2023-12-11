@@ -9,7 +9,13 @@ import { InstancedMesh } from '@babylonjs/core/Meshes/instancedMesh';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders/glTF';
 
-Scene.prototype.waitFor = async function waitFor(type: IEntityType, id: string, abortSignal: AbortSignal): Promise<any> {
+Scene.prototype.waitFor = function waitFor(
+  type: IEntityType,
+  id: string,
+  abortSignal: AbortSignal,
+  resolve: (target: any) => any,
+  reject: (err: Error) => any
+): any {
   abortSignal.throwIfAborted();
 
   let _getEntity: () => any;
@@ -26,23 +32,23 @@ Scene.prototype.waitFor = async function waitFor(type: IEntityType, id: string, 
   } else throw new Error(`Unknown type: ${type}`);
 
   const _entity = _getEntity();
-  if (_entity) return _entity;
+  if (_entity) return resolve(_entity);
 
-  return new Promise((resolve, reject) => {
+  new Promise((_resolve, _reject) => {
     const _handler = () => {
-      const _entity = _getEntity!();
+      const _entity = _getEntity();
       if (_entity) {
         this.onAfterRenderObservable.removeCallback(_handler);
-        resolve(_entity);
+        _resolve(_entity);
       }
     };
     this.onAfterRenderObservable.add(_handler);
 
     abortSignal.addEventListener('abort', () => {
       this.onAfterRenderObservable.removeCallback(_handler);
-      reject(new DOMException('Aborted', 'AbortError'));
+      _reject(new DOMException('Aborted', 'AbortError'));
     });
-  });
+  }).then(resolve, reject);
 };
 
 Scene.prototype.createVert = function createVert(arg: { type: 'box' } | { type: 'sphere' } | { type: 'plane' }): any {

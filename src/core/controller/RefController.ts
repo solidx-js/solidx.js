@@ -16,7 +16,7 @@ export class RefController<T extends IEntityType> implements ReactiveController 
     private _type: T,
     private _onGetRefString: () => string | null,
     private _onResult: (target: IBjsEntityType<T> | null) => void,
-    private _onResolveRef?: (ref: string) => Promise<{ entity: IBjsEntityType<T>; dispose: () => any }>
+    private _onResolveRef?: (ref: string) => { entity: IBjsEntityType<T>; dispose: () => any }
   ) {
     this.host.addController(this);
   }
@@ -30,8 +30,10 @@ export class RefController<T extends IEntityType> implements ReactiveController 
     if (ref === this._lastRef && !force) return; // no change
 
     if (ref) {
-      this._waitFor(this._type, ref)
-        .then(target => {
+      this._waitFor(
+        this._type,
+        ref,
+        target => {
           this.host.logger.debug(
             'RefController resolved: %s - %s',
             (target as any).id || (target as any).name,
@@ -40,11 +42,12 @@ export class RefController<T extends IEntityType> implements ReactiveController 
 
           this.target = target;
           this._onResult(target);
-        })
-        .catch(() => {
+        },
+        () => {
           this.target = null;
           this._onResult(null);
-        });
+        }
+      );
     } else {
       this.target = null;
       this._onResult(null);
@@ -64,7 +67,7 @@ export class RefController<T extends IEntityType> implements ReactiveController 
     }
   }
 
-  private async _waitFor(type: T, id: string): Promise<IBjsEntityType<T>> {
+  private _waitFor(type: T, id: string, resolve: (target: IBjsEntityType<T>) => any, reject: (err: Error) => any): void {
     if (this._ab) this._ab.abort();
 
     if (this._customResolvedInfo) {
@@ -73,11 +76,12 @@ export class RefController<T extends IEntityType> implements ReactiveController 
     }
 
     if (this._onResolveRef) {
-      this._customResolvedInfo = await this._onResolveRef(id);
-      return this._customResolvedInfo.entity;
+      this._customResolvedInfo = this._onResolveRef(id);
+      this._customResolvedInfo.entity;
+      return resolve(this._customResolvedInfo.entity);
     }
 
     this._ab = new AbortController();
-    return this.scene.waitFor(type, id, this._ab.signal);
+    return this.scene.waitFor(type, id, this._ab.signal, resolve, reject);
   }
 }
