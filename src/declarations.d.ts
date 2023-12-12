@@ -1,6 +1,6 @@
 import type { AssetContainer, UtilityLayerRenderer } from '@babylonjs/core';
 import { IBjsEntityType, IEntityType } from './type';
-import { TransactionSystem } from './system';
+import { IDataType } from './util/Schema';
 
 declare module '@babylonjs/core/scene' {
   interface Scene {
@@ -15,6 +15,13 @@ declare module '@babylonjs/core/scene' {
     loadModel(url: string, forceExt?: string): Promise<AssetContainer>;
 
     defaultUtilityLayer: UtilityLayerRenderer;
+  }
+}
+
+declare module 'lit' {
+  // 扩展 lit 的 property 装饰器
+  export interface PropertyDeclaration {
+    dType?: IDataType;
   }
 }
 

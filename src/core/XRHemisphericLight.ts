@@ -6,10 +6,10 @@ import { XRSceneScopeElement } from './XRSceneScopeElement';
 export class XRHemisphericLight extends XRSceneScopeElement<HemisphericLight> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property_Number()
+  @Decorator.property('Number')
   intensity = 1;
 
-  @Decorator.property_Vector2()
+  @Decorator.property('Vector2')
   rotation = new Vector2(40, 30);
 
   connected(): void {

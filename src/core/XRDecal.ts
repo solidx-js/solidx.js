@@ -10,22 +10,22 @@ import { Color4 } from '@babylonjs/core/Maths/math.color';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 
 export class XRDecal extends XRSceneScopeElement<Mesh> {
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   size = Vector3.One();
 
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   position = Vector3.Zero();
 
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   normal = Vector3.Up();
 
-  @Decorator.property_Number()
+  @Decorator.property('Number')
   angle = 0;
 
-  @Decorator.property_String()
+  @Decorator.property('String')
   img?: string;
 
-  @Decorator.property_Number('img-level')
+  @Decorator.property('Number', 'img-level')
   imgLevel = 1;
 
   private _projector?: Mesh;

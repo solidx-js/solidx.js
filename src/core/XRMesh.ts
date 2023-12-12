@@ -37,19 +37,19 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
     new TransformController(this as any);
   }
 
-  @Decorator.property_String()
+  @Decorator.property('String')
   geometry?: string;
 
-  @Decorator.property_String()
+  @Decorator.property('String')
   material?: string;
 
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   position = Vector3.Zero();
 
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   rotation = Vector3.Zero();
 
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   scale = Vector3.One();
 
   connected(): void {

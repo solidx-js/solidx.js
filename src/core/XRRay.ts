@@ -6,13 +6,13 @@ import { ElementUtil } from '../util';
 import { TickController } from './controller';
 
 export class XRRay extends XRSceneScopeElement<Ray> {
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   position = Vector3.Zero();
 
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   rotation = Vector3.Zero();
 
-  @Decorator.property_Number()
+  @Decorator.property('Number')
   length = 1;
 
   constructor() {

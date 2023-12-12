@@ -29,13 +29,13 @@ export class XREngine extends XRElement {
   @property({ attribute: false })
   engine!: Engine;
 
-  @Decorator.property_Number()
+  @Decorator.property('Number')
   width: number = 600;
 
-  @Decorator.property_Number()
+  @Decorator.property('Number')
   height: number = 400;
 
-  @Decorator.property_Boolean('auto-resize')
+  @Decorator.property('Boolean', 'auto-resize')
   autoResize?: boolean;
 
   @query('[data-name=XREngine]')

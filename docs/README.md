@@ -4,7 +4,7 @@
 
 ```html
 <xr-engine auto-resize>
-  <xr-scene clear-color="#4FC690">
+  <xr-scene>
     <xr-camera id="cam1" lock-target="box1"></xr-camera>
     <xr-directional-light id="light1" intensity="3" rotation="40 70"></xr-directional-light>
     <xr-hemispheric-light id="light2" intensity="3" rotation="0 0"></xr-hemispheric-light>

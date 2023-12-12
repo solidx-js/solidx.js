@@ -35,34 +35,34 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
     }
   );
 
-  @Decorator.property_String()
+  @Decorator.property('String')
   src: string = '';
 
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   position = Vector3.Zero();
 
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   rotation = Vector3.Zero();
 
-  @Decorator.property_Vector3()
+  @Decorator.property('Vector3')
   scale = Vector3.One();
 
-  @Decorator.property_String()
+  @Decorator.property('String')
   extension?: string;
 
-  @Decorator.property_String()
+  @Decorator.property('String')
   material?: string;
 
-  @Decorator.property_String('auto-play')
+  @Decorator.property('String', 'auto-play')
   autoPlay?: string;
 
-  @Decorator.property_Boolean()
+  @Decorator.property('Boolean')
   loop = false;
 
-  @Decorator.property_Boolean('flat-shading')
+  @Decorator.property('Boolean', 'flat-shading')
   flatShading = false;
 
-  @Decorator.property_Boolean()
+  @Decorator.property('Boolean')
   preload?: boolean;
 
   connected(): void {

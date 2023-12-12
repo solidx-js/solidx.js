@@ -1,4 +1,3 @@
-export * from './AnimationController';
 export * from './AttributeObserverController';
 export * from './EntityDebugController';
 export * from './EventDispatchController';

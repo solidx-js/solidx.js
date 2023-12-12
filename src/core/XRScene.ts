@@ -34,19 +34,19 @@ export class XRScene extends XRElement {
   @property({ attribute: false })
   engine!: Engine;
 
-  @Decorator.property_Color4('clear-color')
+  @Decorator.property('Color4', 'clear-color')
   clearColor?: Color4;
 
-  @Decorator.property_String()
+  @Decorator.property('String')
   environmentTexture?: string;
 
-  @Decorator.property_Number()
+  @Decorator.property('Number')
   contrast = 1;
 
-  @Decorator.property_Number()
+  @Decorator.property('Number')
   exposure = 1;
 
-  @Decorator.property_Object()
+  @Decorator.property('Object')
   ssao?: any;
 
   private _doRender = () => {
