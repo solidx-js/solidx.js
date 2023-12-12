@@ -58,13 +58,12 @@ export class TweenController implements ReactiveController {
         this._tweenRef[property] = typedClone(oldValue);
         const lerpValues = [typedClone(oldValue), typedClone(newValue)];
 
+        const { timingFunction, delay, duration } = transDef;
+
+        // to 必须用数组形式，才能启用自定义插值函数
         const tween = new TWEEN.Tween(this._tweenRef, this._tweenGroup)
-          .to(
-            {
-              [property]: lerpValues, // 必须用数组形式，才能启用自定义插值函数
-            },
-            transDef.duration
-          )
+          .to({ [property]: lerpValues }, duration)
+          .delay(delay)
           .dynamic(true)
           .onUpdate(() => this._onUpdate(property))
           .onComplete(() => {
@@ -78,6 +77,14 @@ export class TweenController implements ReactiveController {
         (tween.interpolation as any)((values: any[], gradient: number) => {
           return (lerpFn as any)(values[0], values[1], gradient, this._tweenRef[property]);
         });
+
+        // easing 函数
+        // Quadratic：二次方的缓动（t^2）
+        if (timingFunction === 'ease') tween.easing(TWEEN.Easing.Quadratic.InOut);
+        else if (timingFunction === 'ease-in') tween.easing(TWEEN.Easing.Quadratic.In);
+        else if (timingFunction === 'ease-out') tween.easing(TWEEN.Easing.Quadratic.Out);
+        else if (timingFunction === 'ease-in-out') tween.easing(TWEEN.Easing.Quadratic.InOut);
+        else tween.easing(TWEEN.Easing.Linear.None);
 
         this._tweenMap[property] = { tween, dType, lerpValues };
         tween.start();
