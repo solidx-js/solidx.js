@@ -14,7 +14,8 @@
       debug="axesViewer: true; axesViewerScale: 0.5;"
       geometry="g1"
       material="m1"
-      animation="3s linear ani1"
+      rotation="0 0 0"
+      transition="rotation 0.5s"
       onloadeddata="event.currentTarget.querySelectorAll('xr-ray').forEach(ray => ray.pick())"
       onpick="console.log('@@@ hit:', event.target.id, event.detail.hit)"
     >
@@ -57,34 +58,13 @@
   // 旋转 box1
   (function () {
     const box = document.querySelector('#box1');
-    const target = { rotation: '0 0 0' };
 
-    anime({
-      targets: target,
-      rotation: [{ value: '0 180 0' }, { value: '0 360 0' }],
-      easing: 'linear',
-      duration: 50e3,
-      loop: true,
-      update: () => {
-        box.setAttribute('rotation', target.rotation);
-      },
-    });
-  })();
+    // 每秒旋转
+    let y = 0;
 
-  // 旋转 decal-1.angle
-  (function () {
-    const decal = document.querySelector('#decal-1');
-    const target = { angle: 0 };
-
-    anime({
-      targets: target,
-      angle: [0, 360],
-      easing: 'linear',
-      duration: 10e3,
-      loop: true,
-      update: () => {
-        decal.setAttribute('angle', target.angle + '');
-      },
-    });
+    setInterval(() => {
+      y += 10;
+      box.setAttribute('rotation', `0 ${y} 0`);
+    }, 800);
   })();
 </script>

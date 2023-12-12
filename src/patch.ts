@@ -9,6 +9,26 @@ import { InstancedMesh } from '@babylonjs/core/Meshes/instancedMesh';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders/glTF';
 import { UtilityLayerRenderer } from '@babylonjs/core/Rendering/utilityLayerRenderer';
+import * as TWEEN from '@tweenjs/tween.js';
+
+// fix: Found invalid interpolation list. Skipping.
+(TWEEN.Tween.prototype as any)._setupProperties = function (
+  _object: any,
+  _valuesStart: any,
+  _valuesEnd: any,
+  _valuesStartRepeat: any,
+  overrideStartingValues: boolean
+) {
+  for (const property of Object.keys(_valuesEnd)) {
+    const startValue = _object[property];
+
+    if (typeof _valuesStart[property] === 'undefined' || overrideStartingValues) {
+      _valuesStart[property] = startValue;
+    }
+
+    _valuesStartRepeat[property] = _valuesEnd[property].slice().reverse();
+  }
+};
 
 Scene.prototype.waitFor = function waitFor(
   type: IEntityType,

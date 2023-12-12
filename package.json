@@ -58,6 +58,7 @@
     "@babylonjs/loaders": "^6.32.1",
     "@lit/context": "^1.1.0",
     "@swc/helpers": "^0.5.3",
+    "@tweenjs/tween.js": "^21.0.0",
     "ah-logger": "^3.2.8",
     "lit": "^3.1.0",
     "lodash": "^4.17.21"

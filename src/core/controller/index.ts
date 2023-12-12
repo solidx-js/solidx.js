@@ -6,4 +6,4 @@ export * from './NodeStateController';
 export * from './RefController';
 export * from './TickController';
 export * from './TransformController';
-export * from './TransitionController';
+export * from './TweenController';

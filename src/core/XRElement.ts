@@ -1,12 +1,10 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import { EntityDebugController, EventDispatchController, NodeStateController, TransitionController } from './controller';
+import { EntityDebugController, EventDispatchController, NodeStateController, TweenController } from './controller';
 import { Decorator } from './Decorator';
-import { IDataType, parseDurationString } from '../util';
+import { parseDurationString } from '../util';
 import { property, state } from 'lit/decorators';
 import { IAniItem, PickStringKey } from '../type';
-import compact from 'lodash/compact';
-import type { XRKeyFrames } from './XRKeyFrames';
 
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
@@ -15,8 +13,6 @@ export class XRElement<T = any> extends LitElement {
 
   @state()
   entity: T | null = null;
-
-  readonly _transitionCtrl: TransitionController;
 
   // 基础属性
   @Decorator.property('Object')
@@ -31,24 +27,15 @@ export class XRElement<T = any> extends LitElement {
   @property({ converter: { fromAttribute: (value: string) => parseAnimations(value) } })
   animation: IAniItem[] = [];
 
-  // 动画数据表
-  private _aniTable: Record<
-    string,
-    {
-      cursor: number;
-      dType: IDataType;
-      frames: { percentage: number; value: string }[];
-    }
-  > = {};
-
-  private _transitionLerpData: { [key: string]: any } = {}; // 过渡期间的插值数据
+  private _tweenCtrl: TweenController;
+  private _tweenLerpData: { [key: string]: any } = {}; // 过渡期间的插值数据
   private _disposes: (() => void)[] = [];
 
   // 求解后的属性
   readonly evaluatedProps = new Proxy<PickStringKey<this>>({} as any, {
     get: (_stash, _p) => {
       const p = _p as string;
-      return this._transitionLerpData[p] ?? (this as any)[p];
+      return this._tweenLerpData[p] ?? (this as any)[p];
     },
     set(_stash, p) {
       throw new Error(`Can't set property "${p as any}" of evaluatedProps`);
@@ -65,7 +52,12 @@ export class XRElement<T = any> extends LitElement {
     new EventDispatchController(this as any);
     new EntityDebugController(this as any);
 
-    this._transitionCtrl = new TransitionController(this as any, this._transitionLerpData, () => this.requestUpdate('_transitionLerpData'));
+    this._tweenCtrl = new TweenController(
+      this as any,
+      this._tweenLerpData,
+      () => this.requestUpdate('_transitionLerpData', undefined, { hasChanged: () => true }), // 强制标记为 changed
+      () => this.requestUpdate()
+    );
   }
 
   get _Cls() {
@@ -94,71 +86,6 @@ export class XRElement<T = any> extends LitElement {
     this.connected();
   }
 
-  /** 触发过渡 */
-  private _triggerTransition(changed: Map<string, any>) {
-    for (const [property, oldValue] of changed) {
-      const endValue = (this as any)[property];
-
-      const dType = this._Cls.elementProperties.get(property)?.dType;
-      if (!dType) continue; // 不支持的属性
-
-      const transDef = this.transition.find(t => t.property === property);
-      if (!transDef) {
-        this._transitionCtrl.remove(property);
-        continue;
-      }
-
-      // 过渡属性
-      if (typeof oldValue === 'undefined') {
-        const item = this._transitionCtrl.get(property);
-        if (item) item.endValue = endValue;
-      } else {
-        const startTime = performance.now() + transDef.delay;
-        this._transitionCtrl.set({
-          ...transDef,
-          startValue: oldValue,
-          endValue,
-          startTime,
-          dType,
-          _resolve: () => this.emit('transitionend', { property }),
-        });
-
-        this._transitionCtrl._handleTick(); // 立即执行一次, 使 host 的过渡值立即生效
-
-        this.logger.debug('[%s] start transition: %s -> %s, %sms', property, oldValue, endValue, transDef.duration);
-      }
-    }
-  }
-
-  /** 触发动画 */
-  private _triggerAnimation(changed: Map<string, any>): void {
-    const list = this.animation;
-
-    if (list.length === 0) return;
-
-    const rootEle = this.closest('xr-engine');
-    if (!rootEle) return;
-
-    const keyElements = compact(list.map(item => rootEle.querySelector<XRKeyFrames>(`xr-keyframes#${item.name}`)));
-    if (keyElements.length !== list.length) return;
-
-    for (let i = 0; i < list.length; i++) {
-      const aniDef = list[i];
-      const keyDatas = keyElements[i].entity || [];
-
-      // 填充 table
-      for (const { percentage, data } of keyDatas) {
-        for (const [property, value] of Object.entries(data)) {
-          const dType = this._Cls.elementProperties.get(property)?.dType;
-          if (!dType) continue;
-
-          if (!this._aniTable[property]) this._aniTable[property] = { cursor: 0, dType, frames: [] };
-          this._aniTable[property].frames.push({ percentage, value });
-        }
-      }
-    }
-  }
-
   protected willUpdate(changed: Map<string, any>): void {
     super.willUpdate(changed);
 
@@ -166,8 +93,11 @@ export class XRElement<T = any> extends LitElement {
     this.changed.clear();
     for (const [key, value] of changed) this.changed.set(key, value);
 
-    this._triggerTransition(changed); // 触发过渡
-    this._triggerAnimation(changed); // 触发动画
+    // 触发补间
+    for (const [property, oldValue] of changed) {
+      if (!this._Cls.elementProperties.has(property)) continue; // 不支持的属性
+      this._tweenCtrl.triggerChange(property, (this as any)[property], oldValue);
+    }
   }
 
   protected shouldUpdate(changed: Map<string, any>): boolean {
