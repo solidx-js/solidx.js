@@ -4,12 +4,13 @@ import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 
 export const LerpFns: {
-  [K in IDataType]: (start: IDataTypeMap[K], end: IDataTypeMap[K], gradient: number, ref: IDataTypeMap[K]) => IDataTypeMap[K];
+  [K in IDataType]: (start: IDataTypeMap[K], end: IDataTypeMap[K], gradient: number, ref?: IDataTypeMap[K]) => IDataTypeMap[K];
 } = {
   Number: Scalar.Lerp,
   Vector2: Vector2.Lerp,
-  Vector3: Vector3.LerpToRef,
-  Vector4: (start: Vector4, end: Vector4, gradient, ref: Vector4) => {
+  Vector3: (start: Vector3, end: Vector3, gradient, ref?: Vector3) => Vector3.LerpToRef(start, end, gradient, ref || new Vector3()),
+  Vector4: (start: Vector4, end: Vector4, gradient, ref?: Vector4) => {
+    if (!ref) ref = new Vector4();
     ref.x = Scalar.Lerp(start.x, end.x, gradient);
     ref.y = Scalar.Lerp(start.y, end.y, gradient);
     ref.z = Scalar.Lerp(start.z, end.z, gradient);

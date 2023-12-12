@@ -14,7 +14,6 @@
       debug="axesViewer: true; axesViewerScale: 0.5;"
       geometry="g1"
       material="m1"
-      transition="position 1s, rotation 1s"
       animation="3s linear ani1"
       onloadeddata="event.currentTarget.querySelectorAll('xr-ray').forEach(ray => ray.pick())"
       onpick="console.log('@@@ hit:', event.target.id, event.detail.hit)"
@@ -24,29 +23,68 @@
       <xr-ray id="ray-3" rotation="0 90 0" debug="color: #ff0000"></xr-ray>
 
       <xr-decal
+        id="decal-1"
         img="./assets/decal.png"
         img-level="2"
         normal="0 0 1"
         position="0 0 -0.5"
         size="0.8 0.8 1"
-        debug="color: #0000ff"
+        _debug="color: #0000ff"
       ></xr-decal>
       <xr-decal
+        id="decal-2"
         img="./assets/decal.png"
         img-level="2"
         normal="0 1 0"
         position="0 -0.5 0"
         size="0.8 0.8 1"
-        debug="color: #00ff00"
+        _debug="color: #00ff00"
       ></xr-decal>
       <xr-decal
+        id="decal-3"
         img="./assets/decal.png"
         img-level="2"
         normal="1 0 0"
         position="-0.5 0 0"
         size="0.8 0.8 1"
-        debug="color: #ff0000"
+        _debug="color: #ff0000"
       ></xr-decal>
     </xr-mesh>
   </xr-scene>
 </xr-engine>
+
+<script>
+  // 旋转 box1
+  (function () {
+    const box = document.querySelector('#box1');
+    const target = { rotation: '0 0 0' };
+
+    anime({
+      targets: target,
+      rotation: [{ value: '0 180 0' }, { value: '0 360 0' }],
+      easing: 'linear',
+      duration: 50e3,
+      loop: true,
+      update: () => {
+        box.setAttribute('rotation', target.rotation);
+      },
+    });
+  })();
+
+  // 旋转 decal-1.angle
+  (function () {
+    const decal = document.querySelector('#decal-1');
+    const target = { angle: 0 };
+
+    anime({
+      targets: target,
+      angle: [0, 360],
+      easing: 'linear',
+      duration: 10e3,
+      loop: true,
+      update: () => {
+        decal.setAttribute('angle', target.angle + '');
+      },
+    });
+  })();
+</script>
