@@ -34,9 +34,6 @@ export class XRScene extends XRElement {
   @property({ attribute: false })
   engine!: Engine;
 
-  @Decorator.property('Color4', 'clear-color')
-  clearColor?: Color4;
-
   @Decorator.property('String')
   environmentTexture?: string;
 
@@ -59,6 +56,7 @@ export class XRScene extends XRElement {
 
     this.scene = new Scene(this.engine);
     this.scene.autoClear = true;
+    this.scene.clearColor = new Color4(0, 0, 0, 0); // 默认透明背景
 
     this.engine.runRenderLoop(this._doRender);
   }
@@ -69,10 +67,6 @@ export class XRScene extends XRElement {
 
   protected willUpdate(changed: Map<string, any>): void {
     super.willUpdate(changed);
-
-    if (changed.has('clearColor')) {
-      this.scene.clearColor = this.clearColor ?? new Color4(0.2, 0.2, 0.3, 1.0);
-    }
 
     if (changed.has('contrast')) {
       this.scene.imageProcessingConfiguration.contrast = this.contrast;
