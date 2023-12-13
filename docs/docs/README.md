@@ -96,14 +96,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `AssetContainer` | \{ `__context__`: `AssetContainer`  } |
-| `AssetContainer.__context__` | `AssetContainer` |
-| `Engine` | \{ `__context__`: `Engine`  } |
-| `Engine.__context__` | `Engine` |
-| `Scene` | \{ `__context__`: `Scene`  } |
-| `Scene.__context__` | `Scene` |
-| `TransformNode` | \{ `__context__`: `TransformNode`  } |
-| `TransformNode.__context__` | `TransformNode` |
+| `AssetContainer` | {} |
+| `Engine` | {} |
+| `Scene` | {} |
+| `TransformNode` | {} |
 
 ___
 

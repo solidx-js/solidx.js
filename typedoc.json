@@ -3,12 +3,13 @@
   "entryPoints": ["./src/index.ts"],
   "out": "./docs/docs",
   "plugin": ["typedoc-plugin-markdown"],
-  "exclude": ["**/dist/**/*", "**/test/**/*"],
+  "exclude": ["**/dist/**/*", "**/test/**/*", "**/lib.dom.d.ts", "**/node_modules/lit/**/*", "**/node_modules/@lit/**/*"],
   "excludePrivate": true,
   "excludeProtected": true,
   "excludeInternal": true,
   "disableSources": true,
   "readme": "none",
   "hideParameterTypesInTitle": true,
-  "hideBreadcrumbs": true
+  "hideBreadcrumbs": true,
+  "excludeNotDocumentedKinds": ["Property", "Method"]
 }
