@@ -1,7 +1,19 @@
-import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
+import { Color3, Color4, Matrix } from '@babylonjs/core/Maths/math';
 import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 
-export type IDataType = 'Number' | 'String' | 'Boolean' | 'Array' | 'Vector2' | 'Vector3' | 'Vector4' | 'Object' | 'Color3' | 'Color4';
+export type IDataType =
+  | 'Number'
+  | 'String'
+  | 'Boolean'
+  | 'Array'
+  | 'Vector2'
+  | 'Vector3'
+  | 'Vector4'
+  | 'Object'
+  | 'Color3'
+  | 'Color4'
+  | 'Matrix';
+
 export type IDataTypeMap = {
   Number: number;
   String: string;
@@ -13,6 +25,7 @@ export type IDataTypeMap = {
   Vector4: Vector4;
   Color3: Color3;
   Color4: Color4;
+  Matrix: Matrix;
 };
 
 export const Schema = {
@@ -21,11 +34,12 @@ export const Schema = {
     else if (type === 'String') return String(data) as any;
     else if (type === 'Boolean') return (typeof data !== 'undefined') as any;
     else if (type === 'Array') return data.split(' ').map(v => v.trim()) as any;
-    else if (type === 'Vector2') return Vector2.FromArray(data.split(' ').map(v => Number(v.trim()))) as any;
-    else if (type === 'Vector3') return Vector3.FromArray(data.split(' ').map(v => Number(v.trim()))) as any;
-    else if (type === 'Vector4') return Vector4.FromArray(data.split(' ').map(v => Number(v.trim()))) as any;
+    else if (type === 'Vector2') return Vector2.FromArray(_ns(data)) as any;
+    else if (type === 'Vector3') return Vector3.FromArray(_ns(data)) as any;
+    else if (type === 'Vector4') return Vector4.FromArray(_ns(data)) as any;
     else if (type === 'Color3') return Color3.FromHexString(data) as any;
     else if (type === 'Color4') return Color4.FromHexString(data) as any;
+    else if (type === 'Matrix') return Matrix.FromArray(_ns(data)) as any;
     else if (type === 'Object') {
       const obj: any = {};
       if (data === '') return obj as any;
@@ -56,6 +70,7 @@ export const Schema = {
     else if (type === 'Vector4') return (data as Vector4).asArray().join(' ');
     else if (type === 'Color3') return (data as Color3).toHexString();
     else if (type === 'Color4') return (data as Color4).toHexString();
+    else if (type === 'Matrix') return (data as Matrix).asArray().join(' ');
     else if (type === 'Object') {
       const list: string[] = [];
 
@@ -72,3 +87,7 @@ export const Schema = {
     }
   },
 };
+
+function _ns(s: string) {
+  return s.split(' ').map(v => Number(v.trim()));
+}

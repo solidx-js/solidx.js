@@ -27,7 +27,7 @@ export default defineUserConfig({
       '/examples/': [{ text: '基础示例', children: list('examples/basic/*.md') }],
       '/docs/': [{ text: 'Class', children: list('docs/classes/*.md') }],
     },
-    sidebarDepth: 0,
+    sidebarDepth: 1,
     contributors: false,
     lastUpdated: false,
   }),

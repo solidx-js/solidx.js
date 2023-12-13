@@ -4,7 +4,7 @@ import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { Schema, randomID } from '../util';
 import { HierarchyController, RefController, TransformController } from './controller';
-import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { provide } from '@lit/context';
 import { Context } from './Context';
 import { state } from 'lit/decorators.js';
@@ -62,6 +62,12 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('Boolean', 'flat-shading')
   flatShading = false;
 
+  /**
+   * 原点转换。如果设置了该属性，则会把模型的原点转换到指定的位置。
+   */
+  @Decorator.property('Matrix', 'origin-transform')
+  originTransform?: Matrix;
+
   @Decorator.property('Boolean')
   preload?: boolean;
 
@@ -109,6 +115,9 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
       for (const mesh of _container.meshes) {
         if (mesh instanceof Mesh) {
+          // 原点转换
+          if (this.originTransform) mesh.bakeTransformIntoVertices(Matrix.Invert(this.originTransform));
+
           // 处理 flat-shading
           if (this.flatShading) mesh.convertToFlatShadedMesh();
         }

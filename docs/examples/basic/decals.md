@@ -14,19 +14,18 @@
     <xr-material id="m1"></xr-material>
     <xr-geometry id="g1" type="box"></xr-geometry>
 
-    <xr-mesh id="box1" inspect="axes: true; scale: 0.5" geometry="g1" material="m1" rotation="0 0 0" transition="rotation 0.5s ease-in-out">
+    <xr-mesh id="box1" inspect="axes: true; scale: 0.5" geometry="g1" material="m1">
+      <xr-decal
+        id="decal-1"
+        img="/assets/decal.png"
+        img-level="2"
+        position="-0.5 -0.5 -0.5"
+        direction="1 1 1.01"
+        size="0.8 0.8 1"
+        transition="angle 0.5s ease-in-out"
+        inspect
+      ></xr-decal>
     </xr-mesh>
-
-    <xr-decal
-      id="decal-1"
-      img="/assets/decal.png"
-      img-level="2"
-      position="-0.5 -0.5 -0.5"
-      direction="1 1 1.01"
-      size="0.8 0.8 1"
-      transition="angle 0.5s ease-in-out"
-      inspect
-    ></xr-decal>
   </xr-scene>
 </xr-engine>
 
@@ -63,7 +62,16 @@
     <xr-geometry id="g1" type="box"></xr-geometry>
 
     <xr-mesh id="box1" geometry="g1" material="m1"> </xr-mesh>
-    <xr-decal id="decal-1" img="/assets/decal.png" img-level="2" position="1 0 0" direction="-1 0 0" size="0.8 0.8 1.3" inspect></xr-decal>
+    <xr-decal
+      id="decal-1"
+      img="/assets/decal.png"
+      img-level="2"
+      position="1 0 0"
+      direction="-1 0 0"
+      size="0.8 0.8 1.3"
+      use-ray
+      inspect
+    ></xr-decal>
   </xr-scene>
 </xr-engine>
 

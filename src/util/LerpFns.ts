@@ -1,6 +1,6 @@
 import { Scalar } from '@babylonjs/core/Maths/math.scalar';
 import { IDataType, IDataTypeMap } from './Schema';
-import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
+import { Vector2, Vector3, Vector4, Matrix } from '@babylonjs/core/Maths/math.vector';
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 
 export const LerpFns: {
@@ -23,4 +23,5 @@ export const LerpFns: {
   Boolean: (_start, end) => end,
   Array: (_start, end) => end,
   Object: (_start, end) => end,
+  Matrix: (start: Matrix, end: Matrix, gradient, ref?: Matrix) => Matrix.LerpToRef(start, end, gradient, ref || new Matrix()),
 };

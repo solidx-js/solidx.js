@@ -44,6 +44,9 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
   @Decorator.property('Number', 'img-level')
   imgLevel = 1;
 
+  @Decorator.property('Boolean', 'use-ray')
+  useRay?: boolean;
+
   private _projector: Mesh | null = null;
   private _material: StandardMaterial | null = null;
   private _texture: Texture | null = null;
@@ -65,59 +68,76 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
     this._material.disableLighting = true;
   }
 
-  protected willUpdate(changed: Map<string, any>): void {
-    super.willUpdate(changed);
+  reload() {
+    if (this.entity) {
+      this.entity.dispose();
+      this.entity = null;
+    }
 
-    const shouldRecreate = changed.has('size') || changed.has('position') || changed.has('direction') || changed.has('angle');
+    const position = this.evaluated.position.clone();
+    const direction = this.evaluated.direction.clone();
+    direction.normalize();
 
-    if (shouldRecreate) {
-      if (this.entity) {
-        this.entity.dispose();
-        this.entity = null;
-      }
+    const size = this.evaluated.size;
+    const angle = (this.evaluated.angle * Math.PI) / 180; // degree to radian
 
-      const position = this.evaluated.position.clone();
-      const direction = this.evaluated.direction.normalizeToNew();
-      const size = this.evaluated.size;
-      const angle = (this.evaluated.angle * Math.PI) / 180; // degree to radian
+    const parent = ElementUtil.closestTransformNodeLike(this);
+    if (parent) {
+      // 如果有 parent, 要做世界矩阵转换
+      const worldMatrix = parent.getWorldMatrix();
+      Vector3.TransformCoordinatesToRef(position, worldMatrix, position);
+      Vector3.TransformNormalToRef(direction, worldMatrix, direction);
+    }
 
-      const parent = ElementUtil.closestTransformNodeLike(this);
-      if (parent) {
-        // 如果有 parent, 要做世界矩阵转换
-        const worldMatrix = parent.getWorldMatrix();
-        Vector3.TransformCoordinatesToRef(this.evaluated.position, worldMatrix, position);
-        Vector3.TransformNormalToRef(this.evaluated.direction, worldMatrix, direction);
-      }
+    let targetMesh: Mesh | null = null;
 
+    // 使用射线拾取贴花对象
+    if (this.useRay) {
       if (!this._ray) this._ray = new Ray(Vector3.Zero(), Vector3.Zero(), 1);
 
       this._ray.direction.copyFrom(direction);
       this._ray.length = size.z; // 用 size.z 作为射线长度
-      this._updateRayHelper();
 
       // 射线起点在投影体的中心偏移一半射线长度
       position.addToRef(direction.scale(-this._ray.length / 2), this._ray.origin);
 
-      // 用射线拾取贴花对象
       const pk = this.scene.pickWithRay(this._ray);
-
-      if (pk && pk.hit && pk.pickedMesh) {
-        const id = this.id || randomID();
-
-        // 创建贴花
-        this.entity = CreateDecal('decal_' + id, pk.pickedMesh, {
-          localMode: true,
-          position,
-          normal: direction.scale(-1), // 贴花定义的法线方向与射线方向相反
-          size,
-          angle,
-          cullBackFaces: true,
-        });
-        this.entity.material = this._material;
+      if (pk?.pickedMesh && pk.pickedMesh instanceof Mesh) {
+        targetMesh = pk.pickedMesh;
       }
+    } else {
+      this._ray = null;
 
-      this._updateProjector(position, direction, size, angle);
+      // 直接使用 parent 作为贴花对象
+      if (parent && parent instanceof Mesh) targetMesh = parent;
     }
+
+    // 创建贴花
+    if (targetMesh) {
+      const id = this.id || randomID();
+      this.entity = CreateDecal('decal_' + id, targetMesh, {
+        localMode: true,
+        position,
+        normal: direction.scale(-1), // 贴花定义的法线方向与射线方向相反
+        size,
+        angle,
+        cullBackFaces: true,
+      });
+
+      this.entity.material = this._material;
+    }
+
+    this._updateProjector(position, direction, size, angle);
+    this._updateRayHelper();
+  }
+
+  protected willUpdate(changed: Map<string, any>): void {
+    super.willUpdate(changed);
+
+    const shouldRecreate =
+      changed.has('size') || changed.has('position') || changed.has('direction') || changed.has('angle') || changed.has('useRay');
+
+    if (shouldRecreate) this.reload();
 
     // _texture
     if (this._texture) {
@@ -152,9 +172,10 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       this._projector.edgesColor = Color4.FromHexString(color);
 
       // rotation: copy from https://playground.babylonjs.com/#EEUVTY#199
-      const yaw = -Math.atan2(direction.z, direction.x) - Math.PI / 2;
-      const len = Math.sqrt(direction.x * direction.x + direction.z * direction.z);
-      const pitch = Math.atan2(direction.y, len);
+      const normal = direction.scale(-1);
+      const yaw = -Math.atan2(normal.z, normal.x) - Math.PI / 2;
+      const len = Math.sqrt(normal.x * normal.x + normal.z * normal.z);
+      const pitch = Math.atan2(normal.y, len);
 
       this._projector.rotation.set(pitch, yaw, angle);
     }

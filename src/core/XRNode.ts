@@ -6,11 +6,14 @@ import { HierarchyController, TransformController } from './controller';
 import { randomID } from '../util';
 
 export class XRNode extends XRSceneScopeElement<TransformNode> {
-  private _parentCtrl = new HierarchyController(this as any, parent => {
-    if (this.entity) this.entity.parent = parent;
-  });
+  constructor() {
+    super();
 
-  private _transCtrl = new TransformController(this as any);
+    new HierarchyController(this as any, parent => {
+      if (this.entity) this.entity.parent = parent;
+    });
+    new TransformController(this as any);
+  }
 
   @Decorator.property('Vector3')
   position = Vector3.Zero();

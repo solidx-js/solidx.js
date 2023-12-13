@@ -24,11 +24,6 @@ export default {
     this.updateContent();
   },
 
-  unmounted() {
-    this.$refs.container.detachShadow();
-    this.shadowRoot = null;
-  },
-
   methods: {
     updateContent() {
       if (!this.shadowRoot) return;
