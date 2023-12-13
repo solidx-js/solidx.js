@@ -5,25 +5,41 @@
 <script>
 export default {
   props: {
-    base64Html: {
-      type: String,
-      required: true,
-    },
+    base64Html: { type: String, required: true },
   },
 
+  containerId: null,
+  shadowRoot: null,
+
   mounted() {
-    this.createShadowDOM();
+    this.containerId = 'shadow-container-' + Math.random().toString(36).slice(2);
+    this.$refs.container.id = this.containerId;
+
+    this.shadowRoot = this.$refs.container.attachShadow({ mode: 'open' });
+
+    this.updateContent();
+  },
+
+  updated() {
+    this.updateContent();
+  },
+
+  unmounted() {
+    this.$refs.container.detachShadow();
+    this.shadowRoot = null;
   },
 
   methods: {
-    createShadowDOM() {
+    updateContent() {
+      if (!this.shadowRoot) return;
+
+      const containerId = this.containerId;
+      const shadowRoot = this.shadowRoot;
+      shadowRoot.innerHTML = '';
+
       const decodedHtml = atob(this.base64Html);
       const parser = new DOMParser();
       const doc = parser.parseFromString(decodedHtml, 'text/html');
-
-      const containerId = 'shadow-container-' + Math.random().toString(36).slice(2);
-      this.$refs.container.id = containerId;
-      const shadowRoot = this.$refs.container.attachShadow({ mode: 'open' });
 
       for (let i = 0; i < doc.body.childNodes.length; i++) {
         const node = doc.body.childNodes[i];

@@ -21,6 +21,9 @@ export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
   @Decorator.property('Boolean', 'backface-culling')
   backFaceCulling: boolean = false;
 
+  @Decorator.property('Number')
+  alpha: number = 1;
+
   connected(): void {
     super.connected();
     this.entity = new PBRMaterial(this.id, this.scene);
@@ -36,6 +39,7 @@ export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
     if (typeof this.roughness !== 'undefined') this.entity.roughness = this.roughness;
     if (this.emissiveColor) this.entity.emissiveColor = this.emissiveColor;
     if (typeof this.backFaceCulling !== 'undefined') this.entity.backFaceCulling = this.backFaceCulling;
+    if (typeof this.alpha !== 'undefined') this.entity.alpha = this.alpha;
   }
 
   disconnected(): void {

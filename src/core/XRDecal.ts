@@ -6,23 +6,35 @@ import { CreateDecal } from '@babylonjs/core/Meshes/Builders/decalBuilder';
 import { ElementUtil } from '../util/ElementUtil';
 import { CreateBox } from '@babylonjs/core/Meshes/Builders/boxBuilder';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
-import { Color4 } from '@babylonjs/core/Maths/math.color';
+import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
+import { Ray } from '@babylonjs/core/Culling/ray';
+import { randomID } from '../util';
+import { RayHelper } from '@babylonjs/core/Debug/rayHelper';
 
 /**
  * 贴花
  */
 export class XRDecal extends XRSceneScopeElement<Mesh> {
-  /** 贴花尺寸 */
+  /**
+   * 贴花尺寸
+   *
+   * - x: width
+   * - y: height
+   * - z: depth
+   */
   @Decorator.property('Vector3')
   size = Vector3.One();
 
+  /** 贴花投影体的中心 */
   @Decorator.property('Vector3')
   position = Vector3.Zero();
 
+  /** 贴花投影方向 */
   @Decorator.property('Vector3')
-  normal = Vector3.Up();
+  direction = Vector3.Up();
 
+  /** 贴花投影角度 */
   @Decorator.property('Number')
   angle = 0;
 
@@ -32,9 +44,12 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
   @Decorator.property('Number', 'img-level')
   imgLevel = 1;
 
-  private _projector?: Mesh;
+  private _projector: Mesh | null = null;
   private _material: StandardMaterial | null = null;
   private _texture: Texture | null = null;
+  private _ray: Ray | null = null;
+
+  private _rayHelper: RayHelper | null = null;
 
   connected(): void {
     super.connected();
@@ -43,6 +58,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
     this._texture.hasAlpha = true;
 
     this._material = new StandardMaterial('decal_material', this.scene);
+    this._material.backFaceCulling = false;
     this._material.zOffset = -2; // 保证贴图在模型表面, 而不是在模型内部
     this._material.diffuseTexture = this._texture;
     this._material.emissiveTexture = this._texture;
@@ -52,27 +68,55 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
   protected willUpdate(changed: Map<string, any>): void {
     super.willUpdate(changed);
 
-    const shouldRecreate = changed.has('size') || changed.has('position') || changed.has('normal') || changed.has('angle');
+    const shouldRecreate = changed.has('size') || changed.has('position') || changed.has('direction') || changed.has('angle');
 
     if (shouldRecreate) {
-      if (this.entity) this.entity.dispose();
+      if (this.entity) {
+        this.entity.dispose();
+        this.entity = null;
+      }
+
+      const position = this.evaluated.position.clone();
+      const direction = this.evaluated.direction.normalizeToNew();
+      const size = this.evaluated.size;
+      const angle = (this.evaluated.angle * Math.PI) / 180; // degree to radian
 
       const parent = ElementUtil.closestTransformNodeLike(this);
-
-      if (parent && parent instanceof Mesh) {
+      if (parent) {
+        // 如果有 parent, 要做世界矩阵转换
         const worldMatrix = parent.getWorldMatrix();
-
-        const position = Vector3.TransformCoordinates(this.evaluated.position, worldMatrix);
-        const normal = Vector3.TransformNormal(this.evaluated.normal, worldMatrix);
-        const size = this.evaluated.size;
-
-        const angle = (this.evaluated.angle * Math.PI) / 180; // degree to radian
-
-        this.entity = CreateDecal(parent.name + '_decal', parent, { localMode: true, position, normal, size, angle });
-        this.entity.material = this._material;
-
-        (this.entity as any).__createArgs = { position, normal, size, angle };
+        Vector3.TransformCoordinatesToRef(this.evaluated.position, worldMatrix, position);
+        Vector3.TransformNormalToRef(this.evaluated.direction, worldMatrix, direction);
       }
+
+      if (!this._ray) this._ray = new Ray(Vector3.Zero(), Vector3.Zero(), 1);
+
+      this._ray.direction.copyFrom(direction);
+      this._ray.length = size.z; // 用 size.z 作为射线长度
+      this._updateRayHelper();
+
+      // 射线起点在投影体的中心偏移一半射线长度
+      position.addToRef(direction.scale(-this._ray.length / 2), this._ray.origin);
+
+      // 用射线拾取贴花对象
+      const pk = this.scene.pickWithRay(this._ray);
+
+      if (pk && pk.hit && pk.pickedMesh) {
+        const id = this.id || randomID();
+
+        // 创建贴花
+        this.entity = CreateDecal('decal_' + id, pk.pickedMesh, {
+          localMode: true,
+          position,
+          normal: direction.scale(-1), // 贴花定义的法线方向与射线方向相反
+          size,
+          angle,
+          cullBackFaces: true,
+        });
+        this.entity.material = this._material;
+      }
+
+      this._updateProjector(position, direction, size, angle);
     }
 
     // _texture
@@ -80,33 +124,27 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       if (changed.has('img')) this._texture.updateURL(this.evaluated.img || '');
       this._texture.level = this.evaluated.imgLevel;
     }
-
-    this._updateProjector();
   }
 
   /** 更新 projector (for debug) */
-  private _updateProjector(): void {
+  private _updateProjector(position: Vector3, direction: Vector3, size: Vector3, angle: number): void {
     // 创建
     if (this.inspect && !this._projector) {
       this._projector = CreateBox('projector', { size: 1 }, this.scene);
       this._projector.enableEdgesRendering(0.99);
       this._projector.edgesWidth = 1;
       this._projector.visibility = 0.001;
+      this._projector.isPickable = false;
     }
 
     // 销毁
     if (!this.inspect && this._projector) {
       this._projector.dispose(false, true);
-      this._projector = undefined;
+      this._projector = null;
     }
 
     // 更新
-    if (this.inspect && this._projector && this.entity && (this.entity as any).__createArgs) {
-      const position = (this.entity as any).__createArgs.position as Vector3;
-      const size = (this.entity as any).__createArgs.size as Vector3;
-      const normal = (this.entity as any).__createArgs.normal as Vector3;
-      const angle = (this.entity as any).__createArgs.angle as number;
-
+    if (this.inspect && this._projector) {
       this._projector.position.copyFrom(position);
       this._projector.scaling.copyFrom(size);
 
@@ -114,11 +152,26 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       this._projector.edgesColor = Color4.FromHexString(color);
 
       // rotation: copy from https://playground.babylonjs.com/#EEUVTY#199
-      const yaw = -Math.atan2(normal.z, normal.x) - Math.PI / 2;
-      const len = Math.sqrt(normal.x * normal.x + normal.z * normal.z);
-      const pitch = Math.atan2(normal.y, len);
+      const yaw = -Math.atan2(direction.z, direction.x) - Math.PI / 2;
+      const len = Math.sqrt(direction.x * direction.x + direction.z * direction.z);
+      const pitch = Math.atan2(direction.y, len);
 
       this._projector.rotation.set(pitch, yaw, angle);
+    }
+  }
+
+  private _updateRayHelper(): void {
+    if (this.inspect && this._ray && !this._rayHelper) {
+      this._rayHelper = new RayHelper(this._ray);
+    }
+
+    if (!this.inspect && this._rayHelper) {
+      this._rayHelper.dispose();
+      this._rayHelper = null;
+    }
+
+    if (this.inspect && this._rayHelper) {
+      this._rayHelper.show(this.scene.defaultUtilityLayer.utilityLayerScene, Color3.FromHexString(this.inspect.color || '#ff0000'));
     }
   }
 
@@ -133,5 +186,13 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
 
     if (this.entity) this.entity.dispose();
     this.entity = null;
+
+    if (this._projector) this._projector.dispose();
+    this._projector = null;
+
+    this._ray = null;
+
+    if (this._rayHelper) this._rayHelper.dispose();
+    this._rayHelper = null;
   }
 }

@@ -39,13 +39,13 @@ export const framework = defineUserConfig({
           const liveHeight = arg.height || '300px';
 
           return `
-<div class="demo-block">
+<p class="demo-block">
   <HtmlLive base64Html="${Buffer.from(innerHTML).toString('base64')}" />
   <div class="source">
           `;
         }
 
-        return '</div></div>';
+        return '</div></p>';
       },
     }),
   ],
