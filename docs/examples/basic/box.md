@@ -12,7 +12,7 @@
     <xr-material id="m1" albedo-color="#ff0000"></xr-material>
     <xr-geometry id="g1" type="box"></xr-geometry>
 
-    <xr-mesh id="box1" geometry="g1" material="m1" debug="axesViewer: true"></xr-mesh>
+    <xr-mesh id="box1" geometry="g1" material="m1" inspect="axes: true"></xr-mesh>
   </xr-scene>
 </xr-engine>
 ```

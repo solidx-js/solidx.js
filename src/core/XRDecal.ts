@@ -82,7 +82,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
   /** 更新 projector (for debug) */
   private _updateProjector(): void {
     // 创建
-    if (this.debug && !this._projector) {
+    if (this.inspect && !this._projector) {
       this._projector = CreateBox('projector', { size: 1 }, this.scene);
       this._projector.enableEdgesRendering(0.99);
       this._projector.edgesWidth = 1;
@@ -90,13 +90,13 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
     }
 
     // 销毁
-    if (!this.debug && this._projector) {
+    if (!this.inspect && this._projector) {
       this._projector.dispose(false, true);
       this._projector = undefined;
     }
 
     // 更新
-    if (this.debug && this._projector && this.entity && (this.entity as any).__createArgs) {
+    if (this.inspect && this._projector && this.entity && (this.entity as any).__createArgs) {
       const position = (this.entity as any).__createArgs.position as Vector3;
       const size = (this.entity as any).__createArgs.size as Vector3;
       const normal = (this.entity as any).__createArgs.normal as Vector3;
@@ -105,7 +105,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       this._projector.position.copyFrom(position);
       this._projector.scaling.copyFrom(size);
 
-      const color = this.debug.color || '#ff0000';
+      const color = this.inspect.color || '#ff0000';
       this._projector.edgesColor = Color4.FromHexString(color);
 
       // rotation: copy from https://playground.babylonjs.com/#EEUVTY#199

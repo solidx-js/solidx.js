@@ -1,6 +1,6 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import { EntityDebugController, EventDispatchController, NodeStateController, TweenController } from './controller';
+import { EntityInspectController, EventDispatchController, NodeStateController, TweenController } from './controller';
 import { Decorator } from './Decorator';
 import { parseDurationString } from '../util';
 import { property, state } from 'lit/decorators.js';
@@ -16,7 +16,7 @@ export class XRElement<T = any> extends LitElement {
 
   // 基础属性
   @Decorator.property('Object')
-  debug?: Record<string, string>;
+  inspect?: Record<string, string>;
 
   @Decorator.property('Boolean')
   disabled?: boolean;
@@ -50,7 +50,7 @@ export class XRElement<T = any> extends LitElement {
     // 这里初始化一些基础控制器
     new NodeStateController(this as any);
     new EventDispatchController(this as any);
-    new EntityDebugController(this as any);
+    new EntityInspectController(this as any);
 
     this._tweenCtrl = new TweenController(
       this as any,

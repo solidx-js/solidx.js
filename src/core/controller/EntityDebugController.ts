@@ -7,7 +7,7 @@ import { RayHelper } from '@babylonjs/core/Debug/rayHelper';
 import { Ray } from '@babylonjs/core/Culling/ray';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 
-export class EntityDebugController implements ReactiveController {
+export class EntityInspectController implements ReactiveController {
   private _axesViewer: AxesViewer | null = null;
   private _rayHelper: RayHelper | null = null;
 
@@ -41,20 +41,20 @@ export class EntityDebugController implements ReactiveController {
 
   hostUpdate(): void {
     const entity = this.host.entity;
-    const debug = this.host.debug;
+    const inspect = this.host.inspect;
 
-    if (entity && debug) {
+    if (entity && inspect) {
       // 基础参数
-      const color = debug.color || '#ff0000';
+      const color = inspect.color || '#ff0000';
 
-      const axesViewerVisible = debug.axesViewer === 'true';
-      const axesViewerScale = parseFloat(debug.axesViewerScale || '1');
+      const axesVisible = inspect.axes === 'true';
+      const axesScale = parseFloat(inspect.axesScale || '1');
 
       // TransformNode
       if (entity instanceof TransformNode) {
         if (!this._axesViewer) this._axesViewer = new AxesViewer(this.uLayerScene, 1, 2);
         this._axesViewer.update(entity.absolutePosition, entity.right, entity.up, entity.forward);
-        this._axesViewer.scaleLines = axesViewerVisible ? axesViewerScale : 0;
+        this._axesViewer.scaleLines = axesVisible ? axesScale : 0;
       }
 
       // Ray
