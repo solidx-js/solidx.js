@@ -56,6 +56,7 @@ export class XREngine extends XRElement {
     _canvas.style.outline = 'none';
 
     this.engine = XREngine.createEngine(_canvas);
+    this.logger.info('XREngine created');
   }
 
   protected firstUpdated(): void {

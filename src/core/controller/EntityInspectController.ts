@@ -61,6 +61,8 @@ export class EntityInspectController implements ReactiveController {
       // TransformNode
       if (entity instanceof TransformNode) {
         if (!this._axesViewer) this._axesViewer = new AxesViewer(this.uLayerScene, 1, 2);
+
+        entity.computeWorldMatrix(true);
         this._axesViewer.update(entity.absolutePosition, entity.right, entity.up, entity.forward);
         this._axesViewer.scaleLines = axesVisible ? scale : 0;
       }

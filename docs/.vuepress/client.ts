@@ -13,3 +13,4 @@ export default defineClientConfig({
     defineAutoCatalogGetter();
   },
 });
+

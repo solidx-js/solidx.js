@@ -32,7 +32,7 @@ export class XRElement<T = any> extends LitElement {
   private _disposes: (() => void)[] = [];
 
   // 求解后的属性
-  readonly evaluatedProps = new Proxy<PickStringKey<this>>({} as any, {
+  readonly evaluated = new Proxy<PickStringKey<this>>({} as any, {
     get: (_stash, _p) => {
       const p = _p as string;
       return this._tweenLerpData[p] ?? (this as any)[p];
@@ -56,7 +56,7 @@ export class XRElement<T = any> extends LitElement {
     this._tweenCtrl = new TweenController(
       this as any,
       this._tweenLerpData,
-      () => this.requestUpdate('_transitionLerpData', undefined, { hasChanged: () => true }), // 强制标记为 changed
+      p => this.requestUpdate(p, undefined, { hasChanged: () => true }), // 强制标记为 changed
       () => this.requestUpdate()
     );
   }
@@ -122,12 +122,12 @@ export class XRElement<T = any> extends LitElement {
     this.disconnected();
   }
 
-  /** 
+  /**
    * @internal
    * @override 第一次被连接到文档 DOM */
   connected() {}
 
-  /** 
+  /**
    * @internal
    * @override 从文档 DOM 中删除 */
   disconnected() {}

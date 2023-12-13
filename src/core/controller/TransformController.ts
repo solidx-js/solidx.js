@@ -16,10 +16,10 @@ export class TransformController implements ReactiveController {
       this.host.logger.warn('TransformController can only be used on TransformNode-like entities');
     }
 
-    const position = (this.host.evaluatedProps as any).position as Vector3 | undefined;
-    const rotation = (this.host.evaluatedProps as any).rotation as Vector3 | undefined;
-    const rotationQuaternion = (this.host.evaluatedProps as any).rotationQuaternion as Quaternion | undefined;
-    const scale = (this.host.evaluatedProps as any).scale as Vector3 | undefined;
+    const position = (this.host.evaluated as any).position as Vector3 | undefined;
+    const rotation = (this.host.evaluated as any).rotation as Vector3 | undefined;
+    const rotationQuaternion = (this.host.evaluated as any).rotationQuaternion as Quaternion | undefined;
+    const scale = (this.host.evaluated as any).scale as Vector3 | undefined;
 
     if (position && entity.position instanceof Vector3) {
       entity.position.copyFrom(position);

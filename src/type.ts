@@ -22,7 +22,7 @@ export type StringKeys<T> = {
 }[keyof T];
 
 export type PickStringKey<T> = {
-  [K in keyof T]: T[K] extends string ? K : never;
+  [K in keyof T]: K extends string ? T[K] : never;
 };
 
 export type IAniItem = {

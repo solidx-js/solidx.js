@@ -75,7 +75,8 @@ export class TweenController implements ReactiveController {
 
         // 定制补间插值函数
         (tween.interpolation as any)((values: any[], gradient: number) => {
-          return (lerpFn as any)(values[0], values[1], gradient, this._tweenRef[property]);
+          const result = (lerpFn as any)(values[0], values[1], gradient, this._tweenRef[property]);
+          return result;
         });
 
         // easing 函数

@@ -62,10 +62,11 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       if (parent && parent instanceof Mesh) {
         const worldMatrix = parent.getWorldMatrix();
 
-        const position = Vector3.TransformCoordinates(this.position, worldMatrix);
-        const normal = Vector3.TransformNormal(this.normal, worldMatrix);
-        const size = this.size;
-        const angle = (this.angle * Math.PI) / 180; // degree to radian
+        const position = Vector3.TransformCoordinates(this.evaluated.position, worldMatrix);
+        const normal = Vector3.TransformNormal(this.evaluated.normal, worldMatrix);
+        const size = this.evaluated.size;
+
+        const angle = (this.evaluated.angle * Math.PI) / 180; // degree to radian
 
         this.entity = CreateDecal(parent.name + '_decal', parent, { localMode: true, position, normal, size, angle });
         this.entity.material = this._material;
@@ -76,8 +77,8 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
 
     // _texture
     if (this._texture) {
-      if (changed.has('img')) this._texture.updateURL(this.img || '');
-      this._texture.level = this.imgLevel;
+      if (changed.has('img')) this._texture.updateURL(this.evaluated.img || '');
+      this._texture.level = this.evaluated.imgLevel;
     }
 
     this._updateProjector();
