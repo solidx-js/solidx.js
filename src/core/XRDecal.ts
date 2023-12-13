@@ -10,10 +10,10 @@ import { Color4 } from '@babylonjs/core/Maths/math.color';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 
 /**
- * @category XR
+ * 贴花
  */
 export class XRDecal extends XRSceneScopeElement<Mesh> {
-  /** size */
+  /** 贴花尺寸 */
   @Decorator.property('Vector3')
   size = Vector3.One();
 

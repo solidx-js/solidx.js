@@ -1,377 +1,371 @@
-# Class: XRDecal
-
-贴花
+# Class: XRGeometry
 
 ## Hierarchy
 
-- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`Mesh`\>
+- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`Geometry`\>
 
-  ↳ **`XRDecal`**
+  ↳ **`XRGeometry`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](XRDecal.md#constructor)
+- [constructor](XRGeometry.md#constructor)
 
 ### Properties
 
-- [ATTRIBUTE\_NODE](XRDecal.md#attribute_node)
-- [CDATA\_SECTION\_NODE](XRDecal.md#cdata_section_node)
-- [COMMENT\_NODE](XRDecal.md#comment_node)
-- [DOCUMENT\_FRAGMENT\_NODE](XRDecal.md#document_fragment_node)
-- [DOCUMENT\_NODE](XRDecal.md#document_node)
-- [DOCUMENT\_POSITION\_CONTAINED\_BY](XRDecal.md#document_position_contained_by)
-- [DOCUMENT\_POSITION\_CONTAINS](XRDecal.md#document_position_contains)
-- [DOCUMENT\_POSITION\_DISCONNECTED](XRDecal.md#document_position_disconnected)
-- [DOCUMENT\_POSITION\_FOLLOWING](XRDecal.md#document_position_following)
-- [DOCUMENT\_POSITION\_IMPLEMENTATION\_SPECIFIC](XRDecal.md#document_position_implementation_specific)
-- [DOCUMENT\_POSITION\_PRECEDING](XRDecal.md#document_position_preceding)
-- [DOCUMENT\_TYPE\_NODE](XRDecal.md#document_type_node)
-- [ELEMENT\_NODE](XRDecal.md#element_node)
-- [ENTITY\_NODE](XRDecal.md#entity_node)
-- [ENTITY\_REFERENCE\_NODE](XRDecal.md#entity_reference_node)
-- [NOTATION\_NODE](XRDecal.md#notation_node)
-- [PROCESSING\_INSTRUCTION\_NODE](XRDecal.md#processing_instruction_node)
-- [TEXT\_NODE](XRDecal.md#text_node)
-- [accessKey](XRDecal.md#accesskey)
-- [accessKeyLabel](XRDecal.md#accesskeylabel)
-- [angle](XRDecal.md#angle)
-- [animation](XRDecal.md#animation)
-- [ariaAtomic](XRDecal.md#ariaatomic)
-- [ariaAutoComplete](XRDecal.md#ariaautocomplete)
-- [ariaBusy](XRDecal.md#ariabusy)
-- [ariaChecked](XRDecal.md#ariachecked)
-- [ariaColCount](XRDecal.md#ariacolcount)
-- [ariaColIndex](XRDecal.md#ariacolindex)
-- [ariaColSpan](XRDecal.md#ariacolspan)
-- [ariaCurrent](XRDecal.md#ariacurrent)
-- [ariaDisabled](XRDecal.md#ariadisabled)
-- [ariaExpanded](XRDecal.md#ariaexpanded)
-- [ariaHasPopup](XRDecal.md#ariahaspopup)
-- [ariaHidden](XRDecal.md#ariahidden)
-- [ariaInvalid](XRDecal.md#ariainvalid)
-- [ariaKeyShortcuts](XRDecal.md#ariakeyshortcuts)
-- [ariaLabel](XRDecal.md#arialabel)
-- [ariaLevel](XRDecal.md#arialevel)
-- [ariaLive](XRDecal.md#arialive)
-- [ariaModal](XRDecal.md#ariamodal)
-- [ariaMultiLine](XRDecal.md#ariamultiline)
-- [ariaMultiSelectable](XRDecal.md#ariamultiselectable)
-- [ariaOrientation](XRDecal.md#ariaorientation)
-- [ariaPlaceholder](XRDecal.md#ariaplaceholder)
-- [ariaPosInSet](XRDecal.md#ariaposinset)
-- [ariaPressed](XRDecal.md#ariapressed)
-- [ariaReadOnly](XRDecal.md#ariareadonly)
-- [ariaRequired](XRDecal.md#ariarequired)
-- [ariaRoleDescription](XRDecal.md#ariaroledescription)
-- [ariaRowCount](XRDecal.md#ariarowcount)
-- [ariaRowIndex](XRDecal.md#ariarowindex)
-- [ariaRowSpan](XRDecal.md#ariarowspan)
-- [ariaSelected](XRDecal.md#ariaselected)
-- [ariaSetSize](XRDecal.md#ariasetsize)
-- [ariaSort](XRDecal.md#ariasort)
-- [ariaValueMax](XRDecal.md#ariavaluemax)
-- [ariaValueMin](XRDecal.md#ariavaluemin)
-- [ariaValueNow](XRDecal.md#ariavaluenow)
-- [ariaValueText](XRDecal.md#ariavaluetext)
-- [assignedSlot](XRDecal.md#assignedslot)
-- [attributeStyleMap](XRDecal.md#attributestylemap)
-- [attributes](XRDecal.md#attributes)
-- [autocapitalize](XRDecal.md#autocapitalize)
-- [autofocus](XRDecal.md#autofocus)
-- [baseURI](XRDecal.md#baseuri)
-- [childElementCount](XRDecal.md#childelementcount)
-- [childNodes](XRDecal.md#childnodes)
-- [children](XRDecal.md#children)
-- [classList](XRDecal.md#classlist)
-- [className](XRDecal.md#classname)
-- [clientHeight](XRDecal.md#clientheight)
-- [clientLeft](XRDecal.md#clientleft)
-- [clientTop](XRDecal.md#clienttop)
-- [clientWidth](XRDecal.md#clientwidth)
-- [contentEditable](XRDecal.md#contenteditable)
-- [dataset](XRDecal.md#dataset)
-- [dir](XRDecal.md#dir)
-- [disabled](XRDecal.md#disabled)
-- [draggable](XRDecal.md#draggable)
-- [enterKeyHint](XRDecal.md#enterkeyhint)
-- [entity](XRDecal.md#entity)
-- [evaluatedProps](XRDecal.md#evaluatedprops)
-- [firstChild](XRDecal.md#firstchild)
-- [firstElementChild](XRDecal.md#firstelementchild)
-- [hasUpdated](XRDecal.md#hasupdated)
-- [hidden](XRDecal.md#hidden)
-- [id](XRDecal.md#id)
-- [img](XRDecal.md#img)
-- [imgLevel](XRDecal.md#imglevel)
-- [inert](XRDecal.md#inert)
-- [innerHTML](XRDecal.md#innerhtml)
-- [innerText](XRDecal.md#innertext)
-- [inputMode](XRDecal.md#inputmode)
-- [inspect](XRDecal.md#inspect)
-- [isConnected](XRDecal.md#isconnected)
-- [isContentEditable](XRDecal.md#iscontenteditable)
-- [isUpdatePending](XRDecal.md#isupdatepending)
-- [lang](XRDecal.md#lang)
-- [lastChild](XRDecal.md#lastchild)
-- [lastElementChild](XRDecal.md#lastelementchild)
-- [localName](XRDecal.md#localname)
-- [logger](XRDecal.md#logger)
-- [namespaceURI](XRDecal.md#namespaceuri)
-- [nextElementSibling](XRDecal.md#nextelementsibling)
-- [nextSibling](XRDecal.md#nextsibling)
-- [nodeName](XRDecal.md#nodename)
-- [nodeType](XRDecal.md#nodetype)
-- [nodeValue](XRDecal.md#nodevalue)
-- [nonce](XRDecal.md#nonce)
-- [normal](XRDecal.md#normal)
-- [offsetHeight](XRDecal.md#offsetheight)
-- [offsetLeft](XRDecal.md#offsetleft)
-- [offsetParent](XRDecal.md#offsetparent)
-- [offsetTop](XRDecal.md#offsettop)
-- [offsetWidth](XRDecal.md#offsetwidth)
-- [onabort](XRDecal.md#onabort)
-- [onanimationcancel](XRDecal.md#onanimationcancel)
-- [onanimationend](XRDecal.md#onanimationend)
-- [onanimationiteration](XRDecal.md#onanimationiteration)
-- [onanimationstart](XRDecal.md#onanimationstart)
-- [onauxclick](XRDecal.md#onauxclick)
-- [onbeforeinput](XRDecal.md#onbeforeinput)
-- [onbeforexrselect](XRDecal.md#onbeforexrselect)
-- [onblur](XRDecal.md#onblur)
-- [oncancel](XRDecal.md#oncancel)
-- [oncanplay](XRDecal.md#oncanplay)
-- [oncanplaythrough](XRDecal.md#oncanplaythrough)
-- [onchange](XRDecal.md#onchange)
-- [onclick](XRDecal.md#onclick)
-- [onclose](XRDecal.md#onclose)
-- [oncontextmenu](XRDecal.md#oncontextmenu)
-- [oncopy](XRDecal.md#oncopy)
-- [oncuechange](XRDecal.md#oncuechange)
-- [oncut](XRDecal.md#oncut)
-- [ondblclick](XRDecal.md#ondblclick)
-- [ondrag](XRDecal.md#ondrag)
-- [ondragend](XRDecal.md#ondragend)
-- [ondragenter](XRDecal.md#ondragenter)
-- [ondragleave](XRDecal.md#ondragleave)
-- [ondragover](XRDecal.md#ondragover)
-- [ondragstart](XRDecal.md#ondragstart)
-- [ondrop](XRDecal.md#ondrop)
-- [ondurationchange](XRDecal.md#ondurationchange)
-- [onemptied](XRDecal.md#onemptied)
-- [onended](XRDecal.md#onended)
-- [onerror](XRDecal.md#onerror)
-- [onfocus](XRDecal.md#onfocus)
-- [onformdata](XRDecal.md#onformdata)
-- [onfullscreenchange](XRDecal.md#onfullscreenchange)
-- [onfullscreenerror](XRDecal.md#onfullscreenerror)
-- [ongotpointercapture](XRDecal.md#ongotpointercapture)
-- [oninput](XRDecal.md#oninput)
-- [oninvalid](XRDecal.md#oninvalid)
-- [onkeydown](XRDecal.md#onkeydown)
-- [onkeypress](XRDecal.md#onkeypress)
-- [onkeyup](XRDecal.md#onkeyup)
-- [onload](XRDecal.md#onload)
-- [onloadeddata](XRDecal.md#onloadeddata)
-- [onloadedmetadata](XRDecal.md#onloadedmetadata)
-- [onloadstart](XRDecal.md#onloadstart)
-- [onlostpointercapture](XRDecal.md#onlostpointercapture)
-- [onmousedown](XRDecal.md#onmousedown)
-- [onmouseenter](XRDecal.md#onmouseenter)
-- [onmouseleave](XRDecal.md#onmouseleave)
-- [onmousemove](XRDecal.md#onmousemove)
-- [onmouseout](XRDecal.md#onmouseout)
-- [onmouseover](XRDecal.md#onmouseover)
-- [onmouseup](XRDecal.md#onmouseup)
-- [onpaste](XRDecal.md#onpaste)
-- [onpause](XRDecal.md#onpause)
-- [onplay](XRDecal.md#onplay)
-- [onplaying](XRDecal.md#onplaying)
-- [onpointercancel](XRDecal.md#onpointercancel)
-- [onpointerdown](XRDecal.md#onpointerdown)
-- [onpointerenter](XRDecal.md#onpointerenter)
-- [onpointerleave](XRDecal.md#onpointerleave)
-- [onpointermove](XRDecal.md#onpointermove)
-- [onpointerout](XRDecal.md#onpointerout)
-- [onpointerover](XRDecal.md#onpointerover)
-- [onpointerup](XRDecal.md#onpointerup)
-- [onprogress](XRDecal.md#onprogress)
-- [onratechange](XRDecal.md#onratechange)
-- [onreset](XRDecal.md#onreset)
-- [onresize](XRDecal.md#onresize)
-- [onscroll](XRDecal.md#onscroll)
-- [onscrollend](XRDecal.md#onscrollend)
-- [onsecuritypolicyviolation](XRDecal.md#onsecuritypolicyviolation)
-- [onseeked](XRDecal.md#onseeked)
-- [onseeking](XRDecal.md#onseeking)
-- [onselect](XRDecal.md#onselect)
-- [onselectionchange](XRDecal.md#onselectionchange)
-- [onselectstart](XRDecal.md#onselectstart)
-- [onslotchange](XRDecal.md#onslotchange)
-- [onstalled](XRDecal.md#onstalled)
-- [onsubmit](XRDecal.md#onsubmit)
-- [onsuspend](XRDecal.md#onsuspend)
-- [ontimeupdate](XRDecal.md#ontimeupdate)
-- [ontoggle](XRDecal.md#ontoggle)
-- [ontouchcancel](XRDecal.md#ontouchcancel)
-- [ontouchend](XRDecal.md#ontouchend)
-- [ontouchmove](XRDecal.md#ontouchmove)
-- [ontouchstart](XRDecal.md#ontouchstart)
-- [ontransitioncancel](XRDecal.md#ontransitioncancel)
-- [ontransitionend](XRDecal.md#ontransitionend)
-- [ontransitionrun](XRDecal.md#ontransitionrun)
-- [ontransitionstart](XRDecal.md#ontransitionstart)
-- [onvolumechange](XRDecal.md#onvolumechange)
-- [onwaiting](XRDecal.md#onwaiting)
-- [onwebkitanimationend](XRDecal.md#onwebkitanimationend)
-- [onwebkitanimationiteration](XRDecal.md#onwebkitanimationiteration)
-- [onwebkitanimationstart](XRDecal.md#onwebkitanimationstart)
-- [onwebkittransitionend](XRDecal.md#onwebkittransitionend)
-- [onwheel](XRDecal.md#onwheel)
-- [outerHTML](XRDecal.md#outerhtml)
-- [outerText](XRDecal.md#outertext)
-- [ownerDocument](XRDecal.md#ownerdocument)
-- [parentElement](XRDecal.md#parentelement)
-- [parentNode](XRDecal.md#parentnode)
-- [part](XRDecal.md#part)
-- [popover](XRDecal.md#popover)
-- [position](XRDecal.md#position)
-- [prefix](XRDecal.md#prefix)
-- [previousElementSibling](XRDecal.md#previouselementsibling)
-- [previousSibling](XRDecal.md#previoussibling)
-- [renderOptions](XRDecal.md#renderoptions)
-- [renderRoot](XRDecal.md#renderroot)
-- [role](XRDecal.md#role)
-- [scene](XRDecal.md#scene)
-- [scrollHeight](XRDecal.md#scrollheight)
-- [scrollLeft](XRDecal.md#scrollleft)
-- [scrollTop](XRDecal.md#scrolltop)
-- [scrollWidth](XRDecal.md#scrollwidth)
-- [shadowRoot](XRDecal.md#shadowroot)
-- [size](XRDecal.md#size)
-- [slot](XRDecal.md#slot)
-- [spellcheck](XRDecal.md#spellcheck)
-- [style](XRDecal.md#style)
-- [tabIndex](XRDecal.md#tabindex)
-- [tagName](XRDecal.md#tagname)
-- [textContent](XRDecal.md#textcontent)
-- [title](XRDecal.md#title)
-- [transition](XRDecal.md#transition)
-- [translate](XRDecal.md#translate)
-- [[metadata]](XRDecal.md#[metadata])
-- [\_$litElement$](XRDecal.md#_$litelement$)
-- [\_initializers](XRDecal.md#_initializers)
-- [disableWarning](XRDecal.md#disablewarning)
-- [elementProperties](XRDecal.md#elementproperties)
-- [elementStyles](XRDecal.md#elementstyles)
-- [enableWarning](XRDecal.md#enablewarning)
-- [enabledWarnings](XRDecal.md#enabledwarnings)
-- [properties](XRDecal.md#properties)
-- [requiredAttrs](XRDecal.md#requiredattrs)
-- [shadowRootOptions](XRDecal.md#shadowrootoptions)
-- [styles](XRDecal.md#styles)
+- [ATTRIBUTE\_NODE](XRGeometry.md#attribute_node)
+- [CDATA\_SECTION\_NODE](XRGeometry.md#cdata_section_node)
+- [COMMENT\_NODE](XRGeometry.md#comment_node)
+- [DOCUMENT\_FRAGMENT\_NODE](XRGeometry.md#document_fragment_node)
+- [DOCUMENT\_NODE](XRGeometry.md#document_node)
+- [DOCUMENT\_POSITION\_CONTAINED\_BY](XRGeometry.md#document_position_contained_by)
+- [DOCUMENT\_POSITION\_CONTAINS](XRGeometry.md#document_position_contains)
+- [DOCUMENT\_POSITION\_DISCONNECTED](XRGeometry.md#document_position_disconnected)
+- [DOCUMENT\_POSITION\_FOLLOWING](XRGeometry.md#document_position_following)
+- [DOCUMENT\_POSITION\_IMPLEMENTATION\_SPECIFIC](XRGeometry.md#document_position_implementation_specific)
+- [DOCUMENT\_POSITION\_PRECEDING](XRGeometry.md#document_position_preceding)
+- [DOCUMENT\_TYPE\_NODE](XRGeometry.md#document_type_node)
+- [ELEMENT\_NODE](XRGeometry.md#element_node)
+- [ENTITY\_NODE](XRGeometry.md#entity_node)
+- [ENTITY\_REFERENCE\_NODE](XRGeometry.md#entity_reference_node)
+- [NOTATION\_NODE](XRGeometry.md#notation_node)
+- [PROCESSING\_INSTRUCTION\_NODE](XRGeometry.md#processing_instruction_node)
+- [TEXT\_NODE](XRGeometry.md#text_node)
+- [accessKey](XRGeometry.md#accesskey)
+- [accessKeyLabel](XRGeometry.md#accesskeylabel)
+- [animation](XRGeometry.md#animation)
+- [ariaAtomic](XRGeometry.md#ariaatomic)
+- [ariaAutoComplete](XRGeometry.md#ariaautocomplete)
+- [ariaBusy](XRGeometry.md#ariabusy)
+- [ariaChecked](XRGeometry.md#ariachecked)
+- [ariaColCount](XRGeometry.md#ariacolcount)
+- [ariaColIndex](XRGeometry.md#ariacolindex)
+- [ariaColSpan](XRGeometry.md#ariacolspan)
+- [ariaCurrent](XRGeometry.md#ariacurrent)
+- [ariaDisabled](XRGeometry.md#ariadisabled)
+- [ariaExpanded](XRGeometry.md#ariaexpanded)
+- [ariaHasPopup](XRGeometry.md#ariahaspopup)
+- [ariaHidden](XRGeometry.md#ariahidden)
+- [ariaInvalid](XRGeometry.md#ariainvalid)
+- [ariaKeyShortcuts](XRGeometry.md#ariakeyshortcuts)
+- [ariaLabel](XRGeometry.md#arialabel)
+- [ariaLevel](XRGeometry.md#arialevel)
+- [ariaLive](XRGeometry.md#arialive)
+- [ariaModal](XRGeometry.md#ariamodal)
+- [ariaMultiLine](XRGeometry.md#ariamultiline)
+- [ariaMultiSelectable](XRGeometry.md#ariamultiselectable)
+- [ariaOrientation](XRGeometry.md#ariaorientation)
+- [ariaPlaceholder](XRGeometry.md#ariaplaceholder)
+- [ariaPosInSet](XRGeometry.md#ariaposinset)
+- [ariaPressed](XRGeometry.md#ariapressed)
+- [ariaReadOnly](XRGeometry.md#ariareadonly)
+- [ariaRequired](XRGeometry.md#ariarequired)
+- [ariaRoleDescription](XRGeometry.md#ariaroledescription)
+- [ariaRowCount](XRGeometry.md#ariarowcount)
+- [ariaRowIndex](XRGeometry.md#ariarowindex)
+- [ariaRowSpan](XRGeometry.md#ariarowspan)
+- [ariaSelected](XRGeometry.md#ariaselected)
+- [ariaSetSize](XRGeometry.md#ariasetsize)
+- [ariaSort](XRGeometry.md#ariasort)
+- [ariaValueMax](XRGeometry.md#ariavaluemax)
+- [ariaValueMin](XRGeometry.md#ariavaluemin)
+- [ariaValueNow](XRGeometry.md#ariavaluenow)
+- [ariaValueText](XRGeometry.md#ariavaluetext)
+- [assignedSlot](XRGeometry.md#assignedslot)
+- [attributeStyleMap](XRGeometry.md#attributestylemap)
+- [attributes](XRGeometry.md#attributes)
+- [autocapitalize](XRGeometry.md#autocapitalize)
+- [autofocus](XRGeometry.md#autofocus)
+- [baseURI](XRGeometry.md#baseuri)
+- [childElementCount](XRGeometry.md#childelementcount)
+- [childNodes](XRGeometry.md#childnodes)
+- [children](XRGeometry.md#children)
+- [classList](XRGeometry.md#classlist)
+- [className](XRGeometry.md#classname)
+- [clientHeight](XRGeometry.md#clientheight)
+- [clientLeft](XRGeometry.md#clientleft)
+- [clientTop](XRGeometry.md#clienttop)
+- [clientWidth](XRGeometry.md#clientwidth)
+- [contentEditable](XRGeometry.md#contenteditable)
+- [dataset](XRGeometry.md#dataset)
+- [dir](XRGeometry.md#dir)
+- [disabled](XRGeometry.md#disabled)
+- [draggable](XRGeometry.md#draggable)
+- [enterKeyHint](XRGeometry.md#enterkeyhint)
+- [entity](XRGeometry.md#entity)
+- [evaluatedProps](XRGeometry.md#evaluatedprops)
+- [firstChild](XRGeometry.md#firstchild)
+- [firstElementChild](XRGeometry.md#firstelementchild)
+- [hasUpdated](XRGeometry.md#hasupdated)
+- [hidden](XRGeometry.md#hidden)
+- [id](XRGeometry.md#id)
+- [inert](XRGeometry.md#inert)
+- [innerHTML](XRGeometry.md#innerhtml)
+- [innerText](XRGeometry.md#innertext)
+- [inputMode](XRGeometry.md#inputmode)
+- [inspect](XRGeometry.md#inspect)
+- [isConnected](XRGeometry.md#isconnected)
+- [isContentEditable](XRGeometry.md#iscontenteditable)
+- [isUpdatePending](XRGeometry.md#isupdatepending)
+- [lang](XRGeometry.md#lang)
+- [lastChild](XRGeometry.md#lastchild)
+- [lastElementChild](XRGeometry.md#lastelementchild)
+- [localName](XRGeometry.md#localname)
+- [logger](XRGeometry.md#logger)
+- [namespaceURI](XRGeometry.md#namespaceuri)
+- [nextElementSibling](XRGeometry.md#nextelementsibling)
+- [nextSibling](XRGeometry.md#nextsibling)
+- [nodeName](XRGeometry.md#nodename)
+- [nodeType](XRGeometry.md#nodetype)
+- [nodeValue](XRGeometry.md#nodevalue)
+- [nonce](XRGeometry.md#nonce)
+- [offsetHeight](XRGeometry.md#offsetheight)
+- [offsetLeft](XRGeometry.md#offsetleft)
+- [offsetParent](XRGeometry.md#offsetparent)
+- [offsetTop](XRGeometry.md#offsettop)
+- [offsetWidth](XRGeometry.md#offsetwidth)
+- [onabort](XRGeometry.md#onabort)
+- [onanimationcancel](XRGeometry.md#onanimationcancel)
+- [onanimationend](XRGeometry.md#onanimationend)
+- [onanimationiteration](XRGeometry.md#onanimationiteration)
+- [onanimationstart](XRGeometry.md#onanimationstart)
+- [onauxclick](XRGeometry.md#onauxclick)
+- [onbeforeinput](XRGeometry.md#onbeforeinput)
+- [onbeforexrselect](XRGeometry.md#onbeforexrselect)
+- [onblur](XRGeometry.md#onblur)
+- [oncancel](XRGeometry.md#oncancel)
+- [oncanplay](XRGeometry.md#oncanplay)
+- [oncanplaythrough](XRGeometry.md#oncanplaythrough)
+- [onchange](XRGeometry.md#onchange)
+- [onclick](XRGeometry.md#onclick)
+- [onclose](XRGeometry.md#onclose)
+- [oncontextmenu](XRGeometry.md#oncontextmenu)
+- [oncopy](XRGeometry.md#oncopy)
+- [oncuechange](XRGeometry.md#oncuechange)
+- [oncut](XRGeometry.md#oncut)
+- [ondblclick](XRGeometry.md#ondblclick)
+- [ondrag](XRGeometry.md#ondrag)
+- [ondragend](XRGeometry.md#ondragend)
+- [ondragenter](XRGeometry.md#ondragenter)
+- [ondragleave](XRGeometry.md#ondragleave)
+- [ondragover](XRGeometry.md#ondragover)
+- [ondragstart](XRGeometry.md#ondragstart)
+- [ondrop](XRGeometry.md#ondrop)
+- [ondurationchange](XRGeometry.md#ondurationchange)
+- [onemptied](XRGeometry.md#onemptied)
+- [onended](XRGeometry.md#onended)
+- [onerror](XRGeometry.md#onerror)
+- [onfocus](XRGeometry.md#onfocus)
+- [onformdata](XRGeometry.md#onformdata)
+- [onfullscreenchange](XRGeometry.md#onfullscreenchange)
+- [onfullscreenerror](XRGeometry.md#onfullscreenerror)
+- [ongotpointercapture](XRGeometry.md#ongotpointercapture)
+- [oninput](XRGeometry.md#oninput)
+- [oninvalid](XRGeometry.md#oninvalid)
+- [onkeydown](XRGeometry.md#onkeydown)
+- [onkeypress](XRGeometry.md#onkeypress)
+- [onkeyup](XRGeometry.md#onkeyup)
+- [onload](XRGeometry.md#onload)
+- [onloadeddata](XRGeometry.md#onloadeddata)
+- [onloadedmetadata](XRGeometry.md#onloadedmetadata)
+- [onloadstart](XRGeometry.md#onloadstart)
+- [onlostpointercapture](XRGeometry.md#onlostpointercapture)
+- [onmousedown](XRGeometry.md#onmousedown)
+- [onmouseenter](XRGeometry.md#onmouseenter)
+- [onmouseleave](XRGeometry.md#onmouseleave)
+- [onmousemove](XRGeometry.md#onmousemove)
+- [onmouseout](XRGeometry.md#onmouseout)
+- [onmouseover](XRGeometry.md#onmouseover)
+- [onmouseup](XRGeometry.md#onmouseup)
+- [onpaste](XRGeometry.md#onpaste)
+- [onpause](XRGeometry.md#onpause)
+- [onplay](XRGeometry.md#onplay)
+- [onplaying](XRGeometry.md#onplaying)
+- [onpointercancel](XRGeometry.md#onpointercancel)
+- [onpointerdown](XRGeometry.md#onpointerdown)
+- [onpointerenter](XRGeometry.md#onpointerenter)
+- [onpointerleave](XRGeometry.md#onpointerleave)
+- [onpointermove](XRGeometry.md#onpointermove)
+- [onpointerout](XRGeometry.md#onpointerout)
+- [onpointerover](XRGeometry.md#onpointerover)
+- [onpointerup](XRGeometry.md#onpointerup)
+- [onprogress](XRGeometry.md#onprogress)
+- [onratechange](XRGeometry.md#onratechange)
+- [onreset](XRGeometry.md#onreset)
+- [onresize](XRGeometry.md#onresize)
+- [onscroll](XRGeometry.md#onscroll)
+- [onscrollend](XRGeometry.md#onscrollend)
+- [onsecuritypolicyviolation](XRGeometry.md#onsecuritypolicyviolation)
+- [onseeked](XRGeometry.md#onseeked)
+- [onseeking](XRGeometry.md#onseeking)
+- [onselect](XRGeometry.md#onselect)
+- [onselectionchange](XRGeometry.md#onselectionchange)
+- [onselectstart](XRGeometry.md#onselectstart)
+- [onslotchange](XRGeometry.md#onslotchange)
+- [onstalled](XRGeometry.md#onstalled)
+- [onsubmit](XRGeometry.md#onsubmit)
+- [onsuspend](XRGeometry.md#onsuspend)
+- [ontimeupdate](XRGeometry.md#ontimeupdate)
+- [ontoggle](XRGeometry.md#ontoggle)
+- [ontouchcancel](XRGeometry.md#ontouchcancel)
+- [ontouchend](XRGeometry.md#ontouchend)
+- [ontouchmove](XRGeometry.md#ontouchmove)
+- [ontouchstart](XRGeometry.md#ontouchstart)
+- [ontransitioncancel](XRGeometry.md#ontransitioncancel)
+- [ontransitionend](XRGeometry.md#ontransitionend)
+- [ontransitionrun](XRGeometry.md#ontransitionrun)
+- [ontransitionstart](XRGeometry.md#ontransitionstart)
+- [onvolumechange](XRGeometry.md#onvolumechange)
+- [onwaiting](XRGeometry.md#onwaiting)
+- [onwebkitanimationend](XRGeometry.md#onwebkitanimationend)
+- [onwebkitanimationiteration](XRGeometry.md#onwebkitanimationiteration)
+- [onwebkitanimationstart](XRGeometry.md#onwebkitanimationstart)
+- [onwebkittransitionend](XRGeometry.md#onwebkittransitionend)
+- [onwheel](XRGeometry.md#onwheel)
+- [outerHTML](XRGeometry.md#outerhtml)
+- [outerText](XRGeometry.md#outertext)
+- [ownerDocument](XRGeometry.md#ownerdocument)
+- [parentElement](XRGeometry.md#parentelement)
+- [parentNode](XRGeometry.md#parentnode)
+- [part](XRGeometry.md#part)
+- [popover](XRGeometry.md#popover)
+- [prefix](XRGeometry.md#prefix)
+- [previousElementSibling](XRGeometry.md#previouselementsibling)
+- [previousSibling](XRGeometry.md#previoussibling)
+- [renderOptions](XRGeometry.md#renderoptions)
+- [renderRoot](XRGeometry.md#renderroot)
+- [role](XRGeometry.md#role)
+- [scene](XRGeometry.md#scene)
+- [scrollHeight](XRGeometry.md#scrollheight)
+- [scrollLeft](XRGeometry.md#scrollleft)
+- [scrollTop](XRGeometry.md#scrolltop)
+- [scrollWidth](XRGeometry.md#scrollwidth)
+- [shadowRoot](XRGeometry.md#shadowroot)
+- [slot](XRGeometry.md#slot)
+- [spellcheck](XRGeometry.md#spellcheck)
+- [style](XRGeometry.md#style)
+- [tabIndex](XRGeometry.md#tabindex)
+- [tagName](XRGeometry.md#tagname)
+- [textContent](XRGeometry.md#textcontent)
+- [title](XRGeometry.md#title)
+- [transition](XRGeometry.md#transition)
+- [translate](XRGeometry.md#translate)
+- [type](XRGeometry.md#type)
+- [[metadata]](XRGeometry.md#[metadata])
+- [\_$litElement$](XRGeometry.md#_$litelement$)
+- [\_initializers](XRGeometry.md#_initializers)
+- [disableWarning](XRGeometry.md#disablewarning)
+- [elementProperties](XRGeometry.md#elementproperties)
+- [elementStyles](XRGeometry.md#elementstyles)
+- [enableWarning](XRGeometry.md#enablewarning)
+- [enabledWarnings](XRGeometry.md#enabledwarnings)
+- [properties](XRGeometry.md#properties)
+- [requiredAttrs](XRGeometry.md#requiredattrs)
+- [shadowRootOptions](XRGeometry.md#shadowrootoptions)
+- [styles](XRGeometry.md#styles)
 
 ### Accessors
 
-- [updateComplete](XRDecal.md#updatecomplete)
-- [observedAttributes](XRDecal.md#observedattributes)
+- [updateComplete](XRGeometry.md#updatecomplete)
+- [observedAttributes](XRGeometry.md#observedattributes)
 
 ### Methods
 
-- [addController](XRDecal.md#addcontroller)
-- [addEventListener](XRDecal.md#addeventlistener)
-- [after](XRDecal.md#after)
-- [animate](XRDecal.md#animate)
-- [append](XRDecal.md#append)
-- [appendChild](XRDecal.md#appendchild)
-- [attachInternals](XRDecal.md#attachinternals)
-- [attachShadow](XRDecal.md#attachshadow)
-- [attributeChangedCallback](XRDecal.md#attributechangedcallback)
-- [before](XRDecal.md#before)
-- [blur](XRDecal.md#blur)
-- [checkVisibility](XRDecal.md#checkvisibility)
-- [click](XRDecal.md#click)
-- [cloneNode](XRDecal.md#clonenode)
-- [closest](XRDecal.md#closest)
-- [compareDocumentPosition](XRDecal.md#comparedocumentposition)
-- [computedStyleMap](XRDecal.md#computedstylemap)
-- [connected](XRDecal.md#connected)
-- [contains](XRDecal.md#contains)
-- [dispatchEvent](XRDecal.md#dispatchevent)
-- [focus](XRDecal.md#focus)
-- [getAnimations](XRDecal.md#getanimations)
-- [getAttribute](XRDecal.md#getattribute)
-- [getAttributeNS](XRDecal.md#getattributens)
-- [getAttributeNames](XRDecal.md#getattributenames)
-- [getAttributeNode](XRDecal.md#getattributenode)
-- [getAttributeNodeNS](XRDecal.md#getattributenodens)
-- [getBoundingClientRect](XRDecal.md#getboundingclientrect)
-- [getClientRects](XRDecal.md#getclientrects)
-- [getElementsByClassName](XRDecal.md#getelementsbyclassname)
-- [getElementsByTagName](XRDecal.md#getelementsbytagname)
-- [getElementsByTagNameNS](XRDecal.md#getelementsbytagnamens)
-- [getRootNode](XRDecal.md#getrootnode)
-- [hasAttribute](XRDecal.md#hasattribute)
-- [hasAttributeNS](XRDecal.md#hasattributens)
-- [hasAttributes](XRDecal.md#hasattributes)
-- [hasChildNodes](XRDecal.md#haschildnodes)
-- [hasPointerCapture](XRDecal.md#haspointercapture)
-- [hidePopover](XRDecal.md#hidepopover)
-- [insertAdjacentElement](XRDecal.md#insertadjacentelement)
-- [insertAdjacentHTML](XRDecal.md#insertadjacenthtml)
-- [insertAdjacentText](XRDecal.md#insertadjacenttext)
-- [insertBefore](XRDecal.md#insertbefore)
-- [isDefaultNamespace](XRDecal.md#isdefaultnamespace)
-- [isEqualNode](XRDecal.md#isequalnode)
-- [isSameNode](XRDecal.md#issamenode)
-- [lookupNamespaceURI](XRDecal.md#lookupnamespaceuri)
-- [lookupPrefix](XRDecal.md#lookupprefix)
-- [matches](XRDecal.md#matches)
-- [normalize](XRDecal.md#normalize)
-- [prepend](XRDecal.md#prepend)
-- [querySelector](XRDecal.md#queryselector)
-- [querySelectorAll](XRDecal.md#queryselectorall)
-- [releasePointerCapture](XRDecal.md#releasepointercapture)
-- [remove](XRDecal.md#remove)
-- [removeAttribute](XRDecal.md#removeattribute)
-- [removeAttributeNS](XRDecal.md#removeattributens)
-- [removeAttributeNode](XRDecal.md#removeattributenode)
-- [removeChild](XRDecal.md#removechild)
-- [removeController](XRDecal.md#removecontroller)
-- [removeEventListener](XRDecal.md#removeeventlistener)
-- [replaceChild](XRDecal.md#replacechild)
-- [replaceChildren](XRDecal.md#replacechildren)
-- [replaceWith](XRDecal.md#replacewith)
-- [requestFullscreen](XRDecal.md#requestfullscreen)
-- [requestPointerLock](XRDecal.md#requestpointerlock)
-- [requestUpdate](XRDecal.md#requestupdate)
-- [scroll](XRDecal.md#scroll)
-- [scrollBy](XRDecal.md#scrollby)
-- [scrollIntoView](XRDecal.md#scrollintoview)
-- [scrollTo](XRDecal.md#scrollto)
-- [setAttribute](XRDecal.md#setattribute)
-- [setAttributeNS](XRDecal.md#setattributens)
-- [setAttributeNode](XRDecal.md#setattributenode)
-- [setAttributeNodeNS](XRDecal.md#setattributenodens)
-- [setPointerCapture](XRDecal.md#setpointercapture)
-- [showPopover](XRDecal.md#showpopover)
-- [toggleAttribute](XRDecal.md#toggleattribute)
-- [togglePopover](XRDecal.md#togglepopover)
-- [webkitMatchesSelector](XRDecal.md#webkitmatchesselector)
-- [addInitializer](XRDecal.md#addinitializer)
-- [createProperty](XRDecal.md#createproperty)
-- [getPropertyOptions](XRDecal.md#getpropertyoptions)
+- [addController](XRGeometry.md#addcontroller)
+- [addEventListener](XRGeometry.md#addeventlistener)
+- [after](XRGeometry.md#after)
+- [animate](XRGeometry.md#animate)
+- [append](XRGeometry.md#append)
+- [appendChild](XRGeometry.md#appendchild)
+- [attachInternals](XRGeometry.md#attachinternals)
+- [attachShadow](XRGeometry.md#attachshadow)
+- [attributeChangedCallback](XRGeometry.md#attributechangedcallback)
+- [before](XRGeometry.md#before)
+- [blur](XRGeometry.md#blur)
+- [checkVisibility](XRGeometry.md#checkvisibility)
+- [click](XRGeometry.md#click)
+- [cloneNode](XRGeometry.md#clonenode)
+- [closest](XRGeometry.md#closest)
+- [compareDocumentPosition](XRGeometry.md#comparedocumentposition)
+- [computedStyleMap](XRGeometry.md#computedstylemap)
+- [connected](XRGeometry.md#connected)
+- [contains](XRGeometry.md#contains)
+- [disconnected](XRGeometry.md#disconnected)
+- [dispatchEvent](XRGeometry.md#dispatchevent)
+- [focus](XRGeometry.md#focus)
+- [getAnimations](XRGeometry.md#getanimations)
+- [getAttribute](XRGeometry.md#getattribute)
+- [getAttributeNS](XRGeometry.md#getattributens)
+- [getAttributeNames](XRGeometry.md#getattributenames)
+- [getAttributeNode](XRGeometry.md#getattributenode)
+- [getAttributeNodeNS](XRGeometry.md#getattributenodens)
+- [getBoundingClientRect](XRGeometry.md#getboundingclientrect)
+- [getClientRects](XRGeometry.md#getclientrects)
+- [getElementsByClassName](XRGeometry.md#getelementsbyclassname)
+- [getElementsByTagName](XRGeometry.md#getelementsbytagname)
+- [getElementsByTagNameNS](XRGeometry.md#getelementsbytagnamens)
+- [getRootNode](XRGeometry.md#getrootnode)
+- [hasAttribute](XRGeometry.md#hasattribute)
+- [hasAttributeNS](XRGeometry.md#hasattributens)
+- [hasAttributes](XRGeometry.md#hasattributes)
+- [hasChildNodes](XRGeometry.md#haschildnodes)
+- [hasPointerCapture](XRGeometry.md#haspointercapture)
+- [hidePopover](XRGeometry.md#hidepopover)
+- [insertAdjacentElement](XRGeometry.md#insertadjacentelement)
+- [insertAdjacentHTML](XRGeometry.md#insertadjacenthtml)
+- [insertAdjacentText](XRGeometry.md#insertadjacenttext)
+- [insertBefore](XRGeometry.md#insertbefore)
+- [isDefaultNamespace](XRGeometry.md#isdefaultnamespace)
+- [isEqualNode](XRGeometry.md#isequalnode)
+- [isSameNode](XRGeometry.md#issamenode)
+- [lookupNamespaceURI](XRGeometry.md#lookupnamespaceuri)
+- [lookupPrefix](XRGeometry.md#lookupprefix)
+- [matches](XRGeometry.md#matches)
+- [normalize](XRGeometry.md#normalize)
+- [prepend](XRGeometry.md#prepend)
+- [querySelector](XRGeometry.md#queryselector)
+- [querySelectorAll](XRGeometry.md#queryselectorall)
+- [releasePointerCapture](XRGeometry.md#releasepointercapture)
+- [remove](XRGeometry.md#remove)
+- [removeAttribute](XRGeometry.md#removeattribute)
+- [removeAttributeNS](XRGeometry.md#removeattributens)
+- [removeAttributeNode](XRGeometry.md#removeattributenode)
+- [removeChild](XRGeometry.md#removechild)
+- [removeController](XRGeometry.md#removecontroller)
+- [removeEventListener](XRGeometry.md#removeeventlistener)
+- [replaceChild](XRGeometry.md#replacechild)
+- [replaceChildren](XRGeometry.md#replacechildren)
+- [replaceWith](XRGeometry.md#replacewith)
+- [requestFullscreen](XRGeometry.md#requestfullscreen)
+- [requestPointerLock](XRGeometry.md#requestpointerlock)
+- [requestUpdate](XRGeometry.md#requestupdate)
+- [scroll](XRGeometry.md#scroll)
+- [scrollBy](XRGeometry.md#scrollby)
+- [scrollIntoView](XRGeometry.md#scrollintoview)
+- [scrollTo](XRGeometry.md#scrollto)
+- [setAttribute](XRGeometry.md#setattribute)
+- [setAttributeNS](XRGeometry.md#setattributens)
+- [setAttributeNode](XRGeometry.md#setattributenode)
+- [setAttributeNodeNS](XRGeometry.md#setattributenodens)
+- [setPointerCapture](XRGeometry.md#setpointercapture)
+- [showPopover](XRGeometry.md#showpopover)
+- [toggleAttribute](XRGeometry.md#toggleattribute)
+- [togglePopover](XRGeometry.md#togglepopover)
+- [webkitMatchesSelector](XRGeometry.md#webkitmatchesselector)
+- [addInitializer](XRGeometry.md#addinitializer)
+- [createProperty](XRGeometry.md#createproperty)
+- [getPropertyOptions](XRGeometry.md#getpropertyoptions)
 
 ## Other
 
 ### constructor
 
-• **new XRDecal**(): [`XRDecal`](XRDecal.md)
+• **new XRGeometry**(): [`XRGeometry`](XRGeometry.md)
 
 #### Returns
 
-[`XRDecal`](XRDecal.md)
+[`XRGeometry`](XRGeometry.md)
 
 #### Inherited from
 
@@ -606,12 +600,6 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[accessKeyLabel](XRSceneScopeElement.md#accesskeylabel)
-
-___
-
-### angle
-
-• **angle**: `number` = `0`
 
 ___
 
@@ -1323,7 +1311,7 @@ ___
 
 ### entity
 
-• **entity**: ``null`` \| `Mesh` = `null`
+• **entity**: ``null`` \| `Geometry` = `null`
 
 #### Inherited from
 
@@ -1333,7 +1321,7 @@ ___
 
 ### evaluatedProps
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRDecal`](XRDecal.md)\>
+• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRGeometry`](XRGeometry.md)\>
 
 #### Inherited from
 
@@ -1392,18 +1380,6 @@ Returns the value of element's id content attribute. Can be set to change it.
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[id](XRSceneScopeElement.md#id)
-
-___
-
-### img
-
-• `Optional` **img**: `string`
-
-___
-
-### imgLevel
-
-• **imgLevel**: `number` = `1`
 
 ___
 
@@ -1646,12 +1622,6 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[nonce](XRSceneScopeElement.md#nonce)
-
-___
-
-### normal
-
-• **normal**: [`Vector3`](Vector3.md)
 
 ___
 
@@ -3268,12 +3238,6 @@ ___
 
 ___
 
-### position
-
-• **position**: [`Vector3`](Vector3.md)
-
-___
-
 ### prefix
 
 • `Readonly` **prefix**: ``null`` \| `string`
@@ -3398,14 +3362,6 @@ Returns element's shadow root, if any, and if shadow root's mode is "open", and 
 
 ___
 
-### size
-
-• **size**: [`Vector3`](Vector3.md)
-
-贴花尺寸
-
-___
-
 ### slot
 
 • **slot**: `string`
@@ -3514,6 +3470,12 @@ ___
 
 ___
 
+### type
+
+• **type**: `string` = `'custom'`
+
+___
+
 ### [metadata]
 
 ▪ `Static` **[metadata]**: `object` & `Record`\<`PropertyKey`, `unknown`\>
@@ -3546,9 +3508,9 @@ ___
 
 ### requiredAttrs
 
-▪ `Static` **requiredAttrs**: `string`[] = `[]`
+▪ `Static` **requiredAttrs**: `string`[]
 
-#### Inherited from
+#### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[requiredAttrs](XRSceneScopeElement.md#requiredattrs)
 
@@ -4016,6 +3978,20 @@ Returns true if other is an inclusive descendant of node, and false otherwise.
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[contains](XRSceneScopeElement.md#contains)
+
+___
+
+### disconnected
+
+▸ **disconnected**(): `void`
+
+#### Returns
+
+`void`
+
+#### Overrides
+
+XRSceneScopeElement.disconnected
 
 ___
 
@@ -5140,7 +5116,7 @@ Removes node.
 
 `void`
 
-#### Overrides
+#### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[remove](XRSceneScopeElement.md#remove)
 

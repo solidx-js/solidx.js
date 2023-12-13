@@ -1,381 +1,406 @@
-# Class: XRDecal
+# Class: XRSceneScopeElement\<T\>
 
-贴花
+## Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | `any` |
 
 ## Hierarchy
 
-- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`Mesh`\>
+- [`XRElement`](XRElement.md)\<`T`\>
 
-  ↳ **`XRDecal`**
+  ↳ **`XRSceneScopeElement`**
+
+  ↳↳ [`XRCamera`](XRCamera.md)
+
+  ↳↳ [`XRDecal`](XRDecal.md)
+
+  ↳↳ [`XRDirectionalLight`](XRDirectionalLight.md)
+
+  ↳↳ [`XRGeometry`](XRGeometry.md)
+
+  ↳↳ [`XRHemisphericLight`](XRHemisphericLight.md)
+
+  ↳↳ [`XRKeyFrames`](XRKeyFrames.md)
+
+  ↳↳ [`XRMaterial`](XRMaterial.md)
+
+  ↳↳ [`XRMesh`](XRMesh.md)
+
+  ↳↳ [`XRModel`](XRModel.md)
+
+  ↳↳ [`XRNode`](XRNode.md)
+
+  ↳↳ [`XRRay`](XRRay.md)
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](XRDecal.md#constructor)
+- [constructor](XRSceneScopeElement.md#constructor)
 
 ### Properties
 
-- [ATTRIBUTE\_NODE](XRDecal.md#attribute_node)
-- [CDATA\_SECTION\_NODE](XRDecal.md#cdata_section_node)
-- [COMMENT\_NODE](XRDecal.md#comment_node)
-- [DOCUMENT\_FRAGMENT\_NODE](XRDecal.md#document_fragment_node)
-- [DOCUMENT\_NODE](XRDecal.md#document_node)
-- [DOCUMENT\_POSITION\_CONTAINED\_BY](XRDecal.md#document_position_contained_by)
-- [DOCUMENT\_POSITION\_CONTAINS](XRDecal.md#document_position_contains)
-- [DOCUMENT\_POSITION\_DISCONNECTED](XRDecal.md#document_position_disconnected)
-- [DOCUMENT\_POSITION\_FOLLOWING](XRDecal.md#document_position_following)
-- [DOCUMENT\_POSITION\_IMPLEMENTATION\_SPECIFIC](XRDecal.md#document_position_implementation_specific)
-- [DOCUMENT\_POSITION\_PRECEDING](XRDecal.md#document_position_preceding)
-- [DOCUMENT\_TYPE\_NODE](XRDecal.md#document_type_node)
-- [ELEMENT\_NODE](XRDecal.md#element_node)
-- [ENTITY\_NODE](XRDecal.md#entity_node)
-- [ENTITY\_REFERENCE\_NODE](XRDecal.md#entity_reference_node)
-- [NOTATION\_NODE](XRDecal.md#notation_node)
-- [PROCESSING\_INSTRUCTION\_NODE](XRDecal.md#processing_instruction_node)
-- [TEXT\_NODE](XRDecal.md#text_node)
-- [accessKey](XRDecal.md#accesskey)
-- [accessKeyLabel](XRDecal.md#accesskeylabel)
-- [angle](XRDecal.md#angle)
-- [animation](XRDecal.md#animation)
-- [ariaAtomic](XRDecal.md#ariaatomic)
-- [ariaAutoComplete](XRDecal.md#ariaautocomplete)
-- [ariaBusy](XRDecal.md#ariabusy)
-- [ariaChecked](XRDecal.md#ariachecked)
-- [ariaColCount](XRDecal.md#ariacolcount)
-- [ariaColIndex](XRDecal.md#ariacolindex)
-- [ariaColSpan](XRDecal.md#ariacolspan)
-- [ariaCurrent](XRDecal.md#ariacurrent)
-- [ariaDisabled](XRDecal.md#ariadisabled)
-- [ariaExpanded](XRDecal.md#ariaexpanded)
-- [ariaHasPopup](XRDecal.md#ariahaspopup)
-- [ariaHidden](XRDecal.md#ariahidden)
-- [ariaInvalid](XRDecal.md#ariainvalid)
-- [ariaKeyShortcuts](XRDecal.md#ariakeyshortcuts)
-- [ariaLabel](XRDecal.md#arialabel)
-- [ariaLevel](XRDecal.md#arialevel)
-- [ariaLive](XRDecal.md#arialive)
-- [ariaModal](XRDecal.md#ariamodal)
-- [ariaMultiLine](XRDecal.md#ariamultiline)
-- [ariaMultiSelectable](XRDecal.md#ariamultiselectable)
-- [ariaOrientation](XRDecal.md#ariaorientation)
-- [ariaPlaceholder](XRDecal.md#ariaplaceholder)
-- [ariaPosInSet](XRDecal.md#ariaposinset)
-- [ariaPressed](XRDecal.md#ariapressed)
-- [ariaReadOnly](XRDecal.md#ariareadonly)
-- [ariaRequired](XRDecal.md#ariarequired)
-- [ariaRoleDescription](XRDecal.md#ariaroledescription)
-- [ariaRowCount](XRDecal.md#ariarowcount)
-- [ariaRowIndex](XRDecal.md#ariarowindex)
-- [ariaRowSpan](XRDecal.md#ariarowspan)
-- [ariaSelected](XRDecal.md#ariaselected)
-- [ariaSetSize](XRDecal.md#ariasetsize)
-- [ariaSort](XRDecal.md#ariasort)
-- [ariaValueMax](XRDecal.md#ariavaluemax)
-- [ariaValueMin](XRDecal.md#ariavaluemin)
-- [ariaValueNow](XRDecal.md#ariavaluenow)
-- [ariaValueText](XRDecal.md#ariavaluetext)
-- [assignedSlot](XRDecal.md#assignedslot)
-- [attributeStyleMap](XRDecal.md#attributestylemap)
-- [attributes](XRDecal.md#attributes)
-- [autocapitalize](XRDecal.md#autocapitalize)
-- [autofocus](XRDecal.md#autofocus)
-- [baseURI](XRDecal.md#baseuri)
-- [childElementCount](XRDecal.md#childelementcount)
-- [childNodes](XRDecal.md#childnodes)
-- [children](XRDecal.md#children)
-- [classList](XRDecal.md#classlist)
-- [className](XRDecal.md#classname)
-- [clientHeight](XRDecal.md#clientheight)
-- [clientLeft](XRDecal.md#clientleft)
-- [clientTop](XRDecal.md#clienttop)
-- [clientWidth](XRDecal.md#clientwidth)
-- [contentEditable](XRDecal.md#contenteditable)
-- [dataset](XRDecal.md#dataset)
-- [dir](XRDecal.md#dir)
-- [disabled](XRDecal.md#disabled)
-- [draggable](XRDecal.md#draggable)
-- [enterKeyHint](XRDecal.md#enterkeyhint)
-- [entity](XRDecal.md#entity)
-- [evaluatedProps](XRDecal.md#evaluatedprops)
-- [firstChild](XRDecal.md#firstchild)
-- [firstElementChild](XRDecal.md#firstelementchild)
-- [hasUpdated](XRDecal.md#hasupdated)
-- [hidden](XRDecal.md#hidden)
-- [id](XRDecal.md#id)
-- [img](XRDecal.md#img)
-- [imgLevel](XRDecal.md#imglevel)
-- [inert](XRDecal.md#inert)
-- [innerHTML](XRDecal.md#innerhtml)
-- [innerText](XRDecal.md#innertext)
-- [inputMode](XRDecal.md#inputmode)
-- [inspect](XRDecal.md#inspect)
-- [isConnected](XRDecal.md#isconnected)
-- [isContentEditable](XRDecal.md#iscontenteditable)
-- [isUpdatePending](XRDecal.md#isupdatepending)
-- [lang](XRDecal.md#lang)
-- [lastChild](XRDecal.md#lastchild)
-- [lastElementChild](XRDecal.md#lastelementchild)
-- [localName](XRDecal.md#localname)
-- [logger](XRDecal.md#logger)
-- [namespaceURI](XRDecal.md#namespaceuri)
-- [nextElementSibling](XRDecal.md#nextelementsibling)
-- [nextSibling](XRDecal.md#nextsibling)
-- [nodeName](XRDecal.md#nodename)
-- [nodeType](XRDecal.md#nodetype)
-- [nodeValue](XRDecal.md#nodevalue)
-- [nonce](XRDecal.md#nonce)
-- [normal](XRDecal.md#normal)
-- [offsetHeight](XRDecal.md#offsetheight)
-- [offsetLeft](XRDecal.md#offsetleft)
-- [offsetParent](XRDecal.md#offsetparent)
-- [offsetTop](XRDecal.md#offsettop)
-- [offsetWidth](XRDecal.md#offsetwidth)
-- [onabort](XRDecal.md#onabort)
-- [onanimationcancel](XRDecal.md#onanimationcancel)
-- [onanimationend](XRDecal.md#onanimationend)
-- [onanimationiteration](XRDecal.md#onanimationiteration)
-- [onanimationstart](XRDecal.md#onanimationstart)
-- [onauxclick](XRDecal.md#onauxclick)
-- [onbeforeinput](XRDecal.md#onbeforeinput)
-- [onbeforexrselect](XRDecal.md#onbeforexrselect)
-- [onblur](XRDecal.md#onblur)
-- [oncancel](XRDecal.md#oncancel)
-- [oncanplay](XRDecal.md#oncanplay)
-- [oncanplaythrough](XRDecal.md#oncanplaythrough)
-- [onchange](XRDecal.md#onchange)
-- [onclick](XRDecal.md#onclick)
-- [onclose](XRDecal.md#onclose)
-- [oncontextmenu](XRDecal.md#oncontextmenu)
-- [oncopy](XRDecal.md#oncopy)
-- [oncuechange](XRDecal.md#oncuechange)
-- [oncut](XRDecal.md#oncut)
-- [ondblclick](XRDecal.md#ondblclick)
-- [ondrag](XRDecal.md#ondrag)
-- [ondragend](XRDecal.md#ondragend)
-- [ondragenter](XRDecal.md#ondragenter)
-- [ondragleave](XRDecal.md#ondragleave)
-- [ondragover](XRDecal.md#ondragover)
-- [ondragstart](XRDecal.md#ondragstart)
-- [ondrop](XRDecal.md#ondrop)
-- [ondurationchange](XRDecal.md#ondurationchange)
-- [onemptied](XRDecal.md#onemptied)
-- [onended](XRDecal.md#onended)
-- [onerror](XRDecal.md#onerror)
-- [onfocus](XRDecal.md#onfocus)
-- [onformdata](XRDecal.md#onformdata)
-- [onfullscreenchange](XRDecal.md#onfullscreenchange)
-- [onfullscreenerror](XRDecal.md#onfullscreenerror)
-- [ongotpointercapture](XRDecal.md#ongotpointercapture)
-- [oninput](XRDecal.md#oninput)
-- [oninvalid](XRDecal.md#oninvalid)
-- [onkeydown](XRDecal.md#onkeydown)
-- [onkeypress](XRDecal.md#onkeypress)
-- [onkeyup](XRDecal.md#onkeyup)
-- [onload](XRDecal.md#onload)
-- [onloadeddata](XRDecal.md#onloadeddata)
-- [onloadedmetadata](XRDecal.md#onloadedmetadata)
-- [onloadstart](XRDecal.md#onloadstart)
-- [onlostpointercapture](XRDecal.md#onlostpointercapture)
-- [onmousedown](XRDecal.md#onmousedown)
-- [onmouseenter](XRDecal.md#onmouseenter)
-- [onmouseleave](XRDecal.md#onmouseleave)
-- [onmousemove](XRDecal.md#onmousemove)
-- [onmouseout](XRDecal.md#onmouseout)
-- [onmouseover](XRDecal.md#onmouseover)
-- [onmouseup](XRDecal.md#onmouseup)
-- [onpaste](XRDecal.md#onpaste)
-- [onpause](XRDecal.md#onpause)
-- [onplay](XRDecal.md#onplay)
-- [onplaying](XRDecal.md#onplaying)
-- [onpointercancel](XRDecal.md#onpointercancel)
-- [onpointerdown](XRDecal.md#onpointerdown)
-- [onpointerenter](XRDecal.md#onpointerenter)
-- [onpointerleave](XRDecal.md#onpointerleave)
-- [onpointermove](XRDecal.md#onpointermove)
-- [onpointerout](XRDecal.md#onpointerout)
-- [onpointerover](XRDecal.md#onpointerover)
-- [onpointerup](XRDecal.md#onpointerup)
-- [onprogress](XRDecal.md#onprogress)
-- [onratechange](XRDecal.md#onratechange)
-- [onreset](XRDecal.md#onreset)
-- [onresize](XRDecal.md#onresize)
-- [onscroll](XRDecal.md#onscroll)
-- [onscrollend](XRDecal.md#onscrollend)
-- [onsecuritypolicyviolation](XRDecal.md#onsecuritypolicyviolation)
-- [onseeked](XRDecal.md#onseeked)
-- [onseeking](XRDecal.md#onseeking)
-- [onselect](XRDecal.md#onselect)
-- [onselectionchange](XRDecal.md#onselectionchange)
-- [onselectstart](XRDecal.md#onselectstart)
-- [onslotchange](XRDecal.md#onslotchange)
-- [onstalled](XRDecal.md#onstalled)
-- [onsubmit](XRDecal.md#onsubmit)
-- [onsuspend](XRDecal.md#onsuspend)
-- [ontimeupdate](XRDecal.md#ontimeupdate)
-- [ontoggle](XRDecal.md#ontoggle)
-- [ontouchcancel](XRDecal.md#ontouchcancel)
-- [ontouchend](XRDecal.md#ontouchend)
-- [ontouchmove](XRDecal.md#ontouchmove)
-- [ontouchstart](XRDecal.md#ontouchstart)
-- [ontransitioncancel](XRDecal.md#ontransitioncancel)
-- [ontransitionend](XRDecal.md#ontransitionend)
-- [ontransitionrun](XRDecal.md#ontransitionrun)
-- [ontransitionstart](XRDecal.md#ontransitionstart)
-- [onvolumechange](XRDecal.md#onvolumechange)
-- [onwaiting](XRDecal.md#onwaiting)
-- [onwebkitanimationend](XRDecal.md#onwebkitanimationend)
-- [onwebkitanimationiteration](XRDecal.md#onwebkitanimationiteration)
-- [onwebkitanimationstart](XRDecal.md#onwebkitanimationstart)
-- [onwebkittransitionend](XRDecal.md#onwebkittransitionend)
-- [onwheel](XRDecal.md#onwheel)
-- [outerHTML](XRDecal.md#outerhtml)
-- [outerText](XRDecal.md#outertext)
-- [ownerDocument](XRDecal.md#ownerdocument)
-- [parentElement](XRDecal.md#parentelement)
-- [parentNode](XRDecal.md#parentnode)
-- [part](XRDecal.md#part)
-- [popover](XRDecal.md#popover)
-- [position](XRDecal.md#position)
-- [prefix](XRDecal.md#prefix)
-- [previousElementSibling](XRDecal.md#previouselementsibling)
-- [previousSibling](XRDecal.md#previoussibling)
-- [renderOptions](XRDecal.md#renderoptions)
-- [renderRoot](XRDecal.md#renderroot)
-- [role](XRDecal.md#role)
-- [scene](XRDecal.md#scene)
-- [scrollHeight](XRDecal.md#scrollheight)
-- [scrollLeft](XRDecal.md#scrollleft)
-- [scrollTop](XRDecal.md#scrolltop)
-- [scrollWidth](XRDecal.md#scrollwidth)
-- [shadowRoot](XRDecal.md#shadowroot)
-- [size](XRDecal.md#size)
-- [slot](XRDecal.md#slot)
-- [spellcheck](XRDecal.md#spellcheck)
-- [style](XRDecal.md#style)
-- [tabIndex](XRDecal.md#tabindex)
-- [tagName](XRDecal.md#tagname)
-- [textContent](XRDecal.md#textcontent)
-- [title](XRDecal.md#title)
-- [transition](XRDecal.md#transition)
-- [translate](XRDecal.md#translate)
-- [[metadata]](XRDecal.md#[metadata])
-- [\_$litElement$](XRDecal.md#_$litelement$)
-- [\_initializers](XRDecal.md#_initializers)
-- [disableWarning](XRDecal.md#disablewarning)
-- [elementProperties](XRDecal.md#elementproperties)
-- [elementStyles](XRDecal.md#elementstyles)
-- [enableWarning](XRDecal.md#enablewarning)
-- [enabledWarnings](XRDecal.md#enabledwarnings)
-- [properties](XRDecal.md#properties)
-- [requiredAttrs](XRDecal.md#requiredattrs)
-- [shadowRootOptions](XRDecal.md#shadowrootoptions)
-- [styles](XRDecal.md#styles)
+- [ATTRIBUTE\_NODE](XRSceneScopeElement.md#attribute_node)
+- [CDATA\_SECTION\_NODE](XRSceneScopeElement.md#cdata_section_node)
+- [COMMENT\_NODE](XRSceneScopeElement.md#comment_node)
+- [DOCUMENT\_FRAGMENT\_NODE](XRSceneScopeElement.md#document_fragment_node)
+- [DOCUMENT\_NODE](XRSceneScopeElement.md#document_node)
+- [DOCUMENT\_POSITION\_CONTAINED\_BY](XRSceneScopeElement.md#document_position_contained_by)
+- [DOCUMENT\_POSITION\_CONTAINS](XRSceneScopeElement.md#document_position_contains)
+- [DOCUMENT\_POSITION\_DISCONNECTED](XRSceneScopeElement.md#document_position_disconnected)
+- [DOCUMENT\_POSITION\_FOLLOWING](XRSceneScopeElement.md#document_position_following)
+- [DOCUMENT\_POSITION\_IMPLEMENTATION\_SPECIFIC](XRSceneScopeElement.md#document_position_implementation_specific)
+- [DOCUMENT\_POSITION\_PRECEDING](XRSceneScopeElement.md#document_position_preceding)
+- [DOCUMENT\_TYPE\_NODE](XRSceneScopeElement.md#document_type_node)
+- [ELEMENT\_NODE](XRSceneScopeElement.md#element_node)
+- [ENTITY\_NODE](XRSceneScopeElement.md#entity_node)
+- [ENTITY\_REFERENCE\_NODE](XRSceneScopeElement.md#entity_reference_node)
+- [NOTATION\_NODE](XRSceneScopeElement.md#notation_node)
+- [PROCESSING\_INSTRUCTION\_NODE](XRSceneScopeElement.md#processing_instruction_node)
+- [TEXT\_NODE](XRSceneScopeElement.md#text_node)
+- [accessKey](XRSceneScopeElement.md#accesskey)
+- [accessKeyLabel](XRSceneScopeElement.md#accesskeylabel)
+- [animation](XRSceneScopeElement.md#animation)
+- [ariaAtomic](XRSceneScopeElement.md#ariaatomic)
+- [ariaAutoComplete](XRSceneScopeElement.md#ariaautocomplete)
+- [ariaBusy](XRSceneScopeElement.md#ariabusy)
+- [ariaChecked](XRSceneScopeElement.md#ariachecked)
+- [ariaColCount](XRSceneScopeElement.md#ariacolcount)
+- [ariaColIndex](XRSceneScopeElement.md#ariacolindex)
+- [ariaColSpan](XRSceneScopeElement.md#ariacolspan)
+- [ariaCurrent](XRSceneScopeElement.md#ariacurrent)
+- [ariaDisabled](XRSceneScopeElement.md#ariadisabled)
+- [ariaExpanded](XRSceneScopeElement.md#ariaexpanded)
+- [ariaHasPopup](XRSceneScopeElement.md#ariahaspopup)
+- [ariaHidden](XRSceneScopeElement.md#ariahidden)
+- [ariaInvalid](XRSceneScopeElement.md#ariainvalid)
+- [ariaKeyShortcuts](XRSceneScopeElement.md#ariakeyshortcuts)
+- [ariaLabel](XRSceneScopeElement.md#arialabel)
+- [ariaLevel](XRSceneScopeElement.md#arialevel)
+- [ariaLive](XRSceneScopeElement.md#arialive)
+- [ariaModal](XRSceneScopeElement.md#ariamodal)
+- [ariaMultiLine](XRSceneScopeElement.md#ariamultiline)
+- [ariaMultiSelectable](XRSceneScopeElement.md#ariamultiselectable)
+- [ariaOrientation](XRSceneScopeElement.md#ariaorientation)
+- [ariaPlaceholder](XRSceneScopeElement.md#ariaplaceholder)
+- [ariaPosInSet](XRSceneScopeElement.md#ariaposinset)
+- [ariaPressed](XRSceneScopeElement.md#ariapressed)
+- [ariaReadOnly](XRSceneScopeElement.md#ariareadonly)
+- [ariaRequired](XRSceneScopeElement.md#ariarequired)
+- [ariaRoleDescription](XRSceneScopeElement.md#ariaroledescription)
+- [ariaRowCount](XRSceneScopeElement.md#ariarowcount)
+- [ariaRowIndex](XRSceneScopeElement.md#ariarowindex)
+- [ariaRowSpan](XRSceneScopeElement.md#ariarowspan)
+- [ariaSelected](XRSceneScopeElement.md#ariaselected)
+- [ariaSetSize](XRSceneScopeElement.md#ariasetsize)
+- [ariaSort](XRSceneScopeElement.md#ariasort)
+- [ariaValueMax](XRSceneScopeElement.md#ariavaluemax)
+- [ariaValueMin](XRSceneScopeElement.md#ariavaluemin)
+- [ariaValueNow](XRSceneScopeElement.md#ariavaluenow)
+- [ariaValueText](XRSceneScopeElement.md#ariavaluetext)
+- [assignedSlot](XRSceneScopeElement.md#assignedslot)
+- [attributeStyleMap](XRSceneScopeElement.md#attributestylemap)
+- [attributes](XRSceneScopeElement.md#attributes)
+- [autocapitalize](XRSceneScopeElement.md#autocapitalize)
+- [autofocus](XRSceneScopeElement.md#autofocus)
+- [baseURI](XRSceneScopeElement.md#baseuri)
+- [childElementCount](XRSceneScopeElement.md#childelementcount)
+- [childNodes](XRSceneScopeElement.md#childnodes)
+- [children](XRSceneScopeElement.md#children)
+- [classList](XRSceneScopeElement.md#classlist)
+- [className](XRSceneScopeElement.md#classname)
+- [clientHeight](XRSceneScopeElement.md#clientheight)
+- [clientLeft](XRSceneScopeElement.md#clientleft)
+- [clientTop](XRSceneScopeElement.md#clienttop)
+- [clientWidth](XRSceneScopeElement.md#clientwidth)
+- [contentEditable](XRSceneScopeElement.md#contenteditable)
+- [dataset](XRSceneScopeElement.md#dataset)
+- [dir](XRSceneScopeElement.md#dir)
+- [disabled](XRSceneScopeElement.md#disabled)
+- [draggable](XRSceneScopeElement.md#draggable)
+- [enterKeyHint](XRSceneScopeElement.md#enterkeyhint)
+- [entity](XRSceneScopeElement.md#entity)
+- [evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+- [firstChild](XRSceneScopeElement.md#firstchild)
+- [firstElementChild](XRSceneScopeElement.md#firstelementchild)
+- [hasUpdated](XRSceneScopeElement.md#hasupdated)
+- [hidden](XRSceneScopeElement.md#hidden)
+- [id](XRSceneScopeElement.md#id)
+- [inert](XRSceneScopeElement.md#inert)
+- [innerHTML](XRSceneScopeElement.md#innerhtml)
+- [innerText](XRSceneScopeElement.md#innertext)
+- [inputMode](XRSceneScopeElement.md#inputmode)
+- [inspect](XRSceneScopeElement.md#inspect)
+- [isConnected](XRSceneScopeElement.md#isconnected)
+- [isContentEditable](XRSceneScopeElement.md#iscontenteditable)
+- [isUpdatePending](XRSceneScopeElement.md#isupdatepending)
+- [lang](XRSceneScopeElement.md#lang)
+- [lastChild](XRSceneScopeElement.md#lastchild)
+- [lastElementChild](XRSceneScopeElement.md#lastelementchild)
+- [localName](XRSceneScopeElement.md#localname)
+- [logger](XRSceneScopeElement.md#logger)
+- [namespaceURI](XRSceneScopeElement.md#namespaceuri)
+- [nextElementSibling](XRSceneScopeElement.md#nextelementsibling)
+- [nextSibling](XRSceneScopeElement.md#nextsibling)
+- [nodeName](XRSceneScopeElement.md#nodename)
+- [nodeType](XRSceneScopeElement.md#nodetype)
+- [nodeValue](XRSceneScopeElement.md#nodevalue)
+- [nonce](XRSceneScopeElement.md#nonce)
+- [offsetHeight](XRSceneScopeElement.md#offsetheight)
+- [offsetLeft](XRSceneScopeElement.md#offsetleft)
+- [offsetParent](XRSceneScopeElement.md#offsetparent)
+- [offsetTop](XRSceneScopeElement.md#offsettop)
+- [offsetWidth](XRSceneScopeElement.md#offsetwidth)
+- [onabort](XRSceneScopeElement.md#onabort)
+- [onanimationcancel](XRSceneScopeElement.md#onanimationcancel)
+- [onanimationend](XRSceneScopeElement.md#onanimationend)
+- [onanimationiteration](XRSceneScopeElement.md#onanimationiteration)
+- [onanimationstart](XRSceneScopeElement.md#onanimationstart)
+- [onauxclick](XRSceneScopeElement.md#onauxclick)
+- [onbeforeinput](XRSceneScopeElement.md#onbeforeinput)
+- [onbeforexrselect](XRSceneScopeElement.md#onbeforexrselect)
+- [onblur](XRSceneScopeElement.md#onblur)
+- [oncancel](XRSceneScopeElement.md#oncancel)
+- [oncanplay](XRSceneScopeElement.md#oncanplay)
+- [oncanplaythrough](XRSceneScopeElement.md#oncanplaythrough)
+- [onchange](XRSceneScopeElement.md#onchange)
+- [onclick](XRSceneScopeElement.md#onclick)
+- [onclose](XRSceneScopeElement.md#onclose)
+- [oncontextmenu](XRSceneScopeElement.md#oncontextmenu)
+- [oncopy](XRSceneScopeElement.md#oncopy)
+- [oncuechange](XRSceneScopeElement.md#oncuechange)
+- [oncut](XRSceneScopeElement.md#oncut)
+- [ondblclick](XRSceneScopeElement.md#ondblclick)
+- [ondrag](XRSceneScopeElement.md#ondrag)
+- [ondragend](XRSceneScopeElement.md#ondragend)
+- [ondragenter](XRSceneScopeElement.md#ondragenter)
+- [ondragleave](XRSceneScopeElement.md#ondragleave)
+- [ondragover](XRSceneScopeElement.md#ondragover)
+- [ondragstart](XRSceneScopeElement.md#ondragstart)
+- [ondrop](XRSceneScopeElement.md#ondrop)
+- [ondurationchange](XRSceneScopeElement.md#ondurationchange)
+- [onemptied](XRSceneScopeElement.md#onemptied)
+- [onended](XRSceneScopeElement.md#onended)
+- [onerror](XRSceneScopeElement.md#onerror)
+- [onfocus](XRSceneScopeElement.md#onfocus)
+- [onformdata](XRSceneScopeElement.md#onformdata)
+- [onfullscreenchange](XRSceneScopeElement.md#onfullscreenchange)
+- [onfullscreenerror](XRSceneScopeElement.md#onfullscreenerror)
+- [ongotpointercapture](XRSceneScopeElement.md#ongotpointercapture)
+- [oninput](XRSceneScopeElement.md#oninput)
+- [oninvalid](XRSceneScopeElement.md#oninvalid)
+- [onkeydown](XRSceneScopeElement.md#onkeydown)
+- [onkeypress](XRSceneScopeElement.md#onkeypress)
+- [onkeyup](XRSceneScopeElement.md#onkeyup)
+- [onload](XRSceneScopeElement.md#onload)
+- [onloadeddata](XRSceneScopeElement.md#onloadeddata)
+- [onloadedmetadata](XRSceneScopeElement.md#onloadedmetadata)
+- [onloadstart](XRSceneScopeElement.md#onloadstart)
+- [onlostpointercapture](XRSceneScopeElement.md#onlostpointercapture)
+- [onmousedown](XRSceneScopeElement.md#onmousedown)
+- [onmouseenter](XRSceneScopeElement.md#onmouseenter)
+- [onmouseleave](XRSceneScopeElement.md#onmouseleave)
+- [onmousemove](XRSceneScopeElement.md#onmousemove)
+- [onmouseout](XRSceneScopeElement.md#onmouseout)
+- [onmouseover](XRSceneScopeElement.md#onmouseover)
+- [onmouseup](XRSceneScopeElement.md#onmouseup)
+- [onpaste](XRSceneScopeElement.md#onpaste)
+- [onpause](XRSceneScopeElement.md#onpause)
+- [onplay](XRSceneScopeElement.md#onplay)
+- [onplaying](XRSceneScopeElement.md#onplaying)
+- [onpointercancel](XRSceneScopeElement.md#onpointercancel)
+- [onpointerdown](XRSceneScopeElement.md#onpointerdown)
+- [onpointerenter](XRSceneScopeElement.md#onpointerenter)
+- [onpointerleave](XRSceneScopeElement.md#onpointerleave)
+- [onpointermove](XRSceneScopeElement.md#onpointermove)
+- [onpointerout](XRSceneScopeElement.md#onpointerout)
+- [onpointerover](XRSceneScopeElement.md#onpointerover)
+- [onpointerup](XRSceneScopeElement.md#onpointerup)
+- [onprogress](XRSceneScopeElement.md#onprogress)
+- [onratechange](XRSceneScopeElement.md#onratechange)
+- [onreset](XRSceneScopeElement.md#onreset)
+- [onresize](XRSceneScopeElement.md#onresize)
+- [onscroll](XRSceneScopeElement.md#onscroll)
+- [onscrollend](XRSceneScopeElement.md#onscrollend)
+- [onsecuritypolicyviolation](XRSceneScopeElement.md#onsecuritypolicyviolation)
+- [onseeked](XRSceneScopeElement.md#onseeked)
+- [onseeking](XRSceneScopeElement.md#onseeking)
+- [onselect](XRSceneScopeElement.md#onselect)
+- [onselectionchange](XRSceneScopeElement.md#onselectionchange)
+- [onselectstart](XRSceneScopeElement.md#onselectstart)
+- [onslotchange](XRSceneScopeElement.md#onslotchange)
+- [onstalled](XRSceneScopeElement.md#onstalled)
+- [onsubmit](XRSceneScopeElement.md#onsubmit)
+- [onsuspend](XRSceneScopeElement.md#onsuspend)
+- [ontimeupdate](XRSceneScopeElement.md#ontimeupdate)
+- [ontoggle](XRSceneScopeElement.md#ontoggle)
+- [ontouchcancel](XRSceneScopeElement.md#ontouchcancel)
+- [ontouchend](XRSceneScopeElement.md#ontouchend)
+- [ontouchmove](XRSceneScopeElement.md#ontouchmove)
+- [ontouchstart](XRSceneScopeElement.md#ontouchstart)
+- [ontransitioncancel](XRSceneScopeElement.md#ontransitioncancel)
+- [ontransitionend](XRSceneScopeElement.md#ontransitionend)
+- [ontransitionrun](XRSceneScopeElement.md#ontransitionrun)
+- [ontransitionstart](XRSceneScopeElement.md#ontransitionstart)
+- [onvolumechange](XRSceneScopeElement.md#onvolumechange)
+- [onwaiting](XRSceneScopeElement.md#onwaiting)
+- [onwebkitanimationend](XRSceneScopeElement.md#onwebkitanimationend)
+- [onwebkitanimationiteration](XRSceneScopeElement.md#onwebkitanimationiteration)
+- [onwebkitanimationstart](XRSceneScopeElement.md#onwebkitanimationstart)
+- [onwebkittransitionend](XRSceneScopeElement.md#onwebkittransitionend)
+- [onwheel](XRSceneScopeElement.md#onwheel)
+- [outerHTML](XRSceneScopeElement.md#outerhtml)
+- [outerText](XRSceneScopeElement.md#outertext)
+- [ownerDocument](XRSceneScopeElement.md#ownerdocument)
+- [parentElement](XRSceneScopeElement.md#parentelement)
+- [parentNode](XRSceneScopeElement.md#parentnode)
+- [part](XRSceneScopeElement.md#part)
+- [popover](XRSceneScopeElement.md#popover)
+- [prefix](XRSceneScopeElement.md#prefix)
+- [previousElementSibling](XRSceneScopeElement.md#previouselementsibling)
+- [previousSibling](XRSceneScopeElement.md#previoussibling)
+- [renderOptions](XRSceneScopeElement.md#renderoptions)
+- [renderRoot](XRSceneScopeElement.md#renderroot)
+- [role](XRSceneScopeElement.md#role)
+- [scene](XRSceneScopeElement.md#scene)
+- [scrollHeight](XRSceneScopeElement.md#scrollheight)
+- [scrollLeft](XRSceneScopeElement.md#scrollleft)
+- [scrollTop](XRSceneScopeElement.md#scrolltop)
+- [scrollWidth](XRSceneScopeElement.md#scrollwidth)
+- [shadowRoot](XRSceneScopeElement.md#shadowroot)
+- [slot](XRSceneScopeElement.md#slot)
+- [spellcheck](XRSceneScopeElement.md#spellcheck)
+- [style](XRSceneScopeElement.md#style)
+- [tabIndex](XRSceneScopeElement.md#tabindex)
+- [tagName](XRSceneScopeElement.md#tagname)
+- [textContent](XRSceneScopeElement.md#textcontent)
+- [title](XRSceneScopeElement.md#title)
+- [transition](XRSceneScopeElement.md#transition)
+- [translate](XRSceneScopeElement.md#translate)
+- [[metadata]](XRSceneScopeElement.md#[metadata])
+- [\_$litElement$](XRSceneScopeElement.md#_$litelement$)
+- [\_initializers](XRSceneScopeElement.md#_initializers)
+- [disableWarning](XRSceneScopeElement.md#disablewarning)
+- [elementProperties](XRSceneScopeElement.md#elementproperties)
+- [elementStyles](XRSceneScopeElement.md#elementstyles)
+- [enableWarning](XRSceneScopeElement.md#enablewarning)
+- [enabledWarnings](XRSceneScopeElement.md#enabledwarnings)
+- [properties](XRSceneScopeElement.md#properties)
+- [requiredAttrs](XRSceneScopeElement.md#requiredattrs)
+- [shadowRootOptions](XRSceneScopeElement.md#shadowrootoptions)
+- [styles](XRSceneScopeElement.md#styles)
 
 ### Accessors
 
-- [updateComplete](XRDecal.md#updatecomplete)
-- [observedAttributes](XRDecal.md#observedattributes)
+- [updateComplete](XRSceneScopeElement.md#updatecomplete)
+- [observedAttributes](XRSceneScopeElement.md#observedattributes)
 
 ### Methods
 
-- [addController](XRDecal.md#addcontroller)
-- [addEventListener](XRDecal.md#addeventlistener)
-- [after](XRDecal.md#after)
-- [animate](XRDecal.md#animate)
-- [append](XRDecal.md#append)
-- [appendChild](XRDecal.md#appendchild)
-- [attachInternals](XRDecal.md#attachinternals)
-- [attachShadow](XRDecal.md#attachshadow)
-- [attributeChangedCallback](XRDecal.md#attributechangedcallback)
-- [before](XRDecal.md#before)
-- [blur](XRDecal.md#blur)
-- [checkVisibility](XRDecal.md#checkvisibility)
-- [click](XRDecal.md#click)
-- [cloneNode](XRDecal.md#clonenode)
-- [closest](XRDecal.md#closest)
-- [compareDocumentPosition](XRDecal.md#comparedocumentposition)
-- [computedStyleMap](XRDecal.md#computedstylemap)
-- [connected](XRDecal.md#connected)
-- [contains](XRDecal.md#contains)
-- [dispatchEvent](XRDecal.md#dispatchevent)
-- [focus](XRDecal.md#focus)
-- [getAnimations](XRDecal.md#getanimations)
-- [getAttribute](XRDecal.md#getattribute)
-- [getAttributeNS](XRDecal.md#getattributens)
-- [getAttributeNames](XRDecal.md#getattributenames)
-- [getAttributeNode](XRDecal.md#getattributenode)
-- [getAttributeNodeNS](XRDecal.md#getattributenodens)
-- [getBoundingClientRect](XRDecal.md#getboundingclientrect)
-- [getClientRects](XRDecal.md#getclientrects)
-- [getElementsByClassName](XRDecal.md#getelementsbyclassname)
-- [getElementsByTagName](XRDecal.md#getelementsbytagname)
-- [getElementsByTagNameNS](XRDecal.md#getelementsbytagnamens)
-- [getRootNode](XRDecal.md#getrootnode)
-- [hasAttribute](XRDecal.md#hasattribute)
-- [hasAttributeNS](XRDecal.md#hasattributens)
-- [hasAttributes](XRDecal.md#hasattributes)
-- [hasChildNodes](XRDecal.md#haschildnodes)
-- [hasPointerCapture](XRDecal.md#haspointercapture)
-- [hidePopover](XRDecal.md#hidepopover)
-- [insertAdjacentElement](XRDecal.md#insertadjacentelement)
-- [insertAdjacentHTML](XRDecal.md#insertadjacenthtml)
-- [insertAdjacentText](XRDecal.md#insertadjacenttext)
-- [insertBefore](XRDecal.md#insertbefore)
-- [isDefaultNamespace](XRDecal.md#isdefaultnamespace)
-- [isEqualNode](XRDecal.md#isequalnode)
-- [isSameNode](XRDecal.md#issamenode)
-- [lookupNamespaceURI](XRDecal.md#lookupnamespaceuri)
-- [lookupPrefix](XRDecal.md#lookupprefix)
-- [matches](XRDecal.md#matches)
-- [normalize](XRDecal.md#normalize)
-- [prepend](XRDecal.md#prepend)
-- [querySelector](XRDecal.md#queryselector)
-- [querySelectorAll](XRDecal.md#queryselectorall)
-- [releasePointerCapture](XRDecal.md#releasepointercapture)
-- [remove](XRDecal.md#remove)
-- [removeAttribute](XRDecal.md#removeattribute)
-- [removeAttributeNS](XRDecal.md#removeattributens)
-- [removeAttributeNode](XRDecal.md#removeattributenode)
-- [removeChild](XRDecal.md#removechild)
-- [removeController](XRDecal.md#removecontroller)
-- [removeEventListener](XRDecal.md#removeeventlistener)
-- [replaceChild](XRDecal.md#replacechild)
-- [replaceChildren](XRDecal.md#replacechildren)
-- [replaceWith](XRDecal.md#replacewith)
-- [requestFullscreen](XRDecal.md#requestfullscreen)
-- [requestPointerLock](XRDecal.md#requestpointerlock)
-- [requestUpdate](XRDecal.md#requestupdate)
-- [scroll](XRDecal.md#scroll)
-- [scrollBy](XRDecal.md#scrollby)
-- [scrollIntoView](XRDecal.md#scrollintoview)
-- [scrollTo](XRDecal.md#scrollto)
-- [setAttribute](XRDecal.md#setattribute)
-- [setAttributeNS](XRDecal.md#setattributens)
-- [setAttributeNode](XRDecal.md#setattributenode)
-- [setAttributeNodeNS](XRDecal.md#setattributenodens)
-- [setPointerCapture](XRDecal.md#setpointercapture)
-- [showPopover](XRDecal.md#showpopover)
-- [toggleAttribute](XRDecal.md#toggleattribute)
-- [togglePopover](XRDecal.md#togglepopover)
-- [webkitMatchesSelector](XRDecal.md#webkitmatchesselector)
-- [addInitializer](XRDecal.md#addinitializer)
-- [createProperty](XRDecal.md#createproperty)
-- [getPropertyOptions](XRDecal.md#getpropertyoptions)
+- [addController](XRSceneScopeElement.md#addcontroller)
+- [addEventListener](XRSceneScopeElement.md#addeventlistener)
+- [after](XRSceneScopeElement.md#after)
+- [animate](XRSceneScopeElement.md#animate)
+- [append](XRSceneScopeElement.md#append)
+- [appendChild](XRSceneScopeElement.md#appendchild)
+- [attachInternals](XRSceneScopeElement.md#attachinternals)
+- [attachShadow](XRSceneScopeElement.md#attachshadow)
+- [attributeChangedCallback](XRSceneScopeElement.md#attributechangedcallback)
+- [before](XRSceneScopeElement.md#before)
+- [blur](XRSceneScopeElement.md#blur)
+- [checkVisibility](XRSceneScopeElement.md#checkvisibility)
+- [click](XRSceneScopeElement.md#click)
+- [cloneNode](XRSceneScopeElement.md#clonenode)
+- [closest](XRSceneScopeElement.md#closest)
+- [compareDocumentPosition](XRSceneScopeElement.md#comparedocumentposition)
+- [computedStyleMap](XRSceneScopeElement.md#computedstylemap)
+- [contains](XRSceneScopeElement.md#contains)
+- [dispatchEvent](XRSceneScopeElement.md#dispatchevent)
+- [focus](XRSceneScopeElement.md#focus)
+- [getAnimations](XRSceneScopeElement.md#getanimations)
+- [getAttribute](XRSceneScopeElement.md#getattribute)
+- [getAttributeNS](XRSceneScopeElement.md#getattributens)
+- [getAttributeNames](XRSceneScopeElement.md#getattributenames)
+- [getAttributeNode](XRSceneScopeElement.md#getattributenode)
+- [getAttributeNodeNS](XRSceneScopeElement.md#getattributenodens)
+- [getBoundingClientRect](XRSceneScopeElement.md#getboundingclientrect)
+- [getClientRects](XRSceneScopeElement.md#getclientrects)
+- [getElementsByClassName](XRSceneScopeElement.md#getelementsbyclassname)
+- [getElementsByTagName](XRSceneScopeElement.md#getelementsbytagname)
+- [getElementsByTagNameNS](XRSceneScopeElement.md#getelementsbytagnamens)
+- [getRootNode](XRSceneScopeElement.md#getrootnode)
+- [hasAttribute](XRSceneScopeElement.md#hasattribute)
+- [hasAttributeNS](XRSceneScopeElement.md#hasattributens)
+- [hasAttributes](XRSceneScopeElement.md#hasattributes)
+- [hasChildNodes](XRSceneScopeElement.md#haschildnodes)
+- [hasPointerCapture](XRSceneScopeElement.md#haspointercapture)
+- [hidePopover](XRSceneScopeElement.md#hidepopover)
+- [insertAdjacentElement](XRSceneScopeElement.md#insertadjacentelement)
+- [insertAdjacentHTML](XRSceneScopeElement.md#insertadjacenthtml)
+- [insertAdjacentText](XRSceneScopeElement.md#insertadjacenttext)
+- [insertBefore](XRSceneScopeElement.md#insertbefore)
+- [isDefaultNamespace](XRSceneScopeElement.md#isdefaultnamespace)
+- [isEqualNode](XRSceneScopeElement.md#isequalnode)
+- [isSameNode](XRSceneScopeElement.md#issamenode)
+- [lookupNamespaceURI](XRSceneScopeElement.md#lookupnamespaceuri)
+- [lookupPrefix](XRSceneScopeElement.md#lookupprefix)
+- [matches](XRSceneScopeElement.md#matches)
+- [normalize](XRSceneScopeElement.md#normalize)
+- [prepend](XRSceneScopeElement.md#prepend)
+- [querySelector](XRSceneScopeElement.md#queryselector)
+- [querySelectorAll](XRSceneScopeElement.md#queryselectorall)
+- [releasePointerCapture](XRSceneScopeElement.md#releasepointercapture)
+- [remove](XRSceneScopeElement.md#remove)
+- [removeAttribute](XRSceneScopeElement.md#removeattribute)
+- [removeAttributeNS](XRSceneScopeElement.md#removeattributens)
+- [removeAttributeNode](XRSceneScopeElement.md#removeattributenode)
+- [removeChild](XRSceneScopeElement.md#removechild)
+- [removeController](XRSceneScopeElement.md#removecontroller)
+- [removeEventListener](XRSceneScopeElement.md#removeeventlistener)
+- [replaceChild](XRSceneScopeElement.md#replacechild)
+- [replaceChildren](XRSceneScopeElement.md#replacechildren)
+- [replaceWith](XRSceneScopeElement.md#replacewith)
+- [requestFullscreen](XRSceneScopeElement.md#requestfullscreen)
+- [requestPointerLock](XRSceneScopeElement.md#requestpointerlock)
+- [requestUpdate](XRSceneScopeElement.md#requestupdate)
+- [scroll](XRSceneScopeElement.md#scroll)
+- [scrollBy](XRSceneScopeElement.md#scrollby)
+- [scrollIntoView](XRSceneScopeElement.md#scrollintoview)
+- [scrollTo](XRSceneScopeElement.md#scrollto)
+- [setAttribute](XRSceneScopeElement.md#setattribute)
+- [setAttributeNS](XRSceneScopeElement.md#setattributens)
+- [setAttributeNode](XRSceneScopeElement.md#setattributenode)
+- [setAttributeNodeNS](XRSceneScopeElement.md#setattributenodens)
+- [setPointerCapture](XRSceneScopeElement.md#setpointercapture)
+- [showPopover](XRSceneScopeElement.md#showpopover)
+- [toggleAttribute](XRSceneScopeElement.md#toggleattribute)
+- [togglePopover](XRSceneScopeElement.md#togglepopover)
+- [webkitMatchesSelector](XRSceneScopeElement.md#webkitmatchesselector)
+- [addInitializer](XRSceneScopeElement.md#addinitializer)
+- [createProperty](XRSceneScopeElement.md#createproperty)
+- [getPropertyOptions](XRSceneScopeElement.md#getpropertyoptions)
 
 ## Other
 
 ### constructor
 
-• **new XRDecal**(): [`XRDecal`](XRDecal.md)
+• **new XRSceneScopeElement**\<`T`\>(): [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`T`\>
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | `any` |
 
 #### Returns
 
-[`XRDecal`](XRDecal.md)
+[`XRSceneScopeElement`](XRSceneScopeElement.md)\<`T`\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
+[XRElement](XRElement.md).[constructor](XRElement.md#constructor)
 
 ___
 
@@ -385,7 +410,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ATTRIBUTE_NODE](XRSceneScopeElement.md#attribute_node)
+[XRElement](XRElement.md).[ATTRIBUTE_NODE](XRElement.md#attribute_node)
 
 ___
 
@@ -397,7 +422,7 @@ node is a CDATASection node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[CDATA_SECTION_NODE](XRSceneScopeElement.md#cdata_section_node)
+[XRElement](XRElement.md).[CDATA_SECTION_NODE](XRElement.md#cdata_section_node)
 
 ___
 
@@ -409,7 +434,7 @@ node is a Comment node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[COMMENT_NODE](XRSceneScopeElement.md#comment_node)
+[XRElement](XRElement.md).[COMMENT_NODE](XRElement.md#comment_node)
 
 ___
 
@@ -421,7 +446,7 @@ node is a DocumentFragment node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[DOCUMENT_FRAGMENT_NODE](XRSceneScopeElement.md#document_fragment_node)
+[XRElement](XRElement.md).[DOCUMENT_FRAGMENT_NODE](XRElement.md#document_fragment_node)
 
 ___
 
@@ -433,7 +458,7 @@ node is a document.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[DOCUMENT_NODE](XRSceneScopeElement.md#document_node)
+[XRElement](XRElement.md).[DOCUMENT_NODE](XRElement.md#document_node)
 
 ___
 
@@ -445,7 +470,7 @@ Set when other is a descendant of node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[DOCUMENT_POSITION_CONTAINED_BY](XRSceneScopeElement.md#document_position_contained_by)
+[XRElement](XRElement.md).[DOCUMENT_POSITION_CONTAINED_BY](XRElement.md#document_position_contained_by)
 
 ___
 
@@ -457,7 +482,7 @@ Set when other is an ancestor of node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[DOCUMENT_POSITION_CONTAINS](XRSceneScopeElement.md#document_position_contains)
+[XRElement](XRElement.md).[DOCUMENT_POSITION_CONTAINS](XRElement.md#document_position_contains)
 
 ___
 
@@ -469,7 +494,7 @@ Set when node and other are not in the same tree.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[DOCUMENT_POSITION_DISCONNECTED](XRSceneScopeElement.md#document_position_disconnected)
+[XRElement](XRElement.md).[DOCUMENT_POSITION_DISCONNECTED](XRElement.md#document_position_disconnected)
 
 ___
 
@@ -481,7 +506,7 @@ Set when other is following node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[DOCUMENT_POSITION_FOLLOWING](XRSceneScopeElement.md#document_position_following)
+[XRElement](XRElement.md).[DOCUMENT_POSITION_FOLLOWING](XRElement.md#document_position_following)
 
 ___
 
@@ -491,7 +516,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC](XRSceneScopeElement.md#document_position_implementation_specific)
+[XRElement](XRElement.md).[DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC](XRElement.md#document_position_implementation_specific)
 
 ___
 
@@ -503,7 +528,7 @@ Set when other is preceding node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[DOCUMENT_POSITION_PRECEDING](XRSceneScopeElement.md#document_position_preceding)
+[XRElement](XRElement.md).[DOCUMENT_POSITION_PRECEDING](XRElement.md#document_position_preceding)
 
 ___
 
@@ -515,7 +540,7 @@ node is a doctype.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[DOCUMENT_TYPE_NODE](XRSceneScopeElement.md#document_type_node)
+[XRElement](XRElement.md).[DOCUMENT_TYPE_NODE](XRElement.md#document_type_node)
 
 ___
 
@@ -527,7 +552,7 @@ node is an element.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ELEMENT_NODE](XRSceneScopeElement.md#element_node)
+[XRElement](XRElement.md).[ELEMENT_NODE](XRElement.md#element_node)
 
 ___
 
@@ -537,7 +562,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ENTITY_NODE](XRSceneScopeElement.md#entity_node)
+[XRElement](XRElement.md).[ENTITY_NODE](XRElement.md#entity_node)
 
 ___
 
@@ -547,7 +572,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ENTITY_REFERENCE_NODE](XRSceneScopeElement.md#entity_reference_node)
+[XRElement](XRElement.md).[ENTITY_REFERENCE_NODE](XRElement.md#entity_reference_node)
 
 ___
 
@@ -557,7 +582,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[NOTATION_NODE](XRSceneScopeElement.md#notation_node)
+[XRElement](XRElement.md).[NOTATION_NODE](XRElement.md#notation_node)
 
 ___
 
@@ -569,7 +594,7 @@ node is a ProcessingInstruction node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[PROCESSING_INSTRUCTION_NODE](XRSceneScopeElement.md#processing_instruction_node)
+[XRElement](XRElement.md).[PROCESSING_INSTRUCTION_NODE](XRElement.md#processing_instruction_node)
 
 ___
 
@@ -581,7 +606,7 @@ node is a Text node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[TEXT_NODE](XRSceneScopeElement.md#text_node)
+[XRElement](XRElement.md).[TEXT_NODE](XRElement.md#text_node)
 
 ___
 
@@ -593,7 +618,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[accessKey](XRSceneScopeElement.md#accesskey)
+[XRElement](XRElement.md).[accessKey](XRElement.md#accesskey)
 
 ___
 
@@ -605,13 +630,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[accessKeyLabel](XRSceneScopeElement.md#accesskeylabel)
-
-___
-
-### angle
-
-• **angle**: `number` = `0`
+[XRElement](XRElement.md).[accessKeyLabel](XRElement.md#accesskeylabel)
 
 ___
 
@@ -621,7 +640,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
+[XRElement](XRElement.md).[animation](XRElement.md#animation)
 
 ___
 
@@ -633,7 +652,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaAtomic](XRSceneScopeElement.md#ariaatomic)
+[XRElement](XRElement.md).[ariaAtomic](XRElement.md#ariaatomic)
 
 ___
 
@@ -645,7 +664,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaAutoComplete](XRSceneScopeElement.md#ariaautocomplete)
+[XRElement](XRElement.md).[ariaAutoComplete](XRElement.md#ariaautocomplete)
 
 ___
 
@@ -657,7 +676,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaBusy](XRSceneScopeElement.md#ariabusy)
+[XRElement](XRElement.md).[ariaBusy](XRElement.md#ariabusy)
 
 ___
 
@@ -669,7 +688,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaChecked](XRSceneScopeElement.md#ariachecked)
+[XRElement](XRElement.md).[ariaChecked](XRElement.md#ariachecked)
 
 ___
 
@@ -681,7 +700,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaColCount](XRSceneScopeElement.md#ariacolcount)
+[XRElement](XRElement.md).[ariaColCount](XRElement.md#ariacolcount)
 
 ___
 
@@ -693,7 +712,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaColIndex](XRSceneScopeElement.md#ariacolindex)
+[XRElement](XRElement.md).[ariaColIndex](XRElement.md#ariacolindex)
 
 ___
 
@@ -705,7 +724,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaColSpan](XRSceneScopeElement.md#ariacolspan)
+[XRElement](XRElement.md).[ariaColSpan](XRElement.md#ariacolspan)
 
 ___
 
@@ -717,7 +736,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaCurrent](XRSceneScopeElement.md#ariacurrent)
+[XRElement](XRElement.md).[ariaCurrent](XRElement.md#ariacurrent)
 
 ___
 
@@ -729,7 +748,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaDisabled](XRSceneScopeElement.md#ariadisabled)
+[XRElement](XRElement.md).[ariaDisabled](XRElement.md#ariadisabled)
 
 ___
 
@@ -741,7 +760,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaExpanded](XRSceneScopeElement.md#ariaexpanded)
+[XRElement](XRElement.md).[ariaExpanded](XRElement.md#ariaexpanded)
 
 ___
 
@@ -753,7 +772,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaHasPopup](XRSceneScopeElement.md#ariahaspopup)
+[XRElement](XRElement.md).[ariaHasPopup](XRElement.md#ariahaspopup)
 
 ___
 
@@ -765,7 +784,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaHidden](XRSceneScopeElement.md#ariahidden)
+[XRElement](XRElement.md).[ariaHidden](XRElement.md#ariahidden)
 
 ___
 
@@ -775,7 +794,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaInvalid](XRSceneScopeElement.md#ariainvalid)
+[XRElement](XRElement.md).[ariaInvalid](XRElement.md#ariainvalid)
 
 ___
 
@@ -787,7 +806,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaKeyShortcuts](XRSceneScopeElement.md#ariakeyshortcuts)
+[XRElement](XRElement.md).[ariaKeyShortcuts](XRElement.md#ariakeyshortcuts)
 
 ___
 
@@ -799,7 +818,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaLabel](XRSceneScopeElement.md#arialabel)
+[XRElement](XRElement.md).[ariaLabel](XRElement.md#arialabel)
 
 ___
 
@@ -811,7 +830,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaLevel](XRSceneScopeElement.md#arialevel)
+[XRElement](XRElement.md).[ariaLevel](XRElement.md#arialevel)
 
 ___
 
@@ -823,7 +842,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaLive](XRSceneScopeElement.md#arialive)
+[XRElement](XRElement.md).[ariaLive](XRElement.md#arialive)
 
 ___
 
@@ -835,7 +854,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaModal](XRSceneScopeElement.md#ariamodal)
+[XRElement](XRElement.md).[ariaModal](XRElement.md#ariamodal)
 
 ___
 
@@ -847,7 +866,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaMultiLine](XRSceneScopeElement.md#ariamultiline)
+[XRElement](XRElement.md).[ariaMultiLine](XRElement.md#ariamultiline)
 
 ___
 
@@ -859,7 +878,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaMultiSelectable](XRSceneScopeElement.md#ariamultiselectable)
+[XRElement](XRElement.md).[ariaMultiSelectable](XRElement.md#ariamultiselectable)
 
 ___
 
@@ -871,7 +890,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaOrientation](XRSceneScopeElement.md#ariaorientation)
+[XRElement](XRElement.md).[ariaOrientation](XRElement.md#ariaorientation)
 
 ___
 
@@ -883,7 +902,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaPlaceholder](XRSceneScopeElement.md#ariaplaceholder)
+[XRElement](XRElement.md).[ariaPlaceholder](XRElement.md#ariaplaceholder)
 
 ___
 
@@ -895,7 +914,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaPosInSet](XRSceneScopeElement.md#ariaposinset)
+[XRElement](XRElement.md).[ariaPosInSet](XRElement.md#ariaposinset)
 
 ___
 
@@ -907,7 +926,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaPressed](XRSceneScopeElement.md#ariapressed)
+[XRElement](XRElement.md).[ariaPressed](XRElement.md#ariapressed)
 
 ___
 
@@ -919,7 +938,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaReadOnly](XRSceneScopeElement.md#ariareadonly)
+[XRElement](XRElement.md).[ariaReadOnly](XRElement.md#ariareadonly)
 
 ___
 
@@ -931,7 +950,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaRequired](XRSceneScopeElement.md#ariarequired)
+[XRElement](XRElement.md).[ariaRequired](XRElement.md#ariarequired)
 
 ___
 
@@ -943,7 +962,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaRoleDescription](XRSceneScopeElement.md#ariaroledescription)
+[XRElement](XRElement.md).[ariaRoleDescription](XRElement.md#ariaroledescription)
 
 ___
 
@@ -955,7 +974,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaRowCount](XRSceneScopeElement.md#ariarowcount)
+[XRElement](XRElement.md).[ariaRowCount](XRElement.md#ariarowcount)
 
 ___
 
@@ -967,7 +986,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaRowIndex](XRSceneScopeElement.md#ariarowindex)
+[XRElement](XRElement.md).[ariaRowIndex](XRElement.md#ariarowindex)
 
 ___
 
@@ -979,7 +998,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaRowSpan](XRSceneScopeElement.md#ariarowspan)
+[XRElement](XRElement.md).[ariaRowSpan](XRElement.md#ariarowspan)
 
 ___
 
@@ -991,7 +1010,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaSelected](XRSceneScopeElement.md#ariaselected)
+[XRElement](XRElement.md).[ariaSelected](XRElement.md#ariaselected)
 
 ___
 
@@ -1003,7 +1022,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaSetSize](XRSceneScopeElement.md#ariasetsize)
+[XRElement](XRElement.md).[ariaSetSize](XRElement.md#ariasetsize)
 
 ___
 
@@ -1015,7 +1034,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaSort](XRSceneScopeElement.md#ariasort)
+[XRElement](XRElement.md).[ariaSort](XRElement.md#ariasort)
 
 ___
 
@@ -1027,7 +1046,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaValueMax](XRSceneScopeElement.md#ariavaluemax)
+[XRElement](XRElement.md).[ariaValueMax](XRElement.md#ariavaluemax)
 
 ___
 
@@ -1039,7 +1058,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaValueMin](XRSceneScopeElement.md#ariavaluemin)
+[XRElement](XRElement.md).[ariaValueMin](XRElement.md#ariavaluemin)
 
 ___
 
@@ -1051,7 +1070,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaValueNow](XRSceneScopeElement.md#ariavaluenow)
+[XRElement](XRElement.md).[ariaValueNow](XRElement.md#ariavaluenow)
 
 ___
 
@@ -1063,7 +1082,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ariaValueText](XRSceneScopeElement.md#ariavaluetext)
+[XRElement](XRElement.md).[ariaValueText](XRElement.md#ariavaluetext)
 
 ___
 
@@ -1075,7 +1094,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[assignedSlot](XRSceneScopeElement.md#assignedslot)
+[XRElement](XRElement.md).[assignedSlot](XRElement.md#assignedslot)
 
 ___
 
@@ -1085,7 +1104,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[attributeStyleMap](XRSceneScopeElement.md#attributestylemap)
+[XRElement](XRElement.md).[attributeStyleMap](XRElement.md#attributestylemap)
 
 ___
 
@@ -1097,7 +1116,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[attributes](XRSceneScopeElement.md#attributes)
+[XRElement](XRElement.md).[attributes](XRElement.md#attributes)
 
 ___
 
@@ -1107,7 +1126,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[autocapitalize](XRSceneScopeElement.md#autocapitalize)
+[XRElement](XRElement.md).[autocapitalize](XRElement.md#autocapitalize)
 
 ___
 
@@ -1117,7 +1136,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[autofocus](XRSceneScopeElement.md#autofocus)
+[XRElement](XRElement.md).[autofocus](XRElement.md#autofocus)
 
 ___
 
@@ -1131,7 +1150,7 @@ Returns node's node document's document base URL.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[baseURI](XRSceneScopeElement.md#baseuri)
+[XRElement](XRElement.md).[baseURI](XRElement.md#baseuri)
 
 ___
 
@@ -1143,7 +1162,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[childElementCount](XRSceneScopeElement.md#childelementcount)
+[XRElement](XRElement.md).[childElementCount](XRElement.md#childelementcount)
 
 ___
 
@@ -1157,7 +1176,7 @@ Returns the children.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[childNodes](XRSceneScopeElement.md#childnodes)
+[XRElement](XRElement.md).[childNodes](XRElement.md#childnodes)
 
 ___
 
@@ -1171,7 +1190,7 @@ Returns the child elements.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[children](XRSceneScopeElement.md#children)
+[XRElement](XRElement.md).[children](XRElement.md#children)
 
 ___
 
@@ -1185,7 +1204,7 @@ Allows for manipulation of element's class content attribute as a set of whitesp
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[classList](XRSceneScopeElement.md#classlist)
+[XRElement](XRElement.md).[classList](XRElement.md#classlist)
 
 ___
 
@@ -1199,7 +1218,7 @@ Returns the value of element's class content attribute. Can be set to change it.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[className](XRSceneScopeElement.md#classname)
+[XRElement](XRElement.md).[className](XRElement.md#classname)
 
 ___
 
@@ -1211,7 +1230,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[clientHeight](XRSceneScopeElement.md#clientheight)
+[XRElement](XRElement.md).[clientHeight](XRElement.md#clientheight)
 
 ___
 
@@ -1223,7 +1242,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[clientLeft](XRSceneScopeElement.md#clientleft)
+[XRElement](XRElement.md).[clientLeft](XRElement.md#clientleft)
 
 ___
 
@@ -1235,7 +1254,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[clientTop](XRSceneScopeElement.md#clienttop)
+[XRElement](XRElement.md).[clientTop](XRElement.md#clienttop)
 
 ___
 
@@ -1247,7 +1266,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[clientWidth](XRSceneScopeElement.md#clientwidth)
+[XRElement](XRElement.md).[clientWidth](XRElement.md#clientwidth)
 
 ___
 
@@ -1259,7 +1278,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[contentEditable](XRSceneScopeElement.md#contenteditable)
+[XRElement](XRElement.md).[contentEditable](XRElement.md#contenteditable)
 
 ___
 
@@ -1271,7 +1290,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[dataset](XRSceneScopeElement.md#dataset)
+[XRElement](XRElement.md).[dataset](XRElement.md#dataset)
 
 ___
 
@@ -1283,7 +1302,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[dir](XRSceneScopeElement.md#dir)
+[XRElement](XRElement.md).[dir](XRElement.md#dir)
 
 ___
 
@@ -1293,7 +1312,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[disabled](XRSceneScopeElement.md#disabled)
+[XRElement](XRElement.md).[disabled](XRElement.md#disabled)
 
 ___
 
@@ -1305,7 +1324,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[draggable](XRSceneScopeElement.md#draggable)
+[XRElement](XRElement.md).[draggable](XRElement.md#draggable)
 
 ___
 
@@ -1317,27 +1336,27 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[enterKeyHint](XRSceneScopeElement.md#enterkeyhint)
+[XRElement](XRElement.md).[enterKeyHint](XRElement.md#enterkeyhint)
 
 ___
 
 ### entity
 
-• **entity**: ``null`` \| `Mesh` = `null`
+• **entity**: ``null`` \| `T` = `null`
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[entity](XRSceneScopeElement.md#entity)
+[XRElement](XRElement.md).[entity](XRElement.md#entity)
 
 ___
 
 ### evaluatedProps
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRDecal`](XRDecal.md)\>
+• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRSceneScopeElement`](XRSceneScopeElement.md)\<`T`\>\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+[XRElement](XRElement.md).[evaluatedProps](XRElement.md#evaluatedprops)
 
 ___
 
@@ -1351,7 +1370,7 @@ Returns the first child.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[firstChild](XRSceneScopeElement.md#firstchild)
+[XRElement](XRElement.md).[firstChild](XRElement.md#firstchild)
 
 ___
 
@@ -1365,7 +1384,7 @@ Returns the first child that is an element, and null otherwise.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[firstElementChild](XRSceneScopeElement.md#firstelementchild)
+[XRElement](XRElement.md).[firstElementChild](XRElement.md#firstelementchild)
 
 ___
 
@@ -1377,7 +1396,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[hidden](XRSceneScopeElement.md#hidden)
+[XRElement](XRElement.md).[hidden](XRElement.md#hidden)
 
 ___
 
@@ -1391,19 +1410,7 @@ Returns the value of element's id content attribute. Can be set to change it.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[id](XRSceneScopeElement.md#id)
-
-___
-
-### img
-
-• `Optional` **img**: `string`
-
-___
-
-### imgLevel
-
-• **imgLevel**: `number` = `1`
+[XRElement](XRElement.md).[id](XRElement.md#id)
 
 ___
 
@@ -1415,7 +1422,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[inert](XRSceneScopeElement.md#inert)
+[XRElement](XRElement.md).[inert](XRElement.md#inert)
 
 ___
 
@@ -1427,7 +1434,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[innerHTML](XRSceneScopeElement.md#innerhtml)
+[XRElement](XRElement.md).[innerHTML](XRElement.md#innerhtml)
 
 ___
 
@@ -1439,7 +1446,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[innerText](XRSceneScopeElement.md#innertext)
+[XRElement](XRElement.md).[innerText](XRElement.md#innertext)
 
 ___
 
@@ -1451,7 +1458,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[inputMode](XRSceneScopeElement.md#inputmode)
+[XRElement](XRElement.md).[inputMode](XRElement.md#inputmode)
 
 ___
 
@@ -1461,7 +1468,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[inspect](XRSceneScopeElement.md#inspect)
+[XRElement](XRElement.md).[inspect](XRElement.md#inspect)
 
 ___
 
@@ -1475,7 +1482,7 @@ Returns true if node is connected and false otherwise.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[isConnected](XRSceneScopeElement.md#isconnected)
+[XRElement](XRElement.md).[isConnected](XRElement.md#isconnected)
 
 ___
 
@@ -1487,7 +1494,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[isContentEditable](XRSceneScopeElement.md#iscontenteditable)
+[XRElement](XRElement.md).[isContentEditable](XRElement.md#iscontenteditable)
 
 ___
 
@@ -1499,7 +1506,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[lang](XRSceneScopeElement.md#lang)
+[XRElement](XRElement.md).[lang](XRElement.md#lang)
 
 ___
 
@@ -1513,7 +1520,7 @@ Returns the last child.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[lastChild](XRSceneScopeElement.md#lastchild)
+[XRElement](XRElement.md).[lastChild](XRElement.md#lastchild)
 
 ___
 
@@ -1527,7 +1534,7 @@ Returns the last child that is an element, and null otherwise.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[lastElementChild](XRSceneScopeElement.md#lastelementchild)
+[XRElement](XRElement.md).[lastElementChild](XRElement.md#lastelementchild)
 
 ___
 
@@ -1541,7 +1548,7 @@ Returns the local name.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[localName](XRSceneScopeElement.md#localname)
+[XRElement](XRElement.md).[localName](XRElement.md#localname)
 
 ___
 
@@ -1551,7 +1558,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[logger](XRSceneScopeElement.md#logger)
+[XRElement](XRElement.md).[logger](XRElement.md#logger)
 
 ___
 
@@ -1565,7 +1572,7 @@ Returns the namespace.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[namespaceURI](XRSceneScopeElement.md#namespaceuri)
+[XRElement](XRElement.md).[namespaceURI](XRElement.md#namespaceuri)
 
 ___
 
@@ -1579,7 +1586,7 @@ Returns the first following sibling that is an element, and null otherwise.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[nextElementSibling](XRSceneScopeElement.md#nextelementsibling)
+[XRElement](XRElement.md).[nextElementSibling](XRElement.md#nextelementsibling)
 
 ___
 
@@ -1593,7 +1600,7 @@ Returns the next sibling.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[nextSibling](XRSceneScopeElement.md#nextsibling)
+[XRElement](XRElement.md).[nextSibling](XRElement.md#nextsibling)
 
 ___
 
@@ -1607,7 +1614,7 @@ Returns a string appropriate for the type of node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[nodeName](XRSceneScopeElement.md#nodename)
+[XRElement](XRElement.md).[nodeName](XRElement.md#nodename)
 
 ___
 
@@ -1621,7 +1628,7 @@ Returns the type of node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[nodeType](XRSceneScopeElement.md#nodetype)
+[XRElement](XRElement.md).[nodeType](XRElement.md#nodetype)
 
 ___
 
@@ -1633,7 +1640,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[nodeValue](XRSceneScopeElement.md#nodevalue)
+[XRElement](XRElement.md).[nodeValue](XRElement.md#nodevalue)
 
 ___
 
@@ -1645,13 +1652,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[nonce](XRSceneScopeElement.md#nonce)
-
-___
-
-### normal
-
-• **normal**: [`Vector3`](Vector3.md)
+[XRElement](XRElement.md).[nonce](XRElement.md#nonce)
 
 ___
 
@@ -1663,7 +1664,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[offsetHeight](XRSceneScopeElement.md#offsetheight)
+[XRElement](XRElement.md).[offsetHeight](XRElement.md#offsetheight)
 
 ___
 
@@ -1675,7 +1676,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[offsetLeft](XRSceneScopeElement.md#offsetleft)
+[XRElement](XRElement.md).[offsetLeft](XRElement.md#offsetleft)
 
 ___
 
@@ -1687,7 +1688,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[offsetParent](XRSceneScopeElement.md#offsetparent)
+[XRElement](XRElement.md).[offsetParent](XRElement.md#offsetparent)
 
 ___
 
@@ -1699,7 +1700,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[offsetTop](XRSceneScopeElement.md#offsettop)
+[XRElement](XRElement.md).[offsetTop](XRElement.md#offsettop)
 
 ___
 
@@ -1711,7 +1712,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[offsetWidth](XRSceneScopeElement.md#offsetwidth)
+[XRElement](XRElement.md).[offsetWidth](XRElement.md#offsetwidth)
 
 ___
 
@@ -1729,7 +1730,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onabort](XRSceneScopeElement.md#onabort)
+[XRElement](XRElement.md).[onabort](XRElement.md#onabort)
 
 ___
 
@@ -1741,7 +1742,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onanimationcancel](XRSceneScopeElement.md#onanimationcancel)
+[XRElement](XRElement.md).[onanimationcancel](XRElement.md#onanimationcancel)
 
 ___
 
@@ -1753,7 +1754,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onanimationend](XRSceneScopeElement.md#onanimationend)
+[XRElement](XRElement.md).[onanimationend](XRElement.md#onanimationend)
 
 ___
 
@@ -1765,7 +1766,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onanimationiteration](XRSceneScopeElement.md#onanimationiteration)
+[XRElement](XRElement.md).[onanimationiteration](XRElement.md#onanimationiteration)
 
 ___
 
@@ -1777,7 +1778,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onanimationstart](XRSceneScopeElement.md#onanimationstart)
+[XRElement](XRElement.md).[onanimationstart](XRElement.md#onanimationstart)
 
 ___
 
@@ -1789,7 +1790,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onauxclick](XRSceneScopeElement.md#onauxclick)
+[XRElement](XRElement.md).[onauxclick](XRElement.md#onauxclick)
 
 ___
 
@@ -1801,7 +1802,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onbeforeinput](XRSceneScopeElement.md#onbeforeinput)
+[XRElement](XRElement.md).[onbeforeinput](XRElement.md#onbeforeinput)
 
 ___
 
@@ -1816,7 +1817,7 @@ at the time the input device's primary action is triggered.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onbeforexrselect](XRSceneScopeElement.md#onbeforexrselect)
+[XRElement](XRElement.md).[onbeforexrselect](XRElement.md#onbeforexrselect)
 
 ___
 
@@ -1834,7 +1835,7 @@ The focus event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onblur](XRSceneScopeElement.md#onblur)
+[XRElement](XRElement.md).[onblur](XRElement.md#onblur)
 
 ___
 
@@ -1846,7 +1847,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[oncancel](XRSceneScopeElement.md#oncancel)
+[XRElement](XRElement.md).[oncancel](XRElement.md#oncancel)
 
 ___
 
@@ -1864,7 +1865,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[oncanplay](XRSceneScopeElement.md#oncanplay)
+[XRElement](XRElement.md).[oncanplay](XRElement.md#oncanplay)
 
 ___
 
@@ -1876,7 +1877,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[oncanplaythrough](XRSceneScopeElement.md#oncanplaythrough)
+[XRElement](XRElement.md).[oncanplaythrough](XRElement.md#oncanplaythrough)
 
 ___
 
@@ -1894,7 +1895,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onchange](XRSceneScopeElement.md#onchange)
+[XRElement](XRElement.md).[onchange](XRElement.md#onchange)
 
 ___
 
@@ -1912,7 +1913,7 @@ The mouse event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onclick](XRSceneScopeElement.md#onclick)
+[XRElement](XRElement.md).[onclick](XRElement.md#onclick)
 
 ___
 
@@ -1924,7 +1925,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onclose](XRSceneScopeElement.md#onclose)
+[XRElement](XRElement.md).[onclose](XRElement.md#onclose)
 
 ___
 
@@ -1942,7 +1943,7 @@ The mouse event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[oncontextmenu](XRSceneScopeElement.md#oncontextmenu)
+[XRElement](XRElement.md).[oncontextmenu](XRElement.md#oncontextmenu)
 
 ___
 
@@ -1954,7 +1955,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[oncopy](XRSceneScopeElement.md#oncopy)
+[XRElement](XRElement.md).[oncopy](XRElement.md#oncopy)
 
 ___
 
@@ -1966,7 +1967,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[oncuechange](XRSceneScopeElement.md#oncuechange)
+[XRElement](XRElement.md).[oncuechange](XRElement.md#oncuechange)
 
 ___
 
@@ -1978,7 +1979,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[oncut](XRSceneScopeElement.md#oncut)
+[XRElement](XRElement.md).[oncut](XRElement.md#oncut)
 
 ___
 
@@ -1996,7 +1997,7 @@ The mouse event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ondblclick](XRSceneScopeElement.md#ondblclick)
+[XRElement](XRElement.md).[ondblclick](XRElement.md#ondblclick)
 
 ___
 
@@ -2014,7 +2015,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ondrag](XRSceneScopeElement.md#ondrag)
+[XRElement](XRElement.md).[ondrag](XRElement.md#ondrag)
 
 ___
 
@@ -2032,7 +2033,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ondragend](XRSceneScopeElement.md#ondragend)
+[XRElement](XRElement.md).[ondragend](XRElement.md#ondragend)
 
 ___
 
@@ -2050,7 +2051,7 @@ The drag event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ondragenter](XRSceneScopeElement.md#ondragenter)
+[XRElement](XRElement.md).[ondragenter](XRElement.md#ondragenter)
 
 ___
 
@@ -2068,7 +2069,7 @@ The drag event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ondragleave](XRSceneScopeElement.md#ondragleave)
+[XRElement](XRElement.md).[ondragleave](XRElement.md#ondragleave)
 
 ___
 
@@ -2086,7 +2087,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ondragover](XRSceneScopeElement.md#ondragover)
+[XRElement](XRElement.md).[ondragover](XRElement.md#ondragover)
 
 ___
 
@@ -2104,7 +2105,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ondragstart](XRSceneScopeElement.md#ondragstart)
+[XRElement](XRElement.md).[ondragstart](XRElement.md#ondragstart)
 
 ___
 
@@ -2116,7 +2117,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ondrop](XRSceneScopeElement.md#ondrop)
+[XRElement](XRElement.md).[ondrop](XRElement.md#ondrop)
 
 ___
 
@@ -2134,7 +2135,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ondurationchange](XRSceneScopeElement.md#ondurationchange)
+[XRElement](XRElement.md).[ondurationchange](XRElement.md#ondurationchange)
 
 ___
 
@@ -2152,7 +2153,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onemptied](XRSceneScopeElement.md#onemptied)
+[XRElement](XRElement.md).[onemptied](XRElement.md#onemptied)
 
 ___
 
@@ -2170,7 +2171,7 @@ The event
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onended](XRSceneScopeElement.md#onended)
+[XRElement](XRElement.md).[onended](XRElement.md#onended)
 
 ___
 
@@ -2188,7 +2189,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onerror](XRSceneScopeElement.md#onerror)
+[XRElement](XRElement.md).[onerror](XRElement.md#onerror)
 
 ___
 
@@ -2206,7 +2207,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onfocus](XRSceneScopeElement.md#onfocus)
+[XRElement](XRElement.md).[onfocus](XRElement.md#onfocus)
 
 ___
 
@@ -2218,7 +2219,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onformdata](XRSceneScopeElement.md#onformdata)
+[XRElement](XRElement.md).[onformdata](XRElement.md#onformdata)
 
 ___
 
@@ -2230,7 +2231,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onfullscreenchange](XRSceneScopeElement.md#onfullscreenchange)
+[XRElement](XRElement.md).[onfullscreenchange](XRElement.md#onfullscreenchange)
 
 ___
 
@@ -2242,7 +2243,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onfullscreenerror](XRSceneScopeElement.md#onfullscreenerror)
+[XRElement](XRElement.md).[onfullscreenerror](XRElement.md#onfullscreenerror)
 
 ___
 
@@ -2254,7 +2255,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ongotpointercapture](XRSceneScopeElement.md#ongotpointercapture)
+[XRElement](XRElement.md).[ongotpointercapture](XRElement.md#ongotpointercapture)
 
 ___
 
@@ -2266,7 +2267,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[oninput](XRSceneScopeElement.md#oninput)
+[XRElement](XRElement.md).[oninput](XRElement.md#oninput)
 
 ___
 
@@ -2278,7 +2279,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[oninvalid](XRSceneScopeElement.md#oninvalid)
+[XRElement](XRElement.md).[oninvalid](XRElement.md#oninvalid)
 
 ___
 
@@ -2296,7 +2297,7 @@ The keyboard event
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onkeydown](XRSceneScopeElement.md#onkeydown)
+[XRElement](XRElement.md).[onkeydown](XRElement.md#onkeydown)
 
 ___
 
@@ -2316,7 +2317,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onkeypress](XRSceneScopeElement.md#onkeypress)
+[XRElement](XRElement.md).[onkeypress](XRElement.md#onkeypress)
 
 ___
 
@@ -2334,7 +2335,7 @@ The keyboard event
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onkeyup](XRSceneScopeElement.md#onkeyup)
+[XRElement](XRElement.md).[onkeyup](XRElement.md#onkeyup)
 
 ___
 
@@ -2352,7 +2353,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onload](XRSceneScopeElement.md#onload)
+[XRElement](XRElement.md).[onload](XRElement.md#onload)
 
 ___
 
@@ -2370,7 +2371,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onloadeddata](XRSceneScopeElement.md#onloadeddata)
+[XRElement](XRElement.md).[onloadeddata](XRElement.md#onloadeddata)
 
 ___
 
@@ -2388,7 +2389,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onloadedmetadata](XRSceneScopeElement.md#onloadedmetadata)
+[XRElement](XRElement.md).[onloadedmetadata](XRElement.md#onloadedmetadata)
 
 ___
 
@@ -2406,7 +2407,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onloadstart](XRSceneScopeElement.md#onloadstart)
+[XRElement](XRElement.md).[onloadstart](XRElement.md#onloadstart)
 
 ___
 
@@ -2418,7 +2419,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onlostpointercapture](XRSceneScopeElement.md#onlostpointercapture)
+[XRElement](XRElement.md).[onlostpointercapture](XRElement.md#onlostpointercapture)
 
 ___
 
@@ -2436,7 +2437,7 @@ The mouse event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onmousedown](XRSceneScopeElement.md#onmousedown)
+[XRElement](XRElement.md).[onmousedown](XRElement.md#onmousedown)
 
 ___
 
@@ -2448,7 +2449,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onmouseenter](XRSceneScopeElement.md#onmouseenter)
+[XRElement](XRElement.md).[onmouseenter](XRElement.md#onmouseenter)
 
 ___
 
@@ -2460,7 +2461,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onmouseleave](XRSceneScopeElement.md#onmouseleave)
+[XRElement](XRElement.md).[onmouseleave](XRElement.md#onmouseleave)
 
 ___
 
@@ -2478,7 +2479,7 @@ The mouse event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onmousemove](XRSceneScopeElement.md#onmousemove)
+[XRElement](XRElement.md).[onmousemove](XRElement.md#onmousemove)
 
 ___
 
@@ -2496,7 +2497,7 @@ The mouse event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onmouseout](XRSceneScopeElement.md#onmouseout)
+[XRElement](XRElement.md).[onmouseout](XRElement.md#onmouseout)
 
 ___
 
@@ -2514,7 +2515,7 @@ The mouse event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onmouseover](XRSceneScopeElement.md#onmouseover)
+[XRElement](XRElement.md).[onmouseover](XRElement.md#onmouseover)
 
 ___
 
@@ -2532,7 +2533,7 @@ The mouse event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onmouseup](XRSceneScopeElement.md#onmouseup)
+[XRElement](XRElement.md).[onmouseup](XRElement.md#onmouseup)
 
 ___
 
@@ -2544,7 +2545,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onpaste](XRSceneScopeElement.md#onpaste)
+[XRElement](XRElement.md).[onpaste](XRElement.md#onpaste)
 
 ___
 
@@ -2562,7 +2563,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onpause](XRSceneScopeElement.md#onpause)
+[XRElement](XRElement.md).[onpause](XRElement.md#onpause)
 
 ___
 
@@ -2580,7 +2581,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onplay](XRSceneScopeElement.md#onplay)
+[XRElement](XRElement.md).[onplay](XRElement.md#onplay)
 
 ___
 
@@ -2598,7 +2599,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onplaying](XRSceneScopeElement.md#onplaying)
+[XRElement](XRElement.md).[onplaying](XRElement.md#onplaying)
 
 ___
 
@@ -2610,7 +2611,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onpointercancel](XRSceneScopeElement.md#onpointercancel)
+[XRElement](XRElement.md).[onpointercancel](XRElement.md#onpointercancel)
 
 ___
 
@@ -2622,7 +2623,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onpointerdown](XRSceneScopeElement.md#onpointerdown)
+[XRElement](XRElement.md).[onpointerdown](XRElement.md#onpointerdown)
 
 ___
 
@@ -2634,7 +2635,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onpointerenter](XRSceneScopeElement.md#onpointerenter)
+[XRElement](XRElement.md).[onpointerenter](XRElement.md#onpointerenter)
 
 ___
 
@@ -2646,7 +2647,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onpointerleave](XRSceneScopeElement.md#onpointerleave)
+[XRElement](XRElement.md).[onpointerleave](XRElement.md#onpointerleave)
 
 ___
 
@@ -2658,7 +2659,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onpointermove](XRSceneScopeElement.md#onpointermove)
+[XRElement](XRElement.md).[onpointermove](XRElement.md#onpointermove)
 
 ___
 
@@ -2670,7 +2671,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onpointerout](XRSceneScopeElement.md#onpointerout)
+[XRElement](XRElement.md).[onpointerout](XRElement.md#onpointerout)
 
 ___
 
@@ -2682,7 +2683,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onpointerover](XRSceneScopeElement.md#onpointerover)
+[XRElement](XRElement.md).[onpointerover](XRElement.md#onpointerover)
 
 ___
 
@@ -2694,7 +2695,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onpointerup](XRSceneScopeElement.md#onpointerup)
+[XRElement](XRElement.md).[onpointerup](XRElement.md#onpointerup)
 
 ___
 
@@ -2712,7 +2713,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onprogress](XRSceneScopeElement.md#onprogress)
+[XRElement](XRElement.md).[onprogress](XRElement.md#onprogress)
 
 ___
 
@@ -2730,7 +2731,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onratechange](XRSceneScopeElement.md#onratechange)
+[XRElement](XRElement.md).[onratechange](XRElement.md#onratechange)
 
 ___
 
@@ -2748,7 +2749,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onreset](XRSceneScopeElement.md#onreset)
+[XRElement](XRElement.md).[onreset](XRElement.md#onreset)
 
 ___
 
@@ -2760,7 +2761,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onresize](XRSceneScopeElement.md#onresize)
+[XRElement](XRElement.md).[onresize](XRElement.md#onresize)
 
 ___
 
@@ -2778,7 +2779,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onscroll](XRSceneScopeElement.md#onscroll)
+[XRElement](XRElement.md).[onscroll](XRElement.md#onscroll)
 
 ___
 
@@ -2790,7 +2791,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onscrollend](XRSceneScopeElement.md#onscrollend)
+[XRElement](XRElement.md).[onscrollend](XRElement.md#onscrollend)
 
 ___
 
@@ -2802,7 +2803,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onsecuritypolicyviolation](XRSceneScopeElement.md#onsecuritypolicyviolation)
+[XRElement](XRElement.md).[onsecuritypolicyviolation](XRElement.md#onsecuritypolicyviolation)
 
 ___
 
@@ -2820,7 +2821,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onseeked](XRSceneScopeElement.md#onseeked)
+[XRElement](XRElement.md).[onseeked](XRElement.md#onseeked)
 
 ___
 
@@ -2838,7 +2839,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onseeking](XRSceneScopeElement.md#onseeking)
+[XRElement](XRElement.md).[onseeking](XRElement.md#onseeking)
 
 ___
 
@@ -2856,7 +2857,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onselect](XRSceneScopeElement.md#onselect)
+[XRElement](XRElement.md).[onselect](XRElement.md#onselect)
 
 ___
 
@@ -2868,7 +2869,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onselectionchange](XRSceneScopeElement.md#onselectionchange)
+[XRElement](XRElement.md).[onselectionchange](XRElement.md#onselectionchange)
 
 ___
 
@@ -2880,7 +2881,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onselectstart](XRSceneScopeElement.md#onselectstart)
+[XRElement](XRElement.md).[onselectstart](XRElement.md#onselectstart)
 
 ___
 
@@ -2892,7 +2893,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onslotchange](XRSceneScopeElement.md#onslotchange)
+[XRElement](XRElement.md).[onslotchange](XRElement.md#onslotchange)
 
 ___
 
@@ -2910,7 +2911,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onstalled](XRSceneScopeElement.md#onstalled)
+[XRElement](XRElement.md).[onstalled](XRElement.md#onstalled)
 
 ___
 
@@ -2922,7 +2923,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onsubmit](XRSceneScopeElement.md#onsubmit)
+[XRElement](XRElement.md).[onsubmit](XRElement.md#onsubmit)
 
 ___
 
@@ -2940,7 +2941,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onsuspend](XRSceneScopeElement.md#onsuspend)
+[XRElement](XRElement.md).[onsuspend](XRElement.md#onsuspend)
 
 ___
 
@@ -2958,7 +2959,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ontimeupdate](XRSceneScopeElement.md#ontimeupdate)
+[XRElement](XRElement.md).[ontimeupdate](XRElement.md#ontimeupdate)
 
 ___
 
@@ -2970,7 +2971,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ontoggle](XRSceneScopeElement.md#ontoggle)
+[XRElement](XRElement.md).[ontoggle](XRElement.md#ontoggle)
 
 ___
 
@@ -2982,7 +2983,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ontouchcancel](XRSceneScopeElement.md#ontouchcancel)
+[XRElement](XRElement.md).[ontouchcancel](XRElement.md#ontouchcancel)
 
 ___
 
@@ -2994,7 +2995,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ontouchend](XRSceneScopeElement.md#ontouchend)
+[XRElement](XRElement.md).[ontouchend](XRElement.md#ontouchend)
 
 ___
 
@@ -3006,7 +3007,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ontouchmove](XRSceneScopeElement.md#ontouchmove)
+[XRElement](XRElement.md).[ontouchmove](XRElement.md#ontouchmove)
 
 ___
 
@@ -3018,7 +3019,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ontouchstart](XRSceneScopeElement.md#ontouchstart)
+[XRElement](XRElement.md).[ontouchstart](XRElement.md#ontouchstart)
 
 ___
 
@@ -3030,7 +3031,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ontransitioncancel](XRSceneScopeElement.md#ontransitioncancel)
+[XRElement](XRElement.md).[ontransitioncancel](XRElement.md#ontransitioncancel)
 
 ___
 
@@ -3042,7 +3043,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ontransitionend](XRSceneScopeElement.md#ontransitionend)
+[XRElement](XRElement.md).[ontransitionend](XRElement.md#ontransitionend)
 
 ___
 
@@ -3054,7 +3055,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ontransitionrun](XRSceneScopeElement.md#ontransitionrun)
+[XRElement](XRElement.md).[ontransitionrun](XRElement.md#ontransitionrun)
 
 ___
 
@@ -3066,7 +3067,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ontransitionstart](XRSceneScopeElement.md#ontransitionstart)
+[XRElement](XRElement.md).[ontransitionstart](XRElement.md#ontransitionstart)
 
 ___
 
@@ -3084,7 +3085,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onvolumechange](XRSceneScopeElement.md#onvolumechange)
+[XRElement](XRElement.md).[onvolumechange](XRElement.md#onvolumechange)
 
 ___
 
@@ -3102,7 +3103,7 @@ The event.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onwaiting](XRSceneScopeElement.md#onwaiting)
+[XRElement](XRElement.md).[onwaiting](XRElement.md#onwaiting)
 
 ___
 
@@ -3118,7 +3119,7 @@ This is a legacy alias of `onanimationend`.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onwebkitanimationend](XRSceneScopeElement.md#onwebkitanimationend)
+[XRElement](XRElement.md).[onwebkitanimationend](XRElement.md#onwebkitanimationend)
 
 ___
 
@@ -3134,7 +3135,7 @@ This is a legacy alias of `onanimationiteration`.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onwebkitanimationiteration](XRSceneScopeElement.md#onwebkitanimationiteration)
+[XRElement](XRElement.md).[onwebkitanimationiteration](XRElement.md#onwebkitanimationiteration)
 
 ___
 
@@ -3150,7 +3151,7 @@ This is a legacy alias of `onanimationstart`.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onwebkitanimationstart](XRSceneScopeElement.md#onwebkitanimationstart)
+[XRElement](XRElement.md).[onwebkitanimationstart](XRElement.md#onwebkitanimationstart)
 
 ___
 
@@ -3166,7 +3167,7 @@ This is a legacy alias of `ontransitionend`.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onwebkittransitionend](XRSceneScopeElement.md#onwebkittransitionend)
+[XRElement](XRElement.md).[onwebkittransitionend](XRElement.md#onwebkittransitionend)
 
 ___
 
@@ -3178,7 +3179,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onwheel](XRSceneScopeElement.md#onwheel)
+[XRElement](XRElement.md).[onwheel](XRElement.md#onwheel)
 
 ___
 
@@ -3190,7 +3191,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[outerHTML](XRSceneScopeElement.md#outerhtml)
+[XRElement](XRElement.md).[outerHTML](XRElement.md#outerhtml)
 
 ___
 
@@ -3202,7 +3203,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[outerText](XRSceneScopeElement.md#outertext)
+[XRElement](XRElement.md).[outerText](XRElement.md#outertext)
 
 ___
 
@@ -3212,7 +3213,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[ownerDocument](XRSceneScopeElement.md#ownerdocument)
+[XRElement](XRElement.md).[ownerDocument](XRElement.md#ownerdocument)
 
 ___
 
@@ -3226,7 +3227,7 @@ Returns the parent element.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[parentElement](XRSceneScopeElement.md#parentelement)
+[XRElement](XRElement.md).[parentElement](XRElement.md#parentelement)
 
 ___
 
@@ -3240,7 +3241,7 @@ Returns the parent.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[parentNode](XRSceneScopeElement.md#parentnode)
+[XRElement](XRElement.md).[parentNode](XRElement.md#parentnode)
 
 ___
 
@@ -3252,7 +3253,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[part](XRSceneScopeElement.md#part)
+[XRElement](XRElement.md).[part](XRElement.md#part)
 
 ___
 
@@ -3264,13 +3265,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[popover](XRSceneScopeElement.md#popover)
-
-___
-
-### position
-
-• **position**: [`Vector3`](Vector3.md)
+[XRElement](XRElement.md).[popover](XRElement.md#popover)
 
 ___
 
@@ -3284,7 +3279,7 @@ Returns the namespace prefix.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[prefix](XRSceneScopeElement.md#prefix)
+[XRElement](XRElement.md).[prefix](XRElement.md#prefix)
 
 ___
 
@@ -3298,7 +3293,7 @@ Returns the first preceding sibling that is an element, and null otherwise.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[previousElementSibling](XRSceneScopeElement.md#previouselementsibling)
+[XRElement](XRElement.md).[previousElementSibling](XRElement.md#previouselementsibling)
 
 ___
 
@@ -3312,7 +3307,7 @@ Returns the previous sibling.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[previousSibling](XRSceneScopeElement.md#previoussibling)
+[XRElement](XRElement.md).[previousSibling](XRElement.md#previoussibling)
 
 ___
 
@@ -3322,17 +3317,13 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[role](XRSceneScopeElement.md#role)
+[XRElement](XRElement.md).[role](XRElement.md#role)
 
 ___
 
 ### scene
 
 • **scene**: `Scene`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[scene](XRSceneScopeElement.md#scene)
 
 ___
 
@@ -3344,7 +3335,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scrollHeight](XRSceneScopeElement.md#scrollheight)
+[XRElement](XRElement.md).[scrollHeight](XRElement.md#scrollheight)
 
 ___
 
@@ -3356,7 +3347,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scrollLeft](XRSceneScopeElement.md#scrollleft)
+[XRElement](XRElement.md).[scrollLeft](XRElement.md#scrollleft)
 
 ___
 
@@ -3368,7 +3359,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scrollTop](XRSceneScopeElement.md#scrolltop)
+[XRElement](XRElement.md).[scrollTop](XRElement.md#scrolltop)
 
 ___
 
@@ -3380,7 +3371,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scrollWidth](XRSceneScopeElement.md#scrollwidth)
+[XRElement](XRElement.md).[scrollWidth](XRElement.md#scrollwidth)
 
 ___
 
@@ -3394,15 +3385,7 @@ Returns element's shadow root, if any, and if shadow root's mode is "open", and 
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[shadowRoot](XRSceneScopeElement.md#shadowroot)
-
-___
-
-### size
-
-• **size**: [`Vector3`](Vector3.md)
-
-贴花尺寸
+[XRElement](XRElement.md).[shadowRoot](XRElement.md#shadowroot)
 
 ___
 
@@ -3416,7 +3399,7 @@ Returns the value of element's slot content attribute. Can be set to change it.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[slot](XRSceneScopeElement.md#slot)
+[XRElement](XRElement.md).[slot](XRElement.md#slot)
 
 ___
 
@@ -3428,7 +3411,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[spellcheck](XRSceneScopeElement.md#spellcheck)
+[XRElement](XRElement.md).[spellcheck](XRElement.md#spellcheck)
 
 ___
 
@@ -3440,7 +3423,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[style](XRSceneScopeElement.md#style)
+[XRElement](XRElement.md).[style](XRElement.md#style)
 
 ___
 
@@ -3452,7 +3435,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[tabIndex](XRSceneScopeElement.md#tabindex)
+[XRElement](XRElement.md).[tabIndex](XRElement.md#tabindex)
 
 ___
 
@@ -3466,7 +3449,7 @@ Returns the HTML-uppercased qualified name.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[tagName](XRSceneScopeElement.md#tagname)
+[XRElement](XRElement.md).[tagName](XRElement.md#tagname)
 
 ___
 
@@ -3478,7 +3461,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[textContent](XRSceneScopeElement.md#textcontent)
+[XRElement](XRElement.md).[textContent](XRElement.md#textcontent)
 
 ___
 
@@ -3490,7 +3473,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[title](XRSceneScopeElement.md#title)
+[XRElement](XRElement.md).[title](XRElement.md#title)
 
 ___
 
@@ -3500,7 +3483,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
+[XRElement](XRElement.md).[transition](XRElement.md#transition)
 
 ___
 
@@ -3510,7 +3493,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[translate](XRSceneScopeElement.md#translate)
+[XRElement](XRElement.md).[translate](XRElement.md#translate)
 
 ___
 
@@ -3520,7 +3503,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[[metadata]](XRSceneScopeElement.md#[metadata])
+[XRElement](XRElement.md).[[metadata]](XRElement.md#[metadata])
 
 ___
 
@@ -3530,7 +3513,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[_$litElement$](XRSceneScopeElement.md#_$litelement$)
+[XRElement](XRElement.md).[_$litElement$](XRElement.md#_$litelement$)
 
 ___
 
@@ -3540,7 +3523,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[_initializers](XRSceneScopeElement.md#_initializers)
+[XRElement](XRElement.md).[_initializers](XRElement.md#_initializers)
 
 ___
 
@@ -3550,7 +3533,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[requiredAttrs](XRSceneScopeElement.md#requiredattrs)
+[XRElement](XRElement.md).[requiredAttrs](XRElement.md#requiredattrs)
 
 ___
 
@@ -3578,7 +3561,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[addEventListener](XRSceneScopeElement.md#addeventlistener)
+[XRElement](XRElement.md).[addEventListener](XRElement.md#addeventlistener)
 
 ▸ **addEventListener**(`type`, `listener`, `options?`): `void`
 
@@ -3596,7 +3579,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[addEventListener](XRSceneScopeElement.md#addeventlistener)
+[XRElement](XRElement.md).[addEventListener](XRElement.md#addeventlistener)
 
 ___
 
@@ -3622,7 +3605,7 @@ Throws a "HierarchyRequestError" DOMException if the constraints of the node tre
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[after](XRSceneScopeElement.md#after)
+[XRElement](XRElement.md).[after](XRElement.md#after)
 
 ___
 
@@ -3645,7 +3628,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[animate](XRSceneScopeElement.md#animate)
+[XRElement](XRElement.md).[animate](XRElement.md#animate)
 
 ___
 
@@ -3671,7 +3654,7 @@ Throws a "HierarchyRequestError" DOMException if the constraints of the node tre
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[append](XRSceneScopeElement.md#append)
+[XRElement](XRElement.md).[append](XRElement.md#append)
 
 ___
 
@@ -3699,7 +3682,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[appendChild](XRSceneScopeElement.md#appendchild)
+[XRElement](XRElement.md).[appendChild](XRElement.md#appendchild)
 
 ___
 
@@ -3715,7 +3698,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[attachInternals](XRSceneScopeElement.md#attachinternals)
+[XRElement](XRElement.md).[attachInternals](XRElement.md#attachinternals)
 
 ___
 
@@ -3739,7 +3722,7 @@ Creates a shadow root for element and returns it.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[attachShadow](XRSceneScopeElement.md#attachshadow)
+[XRElement](XRElement.md).[attachShadow](XRElement.md#attachshadow)
 
 ___
 
@@ -3765,7 +3748,7 @@ Throws a "HierarchyRequestError" DOMException if the constraints of the node tre
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[before](XRSceneScopeElement.md#before)
+[XRElement](XRElement.md).[before](XRElement.md#before)
 
 ___
 
@@ -3781,7 +3764,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[blur](XRSceneScopeElement.md#blur)
+[XRElement](XRElement.md).[blur](XRElement.md#blur)
 
 ___
 
@@ -3801,7 +3784,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[checkVisibility](XRSceneScopeElement.md#checkvisibility)
+[XRElement](XRElement.md).[checkVisibility](XRElement.md#checkvisibility)
 
 ___
 
@@ -3817,7 +3800,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[click](XRSceneScopeElement.md#click)
+[XRElement](XRElement.md).[click](XRElement.md#click)
 
 ___
 
@@ -3841,7 +3824,7 @@ Returns a copy of node. If deep is true, the copy also includes the node's desce
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[cloneNode](XRSceneScopeElement.md#clonenode)
+[XRElement](XRElement.md).[cloneNode](XRElement.md#clonenode)
 
 ___
 
@@ -3871,7 +3854,7 @@ Returns the first (starting at element) inclusive ancestor that matches selector
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[closest](XRSceneScopeElement.md#closest)
+[XRElement](XRElement.md).[closest](XRElement.md#closest)
 
 ▸ **closest**\<`K`\>(`selector`): ``null`` \| `SVGElementTagNameMap`[`K`]
 
@@ -3893,7 +3876,7 @@ Returns the first (starting at element) inclusive ancestor that matches selector
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[closest](XRSceneScopeElement.md#closest)
+[XRElement](XRElement.md).[closest](XRElement.md#closest)
 
 ▸ **closest**\<`K`\>(`selector`): ``null`` \| `MathMLElementTagNameMap`[`K`]
 
@@ -3915,7 +3898,7 @@ Returns the first (starting at element) inclusive ancestor that matches selector
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[closest](XRSceneScopeElement.md#closest)
+[XRElement](XRElement.md).[closest](XRElement.md#closest)
 
 ▸ **closest**\<`E`\>(`selectors`): ``null`` \| `E`
 
@@ -3937,7 +3920,7 @@ Returns the first (starting at element) inclusive ancestor that matches selector
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[closest](XRSceneScopeElement.md#closest)
+[XRElement](XRElement.md).[closest](XRElement.md#closest)
 
 ___
 
@@ -3961,7 +3944,7 @@ Returns a bitmask indicating the position of other relative to node.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[compareDocumentPosition](XRSceneScopeElement.md#comparedocumentposition)
+[XRElement](XRElement.md).[compareDocumentPosition](XRElement.md#comparedocumentposition)
 
 ___
 
@@ -3977,21 +3960,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[computedStyleMap](XRSceneScopeElement.md#computedstylemap)
-
-___
-
-### connected
-
-▸ **connected**(): `void`
-
-#### Returns
-
-`void`
-
-#### Overrides
-
-XRSceneScopeElement.connected
+[XRElement](XRElement.md).[computedStyleMap](XRElement.md#computedstylemap)
 
 ___
 
@@ -4015,7 +3984,7 @@ Returns true if other is an inclusive descendant of node, and false otherwise.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[contains](XRSceneScopeElement.md#contains)
+[XRElement](XRElement.md).[contains](XRElement.md#contains)
 
 ___
 
@@ -4039,7 +4008,7 @@ Dispatches a synthetic event event to target and returns true if either event's 
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[dispatchEvent](XRSceneScopeElement.md#dispatchevent)
+[XRElement](XRElement.md).[dispatchEvent](XRElement.md#dispatchevent)
 
 ___
 
@@ -4061,7 +4030,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[focus](XRSceneScopeElement.md#focus)
+[XRElement](XRElement.md).[focus](XRElement.md#focus)
 
 ___
 
@@ -4083,7 +4052,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getAnimations](XRSceneScopeElement.md#getanimations)
+[XRElement](XRElement.md).[getAnimations](XRElement.md#getanimations)
 
 ___
 
@@ -4107,7 +4076,7 @@ Returns element's first attribute whose qualified name is qualifiedName, and nul
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getAttribute](XRSceneScopeElement.md#getattribute)
+[XRElement](XRElement.md).[getAttribute](XRElement.md#getattribute)
 
 ___
 
@@ -4132,7 +4101,7 @@ Returns element's attribute whose namespace is namespace and local name is local
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getAttributeNS](XRSceneScopeElement.md#getattributens)
+[XRElement](XRElement.md).[getAttributeNS](XRElement.md#getattributens)
 
 ___
 
@@ -4150,7 +4119,7 @@ Returns the qualified names of all element's attributes. Can contain duplicates.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getAttributeNames](XRSceneScopeElement.md#getattributenames)
+[XRElement](XRElement.md).[getAttributeNames](XRElement.md#getattributenames)
 
 ___
 
@@ -4172,7 +4141,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getAttributeNode](XRSceneScopeElement.md#getattributenode)
+[XRElement](XRElement.md).[getAttributeNode](XRElement.md#getattributenode)
 
 ___
 
@@ -4195,7 +4164,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getAttributeNodeNS](XRSceneScopeElement.md#getattributenodens)
+[XRElement](XRElement.md).[getAttributeNodeNS](XRElement.md#getattributenodens)
 
 ___
 
@@ -4211,7 +4180,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getBoundingClientRect](XRSceneScopeElement.md#getboundingclientrect)
+[XRElement](XRElement.md).[getBoundingClientRect](XRElement.md#getboundingclientrect)
 
 ___
 
@@ -4227,7 +4196,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getClientRects](XRSceneScopeElement.md#getclientrects)
+[XRElement](XRElement.md).[getClientRects](XRElement.md#getclientrects)
 
 ___
 
@@ -4251,7 +4220,7 @@ Returns a HTMLCollection of the elements in the object on which the method was i
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getElementsByClassName](XRSceneScopeElement.md#getelementsbyclassname)
+[XRElement](XRElement.md).[getElementsByClassName](XRElement.md#getelementsbyclassname)
 
 ___
 
@@ -4279,7 +4248,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getElementsByTagName](XRSceneScopeElement.md#getelementsbytagname)
+[XRElement](XRElement.md).[getElementsByTagName](XRElement.md#getelementsbytagname)
 
 ▸ **getElementsByTagName**\<`K`\>(`qualifiedName`): `HTMLCollectionOf`\<`SVGElementTagNameMap`[`K`]\>
 
@@ -4301,7 +4270,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getElementsByTagName](XRSceneScopeElement.md#getelementsbytagname)
+[XRElement](XRElement.md).[getElementsByTagName](XRElement.md#getelementsbytagname)
 
 ▸ **getElementsByTagName**\<`K`\>(`qualifiedName`): `HTMLCollectionOf`\<`MathMLElementTagNameMap`[`K`]\>
 
@@ -4323,7 +4292,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getElementsByTagName](XRSceneScopeElement.md#getelementsbytagname)
+[XRElement](XRElement.md).[getElementsByTagName](XRElement.md#getelementsbytagname)
 
 ▸ **getElementsByTagName**\<`K`\>(`qualifiedName`): `HTMLCollectionOf`\<`HTMLElementDeprecatedTagNameMap`[`K`]\>
 
@@ -4347,7 +4316,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getElementsByTagName](XRSceneScopeElement.md#getelementsbytagname)
+[XRElement](XRElement.md).[getElementsByTagName](XRElement.md#getelementsbytagname)
 
 ▸ **getElementsByTagName**(`qualifiedName`): `HTMLCollectionOf`\<`Element`\>
 
@@ -4363,7 +4332,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getElementsByTagName](XRSceneScopeElement.md#getelementsbytagname)
+[XRElement](XRElement.md).[getElementsByTagName](XRElement.md#getelementsbytagname)
 
 ___
 
@@ -4386,7 +4355,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getElementsByTagNameNS](XRSceneScopeElement.md#getelementsbytagnamens)
+[XRElement](XRElement.md).[getElementsByTagNameNS](XRElement.md#getelementsbytagnamens)
 
 ▸ **getElementsByTagNameNS**(`namespaceURI`, `localName`): `HTMLCollectionOf`\<`SVGElement`\>
 
@@ -4403,7 +4372,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getElementsByTagNameNS](XRSceneScopeElement.md#getelementsbytagnamens)
+[XRElement](XRElement.md).[getElementsByTagNameNS](XRElement.md#getelementsbytagnamens)
 
 ▸ **getElementsByTagNameNS**(`namespaceURI`, `localName`): `HTMLCollectionOf`\<`MathMLElement`\>
 
@@ -4420,7 +4389,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getElementsByTagNameNS](XRSceneScopeElement.md#getelementsbytagnamens)
+[XRElement](XRElement.md).[getElementsByTagNameNS](XRElement.md#getelementsbytagnamens)
 
 ▸ **getElementsByTagNameNS**(`namespace`, `localName`): `HTMLCollectionOf`\<`Element`\>
 
@@ -4437,7 +4406,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getElementsByTagNameNS](XRSceneScopeElement.md#getelementsbytagnamens)
+[XRElement](XRElement.md).[getElementsByTagNameNS](XRElement.md#getelementsbytagnamens)
 
 ___
 
@@ -4461,7 +4430,7 @@ Returns node's root.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getRootNode](XRSceneScopeElement.md#getrootnode)
+[XRElement](XRElement.md).[getRootNode](XRElement.md#getrootnode)
 
 ___
 
@@ -4485,7 +4454,7 @@ Returns true if element has an attribute whose qualified name is qualifiedName, 
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[hasAttribute](XRSceneScopeElement.md#hasattribute)
+[XRElement](XRElement.md).[hasAttribute](XRElement.md#hasattribute)
 
 ___
 
@@ -4510,7 +4479,7 @@ Returns true if element has an attribute whose namespace is namespace and local 
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[hasAttributeNS](XRSceneScopeElement.md#hasattributens)
+[XRElement](XRElement.md).[hasAttributeNS](XRElement.md#hasattributens)
 
 ___
 
@@ -4528,7 +4497,7 @@ Returns true if element has attributes, and false otherwise.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[hasAttributes](XRSceneScopeElement.md#hasattributes)
+[XRElement](XRElement.md).[hasAttributes](XRElement.md#hasattributes)
 
 ___
 
@@ -4546,7 +4515,7 @@ Returns whether node has children.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[hasChildNodes](XRSceneScopeElement.md#haschildnodes)
+[XRElement](XRElement.md).[hasChildNodes](XRElement.md#haschildnodes)
 
 ___
 
@@ -4568,7 +4537,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[hasPointerCapture](XRSceneScopeElement.md#haspointercapture)
+[XRElement](XRElement.md).[hasPointerCapture](XRElement.md#haspointercapture)
 
 ___
 
@@ -4584,7 +4553,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[hidePopover](XRSceneScopeElement.md#hidepopover)
+[XRElement](XRElement.md).[hidePopover](XRElement.md#hidepopover)
 
 ___
 
@@ -4607,7 +4576,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[insertAdjacentElement](XRSceneScopeElement.md#insertadjacentelement)
+[XRElement](XRElement.md).[insertAdjacentElement](XRElement.md#insertadjacentelement)
 
 ___
 
@@ -4630,7 +4599,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[insertAdjacentHTML](XRSceneScopeElement.md#insertadjacenthtml)
+[XRElement](XRElement.md).[insertAdjacentHTML](XRElement.md#insertadjacenthtml)
 
 ___
 
@@ -4653,7 +4622,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[insertAdjacentText](XRSceneScopeElement.md#insertadjacenttext)
+[XRElement](XRElement.md).[insertAdjacentText](XRElement.md#insertadjacenttext)
 
 ___
 
@@ -4682,7 +4651,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[insertBefore](XRSceneScopeElement.md#insertbefore)
+[XRElement](XRElement.md).[insertBefore](XRElement.md#insertbefore)
 
 ___
 
@@ -4704,7 +4673,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[isDefaultNamespace](XRSceneScopeElement.md#isdefaultnamespace)
+[XRElement](XRElement.md).[isDefaultNamespace](XRElement.md#isdefaultnamespace)
 
 ___
 
@@ -4728,7 +4697,7 @@ Returns whether node and otherNode have the same properties.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[isEqualNode](XRSceneScopeElement.md#isequalnode)
+[XRElement](XRElement.md).[isEqualNode](XRElement.md#isequalnode)
 
 ___
 
@@ -4750,7 +4719,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[isSameNode](XRSceneScopeElement.md#issamenode)
+[XRElement](XRElement.md).[isSameNode](XRElement.md#issamenode)
 
 ___
 
@@ -4772,7 +4741,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[lookupNamespaceURI](XRSceneScopeElement.md#lookupnamespaceuri)
+[XRElement](XRElement.md).[lookupNamespaceURI](XRElement.md#lookupnamespaceuri)
 
 ___
 
@@ -4794,7 +4763,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[lookupPrefix](XRSceneScopeElement.md#lookupprefix)
+[XRElement](XRElement.md).[lookupPrefix](XRElement.md#lookupprefix)
 
 ___
 
@@ -4818,7 +4787,7 @@ Returns true if matching selectors against element's root yields element, and fa
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[matches](XRSceneScopeElement.md#matches)
+[XRElement](XRElement.md).[matches](XRElement.md#matches)
 
 ___
 
@@ -4836,7 +4805,7 @@ Removes empty exclusive Text nodes and concatenates the data of remaining contig
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[normalize](XRSceneScopeElement.md#normalize)
+[XRElement](XRElement.md).[normalize](XRElement.md#normalize)
 
 ___
 
@@ -4862,7 +4831,7 @@ Throws a "HierarchyRequestError" DOMException if the constraints of the node tre
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[prepend](XRSceneScopeElement.md#prepend)
+[XRElement](XRElement.md).[prepend](XRElement.md#prepend)
 
 ___
 
@@ -4892,7 +4861,7 @@ Returns the first element that is a descendant of node that matches selectors.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[querySelector](XRSceneScopeElement.md#queryselector)
+[XRElement](XRElement.md).[querySelector](XRElement.md#queryselector)
 
 ▸ **querySelector**\<`K`\>(`selectors`): ``null`` \| `SVGElementTagNameMap`[`K`]
 
@@ -4914,7 +4883,7 @@ Returns the first element that is a descendant of node that matches selectors.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[querySelector](XRSceneScopeElement.md#queryselector)
+[XRElement](XRElement.md).[querySelector](XRElement.md#queryselector)
 
 ▸ **querySelector**\<`K`\>(`selectors`): ``null`` \| `MathMLElementTagNameMap`[`K`]
 
@@ -4936,7 +4905,7 @@ Returns the first element that is a descendant of node that matches selectors.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[querySelector](XRSceneScopeElement.md#queryselector)
+[XRElement](XRElement.md).[querySelector](XRElement.md#queryselector)
 
 ▸ **querySelector**\<`K`\>(`selectors`): ``null`` \| `HTMLElementDeprecatedTagNameMap`[`K`]
 
@@ -4960,7 +4929,7 @@ Returns the first element that is a descendant of node that matches selectors.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[querySelector](XRSceneScopeElement.md#queryselector)
+[XRElement](XRElement.md).[querySelector](XRElement.md#queryselector)
 
 ▸ **querySelector**\<`E`\>(`selectors`): ``null`` \| `E`
 
@@ -4982,7 +4951,7 @@ Returns the first element that is a descendant of node that matches selectors.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[querySelector](XRSceneScopeElement.md#queryselector)
+[XRElement](XRElement.md).[querySelector](XRElement.md#queryselector)
 
 ___
 
@@ -5012,7 +4981,7 @@ Returns all element descendants of node that match selectors.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[querySelectorAll](XRSceneScopeElement.md#queryselectorall)
+[XRElement](XRElement.md).[querySelectorAll](XRElement.md#queryselectorall)
 
 ▸ **querySelectorAll**\<`K`\>(`selectors`): `NodeListOf`\<`SVGElementTagNameMap`[`K`]\>
 
@@ -5034,7 +5003,7 @@ Returns all element descendants of node that match selectors.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[querySelectorAll](XRSceneScopeElement.md#queryselectorall)
+[XRElement](XRElement.md).[querySelectorAll](XRElement.md#queryselectorall)
 
 ▸ **querySelectorAll**\<`K`\>(`selectors`): `NodeListOf`\<`MathMLElementTagNameMap`[`K`]\>
 
@@ -5056,7 +5025,7 @@ Returns all element descendants of node that match selectors.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[querySelectorAll](XRSceneScopeElement.md#queryselectorall)
+[XRElement](XRElement.md).[querySelectorAll](XRElement.md#queryselectorall)
 
 ▸ **querySelectorAll**\<`K`\>(`selectors`): `NodeListOf`\<`HTMLElementDeprecatedTagNameMap`[`K`]\>
 
@@ -5080,7 +5049,7 @@ Returns all element descendants of node that match selectors.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[querySelectorAll](XRSceneScopeElement.md#queryselectorall)
+[XRElement](XRElement.md).[querySelectorAll](XRElement.md#queryselectorall)
 
 ▸ **querySelectorAll**\<`E`\>(`selectors`): `NodeListOf`\<`E`\>
 
@@ -5102,7 +5071,7 @@ Returns all element descendants of node that match selectors.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[querySelectorAll](XRSceneScopeElement.md#queryselectorall)
+[XRElement](XRElement.md).[querySelectorAll](XRElement.md#queryselectorall)
 
 ___
 
@@ -5124,7 +5093,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[releasePointerCapture](XRSceneScopeElement.md#releasepointercapture)
+[XRElement](XRElement.md).[releasePointerCapture](XRElement.md#releasepointercapture)
 
 ___
 
@@ -5140,9 +5109,9 @@ Removes node.
 
 `void`
 
-#### Overrides
+#### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[remove](XRSceneScopeElement.md#remove)
+[XRElement](XRElement.md).[remove](XRElement.md#remove)
 
 ___
 
@@ -5166,7 +5135,7 @@ Removes element's first attribute whose qualified name is qualifiedName.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[removeAttribute](XRSceneScopeElement.md#removeattribute)
+[XRElement](XRElement.md).[removeAttribute](XRElement.md#removeattribute)
 
 ___
 
@@ -5191,7 +5160,7 @@ Removes element's attribute whose namespace is namespace and local name is local
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[removeAttributeNS](XRSceneScopeElement.md#removeattributens)
+[XRElement](XRElement.md).[removeAttributeNS](XRElement.md#removeattributens)
 
 ___
 
@@ -5213,7 +5182,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[removeAttributeNode](XRSceneScopeElement.md#removeattributenode)
+[XRElement](XRElement.md).[removeAttributeNode](XRElement.md#removeattributenode)
 
 ___
 
@@ -5241,7 +5210,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[removeChild](XRSceneScopeElement.md#removechild)
+[XRElement](XRElement.md).[removeChild](XRElement.md#removechild)
 
 ___
 
@@ -5269,7 +5238,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[removeEventListener](XRSceneScopeElement.md#removeeventlistener)
+[XRElement](XRElement.md).[removeEventListener](XRElement.md#removeeventlistener)
 
 ▸ **removeEventListener**(`type`, `listener`, `options?`): `void`
 
@@ -5287,7 +5256,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[removeEventListener](XRSceneScopeElement.md#removeeventlistener)
+[XRElement](XRElement.md).[removeEventListener](XRElement.md#removeeventlistener)
 
 ___
 
@@ -5316,7 +5285,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[replaceChild](XRSceneScopeElement.md#replacechild)
+[XRElement](XRElement.md).[replaceChild](XRElement.md#replacechild)
 
 ___
 
@@ -5342,7 +5311,7 @@ Throws a "HierarchyRequestError" DOMException if the constraints of the node tre
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[replaceChildren](XRSceneScopeElement.md#replacechildren)
+[XRElement](XRElement.md).[replaceChildren](XRElement.md#replacechildren)
 
 ___
 
@@ -5368,7 +5337,7 @@ Throws a "HierarchyRequestError" DOMException if the constraints of the node tre
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[replaceWith](XRSceneScopeElement.md#replacewith)
+[XRElement](XRElement.md).[replaceWith](XRElement.md#replacewith)
 
 ___
 
@@ -5394,7 +5363,7 @@ When supplied, options's navigationUI member indicates whether showing navigatio
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[requestFullscreen](XRSceneScopeElement.md#requestfullscreen)
+[XRElement](XRElement.md).[requestFullscreen](XRElement.md#requestfullscreen)
 
 ___
 
@@ -5410,7 +5379,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[requestPointerLock](XRSceneScopeElement.md#requestpointerlock)
+[XRElement](XRElement.md).[requestPointerLock](XRElement.md#requestpointerlock)
 
 ___
 
@@ -5432,7 +5401,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scroll](XRSceneScopeElement.md#scroll)
+[XRElement](XRElement.md).[scroll](XRElement.md#scroll)
 
 ▸ **scroll**(`x`, `y`): `void`
 
@@ -5449,7 +5418,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scroll](XRSceneScopeElement.md#scroll)
+[XRElement](XRElement.md).[scroll](XRElement.md#scroll)
 
 ___
 
@@ -5471,7 +5440,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scrollBy](XRSceneScopeElement.md#scrollby)
+[XRElement](XRElement.md).[scrollBy](XRElement.md#scrollby)
 
 ▸ **scrollBy**(`x`, `y`): `void`
 
@@ -5488,7 +5457,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scrollBy](XRSceneScopeElement.md#scrollby)
+[XRElement](XRElement.md).[scrollBy](XRElement.md#scrollby)
 
 ___
 
@@ -5510,7 +5479,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scrollIntoView](XRSceneScopeElement.md#scrollintoview)
+[XRElement](XRElement.md).[scrollIntoView](XRElement.md#scrollintoview)
 
 ___
 
@@ -5532,7 +5501,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scrollTo](XRSceneScopeElement.md#scrollto)
+[XRElement](XRElement.md).[scrollTo](XRElement.md#scrollto)
 
 ▸ **scrollTo**(`x`, `y`): `void`
 
@@ -5549,7 +5518,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scrollTo](XRSceneScopeElement.md#scrollto)
+[XRElement](XRElement.md).[scrollTo](XRElement.md#scrollto)
 
 ___
 
@@ -5574,7 +5543,7 @@ Sets the value of element's first attribute whose qualified name is qualifiedNam
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[setAttribute](XRSceneScopeElement.md#setattribute)
+[XRElement](XRElement.md).[setAttribute](XRElement.md#setattribute)
 
 ___
 
@@ -5600,7 +5569,7 @@ Sets the value of element's attribute whose namespace is namespace and local nam
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[setAttributeNS](XRSceneScopeElement.md#setattributens)
+[XRElement](XRElement.md).[setAttributeNS](XRElement.md#setattributens)
 
 ___
 
@@ -5622,7 +5591,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[setAttributeNode](XRSceneScopeElement.md#setattributenode)
+[XRElement](XRElement.md).[setAttributeNode](XRElement.md#setattributenode)
 
 ___
 
@@ -5644,7 +5613,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[setAttributeNodeNS](XRSceneScopeElement.md#setattributenodens)
+[XRElement](XRElement.md).[setAttributeNodeNS](XRElement.md#setattributenodens)
 
 ___
 
@@ -5666,7 +5635,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[setPointerCapture](XRSceneScopeElement.md#setpointercapture)
+[XRElement](XRElement.md).[setPointerCapture](XRElement.md#setpointercapture)
 
 ___
 
@@ -5682,7 +5651,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[showPopover](XRSceneScopeElement.md#showpopover)
+[XRElement](XRElement.md).[showPopover](XRElement.md#showpopover)
 
 ___
 
@@ -5709,7 +5678,7 @@ Returns true if qualifiedName is now present, and false otherwise.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[toggleAttribute](XRSceneScopeElement.md#toggleattribute)
+[XRElement](XRElement.md).[toggleAttribute](XRElement.md#toggleattribute)
 
 ___
 
@@ -5731,7 +5700,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[togglePopover](XRSceneScopeElement.md#togglepopover)
+[XRElement](XRElement.md).[togglePopover](XRElement.md#togglepopover)
 
 ___
 
@@ -5757,7 +5726,7 @@ This is a legacy alias of `matches`.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[webkitMatchesSelector](XRSceneScopeElement.md#webkitmatchesselector)
+[XRElement](XRElement.md).[webkitMatchesSelector](XRElement.md#webkitmatchesselector)
 
 ___
 
@@ -5809,7 +5778,7 @@ starting with superclasses and progressing to the instance's class.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[addInitializer](XRSceneScopeElement.md#addinitializer)
+[XRElement](XRElement.md).[addInitializer](XRElement.md#addinitializer)
 
 ## attributes
 
@@ -5827,7 +5796,7 @@ Returns a list of attributes corresponding to the registered properties.
 
 #### Inherited from
 
-XRSceneScopeElement.observedAttributes
+XRElement.observedAttributes
 
 ___
 
@@ -5859,7 +5828,7 @@ on MDN for more information about the `attributeChangedCallback`.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[attributeChangedCallback](XRSceneScopeElement.md#attributechangedcallback)
+[XRElement](XRElement.md).[attributeChangedCallback](XRElement.md#attributechangedcallback)
 
 ## controllers
 
@@ -5886,7 +5855,7 @@ controller's `hostConnected()` callback will be immediately called.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[addController](XRSceneScopeElement.md#addcontroller)
+[XRElement](XRElement.md).[addController](XRElement.md#addcontroller)
 
 ___
 
@@ -5908,7 +5877,7 @@ Removes a `ReactiveController` from the element.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[removeController](XRSceneScopeElement.md#removecontroller)
+[XRElement](XRElement.md).[removeController](XRElement.md#removecontroller)
 
 ## dev-mode
 
@@ -5947,7 +5916,7 @@ MyElement.disableWarning?.('migration');
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[disableWarning](XRSceneScopeElement.md#disablewarning)
+[XRElement](XRElement.md).[disableWarning](XRElement.md#disablewarning)
 
 ___
 
@@ -5986,7 +5955,7 @@ MyElement.enableWarning?.('migration');
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[enableWarning](XRSceneScopeElement.md#enablewarning)
+[XRElement](XRElement.md).[enableWarning](XRElement.md#enablewarning)
 
 ___
 
@@ -6002,7 +5971,7 @@ This property is only used in development builds.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[enabledWarnings](XRSceneScopeElement.md#enabledwarnings)
+[XRElement](XRElement.md).[enabledWarnings](XRElement.md#enabledwarnings)
 
 ## properties
 
@@ -6017,7 +5986,7 @@ properties. Created lazily on user subclasses when finalizing the class.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[elementProperties](XRSceneScopeElement.md#elementproperties)
+[XRElement](XRElement.md).[elementProperties](XRElement.md#elementproperties)
 
 ___
 
@@ -6051,7 +6020,7 @@ facilitate complex interactions.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[properties](XRSceneScopeElement.md#properties)
+[XRElement](XRElement.md).[properties](XRElement.md#properties)
 
 ___
 
@@ -6095,7 +6064,7 @@ static createProperty(name, options) {
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[createProperty](XRSceneScopeElement.md#createproperty)
+[XRElement](XRElement.md).[createProperty](XRElement.md#createproperty)
 
 ___
 
@@ -6128,7 +6097,7 @@ customize the options for a given property, override
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[getPropertyOptions](XRSceneScopeElement.md#getpropertyoptions)
+[XRElement](XRElement.md).[getPropertyOptions](XRElement.md#getpropertyoptions)
 
 ## rendering
 
@@ -6138,7 +6107,7 @@ customize the options for a given property, override
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[renderOptions](XRSceneScopeElement.md#renderoptions)
+[XRElement](XRElement.md).[renderOptions](XRElement.md#renderoptions)
 
 ___
 
@@ -6151,7 +6120,7 @@ to an open shadowRoot.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[renderRoot](XRSceneScopeElement.md#renderroot)
+[XRElement](XRElement.md).[renderRoot](XRElement.md#renderroot)
 
 ___
 
@@ -6170,7 +6139,7 @@ is customized, options should be respected if possible.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[shadowRootOptions](XRSceneScopeElement.md#shadowrootoptions)
+[XRElement](XRElement.md).[shadowRootOptions](XRElement.md#shadowrootoptions)
 
 ## styles
 
@@ -6185,7 +6154,7 @@ Created lazily on user subclasses when finalizing the class.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[elementStyles](XRSceneScopeElement.md#elementstyles)
+[XRElement](XRElement.md).[elementStyles](XRElement.md#elementstyles)
 
 ___
 
@@ -6220,7 +6189,7 @@ loading application code:
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[styles](XRSceneScopeElement.md#styles)
+[XRElement](XRElement.md).[styles](XRElement.md#styles)
 
 ## updates
 
@@ -6233,7 +6202,7 @@ that `renderRoot` exists before the element `hasUpdated`.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[hasUpdated](XRSceneScopeElement.md#hasupdated)
+[XRElement](XRElement.md).[hasUpdated](XRElement.md#hasupdated)
 
 ___
 
@@ -6246,7 +6215,7 @@ Should only be read.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[isUpdatePending](XRSceneScopeElement.md#isupdatepending)
+[XRElement](XRElement.md).[isUpdatePending](XRElement.md#isupdatepending)
 
 ___
 
@@ -6274,7 +6243,7 @@ A promise of a boolean that resolves to true if the update completed
 
 #### Inherited from
 
-XRSceneScopeElement.updateComplete
+XRElement.updateComplete
 
 ___
 
@@ -6303,4 +6272,4 @@ options are honored.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[requestUpdate](XRSceneScopeElement.md#requestupdate)
+[XRElement](XRElement.md).[requestUpdate](XRElement.md#requestupdate)

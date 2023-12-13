@@ -28,5 +28,7 @@ export default defineUserConfig({
       '/docs/': [{ text: 'Class', children: list('docs/classes/*.md') }],
     },
     sidebarDepth: 0,
+    contributors: false,
+    lastUpdated: false,
   }),
 });
