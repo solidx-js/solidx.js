@@ -1,5 +1,5 @@
 <template>
-  <div v-html="decodedHtml"></div>
+  <div v-html="decodedHtml" style="background: #f0f0f0;"></div>
 </template>
 
 <script>
