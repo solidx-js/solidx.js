@@ -8,11 +8,31 @@
   <xr-directional-light id="light1" intensity="1"></xr-directional-light>
   <xr-hemispheric-light id="light2" intensity="1"></xr-hemispheric-light>
 
-  <xr-material id="m1" albedo-color="#ff0000"></xr-material>
+  <xr-material id="m1" albedo-color="#ffc069"></xr-material>
   <xr-geometry id="g1" type="box"></xr-geometry>
 
-  <xr-mesh id="box1" geometry="g1" material="m1" inspect="axes: true"></xr-mesh>
+  <xr-mesh id="box1" geometry="g1" material="m1" inspect="axes: true; scale: 0.5"></xr-mesh>
 </xr-scene>
+
+<script>
+  const target = {
+    rotation: '0 0 0',
+  };
+
+  const box = document.querySelector('#box1');
+
+  anime({
+    targets: target,
+    rotation: ['0 0 0', '0 180 0'],
+    duration: 2000,
+    loop: true,
+    easing: 'easeInOutQuad',
+    direction: 'alternate',
+    update: ee => {
+      box.setAttribute('rotation', target.rotation);
+    },
+  });
+</script>
 ```
 
 :::

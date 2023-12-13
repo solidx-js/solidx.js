@@ -4,9 +4,12 @@ import { containerPlugin } from '@vuepress/plugin-container';
 import { backToTopPlugin } from '@vuepress/plugin-back-to-top';
 import { searchPlugin } from '@vuepress/plugin-search';
 import { autoCatalogPlugin } from 'vuepress-plugin-auto-catalog';
+import { resolve } from 'path';
 
 export const framework = defineUserConfig({
   bundler: viteBundler({}),
+  templateDev: resolve(__dirname, './template.html'),
+  templateBuild: resolve(__dirname, './template.html'),
   plugins: [
     backToTopPlugin(),
     searchPlugin(),
