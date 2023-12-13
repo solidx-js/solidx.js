@@ -2,7 +2,6 @@ import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import {
   XRKeyFrames,
   XRElement,
-  XREngine,
   XRGeometry,
   XRMaterial,
   XRMesh,
@@ -43,7 +42,6 @@ export class ElementRegistry {
 // loaders
 SceneLoader.RegisterPlugin(new CTMFileLoader());
 
-ElementRegistry.Instance.register('xr-engine', XREngine as any);
 ElementRegistry.Instance.register('xr-scene', XRScene as any);
 ElementRegistry.Instance.register('xr-geometry', XRGeometry as any);
 ElementRegistry.Instance.register('xr-material', XRMaterial as any);

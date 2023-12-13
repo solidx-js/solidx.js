@@ -146,7 +146,7 @@ Scene.prototype.loadModel = async function loadModel(url: string, forceExt?: str
 
 Object.defineProperty(Scene.prototype, 'defaultUtilityLayer', {
   get: function () {
-    if (!this._defaultUtilityLayer) this._defaultUtilityLayer = new UtilityLayerRenderer(this);
+    if (!this._defaultUtilityLayer) this._defaultUtilityLayer = new UtilityLayerRenderer(this, false);
     return this._defaultUtilityLayer;
   },
 });

@@ -4,7 +4,6 @@ export * from './XRCamera';
 export * from './XRDecal';
 export * from './XRDirectionalLight';
 export * from './XRElement';
-export * from './XREngine';
 export * from './XRGeometry';
 export * from './XRHemisphericLight';
 export * from './XRKeyFrames';
