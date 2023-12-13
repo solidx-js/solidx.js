@@ -3,12 +3,16 @@ import { defineUserConfig } from 'vuepress';
 import { containerPlugin } from '@vuepress/plugin-container';
 import { backToTopPlugin } from '@vuepress/plugin-back-to-top';
 import { searchPlugin } from '@vuepress/plugin-search';
+import { autoCatalogPlugin } from 'vuepress-plugin-auto-catalog';
 
 export const framework = defineUserConfig({
   bundler: viteBundler({}),
   plugins: [
     backToTopPlugin(),
     searchPlugin(),
+    autoCatalogPlugin({
+      frontmatter: path => ({}),
+    }),
     containerPlugin({
       type: 'demo',
       render: (tokens, idx) => {

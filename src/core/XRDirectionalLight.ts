@@ -1,7 +1,7 @@
 import { Decorator } from './Decorator';
 import { XRSceneScopeElement } from './XRSceneScopeElement';
 import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
-import { Vector2, Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
 export class XRDirectionalLight extends XRSceneScopeElement<DirectionalLight> {
   static requiredAttrs: string[] = ['id'];
@@ -9,12 +9,16 @@ export class XRDirectionalLight extends XRSceneScopeElement<DirectionalLight> {
   @Decorator.property('Number')
   intensity = 1;
 
-  @Decorator.property('Vector2')
-  rotation = new Vector2(40, 30);
+  @Decorator.property('Number')
+  alpha = 40;
+
+  @Decorator.property('Number')
+  beta = 30;
 
   connected(): void {
     super.connected();
     this.entity = new DirectionalLight(this.id, new Vector3(0, -1, 0), this.scene);
+    this.entity.position.set(0, 0, 0);
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -26,8 +30,8 @@ export class XRDirectionalLight extends XRSceneScopeElement<DirectionalLight> {
     this.entity.intensity = this.intensity;
 
     // rotation
-    const alpha = this.rotation.x * (Math.PI / 180);
-    const beta = this.rotation.y * (Math.PI / 180);
+    const alpha = this.alpha * (Math.PI / 180);
+    const beta = this.beta * (Math.PI / 180);
     this.entity.direction.x = Math.sin(beta) * Math.cos(alpha);
     this.entity.direction.y = Math.cos(beta);
     this.entity.direction.z = Math.sin(beta) * Math.sin(alpha);
