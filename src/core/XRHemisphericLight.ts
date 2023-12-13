@@ -33,8 +33,8 @@ export class XRHemisphericLight extends XRSceneScopeElement<HemisphericLight> {
     this.entity.direction.z = Math.sin(beta) * Math.sin(alpha);
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
     this.entity?.dispose();
     this.entity = null;
   }

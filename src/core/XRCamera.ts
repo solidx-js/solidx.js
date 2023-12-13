@@ -92,8 +92,8 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
     if (changed.has('maxZ')) this.entity.maxZ = this.maxZ;
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
 
     this.entity?.dispose();
     this.entity = null;

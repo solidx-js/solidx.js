@@ -89,7 +89,7 @@ export class XRScene extends XRElement {
     _canvas.style.outline = 'none';
 
     this.engine = XRScene.createEngine(_canvas);
-    this.logger.info('Engine created');
+    this.logger.info('Engine %s created', this.ID);
 
     this.scene = new Scene(this.engine);
     this.scene.autoClear = true;
@@ -156,6 +156,8 @@ export class XRScene extends XRElement {
   disconnected(): void {
     super.disconnected();
     this.engine.dispose();
+
+    this.logger.info('Engine %s disposed', this.ID);
   }
 
   render() {

@@ -15,8 +15,8 @@ export class XRKeyFrames extends XRSceneScopeElement<{ percentage: number; data:
     super.connected();
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
   }
 
   protected willUpdate(changed: Map<string, any>): void {

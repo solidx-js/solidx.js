@@ -63,8 +63,8 @@ export class XRRay extends XRSceneScopeElement<Ray> {
     this.emit('pick', pk);
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
     this.entity = null;
   }
 }

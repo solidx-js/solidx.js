@@ -11,8 +11,8 @@
 			"    super.connected();",
 			"  }",
 			"",
-			"  remove(): void {",
-			"    super.remove();",
+			"  disconnected(): void {",
+			"    super.disconnected();",
 			"  }",
 			"}",
 			""

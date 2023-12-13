@@ -15,4 +15,18 @@ export const ElementUtil = {
 
     return null;
   },
+
+  toAttributeObject: <T extends HTMLElement>(ele: T): T => {
+    return new Proxy(ele, {
+      get(target, p, receiver) {
+        if (typeof p === 'symbol') return Reflect.get(target, p, receiver);
+        return target.getAttribute(p as string) || '';
+      },
+      set(target, p, value, receiver) {
+        if (typeof p === 'symbol') return Reflect.set(target, p, value, receiver);
+        target.setAttribute(p as string, value + '');
+        return true;
+      },
+    });
+  },
 };

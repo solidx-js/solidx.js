@@ -15,22 +15,13 @@
 </xr-scene>
 
 <script>
-  const target = {
-    rotation: '0 0 0',
-  };
-
-  const box = document.querySelector('#box1');
-
   anime({
-    targets: target,
+    targets: $('#box1').toAttributeObject(),
     rotation: ['0 0 0', '0 180 0'],
     duration: 2000,
     loop: true,
     easing: 'easeInOutQuad',
     direction: 'alternate',
-    update: ee => {
-      box.setAttribute('rotation', target.rotation);
-    },
   });
 </script>
 ```

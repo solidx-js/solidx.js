@@ -2,7 +2,7 @@ import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
 import { EntityInspectController, EventDispatchController, NodeStateController, TweenController } from './controller';
 import { Decorator } from './Decorator';
-import { parseDurationString } from '../util';
+import { ElementUtil, parseDurationString } from '../util';
 import { property, state } from 'lit/decorators.js';
 import { IAniItem, PickStringKey } from '../type';
 
@@ -135,6 +135,10 @@ export class XRElement<T = any> extends LitElement {
   /** @internal */
   render(): any {
     return null;
+  }
+
+  toAttributeObject() {
+    return ElementUtil.toAttributeObject(this);
   }
 }
 

@@ -38,8 +38,8 @@ export class XRDirectionalLight extends XRSceneScopeElement<DirectionalLight> {
     this.entity.direction.scaleInPlace(-1); // direction 是从光源指向场景的，所以需要取反
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
 
     this.entity?.dispose();
     this.entity = null;

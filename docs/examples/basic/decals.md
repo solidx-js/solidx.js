@@ -21,25 +21,20 @@
       position="-0.5 -0.5 -0.5"
       direction="1 1 1.01"
       size="0.8 0.8 1"
-      transition="angle 0.5s ease-in-out"
       inspect
     ></xr-decal>
   </xr-mesh>
 </xr-scene>
 
 <script>
-  // 旋转 decal-1
-  (function () {
-    const decal = document.querySelector('#decal-1');
-
-    // 每秒旋转
-    let y = 0;
-
-    setInterval(() => {
-      y += 90;
-      decal.setAttribute('angle', y);
-    }, 1000);
-  })();
+  anime({
+    targets: $('#decal-1').toAttributeObject(),
+    angle: ['0', '360'],
+    duration: 4000,
+    loop: true,
+    easing: 'easeInOutQuad',
+    direction: 'alternate',
+  });
 </script>
 ```
 

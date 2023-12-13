@@ -53,8 +53,13 @@ export default {
         newScript.innerHTML = `
 (function() {
   const shadowRoot = document.getElementById('${containerId}').shadowRoot;
+  const $ = (selector) => shadowRoot.querySelector(selector);
+  const $$ = (selector) => shadowRoot.querySelectorAll(selector);
+
   const scope = {
-    document: shadowRoot
+    document: shadowRoot,
+    $,
+    $$,
   };
 
   with (scope) {

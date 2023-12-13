@@ -196,8 +196,8 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
     }
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
 
     if (this._material) this._material.dispose();
     this._material = null;

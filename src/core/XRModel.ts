@@ -78,8 +78,8 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
     this.entity = new TransformNode(id, this.scene);
   }
 
-  remove(): void {
-    super.remove();
+  disconnected(): void {
+    super.disconnected();
 
     if (this.entity) {
       this.entity.dispose();
@@ -98,7 +98,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
       this._container = null;
     }
 
-    if (!this.src || (this.disabled && !this.preload)) return;
+    if (!this.src || (this.disabled && !this.preload) || this.scene.isDisposed) return;
 
     this.scene.loadModel(this.src, this.extension).then(_container => {
       if (!this.entity) return;
