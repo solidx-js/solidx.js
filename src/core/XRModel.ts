@@ -2,8 +2,8 @@ import { Decorator } from './Decorator';
 import { XRSceneScopeElement } from './XRSceneScopeElement';
 import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
-import { Schema, randomID } from '../util';
-import { HierarchyController, RefController, TransformController } from './controller';
+import { ElementUtil, Schema, randomID } from '../util';
+import { RefController, TransformController } from './controller';
 import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { provide } from '@lit/context';
 import { Context } from './Context';
@@ -15,12 +15,6 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   @provide({ context: Context.AssetContainer })
   @state()
   private _container: AssetContainer | null = null;
-
-  private _parentCtrl = new HierarchyController(this as any, parent => {
-    if (this.entity) this.entity.parent = parent;
-  });
-
-  private _transCtrl = new TransformController(this as any);
 
   private _matCtrl = new RefController(
     this as any,
@@ -76,6 +70,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
     const id = this.id || 'model:' + randomID();
     this.entity = new TransformNode(id, this.scene);
+    this.entity.parent = ElementUtil.closestTransformNodeLike(this);
   }
 
   disconnected(): void {

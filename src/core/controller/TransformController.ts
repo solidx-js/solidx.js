@@ -1,32 +1,35 @@
 import { ReactiveController } from 'lit';
-import { XRSceneScopeElement } from '../XRSceneScopeElement';
+import { XRElement } from '../XRElement';
 import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 
 export class TransformController implements ReactiveController {
-  constructor(private host: XRSceneScopeElement) {
+  constructor(
+    private host: XRElement & {
+      position?: Vector3;
+      rotation?: Vector3;
+      rotationQuaternion?: Quaternion;
+      scale?: Vector3;
+    }
+  ) {
     this.host.addController(this);
   }
 
   hostUpdate(): void {
-    const entity = this.host.entity;
+    const entity = this.host.entity as TransformNode;
     if (!entity) return;
 
-    if (!(entity instanceof TransformNode)) {
-      this.host.logger.warn('TransformController can only be used on TransformNode-like entities');
-    }
-
-    const position = (this.host.evaluated as any).position as Vector3 | undefined;
-    const rotation = (this.host.evaluated as any).rotation as Vector3 | undefined;
-    const rotationQuaternion = (this.host.evaluated as any).rotationQuaternion as Quaternion | undefined;
-    const scale = (this.host.evaluated as any).scale as Vector3 | undefined;
+    const position = this.host.evaluated.position;
+    const rotation = this.host.evaluated.rotation;
+    const rotationQuaternion = this.host.evaluated.rotationQuaternion;
+    const scale = this.host.evaluated.scale;
 
     if (position && entity.position instanceof Vector3) {
       entity.position.copyFrom(position);
     }
 
     if (rotation && entity.rotation instanceof Vector3) {
-      (entity.rotation as Vector3).copyFrom(rotation).scaleInPlace(Math.PI / 180); // deg -> rad
+      entity.rotation.copyFrom(rotation).scaleInPlace(Math.PI / 180); // deg -> rad
     }
 
     if (rotationQuaternion && entity.rotationQuaternion instanceof Quaternion) {

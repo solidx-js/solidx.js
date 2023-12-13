@@ -28,7 +28,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
 
   /** 贴花投影体的中心 */
   @Decorator.property('Vector3')
-  position = Vector3.Zero();
+  origin = Vector3.Zero();
 
   /** 贴花投影方向 */
   @Decorator.property('Vector3')
@@ -74,7 +74,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       this.entity = null;
     }
 
-    const position = this.evaluated.position.clone();
+    const origin = this.evaluated.origin.clone();
     const direction = this.evaluated.direction.clone();
     direction.normalize();
 
@@ -85,7 +85,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
     if (parent) {
       // 如果有 parent, 要做世界矩阵转换
       const worldMatrix = parent.getWorldMatrix();
-      Vector3.TransformCoordinatesToRef(position, worldMatrix, position);
+      Vector3.TransformCoordinatesToRef(origin, worldMatrix, origin);
       Vector3.TransformNormalToRef(direction, worldMatrix, direction);
     }
 
@@ -99,7 +99,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       this._ray.length = size.z; // 用 size.z 作为射线长度
 
       // 射线起点在投影体的中心偏移一半射线长度
-      position.addToRef(direction.scale(-this._ray.length / 2), this._ray.origin);
+      origin.addToRef(direction.scale(-this._ray.length / 2), this._ray.origin);
 
       const pk = this.scene.pickWithRay(this._ray);
       if (pk?.pickedMesh && pk.pickedMesh instanceof Mesh) {
@@ -117,7 +117,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       const id = this.id || randomID();
       this.entity = CreateDecal('decal_' + id, targetMesh, {
         localMode: true,
-        position,
+        position: origin,
         normal: direction.scale(-1), // 贴花定义的法线方向与射线方向相反
         size,
         angle,
@@ -127,7 +127,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       this.entity.material = this._material;
     }
 
-    this._updateProjector(position, direction, size, angle);
+    this._updateProjector(origin, direction, size, angle);
     this._updateRayHelper();
   }
 
@@ -147,7 +147,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
   }
 
   /** 更新 projector (for debug) */
-  private _updateProjector(position: Vector3, direction: Vector3, size: Vector3, angle: number): void {
+  private _updateProjector(origin: Vector3, direction: Vector3, size: Vector3, angle: number): void {
     // 创建
     if (this.inspect && !this._projector) {
       this._projector = CreateBox('projector', { size: 1 }, this.scene);
@@ -165,7 +165,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
 
     // 更新
     if (this.inspect && this._projector) {
-      this._projector.position.copyFrom(position);
+      this._projector.position.copyFrom(origin);
       this._projector.scaling.copyFrom(size);
 
       const color = this.inspect.color || '#ff0000';

@@ -1,7 +1,7 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { XRSceneScopeElement } from './XRSceneScopeElement';
 import { ElementUtil, randomID } from '../util';
-import { HierarchyController, RefController, TransformController } from './controller';
+import { RefController } from './controller';
 import { Decorator } from './Decorator';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
@@ -29,12 +29,6 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
         if (this.entity) this.entity.material = mat;
       }
     );
-
-    new HierarchyController(this as any, parent => {
-      if (this.entity) this.entity.parent = parent;
-    });
-
-    new TransformController(this as any);
   }
 
   @Decorator.property('String')
@@ -59,6 +53,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
 
     const parent = ElementUtil.closestTransformNodeLike(this);
     this.entity = new Mesh(id, this.scene, parent);
+    this.entity.parent = ElementUtil.closestTransformNodeLike(this);
   }
 
   disconnected(): void {

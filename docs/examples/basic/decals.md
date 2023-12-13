@@ -18,7 +18,7 @@
       id="decal-1"
       img="/assets/decal.png"
       img-level="2"
-      position="-0.5 -0.5 -0.5"
+      origin="-0.5 -0.5 -0.5"
       direction="1 1 1.01"
       size="0.8 0.8 1"
       inspect
@@ -58,7 +58,7 @@
     id="decal-1"
     img="/assets/decal.png"
     img-level="2"
-    position="1 0 0"
+    origin="1 0 0"
     direction="-1 0 0"
     size="0.8 0.8 1.3"
     use-ray
@@ -75,10 +75,10 @@
 
     setInterval(() => {
       r += 0.01;
-      const position = [Math.cos(r) * 0.8, 0, Math.sin(r) * 0.8].join(' ');
+      const origin = [Math.cos(r) * 0.8, 0, Math.sin(r) * 0.8].join(' ');
       const direction = [-Math.cos(r), 0, -Math.sin(r)].join(' ');
 
-      decal.setAttribute('position', position);
+      decal.setAttribute('origin', origin);
       decal.setAttribute('direction', direction);
     }, 20);
   })();
