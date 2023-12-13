@@ -42,6 +42,7 @@ export class XRElement<T = any> extends LitElement {
     },
   }); // 过渡期间的插值数据
 
+  /** @internal */
   readonly changed = new Map<string, any>();
 
   constructor() {
@@ -60,6 +61,7 @@ export class XRElement<T = any> extends LitElement {
     );
   }
 
+  /** @internal */
   get _Cls() {
     return this.constructor as any as typeof XRElement;
   }
@@ -68,10 +70,12 @@ export class XRElement<T = any> extends LitElement {
     return this;
   }
 
+  /** @internal */
   emit<T extends keyof HTMLElementEventMap>(evType: T, detail: HTMLElementEventMap[T]['detail']) {
     this.dispatchEvent(new CustomEvent(evType, { detail, bubbles: true }));
   }
 
+  /** @internal */
   connectedCallback() {
     super.connectedCallback();
 
@@ -106,6 +110,7 @@ export class XRElement<T = any> extends LitElement {
 
   protected updated(_changed: Map<string, any>): void {}
 
+  /** @internal */
   disconnectedCallback() {
     super.disconnectedCallback();
 
@@ -117,12 +122,17 @@ export class XRElement<T = any> extends LitElement {
     this.disconnected();
   }
 
-  /** @override 第一次被连接到文档 DOM */
+  /** 
+   * @internal
+   * @override 第一次被连接到文档 DOM */
   connected() {}
 
-  /** @override 从文档 DOM 中删除 */
+  /** 
+   * @internal
+   * @override 从文档 DOM 中删除 */
   disconnected() {}
 
+  /** @internal */
   render(): any {
     return null;
   }

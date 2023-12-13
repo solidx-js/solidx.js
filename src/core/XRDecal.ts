@@ -9,7 +9,11 @@ import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 
+/**
+ * @category XR
+ */
 export class XRDecal extends XRSceneScopeElement<Mesh> {
+  /** size */
   @Decorator.property('Vector3')
   size = Vector3.One();
 
