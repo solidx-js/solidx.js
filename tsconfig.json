@@ -13,5 +13,5 @@
     "lib": ["DOM", "ES2017"],
     "skipLibCheck": true
   },
-  "include": ["src", "demo", "__test__"]
+  "include": ["src", "demo", "__test__", "docs/.vuepress"],
 }

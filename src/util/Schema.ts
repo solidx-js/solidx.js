@@ -19,7 +19,7 @@ export const Schema = {
   parse<T extends IDataType>(type: T, data: string): IDataTypeMap[T] {
     if (type === 'Number') return (Number(data) || 0) as any;
     else if (type === 'String') return String(data) as any;
-    else if (type === 'Boolean') return Boolean(data) as any;
+    else if (type === 'Boolean') return (typeof data !== 'undefined') as any;
     else if (type === 'Array') return data.split(' ').map(v => v.trim()) as any;
     else if (type === 'Vector2') return Vector2.FromArray(data.split(' ').map(v => Number(v.trim()))) as any;
     else if (type === 'Vector3') return Vector3.FromArray(data.split(' ').map(v => Number(v.trim()))) as any;
@@ -28,6 +28,8 @@ export const Schema = {
     else if (type === 'Color4') return Color4.FromHexString(data) as any;
     else if (type === 'Object') {
       const obj: any = {};
+      if (data === '') return obj as any;
+
       const list = data.split(';');
 
       for (const item of list) {

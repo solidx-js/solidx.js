@@ -3,7 +3,7 @@ import { LitElement } from 'lit';
 import { EntityDebugController, EventDispatchController, NodeStateController, TweenController } from './controller';
 import { Decorator } from './Decorator';
 import { parseDurationString } from '../util';
-import { property, state } from 'lit/decorators';
+import { property, state } from 'lit/decorators.js';
 import { IAniItem, PickStringKey } from '../type';
 
 export class XRElement<T = any> extends LitElement {

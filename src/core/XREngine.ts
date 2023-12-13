@@ -53,6 +53,7 @@ export class XREngine extends XRElement {
     const _canvas = document.createElement('canvas');
     _canvas.style.width = '100%';
     _canvas.style.height = '100%';
+    _canvas.style.outline = 'none';
 
     this.engine = XREngine.createEngine(_canvas);
   }

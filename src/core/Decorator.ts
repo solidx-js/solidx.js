@@ -17,7 +17,9 @@ export const Decorator = {
       dType,
       attribute,
       converter: {
-        fromAttribute: (value: string | null) => (typeof value === 'string' ? Schema.parse(dType, value) : undefined),
+        fromAttribute: (value: string | null) => {
+          return typeof value === 'string' ? Schema.parse(dType, value) : undefined;
+        },
         toAttribute: (value: any) => Schema.stringify(dType, value),
       },
     });

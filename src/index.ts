@@ -4,6 +4,7 @@
 import '@babylonjs/core/Materials/Textures/Loaders';
 import '@babylonjs/core/Animations';
 import '@babylonjs/core/Rendering';
+import '@babylonjs/core/Lights';
 
 // import '@babylonjs/inspector';
 
