@@ -27,6 +27,25 @@ export class XREnv extends XRSceneScopeElement<any> {
     super.disconnected();
   }
 
+  private _renderSkyBox() {
+    return html`
+      <xr-material
+        id="env-sky-box"
+        backface-culling
+        side-orientation="0"
+        albedo-texture="url: ${XREnv.defaultGroundTexture}; has-alpha: true;"
+      ></xr-material>
+      <xr-mesh id="env-sky-box" geometry="type: sphere" material="env-sky-box" scale="100 100 100"></xr-mesh>
+    `;
+  }
+
+  private _renderGround() {
+    return html`
+      <xr-material id="env-ground" backface-culling albedo-texture="url: ${XREnv.defaultGroundTexture}; has-alpha: true"></xr-material>
+      <xr-mesh id="env-ground" geometry="type: plane" material="env-ground" scale="5 5 5" rotation="90 0 0"></xr-mesh>
+    `;
+  }
+
   render() {
     return html`
       <xr-node id="env" .position=${this.position} .rotation=${this.rotation} .scale=${this.scale}>
@@ -56,8 +75,7 @@ export class XREnv extends XRSceneScopeElement<any> {
           .position=${new Vector3(-1, 3, -3)}
         ></xr-point-light>
 
-        <xr-material id="env-ground" backface-culling albedo-texture="url: ${XREnv.defaultGroundTexture}; has-alpha: true"></xr-material>
-        <xr-mesh id="env-ground" geometry="type: plane" material="env-ground" scale="5 5 5" rotation="90 0 0"></xr-mesh>
+        ${this._renderSkyBox()}${this._renderGround()}
       </xr-node>
     `;
   }

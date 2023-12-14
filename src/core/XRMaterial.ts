@@ -10,7 +10,7 @@ export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Color3', 'albedo-color')
-  albedoColor?: Color3;
+  albedoColor: Color3 = Color3.White();
 
   @Decorator.property('String', 'albedo-texture')
   albedoTexture: string | null = null;
@@ -22,13 +22,16 @@ export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
   roughness: number = 0.8;
 
   @Decorator.property('Color3', 'emissive-color')
-  emissiveColor?: Color3;
+  emissiveColor: Color3 = Color3.Black();
 
   @Decorator.property('Boolean', 'backface-culling')
   backFaceCulling: boolean = false;
 
   @Decorator.property('Number')
   alpha: number = 1;
+
+  @Decorator.property('Number', 'side-orientation')
+  sideOrientation: number = 1;
 
   @state()
   _albedoTexture: Texture | null = null;
@@ -51,14 +54,15 @@ export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
 
     if (!this.entity) return;
 
-    if (this.albedoColor) this.entity.albedoColor = this.albedoColor;
-    if (typeof this.metallic !== 'undefined') this.entity.metallic = this.metallic;
-    if (typeof this.roughness !== 'undefined') this.entity.roughness = this.roughness;
-    if (this.emissiveColor) this.entity.emissiveColor = this.emissiveColor;
-    if (typeof this.backFaceCulling !== 'undefined') this.entity.backFaceCulling = this.backFaceCulling;
-    if (typeof this.alpha !== 'undefined') this.entity.alpha = this.alpha;
+    if (changed.has('albedoColor')) this.entity.albedoColor.copyFrom(this.evaluated.albedoColor);
+    if (changed.has('metallic')) this.entity.metallic = this.evaluated.metallic;
+    if (changed.has('roughness')) this.entity.roughness = this.evaluated.roughness;
+    if (changed.has('emissiveColor')) this.entity.emissiveColor.copyFrom(this.evaluated.emissiveColor);
+    if (changed.has('backFaceCulling')) this.entity.backFaceCulling = this.evaluated.backFaceCulling;
+    if (changed.has('alpha')) this.entity.alpha = this.evaluated.alpha;
+    if (changed.has('sideOrientation')) this.entity.sideOrientation = this.evaluated.sideOrientation;
 
-    this.entity.albedoTexture = this._albedoTexture;
+    if (changed.has('_albedoTexture')) this.entity.albedoTexture = this._albedoTexture;
   }
 
   disconnected(): void {
