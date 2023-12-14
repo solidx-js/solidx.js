@@ -5,6 +5,7 @@ import { Scene } from '@babylonjs/core/scene';
 import { Schema, randomID } from '../../util';
 import { EntityTagNameMap } from '../../registry';
 
+/** @deprecated */
 export class RefController<T extends IEntityType> implements ReactiveController {
   private _ab: AbortController | null = null;
   private _customResolvedInfo: { entity: IBjsEntityType<T>; dispose: () => any } | null = null;
@@ -107,8 +108,6 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
 
   private _setTarget = (target: IBjsEntityType<T> | null) => {
     const _host = this.host as any;
-
-    console.log('@@@', 'target ->', target);
     _host[this.targetProp] = target;
   };
 
@@ -121,16 +120,18 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
       if (typeof ref === 'string') {
         // object 格式
         if (ref.includes(':') || ref === '') {
+          let _needInsert = false;
+
           // 创建内部元素
           if (!this._selfHostElement) {
             const _tagName = EntityTagNameMap[this.type];
             if (!_tagName) throw new Error(`RefController2: can not find tagName for type: ${this.type}`);
 
-            const _ele = document.createElement('xr-texture') as XRElement;
+            const _ele = document.createElement(_tagName) as XRElement;
             _ele.id = `${this.type}:_ref_:${randomID()}`;
 
-            this.host.appendChild(_ele);
             this._selfHostElement = _ele;
+            _needInsert = true;
           }
 
           const data = Schema.parse('Object', ref);
@@ -138,6 +139,8 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
           for (const [key, value] of Object.entries(data)) {
             this._selfHostElement.setAttribute(key, value);
           }
+
+          if (_needInsert) this.host.appendChild(this._selfHostElement);
 
           const entity = this._selfHostElement.entity;
           if (!entity) this.host.logger.warn('RefController2: entity is null when ref is object.');

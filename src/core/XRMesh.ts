@@ -1,41 +1,19 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { XRSceneScopeElement } from './XRSceneScopeElement';
 import { ElementUtil, randomID } from '../util';
-import { RefController } from './controller';
+import { RefController2 } from './controller';
 import { Decorator } from './Decorator';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { state } from 'lit/decorators.js';
+import { Geometry } from '@babylonjs/core/Meshes/geometry';
+import { Material } from '@babylonjs/core/Materials/material';
 
 export class XRMesh extends XRSceneScopeElement<Mesh> {
-  constructor() {
-    super();
-
-    new RefController(
-      this as any,
-      'geometry',
-      () => this.geometry || null,
-      geo => {
-        if (this.entity && geo) {
-          geo.applyToMesh(this.entity);
-          this.emit('loadeddata', {});
-        }
-      }
-    );
-
-    new RefController(
-      this as any,
-      'material',
-      () => this.material || null,
-      mat => {
-        if (this.entity) this.entity.material = mat;
-      }
-    );
-  }
+  @Decorator.property('String')
+  geometry: string | null = null;
 
   @Decorator.property('String')
-  geometry?: string;
-
-  @Decorator.property('String')
-  material?: string;
+  material: string | null = null;
 
   @Decorator.property('Vector3')
   position = Vector3.Zero();
@@ -45,6 +23,19 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
 
   @Decorator.property('Vector3')
   scale = Vector3.One();
+
+  @state()
+  _geometry: Geometry | null = null;
+
+  @state()
+  _material: Material | null = null;
+
+  constructor() {
+    super();
+
+    new RefController2(this, 'geometry', 'geometry', '_geometry');
+    new RefController2(this, 'material', 'material', '_material');
+  }
 
   connected(): void {
     super.connected();
@@ -60,5 +51,20 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
     super.disconnected();
     this.entity?.dispose();
     this.entity = null;
+  }
+
+  protected willUpdate(changed: Map<string, any>): void {
+    super.willUpdate(changed);
+
+    if (!this.entity) return;
+
+    if (changed.has('_geometry') && this._geometry) {
+      this._geometry.applyToMesh(this.entity);
+      this.emit('loadeddata', {});
+    }
+
+    if (changed.has('_material')) {
+      this.entity.material = this._material;
+    }
   }
 }

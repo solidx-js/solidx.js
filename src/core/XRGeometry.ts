@@ -1,16 +1,17 @@
 import { XRSceneScopeElement } from './XRSceneScopeElement';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
-import { property } from 'lit/decorators.js';
+import { Decorator } from './Decorator';
 
 export class XRGeometry extends XRSceneScopeElement<Geometry> {
-  static requiredAttrs: string[] = ['id'];
+  static requiredAttrs: string[] = ['id', 'type'];
 
-  @property({ type: String })
-  type = 'custom';
+  @Decorator.property('String')
+  type = 'box';
 
   connected(): void {
     super.connected();
-    this.render();
+    this.entity = new Geometry(this.id, this.scene, undefined, true);
+    this.scene.addGeometry(this.entity);
   }
 
   disconnected(): void {
@@ -22,16 +23,11 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> {
   protected willUpdate(changed: Map<string, any>): void {
     super.willUpdate(changed);
 
+    if (!this.entity) return;
+
     const type = this.type;
     const vert = this.scene.createVert({ type: type as any });
 
-    if (!this.entity) {
-      this.entity = new Geometry(this.id, this.scene, vert, true);
-      this.scene.addGeometry(this.entity);
-    }
-    //
-    else {
-      this.entity.setAllVerticesData(vert, true);
-    }
+    this.entity.setAllVerticesData(vert, true);
   }
 }
