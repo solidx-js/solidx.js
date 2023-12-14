@@ -25,9 +25,9 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> {
 
     if (!this.entity) return;
 
-    const type = this.type;
-    const vert = this.scene.createVert({ type: type as any });
-
-    this.entity.setAllVerticesData(vert, true);
+    if (changed.has('type')) {
+      const vert = this.scene.createVert({ type: this.evaluated.type as any });
+      this.entity.setAllVerticesData(vert, true);
+    }
   }
 }
