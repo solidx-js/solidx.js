@@ -10,6 +10,11 @@ import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders/glTF';
 import { UtilityLayerRenderer } from '@babylonjs/core/Rendering/utilityLayerRenderer';
 import * as TWEEN from '@tweenjs/tween.js';
+import { Mesh } from '@babylonjs/core/Meshes/mesh';
+import { Geometry } from '@babylonjs/core/Meshes/geometry';
+import { Animation } from '@babylonjs/core/Animations/animation';
+import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
+import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 
 // fix: Found invalid interpolation list. Skipping.
 (TWEEN.Tween.prototype as any)._setupProperties = function (
@@ -30,7 +35,7 @@ import * as TWEEN from '@tweenjs/tween.js';
   }
 };
 
-Scene.prototype.waitFor = function waitFor(
+Scene.prototype.queryWait = function queryWait(
   type: IEntityType,
   id: string,
   abortSignal: AbortSignal,
@@ -39,25 +44,12 @@ Scene.prototype.waitFor = function waitFor(
 ): any {
   abortSignal.throwIfAborted();
 
-  let _getEntity: () => any;
-
-  if (type === 'mesh') _getEntity = () => this.getMeshById(id);
-  else if (type === 'material') _getEntity = () => this.getMaterialById(id);
-  else if (type === 'geometry') _getEntity = () => this.getGeometryById(id);
-  else if (type === 'animation') _getEntity = () => this.animations.find(a => a.name === id);
-  else if (type === 'transformNode') _getEntity = () => this.getTransformNodeById(id);
-  else if (type === 'transformNodeLike') {
-    _getEntity = () => {
-      return this.getMeshById(id) || this.getTransformNodeById(id);
-    };
-  } else throw new Error(`Unknown type: ${type}`);
-
-  const _entity = _getEntity();
+  const _entity = this.query(type, id);
   if (_entity) return resolve(_entity);
 
   new Promise((_resolve, _reject) => {
     const _handler = () => {
-      const _entity = _getEntity();
+      const _entity = this.query(type, id);
       if (_entity) {
         this.onAfterRenderObservable.removeCallback(_handler);
         _resolve(_entity);
@@ -70,6 +62,33 @@ Scene.prototype.waitFor = function waitFor(
       _reject(new DOMException('Aborted', 'AbortError'));
     });
   }).then(resolve, reject);
+};
+
+Scene.prototype.query = function query(type: IEntityType, id: string): any {
+  if (type === 'mesh') return this.getMeshById(id);
+  else if (type === 'material') return this.getMaterialById(id);
+  else if (type === 'geometry') return this.getGeometryById(id);
+  else if (type === 'animation') return this.animations.find(a => a.name === id);
+  else if (type === 'transformNode') return this.getTransformNodeById(id);
+  else if (type === 'texture') return this.getTextureByName(id);
+  else if (type === 'transformNodeLike') return this.getMeshById(id) || this.getTransformNodeById(id);
+
+  return null;
+};
+
+Scene.prototype.create = function create(type: IEntityType, id: string): any {
+  if (type === 'mesh') return new Mesh(id, this);
+  else if (type === 'material') return new PBRMaterial(id, this);
+  else if (type === 'geometry') return new Geometry(id, this, undefined, true);
+  else if (type === 'animation') return new Animation(id, '', 60, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT);
+  else if (type === 'transformNode') return new TransformNode(id, this);
+  else if (type === 'texture') {
+    const tex = new Texture(null, this);
+    tex.name = id;
+    return tex;
+  }
+
+  throw new Error(`Unsupported type: ${type}`);
 };
 
 Scene.prototype.createVert = function createVert(arg: { type: 'box' } | { type: 'sphere' } | { type: 'plane' }): any {

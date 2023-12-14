@@ -8,10 +8,10 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Number')
-  alpha = -90;
+  alpha = 90;
 
   @Decorator.property('Number')
-  beta = 90;
+  beta = 75;
 
   @Decorator.property('Number')
   radius = 10;

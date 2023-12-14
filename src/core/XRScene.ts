@@ -45,10 +45,10 @@ export class XRScene extends XRElement {
   environmentTexture?: string;
 
   @Decorator.property('Number')
-  contrast = 1;
+  contrast = 1.6;
 
   @Decorator.property('Number')
-  exposure = 1;
+  exposure = 3;
 
   @Decorator.property('Object')
   ssao?: any;
@@ -94,6 +94,8 @@ export class XRScene extends XRElement {
     this.scene = new Scene(this.engine);
     this.scene.autoClear = true;
     this.scene.clearColor = new Color4(0, 0, 0, 0); // 默认透明背景
+
+    this.scene.imageProcessingConfiguration.toneMappingEnabled = true;
   }
 
   private _doRender = () => {
@@ -119,7 +121,11 @@ export class XRScene extends XRElement {
     this.containerEle.appendChild(this.engine.getRenderingCanvas()!);
     if (this.autoResize) this.reCalcContainerSize();
 
-    // this.scene.debugLayer.show(); // for debug
+    if (this.inspect) {
+      import('@babylonjs/inspector').then(() => {
+        this.scene.debugLayer.show(); // for debug
+      });
+    }
   }
 
   protected updated(_changed: Map<string, any>): void {
@@ -161,10 +167,8 @@ export class XRScene extends XRElement {
   }
 
   render() {
-    return html`<div
-      id=${this.ID}
-      class="xr-canvas-wrapper"
-      style=${styleMap({ width: this.width + 'px', height: this.height + 'px' })}
-    ></div>`;
+    return html`
+      <div id=${this.ID} class="xr-canvas-wrapper" style=${styleMap({ width: this.width + 'px', height: this.height + 'px' })}></div>
+    `;
   }
 }

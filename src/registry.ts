@@ -13,9 +13,13 @@ import {
   XRModel,
   XRRay,
   XRDecal,
+  XRPointLight,
+  XRTexture,
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
+import { XREnv } from './primitive';
+import { IEntityType } from './type';
 
 export class ElementRegistry {
   static Instance = new ElementRegistry();
@@ -51,6 +55,17 @@ ElementRegistry.Instance.register('xr-keyframes', XRKeyFrames as any);
 ElementRegistry.Instance.register('xr-camera', XRCamera as any);
 ElementRegistry.Instance.register('xr-directional-light', XRDirectionalLight as any);
 ElementRegistry.Instance.register('xr-hemispheric-light', XRHemisphericLight as any);
+ElementRegistry.Instance.register('xr-point-light', XRPointLight as any);
 ElementRegistry.Instance.register('xr-model', XRModel as any);
 ElementRegistry.Instance.register('xr-ray', XRRay as any);
 ElementRegistry.Instance.register('xr-decal', XRDecal as any);
+ElementRegistry.Instance.register('xr-env', XREnv as any);
+ElementRegistry.Instance.register('xr-texture', XRTexture as any);
+
+export const EntityTagNameMap: Partial<Record<IEntityType, string>> = {
+  mesh: 'xr-mesh',
+  material: 'xr-material',
+  geometry: 'xr-geometry',
+  transformNode: 'xr-node',
+  texture: 'xr-texture',
+};

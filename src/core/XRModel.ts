@@ -3,7 +3,7 @@ import { XRSceneScopeElement } from './XRSceneScopeElement';
 import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { ElementUtil, Schema, randomID } from '../util';
-import { RefController, TransformController } from './controller';
+import { RefController, TransformLikeController } from './controller';
 import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { provide } from '@lit/context';
 import { Context } from './Context';

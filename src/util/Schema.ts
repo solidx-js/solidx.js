@@ -47,7 +47,11 @@ export const Schema = {
       const list = data.split(';');
 
       for (const item of list) {
-        const [key, value] = item.split(':').map(v => v.trim());
+        // 从第一个 : 处分割成 key 和 value
+        const _index = item.indexOf(':');
+        const key = item.slice(0, _index).trim();
+        const value = item.slice(_index + 1).trim();
+
         obj[key] = value;
       }
 

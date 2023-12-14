@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" style="background: #f0f0f0"></div>
+  <div :id="containerId" ref="container" style="background: #f0f0f0"></div>
 </template>
 
 <script>
@@ -8,15 +8,13 @@ export default {
     base64Html: { type: String, required: true },
   },
 
-  containerId: null,
-  shadowRoot: null,
+  data() {
+    return {
+      containerId: `html-live-${Math.random().toString(36).slice(2)}`,
+    };
+  },
 
   mounted() {
-    this.containerId = 'shadow-container-' + Math.random().toString(36).slice(2);
-    this.$refs.container.id = this.containerId;
-
-    this.shadowRoot = this.$refs.container.attachShadow({ mode: 'open' });
-
     this.updateContent();
   },
 
@@ -26,11 +24,8 @@ export default {
 
   methods: {
     updateContent() {
-      if (!this.shadowRoot) return;
-
-      const containerId = this.containerId;
-      const shadowRoot = this.shadowRoot;
-      shadowRoot.innerHTML = '';
+      const root = this.$refs.container;
+      root.innerHTML = '';
 
       const decodedHtml = atob(this.base64Html);
       const parser = new DOMParser();
@@ -40,24 +35,23 @@ export default {
         const node = doc.body.childNodes[i];
         if (node.nodeName === 'SCRIPT') continue;
 
-        shadowRoot.appendChild(node.cloneNode(true));
+        root.appendChild(node.cloneNode(true));
       }
 
       // append scripts
       const scripts = doc.querySelectorAll('script');
       scripts.forEach(script => {
         const newScript = document.createElement('script');
-        shadowRoot.appendChild(newScript);
+        root.appendChild(newScript);
 
         // 简单做个沙箱
         newScript.innerHTML = `
 (function() {
-  const shadowRoot = document.getElementById('${containerId}').shadowRoot;
-  const $ = (selector) => shadowRoot.querySelector(selector);
-  const $$ = (selector) => shadowRoot.querySelectorAll(selector);
+  const root = document.getElementById('${this.containerId}');
+  const $ = (selector) => root.querySelector(selector);
+  const $$ = (selector) => root.querySelectorAll(selector);
 
   const scope = {
-    document: shadowRoot,
     $,
     $$,
   };

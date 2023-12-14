@@ -4,13 +4,16 @@ import { IDataType } from './util/Schema';
 
 declare module '@babylonjs/core/scene' {
   interface Scene {
-    waitFor<T extends IEntityType>(
+    queryWait<T extends IEntityType>(
       type: T,
       id: string,
       abortSignal: AbortSignal,
       resolve: (target: IBjsEntityType<T>) => any,
       reject: (err: Error) => any
     ): any;
+    query<T extends IEntityType>(type: T, id: string): IBjsEntityType<T> | null;
+    create<T extends IEntityType>(type: T, id: string): IBjsEntityType<T>;
+
     createVert(arg: { type: 'box' } | { type: 'sphere' } | { type: 'plane' }): VertexData;
     loadModel(url: string, forceExt?: string): Promise<AssetContainer>;
 

@@ -15,6 +15,7 @@ export const Decorator = {
   property: (dType: IDataType, attribute?: string) => {
     return property({
       dType,
+      reflect: true,
       attribute,
       converter: {
         fromAttribute: (value: string | null) => {

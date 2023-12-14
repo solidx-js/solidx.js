@@ -7,7 +7,9 @@ import { autoCatalogPlugin } from 'vuepress-plugin-auto-catalog';
 import { resolve } from 'path';
 
 export const framework = defineUserConfig({
-  bundler: viteBundler({}),
+  bundler: viteBundler({
+    viteOptions: {},
+  }),
   templateDev: resolve(__dirname, './template.html'),
   templateBuild: resolve(__dirname, './template.html'),
   plugins: [

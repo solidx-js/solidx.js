@@ -1,6 +1,6 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import { EntityInspectController, EventDispatchController, NodeStateController, TransformController, TweenController } from './controller';
+import { EntityInspectController, EventDispatchController, NodeStateController, TransformLikeController, TweenController } from './controller';
 import { Decorator } from './Decorator';
 import { ElementUtil, parseDurationString } from '../util';
 import { property, state } from 'lit/decorators.js';
@@ -52,7 +52,7 @@ export class XRElement<T = any> extends LitElement {
     new NodeStateController(this as any);
     new EventDispatchController(this as any);
     new EntityInspectController(this as any);
-    new TransformController(this as any);
+    new TransformLikeController(this as any);
 
     this._tweenCtrl = new TweenController(
       this as any,
