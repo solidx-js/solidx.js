@@ -7,8 +7,7 @@
 ```html
 <xr-scene auto-resize>
   <xr-camera id="cam1" radius="3" alpha="-115" beta="120"></xr-camera>
-  <xr-directional-light id="light1" alpha="-135" intensity="1"></xr-directional-light>
-  <xr-hemispheric-light id="light2" intensity="1"></xr-hemispheric-light>
+  <xr-env scale="0.5 0.5 0.5"></xr-env>
 
   <xr-material id="m1"></xr-material>
   <xr-geometry id="g1" type="box"></xr-geometry>
@@ -47,8 +46,7 @@
 ```html
 <xr-scene auto-resize>
   <xr-camera id="cam1" radius="3" alpha="-40"></xr-camera>
-  <xr-directional-light id="light1" alpha="-40" intensity="1"></xr-directional-light>
-  <xr-hemispheric-light id="light2" intensity="1"></xr-hemispheric-light>
+  <xr-env scale="0.5 0.5 0.5"></xr-env>
 
   <xr-material id="m1" alpha="0.3"></xr-material>
   <xr-geometry id="g1" type="box"></xr-geometry>
@@ -68,7 +66,7 @@
 
 <script>
   (function () {
-    const decal = document.querySelector('#decal-1');
+    const decal = $('#decal-1');
 
     // 每秒旋转
     let r = 0;
