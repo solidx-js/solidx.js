@@ -1,12 +1,12 @@
 import { Scene } from '@babylonjs/core/scene';
 import { XRElement } from './XRElement';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { provide } from '@lit/context';
 import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
-import { RefController } from './controller';
+import { RefController2 } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { SSAO2RenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssao2RenderingPipeline';
 import { html } from 'lit';
@@ -28,6 +28,8 @@ export class XRScene extends XRElement {
     return engine;
   }
 
+  static defaultEnvMap = new URL('../assets/EnvMap_3.0-256.env', import.meta.url).href;
+
   readonly ID = randomID();
   engine: Engine;
 
@@ -42,13 +44,13 @@ export class XRScene extends XRElement {
   height: number = 400;
 
   @Decorator.property('String')
-  environmentTexture?: string;
+  environmentTexture: string = `url: ${XRScene.defaultEnvMap}`;
 
   @Decorator.property('Number')
   contrast = 1.6;
 
   @Decorator.property('Number')
-  exposure = 3;
+  exposure = 1.2;
 
   @Decorator.property('Object')
   ssao?: any;
@@ -56,26 +58,18 @@ export class XRScene extends XRElement {
   @Decorator.property('Boolean', 'auto-resize')
   autoResize?: boolean;
 
+  @state()
+  _environmentTexture: CubeTexture | null = null;
+
   @query('.xr-canvas-wrapper')
-  containerEle!: HTMLDivElement;
+  private containerEle!: HTMLDivElement;
 
   private _ssaoPipeline: SSAO2RenderingPipeline | null = null;
 
   constructor() {
     super();
 
-    new RefController(
-      this as any,
-      'texture',
-      () => this.environmentTexture || null,
-      texture => {
-        this.scene.environmentTexture = texture;
-      },
-      ref => {
-        const tex = CubeTexture.CreateFromPrefilteredData(ref, this.scene);
-        return { entity: tex, dispose: () => tex.dispose() };
-      }
-    );
+    new RefController2(this, 'cube-texture', 'environmentTexture', '_environmentTexture');
 
     this.style.display = 'block';
     this.style.width = '100%';
@@ -136,11 +130,11 @@ export class XRScene extends XRElement {
     super.willUpdate(changed);
 
     if (changed.has('contrast')) {
-      this.scene.imageProcessingConfiguration.contrast = this.contrast;
+      this.scene.imageProcessingConfiguration.contrast = this.evaluated.contrast;
     }
 
     if (changed.has('exposure')) {
-      this.scene.imageProcessingConfiguration.exposure = this.exposure;
+      this.scene.imageProcessingConfiguration.exposure = this.evaluated.exposure;
     }
 
     if (changed.has('ssao')) {
@@ -157,6 +151,8 @@ export class XRScene extends XRElement {
         Object.assign(this._ssaoPipeline, this.ssao);
       }
     }
+
+    if (changed.has('_environmentTexture')) this.scene.environmentTexture = this._environmentTexture;
   }
 
   disconnected(): void {

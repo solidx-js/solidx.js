@@ -19,9 +19,13 @@ export const Decorator = {
       attribute,
       converter: {
         fromAttribute: (value: string | null) => {
+          if (dType === 'Boolean') return value !== null;
           return typeof value === 'string' ? Schema.parse(dType, value) : undefined;
         },
-        toAttribute: (value: any) => Schema.stringify(dType, value),
+        toAttribute: (value: any) => {
+          if (dType === 'Boolean') return value ? '' : null;
+          return Schema.stringify(dType, value);
+        },
       },
     });
   },

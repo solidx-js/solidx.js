@@ -15,6 +15,8 @@ import {
   XRDecal,
   XRPointLight,
   XRTexture,
+  XRCubeTexture,
+  XRBackgroundMaterial,
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
@@ -61,11 +63,15 @@ ElementRegistry.Instance.register('xr-ray', XRRay as any);
 ElementRegistry.Instance.register('xr-decal', XRDecal as any);
 ElementRegistry.Instance.register('xr-env', XREnv as any);
 ElementRegistry.Instance.register('xr-texture', XRTexture as any);
+ElementRegistry.Instance.register('xr-cube-texture', XRCubeTexture as any);
+ElementRegistry.Instance.register('xr-background-material', XRBackgroundMaterial as any);
 
 export const EntityTagNameMap: Partial<Record<IEntityType, string>> = {
   mesh: 'xr-mesh',
   material: 'xr-material',
+  'background-material': 'xr-background-material',
   geometry: 'xr-geometry',
   transformNode: 'xr-node',
   texture: 'xr-texture',
+  'cube-texture': 'xr-cube-texture',
 };

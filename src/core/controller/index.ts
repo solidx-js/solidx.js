@@ -2,6 +2,7 @@ export * from './AttributeObserverController';
 export * from './EntityInspectController';
 export * from './EventDispatchController';
 export * from './LightController';
+export * from './MaterialController';
 export * from './NodeStateController';
 export * from './RefController';
 export * from './TextureController';

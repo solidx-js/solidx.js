@@ -12,7 +12,6 @@ declare module '@babylonjs/core/scene' {
       reject: (err: Error) => any
     ): any;
     query<T extends IEntityType>(type: T, id: string): IBjsEntityType<T> | null;
-    create<T extends IEntityType>(type: T, id: string): IBjsEntityType<T>;
 
     createVert(arg: { type: 'box' } | { type: 'sphere' } | { type: 'plane' }): VertexData;
     loadModel(url: string, forceExt?: string): Promise<AssetContainer>;

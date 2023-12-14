@@ -2,7 +2,7 @@ import { PBRMaterial } from '@babylonjs/core/Materials/PBR';
 import { XRSceneScopeElement } from './XRSceneScopeElement';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Decorator } from './Decorator';
-import { RefController2 } from './controller';
+import { MaterialController, RefController2 } from './controller';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { state } from 'lit/decorators.js';
 
@@ -33,6 +33,9 @@ export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
   @Decorator.property('Number', 'side-orientation')
   sideOrientation: number = 1;
 
+  @Decorator.property('Boolean', 'unlit')
+  unlit: boolean = false;
+
   @state()
   _albedoTexture: Texture | null = null;
 
@@ -40,6 +43,7 @@ export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
     super();
 
     new RefController2(this, 'texture', 'albedoTexture', '_albedoTexture');
+    new MaterialController(this);
   }
 
   connected(): void {
@@ -58,9 +62,7 @@ export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
     if (changed.has('metallic')) this.entity.metallic = this.evaluated.metallic;
     if (changed.has('roughness')) this.entity.roughness = this.evaluated.roughness;
     if (changed.has('emissiveColor')) this.entity.emissiveColor.copyFrom(this.evaluated.emissiveColor);
-    if (changed.has('backFaceCulling')) this.entity.backFaceCulling = this.evaluated.backFaceCulling;
-    if (changed.has('alpha')) this.entity.alpha = this.evaluated.alpha;
-    if (changed.has('sideOrientation')) this.entity.sideOrientation = this.evaluated.sideOrientation;
+    if (changed.has('unlit')) this.entity.unlit = this.evaluated.unlit;
 
     if (changed.has('_albedoTexture')) this.entity.albedoTexture = this._albedoTexture;
   }

@@ -10,11 +10,6 @@ import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders/glTF';
 import { UtilityLayerRenderer } from '@babylonjs/core/Rendering/utilityLayerRenderer';
 import * as TWEEN from '@tweenjs/tween.js';
-import { Mesh } from '@babylonjs/core/Meshes/mesh';
-import { Geometry } from '@babylonjs/core/Meshes/geometry';
-import { Animation } from '@babylonjs/core/Animations/animation';
-import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
-import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 
 // fix: Found invalid interpolation list. Skipping.
 (TWEEN.Tween.prototype as any)._setupProperties = function (
@@ -66,29 +61,14 @@ Scene.prototype.queryWait = function queryWait(
 
 Scene.prototype.query = function query(type: IEntityType, id: string): any {
   if (type === 'mesh') return this.getMeshById(id);
-  else if (type === 'material') return this.getMaterialById(id);
+  else if (type === 'material' || type === 'background-material') return this.getMaterialById(id);
   else if (type === 'geometry') return this.getGeometryById(id);
   else if (type === 'animation') return this.animations.find(a => a.name === id);
   else if (type === 'transformNode') return this.getTransformNodeById(id);
-  else if (type === 'texture') return this.getTextureByName(id);
+  else if (type === 'texture' || type === 'cube-texture') return this.getTextureByName(id);
   else if (type === 'transformNodeLike') return this.getMeshById(id) || this.getTransformNodeById(id);
 
   return null;
-};
-
-Scene.prototype.create = function create(type: IEntityType, id: string): any {
-  if (type === 'mesh') return new Mesh(id, this);
-  else if (type === 'material') return new PBRMaterial(id, this);
-  else if (type === 'geometry') return new Geometry(id, this, undefined, true);
-  else if (type === 'animation') return new Animation(id, '', 60, Animation.ANIMATIONTYPE_FLOAT, Animation.ANIMATIONLOOPMODE_CONSTANT);
-  else if (type === 'transformNode') return new TransformNode(id, this);
-  else if (type === 'texture') {
-    const tex = new Texture(null, this);
-    tex.name = id;
-    return tex;
-  }
-
-  throw new Error(`Unsupported type: ${type}`);
 };
 
 Scene.prototype.createVert = function createVert(arg: { type: 'box' } | { type: 'sphere' } | { type: 'plane' }): any {
