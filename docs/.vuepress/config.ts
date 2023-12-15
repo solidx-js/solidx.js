@@ -24,7 +24,10 @@ export default defineUserConfig({
       { text: '文档', link: '/docs/' },
     ],
     sidebar: {
-      '/examples/': [{ text: '基础示例', children: list('examples/basic/*.md') }],
+      '/examples/': [
+        { text: '基础', children: list('examples/basic/*.md') },
+        { text: '交互', children: list('examples/interactive/*.md') },
+      ],
       '/docs/': [{ text: 'Class', children: list('docs/classes/*.md') }],
     },
     sidebarDepth: 1,

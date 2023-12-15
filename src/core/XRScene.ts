@@ -6,7 +6,7 @@ import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
-import { RefController2, StyleSelectorController } from './controller';
+import { PointerController, RefController2, StyleSelectorController } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { SSAO2RenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssao2RenderingPipeline';
 import { html } from 'lit';
@@ -71,6 +71,7 @@ export class XRScene extends XRElement {
 
     new RefController2(this, 'cube-texture', 'environmentTexture', '_environmentTexture');
     new StyleSelectorController(this);
+    new PointerController(this);
 
     this.style.display = 'block';
     this.style.width = '100%';

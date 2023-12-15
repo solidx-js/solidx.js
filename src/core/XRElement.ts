@@ -11,6 +11,7 @@ import { Decorator } from './Decorator';
 import { ElementUtil, parseDurationString, typedClone } from '../util';
 import { property, state } from 'lit/decorators.js';
 import { IAniItem, PickStringKey } from '../type';
+import difference from 'lodash/difference';
 
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
@@ -91,6 +92,15 @@ export class XRElement<T = any> extends LitElement {
 
   /** @internal */
   _setClassRefData(data: Record<string, string>) {
+    const _lastData = { ...this._classRefData };
+    const _removeKeys = difference(Object.keys(_lastData), Object.keys(data));
+
+    // 移除不存在的属性
+    for (const key of _removeKeys) {
+      delete this._classRefData[key];
+      this.requestUpdate(key, _lastData[key], { hasChanged: () => true }); // 强制标记为 changed
+    }
+
     for (const [key, value0] of Object.entries(data)) {
       const _def = this._Cls.elementProperties.get(key) as any;
       if (!_def) continue; // 不支持的属性
@@ -98,7 +108,7 @@ export class XRElement<T = any> extends LitElement {
       const value = _def.converter ? _def.converter.fromAttribute(value0) : _def.type ? _def.type(value0) : value0;
       this._classRefData[key] = value;
 
-      this.requestUpdate(key, undefined, { hasChanged: () => true }); // 强制标记为 changed
+      this.requestUpdate(key, _lastData[key], { hasChanged: () => true }); // 强制标记为 changed
     }
   }
 

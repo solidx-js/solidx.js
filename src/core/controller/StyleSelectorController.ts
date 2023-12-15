@@ -2,7 +2,7 @@ import { ReactiveController } from 'lit';
 import { XRElement } from '../XRElement';
 import { XRStyle } from '../misc';
 
-type IStyleItem = { weight: number; selector: string; attributes: Record<string, string> };
+type IStyleItem = { weight: number; domOrder: number; selector: string; attributes: Record<string, string> };
 
 export class StyleSelectorController implements ReactiveController {
   private _styles: IStyleItem[] = [];
@@ -63,6 +63,8 @@ export class StyleSelectorController implements ReactiveController {
   _doCollect() {
     const styles: IStyleItem[] = [];
 
+    let domOrder = 0;
+
     for (const styleEle of Array.from(this.host.querySelectorAll('xr-style'))) {
       const selector = styleEle.getAttribute('selector');
       if (!selector) continue;
@@ -75,11 +77,12 @@ export class StyleSelectorController implements ReactiveController {
       }
 
       const weight = calcSelectorWeight(selector);
-      styles.push({ weight, attributes, selector });
+      styles.push({ domOrder, weight, attributes, selector });
+
+      domOrder++;
     }
 
     this._styles = styles;
-    console.log('@@@', 'collections ->', styles);
   }
 
   // 应用样式
@@ -98,14 +101,18 @@ export class StyleSelectorController implements ReactiveController {
 
     // 2. 组内按权重排序
     for (const list of groups.values()) {
-      list.sort((a, b) => b.weight - a.weight); // 从大到小
+      list.sort((a, b) => b.weight - a.weight || b.domOrder - a.domOrder); // 从大到小
     }
 
     // 3. 应用样式
     for (const [target, list] of groups) {
       if (list.length === 0 || !(target instanceof XRElement)) continue;
 
-      // this.host.logger.debug('apply style -> %s <- %s', target.tagName.toLowerCase(), list[0].selector);
+      // this.host.logger.debug(
+      //   'apply style -> %s <- %s',
+      //   target.tagName.toLowerCase() + ':#' + target.id || '',
+      //   list.map(d => d.selector).join(' ')
+      // );
 
       const data = list.reduceRight((prev, curr) => ({ ...prev, ...curr.attributes }), {});
       target._setClassRefData(data);

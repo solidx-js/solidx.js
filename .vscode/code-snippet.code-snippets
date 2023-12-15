@@ -1,22 +1,41 @@
 {
   "export XRElement": {
-		"prefix": "ele",
-		"body": [
-			"import { XRSceneScopeElement } from './XRSceneScopeElement';",
-			"",
-			"export class ${TM_FILENAME_BASE} extends XRSceneScopeElement<$1> {",
-			"  static requiredAttrs: string[] = ['id'];",
-			"",
-			"  connected(): void {",
-			"    super.connected();",
-			"  }",
-			"",
-			"  disconnected(): void {",
-			"    super.disconnected();",
-			"  }",
-			"}",
-			""
-		],
-		"description": "export XRElement"
-	}
+    "prefix": "ele",
+    "body": [
+      "import { XRSceneScopeElement } from './XRSceneScopeElement';",
+      "",
+      "export class ${TM_FILENAME_BASE} extends XRSceneScopeElement<$1> {",
+      "  static requiredAttrs: string[] = ['id'];",
+      "",
+      "  connected(): void {",
+      "    super.connected();",
+      "  }",
+      "",
+      "  disconnected(): void {",
+      "    super.disconnected();",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "export XRElement"
+  },
+  "Lit ReactiveController": {
+    "prefix": "ctrl",
+    "body": [
+      "import { ReactiveController } from 'lit';",
+      "import { XRElement } from '../XRElement';",
+      "",
+      "export class PointerController implements ReactiveController {",
+      "  constructor(private host: XRElement) {",
+      "    this.host.addController(this);",
+      "  }",
+      "",
+      "  hostConnected() {}",
+      "",
+      "  hostUpdate(): void {}",
+      "}",
+      ""
+    ],
+    "description": "Lit ReactiveController"
+  }
 }

@@ -13,8 +13,8 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   @Decorator.property('String')
   geometry: string | null = null;
 
-  @Decorator.property('String')
-  material: string | null = null;
+  @Decorator.property('String', 'material', '')
+  material!: string;
 
   @Decorator.property('String', 'grid-material')
   gridMaterial: string | null = null;
