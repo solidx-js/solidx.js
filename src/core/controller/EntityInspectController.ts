@@ -8,6 +8,7 @@ import { Ray } from '@babylonjs/core/Culling/ray';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Light } from '@babylonjs/core/Lights/light';
 import { LightGizmo } from '@babylonjs/core/Gizmos/lightGizmo';
+import { Tags } from '@babylonjs/core/Misc/tags';
 
 export class EntityInspectController implements ReactiveController {
   private _axesViewer: AxesViewer | null = null;
@@ -56,7 +57,7 @@ export class EntityInspectController implements ReactiveController {
       const color = inspect.color || '#ff0000';
       const scale = parseFloat(inspect.scale || '1');
 
-      const axesVisible = inspect.axes === 'true';
+      const axesVisible = Tags.MatchesQuery(entity, 'decal') ? false : inspect.axes === 'false' ? false : true;
 
       // TransformNode
       if (entity instanceof TransformNode) {

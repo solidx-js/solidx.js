@@ -11,6 +11,7 @@ import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { Ray } from '@babylonjs/core/Culling/ray';
 import { randomID } from '../util';
 import { RayHelper } from '@babylonjs/core/Debug/rayHelper';
+import { Tags } from '@babylonjs/core/Misc/tags';
 
 /**
  * 贴花
@@ -125,6 +126,8 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       });
 
       this.entity.material = this._material;
+
+      Tags.AddTagsTo(this.entity, 'decal');
     }
 
     this._updateProjector(origin, direction, size, angle);
