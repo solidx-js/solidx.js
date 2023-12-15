@@ -24,6 +24,7 @@ declare module 'lit' {
   // 扩展 lit 的 property 装饰器
   export interface PropertyDeclaration {
     dType?: IDataType;
+    initValue?: any;
   }
 }
 

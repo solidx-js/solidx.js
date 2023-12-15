@@ -2,8 +2,9 @@ import { ReactiveController, TemplateResult } from 'lit';
 import { XRElement } from '../XRElement';
 import { IBjsEntityType, IEntityType } from '../../type';
 import { Scene } from '@babylonjs/core/scene';
-import { Schema, randomID } from '../../util';
-import { EntityTagNameMap } from '../../registry';
+import { Schema, randomID, typedClone } from '../../util';
+import { ElementRegistry, EntityTagNameMap } from '../../registry';
+import difference from 'lodash/difference';
 
 /** @deprecated */
 export class RefController<T extends IEntityType> implements ReactiveController {
@@ -92,6 +93,7 @@ export class RefController<T extends IEntityType> implements ReactiveController 
 export class RefController2<T extends IEntityType, A extends string, B extends string> implements ReactiveController {
   private _ab: AbortController | null = null;
   private _selfHostElement: XRElement | null = null;
+  private _lastIncomeData: Record<string, any> | null = null;
 
   constructor(
     private host: XRElement & { scene: Scene } & Record<A, string | null> & { [key in B]: IBjsEntityType<T> | null },
@@ -120,34 +122,71 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
       if (typeof ref === 'string') {
         // object 格式
         if (ref.includes(':') || ref === '') {
-          let _needInsert = false;
+          const _tagName = EntityTagNameMap[this.type];
+          if (!_tagName) throw new Error(`RefController2: can not find tagName for type: ${this.type}`);
+
+          const Cls = ElementRegistry.Instance.get(_tagName);
+          const _inData = Schema.parse('Object', ref);
 
           // 创建内部元素
           if (!this._selfHostElement) {
-            const _tagName = EntityTagNameMap[this.type];
-            if (!_tagName) throw new Error(`RefController2: can not find tagName for type: ${this.type}`);
-
-            const _ele = document.createElement(_tagName) as XRElement;
+            const _ele = new Cls();
             _ele.id = `${this.type}:_ref_:${randomID()}`;
-
             this._selfHostElement = _ele;
-            _needInsert = true;
+
+            // 设置初始属性
+            for (const [_k, _v] of Object.entries(_inData)) _ele.setAttribute(_k, _v as any);
+
+            // 添加到 host 上
+            this.host.appendChild(_ele);
+
+            const entity = _ele.entity;
+            if (!entity) {
+              this.host.logger.warn('RefController2: entity is null when ref is object. tag=%s', _ele.tagName.toLowerCase());
+            }
+
+            this._setTarget(entity);
           }
 
-          const data = Schema.parse('Object', ref);
+          // 更新属性
+          else {
+            const _toResetKeys = this._lastIncomeData ? difference(Object.keys(this._lastIncomeData), Object.keys(_inData)) : [];
 
-          for (const [key, value] of Object.entries(data)) {
-            this._selfHostElement.setAttribute(key, value);
+            // 重置属性(用默认值)
+            for (const _k of _toResetKeys) {
+              const _def = [...Cls.elementProperties.values()].find(v => v.attribute === _k) || Cls.elementProperties.get(_k);
+              if (!_def) continue;
+
+              const _v = _def.initValue;
+              if (typeof _v == 'undefined') continue;
+
+              const propKey = [...Cls.elementProperties.entries()].find(([, v]) => v === _def)![0];
+
+              (this._selfHostElement as any)[propKey] = typedClone(_v as any);
+            }
+
+            // 设置属性
+            for (const [_k, _v] of Object.entries(_inData)) this._selfHostElement.setAttribute(_k, _v as any);
           }
 
-          if (_needInsert) this.host.appendChild(this._selfHostElement);
+          this._lastIncomeData = _inData;
 
-          const entity = this._selfHostElement.entity;
-          if (!entity) {
-            this.host.logger.warn('RefController2: entity is null when ref is object. tag=%s', this._selfHostElement.tagName.toLowerCase());
-          }
+          // for (const key of Cls.elementProperties.keys()) {
+          //   if (typeof key !== 'string') continue;
 
-          this._setTarget(entity);
+          //   const _def = Cls.elementProperties.get(key);
+          //   if (!_def) continue;
+
+          //   if (Object.prototype.hasOwnProperty.call(incomeData, key)) {
+          //     console.log('@@@', 'key ->', key, incomeData[key]);
+          //     this._selfHostElement.setAttribute(key, incomeData[key]);
+          //   }
+
+          //   // 回退到默认值, 直接设置到 element 上
+          //   else if (typeof _def.initValue !== 'undefined' && _def.initValue !== null) {
+          //     (this._selfHostElement as any)[key] = typedClone(_def.initValue as any);
+          //   }
+          // }
         }
 
         // string 格式

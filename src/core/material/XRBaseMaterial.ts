@@ -7,7 +7,7 @@ export class XRBaseMaterial<T extends Material> extends XRSceneScopeElement<T> i
   @Decorator.property('Boolean', 'backface-culling')
   backFaceCulling: boolean = false;
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'alpha', 1)
   alpha: number = 1;
 
   @Decorator.property('Number', 'side-orientation')
