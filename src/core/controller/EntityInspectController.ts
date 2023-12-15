@@ -15,20 +15,12 @@ export class EntityInspectController implements ReactiveController {
   private _rayHelper: RayHelper | null = null;
   private _lightGizmo: LightGizmo | null = null;
 
-  constructor(private host: XRElement & { scene: Scene }) {
+  constructor(private host: XRElement & { scene?: Scene }) {
     this.host.addController(this);
   }
 
   get scene() {
     return this.host.scene;
-  }
-
-  get uLayer() {
-    return this.scene.defaultUtilityLayer;
-  }
-
-  get uLayerScene() {
-    return this.uLayer.utilityLayerScene;
   }
 
   private _disposeGizmos() {
@@ -49,10 +41,15 @@ export class EntityInspectController implements ReactiveController {
   }
 
   hostUpdate(): void {
+    if (!this.scene) return;
+
     const entity = this.host.entity;
     const inspect = this.host.inspect;
 
     if (entity && inspect) {
+      const uLayer = this.scene.defaultUtilityLayer;
+      const uLayerScene = uLayer.utilityLayerScene;
+
       // 基础参数
       const color = inspect.color || '#ff0000';
       const scale = parseFloat(inspect.scale || '1');
@@ -61,7 +58,7 @@ export class EntityInspectController implements ReactiveController {
 
       // TransformNode
       if (entity instanceof TransformNode) {
-        if (!this._axesViewer) this._axesViewer = new AxesViewer(this.uLayerScene, 1, 2);
+        if (!this._axesViewer) this._axesViewer = new AxesViewer(uLayerScene, 1, 2);
 
         entity.computeWorldMatrix(true);
         this._axesViewer.update(entity.absolutePosition, entity.right, entity.up, entity.forward);
@@ -76,7 +73,7 @@ export class EntityInspectController implements ReactiveController {
 
       // Light
       if (entity instanceof Light) {
-        if (!this._lightGizmo) this._lightGizmo = new LightGizmo(this.uLayer);
+        if (!this._lightGizmo) this._lightGizmo = new LightGizmo(uLayer);
         this._lightGizmo.light = entity;
         this._lightGizmo.scaleRatio = scale;
       }
