@@ -38,7 +38,7 @@ export class StyleSelectorController implements ReactiveController {
           if (target instanceof XRStyle) _needDoCollect = true;
 
           // 如果是元素 class 变化，需要重新应用
-          if (target instanceof XRElement && attributeName === 'class') _needDoApply.add(target);
+          if (target instanceof XRElement && (attributeName === 'class' || attributeName === 'mouse-over')) _needDoApply.add(target);
         }
       }
 

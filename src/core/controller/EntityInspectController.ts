@@ -44,7 +44,7 @@ export class EntityInspectController implements ReactiveController {
     if (!this.scene) return;
 
     const entity = this.host.entity;
-    const inspect = this.host.inspect;
+    const inspect = this.host.evaluated.inspect;
 
     if (entity && inspect) {
       const uLayer = this.scene.defaultUtilityLayer;

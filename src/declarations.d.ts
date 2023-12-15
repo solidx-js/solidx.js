@@ -1,4 +1,4 @@
-import type { AssetContainer, UtilityLayerRenderer } from '@babylonjs/core';
+import type { AssetContainer, UtilityLayerRenderer, AbstractMesh } from '@babylonjs/core';
 import { IBjsEntityType, IEntityType } from './type';
 import { IDataType } from './util/Schema';
 

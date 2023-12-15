@@ -37,6 +37,9 @@ export class XRElement<T = any> extends LitElement {
   @Decorator.property('String')
   class?: string;
 
+  @Decorator.property('Boolean', 'mouse-over', false)
+  mouseOver!: boolean;
+
   private _tweenCtrl: TweenController;
   private _tweenLerpData: { [key: string]: any } = {}; // 过渡期间的插值数据
   private _classRefData: Record<string, any> = {}; // class 引入数据
