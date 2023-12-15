@@ -1,9 +1,9 @@
-import { Decorator } from './Decorator';
+import { Decorator } from '../Decorator';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { XRSceneScopeElement } from './XRSceneScopeElement';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
-import { TransformLikeController } from './controller';
-import { ElementUtil, randomID } from '../util';
+import { TransformLikeController } from '../controller';
+import { ElementUtil, randomID } from '../../util';
 
 export class XRNode extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('Vector3')

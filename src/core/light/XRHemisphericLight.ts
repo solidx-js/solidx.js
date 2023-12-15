@@ -1,10 +1,10 @@
-import { Decorator } from './Decorator';
+import { Decorator } from '../Decorator';
 import { HemisphericLight } from '@babylonjs/core/Lights/hemisphericLight';
 import { Vector2, Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { XRSceneScopeElement } from './XRSceneScopeElement';
-import { LightController } from './controller';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
+import { LightController } from '../controller';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
-import { ElementUtil } from '../util';
+import { ElementUtil } from '../../util';
 
 export class XRHemisphericLight extends XRSceneScopeElement<HemisphericLight> {
   static requiredAttrs: string[] = ['id'];

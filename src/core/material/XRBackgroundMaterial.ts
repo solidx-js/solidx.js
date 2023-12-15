@@ -1,7 +1,7 @@
-import { XRSceneScopeElement } from './XRSceneScopeElement';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
-import { Decorator } from './Decorator';
-import { MaterialController, RefController2 } from './controller';
+import { Decorator } from '../Decorator';
+import { MaterialController, RefController2 } from '../controller';
 import { state } from 'lit/decorators.js';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { BackgroundMaterial } from '@babylonjs/core/Materials/Background/backgroundMaterial';

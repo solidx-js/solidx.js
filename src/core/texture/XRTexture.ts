@@ -1,9 +1,9 @@
-import { XRSceneScopeElement } from './XRSceneScopeElement';
-import { Decorator } from './Decorator';
-import { TextureController } from './controller';
-import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
+import { Texture } from '@babylonjs/core/Materials/Textures/texture';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
+import { Decorator } from '../Decorator';
+import { TextureController } from '../controller';
 
-export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> {
+export class XRTexture extends XRSceneScopeElement<Texture> {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Boolean', 'has-alpha')
@@ -27,8 +27,17 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> {
   @Decorator.property('String')
   url: string = '';
 
-  @Decorator.property('Number', 'rotation-y')
-  rotationY: number = 0;
+  @Decorator.property('Number', 'u-offset')
+  uOffset: number = 0;
+
+  @Decorator.property('Number', 'v-offset')
+  vOffset: number = 0;
+
+  @Decorator.property('Number', 'u-scale')
+  uScale: number = 1;
+
+  @Decorator.property('Number', 'v-scale')
+  vScale: number = 1;
 
   constructor() {
     super();
@@ -38,7 +47,7 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> {
   connected(): void {
     super.connected();
 
-    this.entity = new CubeTexture('', this.scene);
+    this.entity = new Texture(null, this.scene);
     this.entity.name = this.id;
   }
 
@@ -48,7 +57,6 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> {
     if (!this.entity) return;
 
     if (changed.has('url')) this.entity.updateURL(this.evaluated.url || '');
-    if (changed.has('rotationY')) this.entity.rotationY = this.evaluated.rotationY;
   }
 
   disconnected(): void {

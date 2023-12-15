@@ -20,7 +20,7 @@ import {
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
-import { XREnv } from './primitive';
+import { XREnv, XRGround } from './primitive';
 import { IEntityType } from './type';
 
 export class ElementRegistry {
@@ -48,6 +48,7 @@ export class ElementRegistry {
 // loaders
 SceneLoader.RegisterPlugin(new CTMFileLoader());
 
+// core
 ElementRegistry.Instance.register('xr-scene', XRScene as any);
 ElementRegistry.Instance.register('xr-geometry', XRGeometry as any);
 ElementRegistry.Instance.register('xr-material', XRMaterial as any);
@@ -61,10 +62,13 @@ ElementRegistry.Instance.register('xr-point-light', XRPointLight as any);
 ElementRegistry.Instance.register('xr-model', XRModel as any);
 ElementRegistry.Instance.register('xr-ray', XRRay as any);
 ElementRegistry.Instance.register('xr-decal', XRDecal as any);
-ElementRegistry.Instance.register('xr-env', XREnv as any);
 ElementRegistry.Instance.register('xr-texture', XRTexture as any);
 ElementRegistry.Instance.register('xr-cube-texture', XRCubeTexture as any);
 ElementRegistry.Instance.register('xr-background-material', XRBackgroundMaterial as any);
+
+// primitives
+ElementRegistry.Instance.register('xr-env', XREnv as any);
+ElementRegistry.Instance.register('xr-ground', XRGround as any);
 
 export const EntityTagNameMap: Partial<Record<IEntityType, string>> = {
   mesh: 'xr-mesh',

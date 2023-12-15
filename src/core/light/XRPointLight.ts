@@ -1,9 +1,9 @@
 import { PointLight } from '@babylonjs/core/Lights/pointLight';
-import { XRSceneScopeElement } from './XRSceneScopeElement';
-import { LightController } from './controller';
-import { Decorator } from './Decorator';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
+import { LightController } from '../controller';
+import { Decorator } from '../Decorator';
 import { Color3, Vector3 } from '@babylonjs/core/Maths/math';
-import { ElementUtil } from '../util';
+import { ElementUtil } from '../../util';
 
 export class XRPointLight extends XRSceneScopeElement<PointLight> {
   static requiredAttrs: string[] = ['id'];

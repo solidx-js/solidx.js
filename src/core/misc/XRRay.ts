@@ -1,9 +1,9 @@
 import { Ray } from '@babylonjs/core/Culling/ray';
-import { XRSceneScopeElement } from './XRSceneScopeElement';
-import { Decorator } from './Decorator';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
+import { Decorator } from '../Decorator';
 import { Quaternion, TmpVectors, Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { ElementUtil } from '../util';
-import { TickController } from './controller';
+import { ElementUtil } from '../../util';
+import { TickController } from '../controller';
 
 export class XRRay extends XRSceneScopeElement<Ray> {
   @Decorator.property('Vector3')

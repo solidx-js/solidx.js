@@ -1,10 +1,10 @@
-import { Decorator } from './Decorator';
-import { XRSceneScopeElement } from './XRSceneScopeElement';
+import { Decorator } from '../Decorator';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { LightController } from './controller';
+import { LightController } from '../controller';
 import { Color3 } from '@babylonjs/core/Maths/math';
-import { ElementUtil } from '../util';
+import { ElementUtil } from '../../util';
 
 export class XRDirectionalLight extends XRSceneScopeElement<DirectionalLight> {
   static requiredAttrs: string[] = ['id'];

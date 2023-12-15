@@ -1,12 +1,12 @@
-import { Decorator } from './Decorator';
-import { XRSceneScopeElement } from './XRSceneScopeElement';
+import { Decorator } from '../Decorator';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
-import { ElementUtil, Schema, randomID } from '../util';
-import { RefController, TransformLikeController } from './controller';
+import { ElementUtil, Schema, randomID } from '../../util';
+import { RefController, TransformLikeController } from '../controller';
 import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { provide } from '@lit/context';
-import { Context } from './Context';
+import { Context } from '../Context';
 import { state } from 'lit/decorators.js';
 import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';

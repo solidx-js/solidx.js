@@ -1,12 +1,12 @@
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR';
-import { XRSceneScopeElement } from './XRSceneScopeElement';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
-import { Decorator } from './Decorator';
-import { MaterialController, RefController2 } from './controller';
+import { Decorator } from '../Decorator';
+import { MaterialController, RefController2 } from '../controller';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { state } from 'lit/decorators.js';
 
-export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
+export class XRGridMaterial extends XRSceneScopeElement<PBRMaterial> {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Color3', 'albedo-color')

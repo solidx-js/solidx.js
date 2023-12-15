@@ -1,15 +1,15 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
-import { XRSceneScopeElement } from './XRSceneScopeElement';
-import { Decorator } from './Decorator';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
+import { Decorator } from '../Decorator';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { CreateDecal } from '@babylonjs/core/Meshes/Builders/decalBuilder';
-import { ElementUtil } from '../util/ElementUtil';
+import { ElementUtil } from '../../util/ElementUtil';
 import { CreateBox } from '@babylonjs/core/Meshes/Builders/boxBuilder';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { Ray } from '@babylonjs/core/Culling/ray';
-import { randomID } from '../util';
+import { randomID } from '../../util';
 import { RayHelper } from '@babylonjs/core/Debug/rayHelper';
 import { Tags } from '@babylonjs/core/Misc/tags';
 

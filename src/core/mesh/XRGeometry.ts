@@ -1,6 +1,6 @@
-import { XRSceneScopeElement } from './XRSceneScopeElement';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
-import { Decorator } from './Decorator';
+import { Decorator } from '../Decorator';
 
 export class XRGeometry extends XRSceneScopeElement<Geometry> {
   static requiredAttrs: string[] = ['id', 'type'];

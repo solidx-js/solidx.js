@@ -1,6 +1,6 @@
-import { XRSceneScopeElement } from './XRSceneScopeElement';
-import { AttributeObserverController } from './controller';
-import { Schema } from '../util';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
+import { AttributeObserverController } from '../controller';
+import { Schema } from '../../util';
 
 export class XRKeyFrames extends XRSceneScopeElement<{ percentage: number; data: Record<string, string> }[]> {
   static requiredAttrs: string[] = ['id'];

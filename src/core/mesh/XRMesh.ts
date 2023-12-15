@@ -1,8 +1,8 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
-import { XRSceneScopeElement } from './XRSceneScopeElement';
-import { ElementUtil, randomID } from '../util';
-import { RefController2 } from './controller';
-import { Decorator } from './Decorator';
+import { XRSceneScopeElement } from '../XRSceneScopeElement';
+import { ElementUtil, randomID } from '../../util';
+import { RefController2 } from '../controller';
+import { Decorator } from '../Decorator';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { state } from 'lit/decorators.js';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
