@@ -6,7 +6,7 @@ import { Vector4 } from '@babylonjs/core/Maths/math.vector';
 export class XRGeometry extends XRSceneScopeElement<Geometry> {
   static requiredAttrs: string[] = ['id', 'type'];
 
-  @Decorator.property('String', 'type')
+  @Decorator.property('String', 'type', 'box')
   type = 'box';
 
   @Decorator.property('Number', 'size')

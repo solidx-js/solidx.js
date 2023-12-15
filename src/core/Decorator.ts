@@ -15,7 +15,7 @@ export const Decorator = {
   property: <T extends IDataType>(dType: T, attribute?: string, initValue?: IDataTypeMap[T]) => {
     return property({
       dType,
-      initValue: initValue ? typedClone(initValue as any) : null,
+      initValue: initValue ? typedClone(initValue as any) : undefined,
       reflect: true,
       attribute,
       converter: {
@@ -24,6 +24,7 @@ export const Decorator = {
           return typeof value === 'string' ? Schema.parse(dType, value) : undefined;
         },
         toAttribute: (value: any) => {
+          if (typeof value === 'undefined' || value === null) return null;
           if (dType === 'Boolean') return value ? '' : null;
           return Schema.stringify(dType, value);
         },

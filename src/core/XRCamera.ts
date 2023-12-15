@@ -7,28 +7,28 @@ import { XRSceneScopeElement } from './XRSceneScopeElement';
 export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'alpha', -90)
   alpha = -90;
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'beta', 90)
   beta = 90;
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'radius', 10)
   radius = 10;
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'target', Vector3.Zero())
   target = Vector3.Zero();
 
   @Decorator.property('String', 'lock-target')
   lockTarget?: string;
 
-  @Decorator.property('Boolean', 'lock-to-center')
+  @Decorator.property('Boolean', 'lock-to-center', false)
   lockToCenter = false;
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'min-z', 0.1)
   minZ = 0.1;
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'max-z', 100)
   maxZ = 100;
 
   constructor() {

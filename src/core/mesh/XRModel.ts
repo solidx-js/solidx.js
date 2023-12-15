@@ -32,13 +32,13 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('String')
   src: string = '';
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'position', Vector3.Zero())
   position = Vector3.Zero();
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
   rotation = Vector3.Zero();
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
 
   @Decorator.property('String')
@@ -50,7 +50,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('String', 'auto-play')
   autoPlay?: string;
 
-  @Decorator.property('Boolean')
+  @Decorator.property('Boolean', 'loop', false)
   loop = false;
 
   @Decorator.property('Boolean', 'flat-shading')

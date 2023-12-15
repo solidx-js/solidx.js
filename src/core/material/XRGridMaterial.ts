@@ -7,23 +7,23 @@ import { XRBaseMaterial } from './XRBaseMaterial';
 export class XRGridMaterial extends XRBaseMaterial<GridMaterial> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('String', 'main-color')
-  mainColor = Color3.White();
+  @Decorator.property('Color3', 'main-color', Color3.White())
+  mainColor!: Color3;
 
-  @Decorator.property('String', 'line-color')
-  lineColor = Color3.Black();
+  @Decorator.property('Color3', 'line-color', Color3.Black())
+  lineColor!: Color3;
 
-  @Decorator.property('Number', 'grid-ratio')
-  gridRatio = 1;
+  @Decorator.property('Number', 'grid-ratio', 1)
+  gridRatio!: number;
 
-  @Decorator.property('Number', 'major-unit-frequency')
-  majorUnitFrequency = 10;
+  @Decorator.property('Number', 'major-unit-frequency', 10)
+  majorUnitFrequency!: number;
 
-  @Decorator.property('Number', 'minor-unit-visible')
-  minorUnitVisibility = 0.5;
+  @Decorator.property('Number', 'minor-unit-visible', 0.5)
+  minorUnitVisibility!: number;
 
-  @Decorator.property('Number')
-  opacity = 0.99; // In transparent mode (opacity < 1.0), the empty area will always be at an opacity level of 0.08
+  @Decorator.property('Number', undefined, 0.99)
+  opacity!: number; // In transparent mode (opacity < 1.0), the empty area will always be at an opacity level of 0.08
 
   constructor() {
     super();

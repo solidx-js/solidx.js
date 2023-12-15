@@ -96,7 +96,7 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
   private _lastIncomeData: Record<string, any> | null = null;
 
   constructor(
-    private host: XRElement & { scene: Scene } & Record<A, string | null> & { [key in B]: IBjsEntityType<T> | null },
+    private host: XRElement & { scene: Scene } & Record<A, string | undefined | null> & { [key in B]: IBjsEntityType<T> | null },
     private type: T,
     private refProp: A,
     private targetProp: B
@@ -170,23 +170,6 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
           }
 
           this._lastIncomeData = _inData;
-
-          // for (const key of Cls.elementProperties.keys()) {
-          //   if (typeof key !== 'string') continue;
-
-          //   const _def = Cls.elementProperties.get(key);
-          //   if (!_def) continue;
-
-          //   if (Object.prototype.hasOwnProperty.call(incomeData, key)) {
-          //     console.log('@@@', 'key ->', key, incomeData[key]);
-          //     this._selfHostElement.setAttribute(key, incomeData[key]);
-          //   }
-
-          //   // 回退到默认值, 直接设置到 element 上
-          //   else if (typeof _def.initValue !== 'undefined' && _def.initValue !== null) {
-          //     (this._selfHostElement as any)[key] = typedClone(_def.initValue as any);
-          //   }
-          // }
         }
 
         // string 格式
@@ -227,5 +210,7 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
       this._selfHostElement.remove();
       this._selfHostElement = null;
     }
+
+    this._lastIncomeData = null;
   }
 }

@@ -8,7 +8,7 @@ import {
   TweenController,
 } from './controller';
 import { Decorator } from './Decorator';
-import { ElementUtil, parseDurationString } from '../util';
+import { ElementUtil, parseDurationString, typedClone } from '../util';
 import { property, state } from 'lit/decorators.js';
 import { IAniItem, PickStringKey } from '../type';
 
@@ -60,6 +60,11 @@ export class XRElement<T = any> extends LitElement {
 
   constructor() {
     super();
+
+    // 设置默认值
+    for (const [key, def] of this._Cls.elementProperties) {
+      if (def.initValue !== undefined) (this as any)[key] = typedClone(def.initValue);
+    }
 
     // 这里初始化一些基础控制器
     new NodeStateController(this);

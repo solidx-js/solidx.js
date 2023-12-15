@@ -24,25 +24,25 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
    * - y: height
    * - z: depth
    */
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'size', Vector3.One())
   size = Vector3.One();
 
   /** 贴花投影体的中心 */
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'origin', Vector3.Zero())
   origin = Vector3.Zero();
 
   /** 贴花投影方向 */
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'direction', Vector3.Up())
   direction = Vector3.Up();
 
   /** 贴花投影角度 */
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'angle', 0)
   angle = 0;
 
   @Decorator.property('String')
   img?: string;
 
-  @Decorator.property('Number', 'img-level')
+  @Decorator.property('Number', 'img-level', 1)
   imgLevel = 1;
 
   @Decorator.property('Boolean', 'use-ray')

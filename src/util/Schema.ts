@@ -47,7 +47,7 @@ export const Schema = {
       const list = data.split(';');
 
       for (const item of list) {
-        if(!item) continue;
+        if (!item) continue;
 
         // 从第一个 : 处分割成 key 和 value
         const _index = item.indexOf(':');

@@ -6,13 +6,13 @@ import { TransformLikeController } from '../controller';
 import { ElementUtil, randomID } from '../../util';
 
 export class XRNode extends XRSceneScopeElement<TransformNode> {
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'position', Vector3.Zero())
   position = Vector3.Zero();
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
   rotation = Vector3.Zero();
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
 
   connected(): void {

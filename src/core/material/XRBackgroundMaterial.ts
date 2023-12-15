@@ -9,17 +9,17 @@ import { XRBaseMaterial } from './XRBaseMaterial';
 export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Boolean', 'use-rgb-color')
-  useRGBColor = false;
+  @Decorator.property('Boolean', 'use-rgb-color', false)
+  useRGBColor!: boolean;
 
-  @Decorator.property('Color3', 'primary-color')
-  primaryColor = Color3.White();
+  @Decorator.property('Color3', 'primary-color', Color3.White())
+  primaryColor!: Color3;
 
-  @Decorator.property('Boolean', 'enable-noise')
-  enableNoise = false;
+  @Decorator.property('Boolean', 'enable-noise', false)
+  enableNoise!: boolean;
 
-  @Decorator.property('String', 'reflection-texture')
-  reflectionTexture: string | null = null;
+  @Decorator.property('String', 'reflection-texture', undefined)
+  reflectionTexture!: string | undefined;
 
   @state()
   _reflectionTexture: CubeTexture | null = null;

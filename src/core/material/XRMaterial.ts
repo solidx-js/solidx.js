@@ -9,23 +9,23 @@ import { XRBaseMaterial } from './XRBaseMaterial';
 export class XRMaterial extends XRBaseMaterial<PBRMaterial> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Color3', 'albedo-color')
-  albedoColor: Color3 = Color3.White();
+  @Decorator.property('Color3', 'albedo-color', Color3.White())
+  albedoColor!: Color3;
 
   @Decorator.property('String', 'albedo-texture')
-  albedoTexture: string | null = null;
+  albedoTexture!: string | null;
 
-  @Decorator.property('Number')
-  metallic: number = 0.2;
+  @Decorator.property('Number', 'metallic', 0.2)
+  metallic!: number;
 
-  @Decorator.property('Number')
-  roughness: number = 0.8;
+  @Decorator.property('Number', 'roughness', 0.8)
+  roughness!: number;
 
-  @Decorator.property('Color3', 'emissive-color')
-  emissiveColor: Color3 = Color3.Black();
+  @Decorator.property('Color3', 'emissive-color', Color3.Black())
+  emissiveColor!: Color3;
 
-  @Decorator.property('Boolean', 'unlit')
-  unlit: boolean = false;
+  @Decorator.property('Boolean', 'unlit', false)
+  unlit!: boolean;
 
   @state()
   _albedoTexture: Texture | null = null;

@@ -19,13 +19,13 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   @Decorator.property('String', 'grid-material')
   gridMaterial: string | null = null;
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'position', Vector3.Zero())
   position = Vector3.Zero();
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
   rotation = Vector3.Zero();
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
 
   @state()
