@@ -4,7 +4,10 @@ import { XRElement } from '../XRElement';
 export class AttributeObserverController implements ReactiveController {
   private _mob: MutationObserver | null = null;
 
-  constructor(private host: XRElement) {
+  constructor(
+    private host: XRElement,
+    private _onChange?: (name: string, oldValue: string | null) => void
+  ) {
     this.host.addController(this);
   }
 
@@ -14,6 +17,7 @@ export class AttributeObserverController implements ReactiveController {
         const { type, attributeName, oldValue } = mutation;
         if (type === 'attributes' && attributeName) {
           this.host.requestUpdate(attributeName, oldValue);
+          this._onChange?.(attributeName, oldValue);
         }
       });
     });
@@ -23,6 +27,7 @@ export class AttributeObserverController implements ReactiveController {
     // 初始化
     for (const attr of Array.from(this.host.attributes)) {
       this.host.requestUpdate(attr.name);
+      this._onChange?.(attr.name, null);
     }
   }
 

@@ -18,6 +18,7 @@ import {
   XRCubeTexture,
   XRBackgroundMaterial,
   XRGridMaterial,
+  XRStyle,
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
@@ -67,6 +68,7 @@ ElementRegistry.Instance.register('xr-texture', XRTexture as any);
 ElementRegistry.Instance.register('xr-cube-texture', XRCubeTexture as any);
 ElementRegistry.Instance.register('xr-background-material', XRBackgroundMaterial as any);
 ElementRegistry.Instance.register('xr-grid-material', XRGridMaterial as any);
+ElementRegistry.Instance.register('xr-style', XRStyle as any);
 
 // primitives
 ElementRegistry.Instance.register('xr-env', XREnv as any);

@@ -115,7 +115,7 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
 
   hostUpdated(): void {
     if (this.host.changed.has(this.refProp)) {
-      const ref = this.host[this.refProp] as string | null;
+      const ref = this.host.evaluated[this.refProp] as string | null;
 
       if (typeof ref === 'string') {
         // object 格式
@@ -143,8 +143,9 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
           if (_needInsert) this.host.appendChild(this._selfHostElement);
 
           const entity = this._selfHostElement.entity;
-          if (!entity)
+          if (!entity) {
             this.host.logger.warn('RefController2: entity is null when ref is object. tag=%s', this._selfHostElement.tagName.toLowerCase());
+          }
 
           this._setTarget(entity);
         }

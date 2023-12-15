@@ -1,6 +1,12 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import { EntityInspectController, EventDispatchController, NodeStateController, TransformLikeController, TweenController } from './controller';
+import {
+  EntityInspectController,
+  EventDispatchController,
+  NodeStateController,
+  TransformLikeController,
+  TweenController,
+} from './controller';
 import { Decorator } from './Decorator';
 import { ElementUtil, parseDurationString } from '../util';
 import { property, state } from 'lit/decorators.js';
@@ -27,15 +33,22 @@ export class XRElement<T = any> extends LitElement {
   @property({ converter: { fromAttribute: (value: string) => parseAnimations(value) } })
   animation: IAniItem[] = [];
 
+  @Decorator.property('String')
+  class?: string;
+
   private _tweenCtrl: TweenController;
   private _tweenLerpData: { [key: string]: any } = {}; // 过渡期间的插值数据
+  private _classRefData: Record<string, any> = {}; // class 引入数据
+
   private _disposes: (() => void)[] = [];
 
   // 求解后的属性
   readonly evaluated = new Proxy<PickStringKey<this>>({} as any, {
     get: (_stash, _p) => {
       const p = _p as string;
-      return this._tweenLerpData[p] ?? (this as any)[p];
+
+      // 顺序: 过渡 -> class ref -> 本身的属性
+      return this._tweenLerpData[p] ?? this._classRefData[p] ?? (this as any)[p];
     },
     set(_stash, p) {
       throw new Error(`Can't set property "${p as any}" of evaluatedProps`);
@@ -49,10 +62,10 @@ export class XRElement<T = any> extends LitElement {
     super();
 
     // 这里初始化一些基础控制器
-    new NodeStateController(this as any);
-    new EventDispatchController(this as any);
-    new EntityInspectController(this as any);
-    new TransformLikeController(this as any);
+    new NodeStateController(this);
+    new EventDispatchController(this);
+    new EntityInspectController(this);
+    new TransformLikeController(this);
 
     this._tweenCtrl = new TweenController(
       this as any,
@@ -69,6 +82,19 @@ export class XRElement<T = any> extends LitElement {
 
   protected createRenderRoot() {
     return this;
+  }
+
+  /** @internal */
+  _setClassRefData(data: Record<string, string>) {
+    for (const [key, value0] of Object.entries(data)) {
+      const _def = this._Cls.elementProperties.get(key) as any;
+      if (!_def) continue; // 不支持的属性
+
+      const value = _def.converter ? _def.converter.fromAttribute(value0) : _def.type ? _def.type(value0) : value0;
+      this._classRefData[key] = value;
+
+      this.requestUpdate(key, undefined, { hasChanged: () => true }); // 强制标记为 changed
+    }
   }
 
   /** @internal */
