@@ -17,7 +17,7 @@
 - [animation](XRKeyFrames.md#animation)
 - [disabled](XRKeyFrames.md#disabled)
 - [entity](XRKeyFrames.md#entity)
-- [evaluatedProps](XRKeyFrames.md#evaluatedprops)
+- [evaluated](XRKeyFrames.md#evaluated)
 - [inspect](XRKeyFrames.md#inspect)
 - [logger](XRKeyFrames.md#logger)
 - [onbeforexrselect](XRKeyFrames.md#onbeforexrselect)
@@ -30,7 +30,8 @@
 ### Methods
 
 - [connected](XRKeyFrames.md#connected)
-- [remove](XRKeyFrames.md#remove)
+- [disconnected](XRKeyFrames.md#disconnected)
+- [toAttributeObject](XRKeyFrames.md#toattributeobject)
 
 ## Other
 
@@ -78,13 +79,13 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRKeyFrames`](XRKeyFrames.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRKeyFrames`](XRKeyFrames.md)\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+[XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
 
 ___
 
@@ -177,9 +178,9 @@ XRSceneScopeElement.connected
 
 ___
 
-### remove
+### disconnected
 
-▸ **remove**(): `void`
+▸ **disconnected**(): `void`
 
 #### Returns
 
@@ -187,7 +188,21 @@ ___
 
 #### Overrides
 
-XRSceneScopeElement.remove
+XRSceneScopeElement.disconnected
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRKeyFrames`](XRKeyFrames.md)
+
+#### Returns
+
+[`XRKeyFrames`](XRKeyFrames.md)
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## rendering
 

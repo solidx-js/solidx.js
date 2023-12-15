@@ -15,16 +15,34 @@
 ### Properties
 
 - [animation](XRGeometry.md#animation)
+- [arc](XRGeometry.md#arc)
+- [backUVs](XRGeometry.md#backuvs)
+- [bottomBaseAt](XRGeometry.md#bottombaseat)
+- [dedupTopBottomIndices](XRGeometry.md#deduptopbottomindices)
+- [depth](XRGeometry.md#depth)
+- [diameter](XRGeometry.md#diameter)
+- [diameterX](XRGeometry.md#diameterx)
+- [diameterY](XRGeometry.md#diametery)
+- [diameterZ](XRGeometry.md#diameterz)
 - [disabled](XRGeometry.md#disabled)
 - [entity](XRGeometry.md#entity)
-- [evaluatedProps](XRGeometry.md#evaluatedprops)
+- [evaluated](XRGeometry.md#evaluated)
+- [frontUVs](XRGeometry.md#frontuvs)
+- [height](XRGeometry.md#height)
 - [inspect](XRGeometry.md#inspect)
 - [logger](XRGeometry.md#logger)
 - [onbeforexrselect](XRGeometry.md#onbeforexrselect)
 - [renderOptions](XRGeometry.md#renderoptions)
 - [scene](XRGeometry.md#scene)
+- [segments](XRGeometry.md#segments)
+- [sideOrientation](XRGeometry.md#sideorientation)
+- [size](XRGeometry.md#size)
+- [slice](XRGeometry.md#slice)
+- [topBaseAt](XRGeometry.md#topbaseat)
 - [transition](XRGeometry.md#transition)
 - [type](XRGeometry.md#type)
+- [width](XRGeometry.md#width)
+- [wrap](XRGeometry.md#wrap)
 - [\_$litElement$](XRGeometry.md#_$litelement$)
 - [requiredAttrs](XRGeometry.md#requiredattrs)
 
@@ -32,6 +50,7 @@
 
 - [connected](XRGeometry.md#connected)
 - [disconnected](XRGeometry.md#disconnected)
+- [toAttributeObject](XRGeometry.md#toattributeobject)
 
 ## Other
 
@@ -43,7 +62,7 @@
 
 [`XRGeometry`](XRGeometry.md)
 
-#### Inherited from
+#### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
 
@@ -56,6 +75,60 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
+
+___
+
+### arc
+
+• `Optional` **arc**: `number`
+
+___
+
+### backUVs
+
+• `Optional` **backUVs**: [`Vector4`](Vector4.md)
+
+___
+
+### bottomBaseAt
+
+• `Optional` **bottomBaseAt**: `number`
+
+___
+
+### dedupTopBottomIndices
+
+• `Optional` **dedupTopBottomIndices**: `boolean`
+
+___
+
+### depth
+
+• `Optional` **depth**: `number`
+
+___
+
+### diameter
+
+• `Optional` **diameter**: `number`
+
+___
+
+### diameterX
+
+• `Optional` **diameterX**: `number`
+
+___
+
+### diameterY
+
+• `Optional` **diameterY**: `number`
+
+___
+
+### diameterZ
+
+• `Optional` **diameterZ**: `number`
 
 ___
 
@@ -79,13 +152,25 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRGeometry`](XRGeometry.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRGeometry`](XRGeometry.md)\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+[XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
+
+___
+
+### frontUVs
+
+• `Optional` **frontUVs**: [`Vector4`](Vector4.md)
+
+___
+
+### height
+
+• `Optional` **height**: `number`
 
 ___
 
@@ -134,6 +219,36 @@ ___
 
 ___
 
+### segments
+
+• `Optional` **segments**: `number`
+
+___
+
+### sideOrientation
+
+• `Optional` **sideOrientation**: `number`
+
+___
+
+### size
+
+• `Optional` **size**: `number`
+
+___
+
+### slice
+
+• `Optional` **slice**: `number`
+
+___
+
+### topBaseAt
+
+• `Optional` **topBaseAt**: `number`
+
+___
+
 ### transition
 
 • **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
@@ -146,7 +261,19 @@ ___
 
 ### type
 
-• **type**: `string` = `'custom'`
+• **type**: `string` = `'box'`
+
+___
+
+### width
+
+• `Optional` **width**: `number`
+
+___
+
+### wrap
+
+• `Optional` **wrap**: `boolean`
 
 ___
 
@@ -195,6 +322,20 @@ ___
 #### Overrides
 
 XRSceneScopeElement.disconnected
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRGeometry`](XRGeometry.md)
+
+#### Returns
+
+[`XRGeometry`](XRGeometry.md)
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## rendering
 

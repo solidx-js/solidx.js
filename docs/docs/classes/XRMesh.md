@@ -14,11 +14,15 @@
 
 ### Properties
 
+- [\_geometry](XRMesh.md#_geometry)
+- [\_gridMaterial](XRMesh.md#_gridmaterial)
+- [\_material](XRMesh.md#_material)
 - [animation](XRMesh.md#animation)
 - [disabled](XRMesh.md#disabled)
 - [entity](XRMesh.md#entity)
-- [evaluatedProps](XRMesh.md#evaluatedprops)
+- [evaluated](XRMesh.md#evaluated)
 - [geometry](XRMesh.md#geometry)
+- [gridMaterial](XRMesh.md#gridmaterial)
 - [inspect](XRMesh.md#inspect)
 - [logger](XRMesh.md#logger)
 - [material](XRMesh.md#material)
@@ -36,6 +40,7 @@
 
 - [connected](XRMesh.md#connected)
 - [disconnected](XRMesh.md#disconnected)
+- [toAttributeObject](XRMesh.md#toattributeobject)
 
 ## Other
 
@@ -50,6 +55,24 @@
 #### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
+
+___
+
+### \_geometry
+
+• **\_geometry**: ``null`` \| `Geometry` = `null`
+
+___
+
+### \_gridMaterial
+
+• **\_gridMaterial**: ``null`` \| `GridMaterial` = `null`
+
+___
+
+### \_material
+
+• **\_material**: ``null`` \| `Material` = `null`
 
 ___
 
@@ -83,19 +106,25 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRMesh`](XRMesh.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRMesh`](XRMesh.md)\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+[XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
 
 ___
 
 ### geometry
 
-• `Optional` **geometry**: `string`
+• **geometry**: ``null`` \| `string` = `null`
+
+___
+
+### gridMaterial
+
+• **gridMaterial**: ``null`` \| `string` = `null`
 
 ___
 
@@ -121,7 +150,7 @@ ___
 
 ### material
 
-• `Optional` **material**: `string`
+• **material**: ``null`` \| `string` = `null`
 
 ___
 
@@ -223,6 +252,20 @@ ___
 #### Overrides
 
 XRSceneScopeElement.disconnected
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRMesh`](XRMesh.md)
+
+#### Returns
+
+[`XRMesh`](XRMesh.md)
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## rendering
 

@@ -1,50 +1,53 @@
-# Class: XRNode
+# Class: XREnv
 
 ## Hierarchy
 
-- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`TransformNode`\>
+- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`any`\>
 
-  ↳ **`XRNode`**
+  ↳ **`XREnv`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](XRNode.md#constructor)
+- [constructor](XREnv.md#constructor)
 
 ### Properties
 
-- [animation](XRNode.md#animation)
-- [disabled](XRNode.md#disabled)
-- [entity](XRNode.md#entity)
-- [evaluated](XRNode.md#evaluated)
-- [inspect](XRNode.md#inspect)
-- [logger](XRNode.md#logger)
-- [onbeforexrselect](XRNode.md#onbeforexrselect)
-- [position](XRNode.md#position)
-- [renderOptions](XRNode.md#renderoptions)
-- [rotation](XRNode.md#rotation)
-- [scale](XRNode.md#scale)
-- [scene](XRNode.md#scene)
-- [transition](XRNode.md#transition)
-- [\_$litElement$](XRNode.md#_$litelement$)
-- [requiredAttrs](XRNode.md#requiredattrs)
+- [animation](XREnv.md#animation)
+- [disabled](XREnv.md#disabled)
+- [entity](XREnv.md#entity)
+- [evaluated](XREnv.md#evaluated)
+- [inspect](XREnv.md#inspect)
+- [logger](XREnv.md#logger)
+- [onbeforexrselect](XREnv.md#onbeforexrselect)
+- [position](XREnv.md#position)
+- [renderOptions](XREnv.md#renderoptions)
+- [rotation](XREnv.md#rotation)
+- [scale](XREnv.md#scale)
+- [scene](XREnv.md#scene)
+- [transition](XREnv.md#transition)
+- [\_$litElement$](XREnv.md#_$litelement$)
+- [defaultGroundTexture](XREnv.md#defaultgroundtexture)
+- [defaultSkyBoxTexture](XREnv.md#defaultskyboxtexture)
+- [requiredAttrs](XREnv.md#requiredattrs)
 
 ### Methods
 
-- [connected](XRNode.md#connected)
-- [disconnected](XRNode.md#disconnected)
-- [toAttributeObject](XRNode.md#toattributeobject)
+- [connected](XREnv.md#connected)
+- [disconnected](XREnv.md#disconnected)
+- [render](XREnv.md#render)
+- [toAttributeObject](XREnv.md#toattributeobject)
 
 ## Other
 
 ### constructor
 
-• **new XRNode**(): [`XRNode`](XRNode.md)
+• **new XREnv**(): [`XREnv`](XREnv.md)
 
 #### Returns
 
-[`XRNode`](XRNode.md)
+[`XREnv`](XREnv.md)
 
 #### Inherited from
 
@@ -74,7 +77,7 @@ ___
 
 ### entity
 
-• **entity**: ``null`` \| `TransformNode` = `null`
+• **entity**: `any` = `null`
 
 #### Inherited from
 
@@ -84,7 +87,7 @@ ___
 
 ### evaluated
 
-• `Readonly` **evaluated**: `PickStringKey`\<[`XRNode`](XRNode.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XREnv`](XREnv.md)\>
 
 #### Inherited from
 
@@ -175,6 +178,18 @@ ___
 
 ___
 
+### defaultGroundTexture
+
+▪ `Static` **defaultGroundTexture**: `string`
+
+___
+
+### defaultSkyBoxTexture
+
+▪ `Static` **defaultSkyBoxTexture**: `string`
+
+___
+
 ### requiredAttrs
 
 ▪ `Static` **requiredAttrs**: `string`[] = `[]`
@@ -213,13 +228,27 @@ XRSceneScopeElement.disconnected
 
 ___
 
-### toAttributeObject
+### render
 
-▸ **toAttributeObject**(): [`XRNode`](XRNode.md)
+▸ **render**(): `TemplateResult`\<``1``\>
 
 #### Returns
 
-[`XRNode`](XRNode.md)
+`TemplateResult`\<``1``\>
+
+#### Overrides
+
+XRSceneScopeElement.render
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XREnv`](XREnv.md)
+
+#### Returns
+
+[`XREnv`](XREnv.md)
 
 #### Inherited from
 

@@ -17,7 +17,7 @@
 - [animation](XRRay.md#animation)
 - [disabled](XRRay.md#disabled)
 - [entity](XRRay.md#entity)
-- [evaluatedProps](XRRay.md#evaluatedprops)
+- [evaluated](XRRay.md#evaluated)
 - [inspect](XRRay.md#inspect)
 - [length](XRRay.md#length)
 - [logger](XRRay.md#logger)
@@ -33,8 +33,9 @@
 ### Methods
 
 - [connected](XRRay.md#connected)
+- [disconnected](XRRay.md#disconnected)
 - [pick](XRRay.md#pick)
-- [remove](XRRay.md#remove)
+- [toAttributeObject](XRRay.md#toattributeobject)
 
 ## Other
 
@@ -82,13 +83,13 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRRay`](XRRay.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRRay`](XRRay.md)\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+[XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
 
 ___
 
@@ -199,6 +200,20 @@ XRSceneScopeElement.connected
 
 ___
 
+### disconnected
+
+▸ **disconnected**(): `void`
+
+#### Returns
+
+`void`
+
+#### Overrides
+
+XRSceneScopeElement.disconnected
+
+___
+
 ### pick
 
 ▸ **pick**(): `void`
@@ -211,17 +226,17 @@ ___
 
 ___
 
-### remove
+### toAttributeObject
 
-▸ **remove**(): `void`
+▸ **toAttributeObject**(): [`XRRay`](XRRay.md)
 
 #### Returns
 
-`void`
+[`XRRay`](XRRay.md)
 
-#### Overrides
+#### Inherited from
 
-XRSceneScopeElement.remove
+[XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## rendering
 

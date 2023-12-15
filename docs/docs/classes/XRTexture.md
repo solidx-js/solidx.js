@@ -1,52 +1,60 @@
-# Class: XRNode
+# Class: XRTexture
 
 ## Hierarchy
 
-- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`TransformNode`\>
+- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`Texture`\>
 
-  ↳ **`XRNode`**
+  ↳ **`XRTexture`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](XRNode.md#constructor)
+- [constructor](XRTexture.md#constructor)
 
 ### Properties
 
-- [animation](XRNode.md#animation)
-- [disabled](XRNode.md#disabled)
-- [entity](XRNode.md#entity)
-- [evaluated](XRNode.md#evaluated)
-- [inspect](XRNode.md#inspect)
-- [logger](XRNode.md#logger)
-- [onbeforexrselect](XRNode.md#onbeforexrselect)
-- [position](XRNode.md#position)
-- [renderOptions](XRNode.md#renderoptions)
-- [rotation](XRNode.md#rotation)
-- [scale](XRNode.md#scale)
-- [scene](XRNode.md#scene)
-- [transition](XRNode.md#transition)
-- [\_$litElement$](XRNode.md#_$litelement$)
-- [requiredAttrs](XRNode.md#requiredattrs)
+- [animation](XRTexture.md#animation)
+- [coordinatesIndex](XRTexture.md#coordinatesindex)
+- [coordinatesMode](XRTexture.md#coordinatesmode)
+- [disabled](XRTexture.md#disabled)
+- [entity](XRTexture.md#entity)
+- [evaluated](XRTexture.md#evaluated)
+- [hasAlpha](XRTexture.md#hasalpha)
+- [inspect](XRTexture.md#inspect)
+- [level](XRTexture.md#level)
+- [logger](XRTexture.md#logger)
+- [onbeforexrselect](XRTexture.md#onbeforexrselect)
+- [renderOptions](XRTexture.md#renderoptions)
+- [scene](XRTexture.md#scene)
+- [transition](XRTexture.md#transition)
+- [uOffset](XRTexture.md#uoffset)
+- [uScale](XRTexture.md#uscale)
+- [url](XRTexture.md#url)
+- [vOffset](XRTexture.md#voffset)
+- [vScale](XRTexture.md#vscale)
+- [wrapU](XRTexture.md#wrapu)
+- [wrapV](XRTexture.md#wrapv)
+- [\_$litElement$](XRTexture.md#_$litelement$)
+- [requiredAttrs](XRTexture.md#requiredattrs)
 
 ### Methods
 
-- [connected](XRNode.md#connected)
-- [disconnected](XRNode.md#disconnected)
-- [toAttributeObject](XRNode.md#toattributeobject)
+- [connected](XRTexture.md#connected)
+- [disconnected](XRTexture.md#disconnected)
+- [toAttributeObject](XRTexture.md#toattributeobject)
 
 ## Other
 
 ### constructor
 
-• **new XRNode**(): [`XRNode`](XRNode.md)
+• **new XRTexture**(): [`XRTexture`](XRTexture.md)
 
 #### Returns
 
-[`XRNode`](XRNode.md)
+[`XRTexture`](XRTexture.md)
 
-#### Inherited from
+#### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
 
@@ -62,6 +70,18 @@ ___
 
 ___
 
+### coordinatesIndex
+
+• **coordinatesIndex**: `number` = `0`
+
+___
+
+### coordinatesMode
+
+• **coordinatesMode**: `number` = `0`
+
+___
+
 ### disabled
 
 • `Optional` **disabled**: `boolean`
@@ -74,7 +94,7 @@ ___
 
 ### entity
 
-• **entity**: ``null`` \| `TransformNode` = `null`
+• **entity**: ``null`` \| `Texture` = `null`
 
 #### Inherited from
 
@@ -84,11 +104,17 @@ ___
 
 ### evaluated
 
-• `Readonly` **evaluated**: `PickStringKey`\<[`XRNode`](XRNode.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRTexture`](XRTexture.md)\>
 
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
+
+___
+
+### hasAlpha
+
+• **hasAlpha**: `boolean` = `false`
 
 ___
 
@@ -99,6 +125,12 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[inspect](XRSceneScopeElement.md#inspect)
+
+___
+
+### level
+
+• **level**: `number` = `1`
 
 ___
 
@@ -127,24 +159,6 @@ at the time the input device's primary action is triggered.
 
 ___
 
-### position
-
-• **position**: [`Vector3`](Vector3.md)
-
-___
-
-### rotation
-
-• **rotation**: [`Vector3`](Vector3.md)
-
-___
-
-### scale
-
-• **scale**: [`Vector3`](Vector3.md)
-
-___
-
 ### scene
 
 • **scene**: `Scene`
@@ -165,6 +179,48 @@ ___
 
 ___
 
+### uOffset
+
+• **uOffset**: `number` = `0`
+
+___
+
+### uScale
+
+• **uScale**: `number` = `1`
+
+___
+
+### url
+
+• **url**: `string` = `''`
+
+___
+
+### vOffset
+
+• **vOffset**: `number` = `0`
+
+___
+
+### vScale
+
+• **vScale**: `number` = `1`
+
+___
+
+### wrapU
+
+• **wrapU**: `number` = `0`
+
+___
+
+### wrapV
+
+• **wrapV**: `number` = `0`
+
+___
+
 ### \_$litElement$
 
 ▪ `Static` **\_$litElement$**: `boolean`
@@ -177,9 +233,9 @@ ___
 
 ### requiredAttrs
 
-▪ `Static` **requiredAttrs**: `string`[] = `[]`
+▪ `Static` **requiredAttrs**: `string`[]
 
-#### Inherited from
+#### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[requiredAttrs](XRSceneScopeElement.md#requiredattrs)
 
@@ -215,11 +271,11 @@ ___
 
 ### toAttributeObject
 
-▸ **toAttributeObject**(): [`XRNode`](XRNode.md)
+▸ **toAttributeObject**(): [`XRTexture`](XRTexture.md)
 
 #### Returns
 
-[`XRNode`](XRNode.md)
+[`XRTexture`](XRTexture.md)
 
 #### Inherited from
 

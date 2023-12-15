@@ -18,7 +18,7 @@
 - [autoPlay](XRModel.md#autoplay)
 - [disabled](XRModel.md#disabled)
 - [entity](XRModel.md#entity)
-- [evaluatedProps](XRModel.md#evaluatedprops)
+- [evaluated](XRModel.md#evaluated)
 - [extension](XRModel.md#extension)
 - [flatShading](XRModel.md#flatshading)
 - [inspect](XRModel.md#inspect)
@@ -26,6 +26,7 @@
 - [loop](XRModel.md#loop)
 - [material](XRModel.md#material)
 - [onbeforexrselect](XRModel.md#onbeforexrselect)
+- [originTransform](XRModel.md#origintransform)
 - [position](XRModel.md#position)
 - [preload](XRModel.md#preload)
 - [renderOptions](XRModel.md#renderoptions)
@@ -40,7 +41,8 @@
 ### Methods
 
 - [connected](XRModel.md#connected)
-- [remove](XRModel.md#remove)
+- [disconnected](XRModel.md#disconnected)
+- [toAttributeObject](XRModel.md#toattributeobject)
 
 ## Other
 
@@ -94,13 +96,13 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRModel`](XRModel.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRModel`](XRModel.md)\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+[XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
 
 ___
 
@@ -160,6 +162,14 @@ at the time the input device's primary action is triggered.
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[onbeforexrselect](XRSceneScopeElement.md#onbeforexrselect)
+
+___
+
+### originTransform
+
+• `Optional` **originTransform**: [`Matrix`](Matrix.md)
+
+原点转换。如果设置了该属性，则会把模型的原点转换到指定的位置。
 
 ___
 
@@ -247,9 +257,9 @@ XRSceneScopeElement.connected
 
 ___
 
-### remove
+### disconnected
 
-▸ **remove**(): `void`
+▸ **disconnected**(): `void`
 
 #### Returns
 
@@ -257,7 +267,21 @@ ___
 
 #### Overrides
 
-XRSceneScopeElement.remove
+XRSceneScopeElement.disconnected
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRModel`](XRModel.md)
+
+#### Returns
+
+[`XRModel`](XRModel.md)
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## rendering
 

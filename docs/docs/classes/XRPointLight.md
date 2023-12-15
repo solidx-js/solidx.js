@@ -1,52 +1,54 @@
-# Class: XRNode
+# Class: XRPointLight
 
 ## Hierarchy
 
-- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`TransformNode`\>
+- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`PointLight`\>
 
-  ↳ **`XRNode`**
+  ↳ **`XRPointLight`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](XRNode.md#constructor)
+- [constructor](XRPointLight.md#constructor)
 
 ### Properties
 
-- [animation](XRNode.md#animation)
-- [disabled](XRNode.md#disabled)
-- [entity](XRNode.md#entity)
-- [evaluated](XRNode.md#evaluated)
-- [inspect](XRNode.md#inspect)
-- [logger](XRNode.md#logger)
-- [onbeforexrselect](XRNode.md#onbeforexrselect)
-- [position](XRNode.md#position)
-- [renderOptions](XRNode.md#renderoptions)
-- [rotation](XRNode.md#rotation)
-- [scale](XRNode.md#scale)
-- [scene](XRNode.md#scene)
-- [transition](XRNode.md#transition)
-- [\_$litElement$](XRNode.md#_$litelement$)
-- [requiredAttrs](XRNode.md#requiredattrs)
+- [animation](XRPointLight.md#animation)
+- [diffuse](XRPointLight.md#diffuse)
+- [disabled](XRPointLight.md#disabled)
+- [entity](XRPointLight.md#entity)
+- [evaluated](XRPointLight.md#evaluated)
+- [inspect](XRPointLight.md#inspect)
+- [intensity](XRPointLight.md#intensity)
+- [logger](XRPointLight.md#logger)
+- [onbeforexrselect](XRPointLight.md#onbeforexrselect)
+- [position](XRPointLight.md#position)
+- [renderOptions](XRPointLight.md#renderoptions)
+- [scene](XRPointLight.md#scene)
+- [shadowEnabled](XRPointLight.md#shadowenabled)
+- [specular](XRPointLight.md#specular)
+- [transition](XRPointLight.md#transition)
+- [\_$litElement$](XRPointLight.md#_$litelement$)
+- [requiredAttrs](XRPointLight.md#requiredattrs)
 
 ### Methods
 
-- [connected](XRNode.md#connected)
-- [disconnected](XRNode.md#disconnected)
-- [toAttributeObject](XRNode.md#toattributeobject)
+- [connected](XRPointLight.md#connected)
+- [disconnected](XRPointLight.md#disconnected)
+- [toAttributeObject](XRPointLight.md#toattributeobject)
 
 ## Other
 
 ### constructor
 
-• **new XRNode**(): [`XRNode`](XRNode.md)
+• **new XRPointLight**(): [`XRPointLight`](XRPointLight.md)
 
 #### Returns
 
-[`XRNode`](XRNode.md)
+[`XRPointLight`](XRPointLight.md)
 
-#### Inherited from
+#### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
 
@@ -62,6 +64,12 @@ ___
 
 ___
 
+### diffuse
+
+• **diffuse**: [`Color3`](Color3.md)
+
+___
+
 ### disabled
 
 • `Optional` **disabled**: `boolean`
@@ -74,7 +82,7 @@ ___
 
 ### entity
 
-• **entity**: ``null`` \| `TransformNode` = `null`
+• **entity**: ``null`` \| `PointLight` = `null`
 
 #### Inherited from
 
@@ -84,7 +92,7 @@ ___
 
 ### evaluated
 
-• `Readonly` **evaluated**: `PickStringKey`\<[`XRNode`](XRNode.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRPointLight`](XRPointLight.md)\>
 
 #### Inherited from
 
@@ -99,6 +107,12 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[inspect](XRSceneScopeElement.md#inspect)
+
+___
+
+### intensity
+
+• **intensity**: `number` = `1`
 
 ___
 
@@ -133,18 +147,6 @@ ___
 
 ___
 
-### rotation
-
-• **rotation**: [`Vector3`](Vector3.md)
-
-___
-
-### scale
-
-• **scale**: [`Vector3`](Vector3.md)
-
-___
-
 ### scene
 
 • **scene**: `Scene`
@@ -152,6 +154,18 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[scene](XRSceneScopeElement.md#scene)
+
+___
+
+### shadowEnabled
+
+• **shadowEnabled**: `boolean` = `false`
+
+___
+
+### specular
+
+• **specular**: [`Color3`](Color3.md)
 
 ___
 
@@ -177,9 +191,9 @@ ___
 
 ### requiredAttrs
 
-▪ `Static` **requiredAttrs**: `string`[] = `[]`
+▪ `Static` **requiredAttrs**: `string`[]
 
-#### Inherited from
+#### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[requiredAttrs](XRSceneScopeElement.md#requiredattrs)
 
@@ -215,11 +229,11 @@ ___
 
 ### toAttributeObject
 
-▸ **toAttributeObject**(): [`XRNode`](XRNode.md)
+▸ **toAttributeObject**(): [`XRPointLight`](XRPointLight.md)
 
 #### Returns
 
-[`XRNode`](XRNode.md)
+[`XRPointLight`](XRPointLight.md)
 
 #### Inherited from
 

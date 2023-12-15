@@ -14,7 +14,7 @@
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit && npm test",
     "release": "npm run ci && rm -rf dist/* && npm run build && release-it",
     "docs:build": "vuepress build docs",
-    "tsdoc": "typedoc"
+    "tsdoc": "rm -rf docs/docs && typedoc"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -19,7 +19,7 @@
 - [beta](XRCamera.md#beta)
 - [disabled](XRCamera.md#disabled)
 - [entity](XRCamera.md#entity)
-- [evaluatedProps](XRCamera.md#evaluatedprops)
+- [evaluated](XRCamera.md#evaluated)
 - [inspect](XRCamera.md#inspect)
 - [lockTarget](XRCamera.md#locktarget)
 - [lockToCenter](XRCamera.md#locktocenter)
@@ -38,7 +38,8 @@
 ### Methods
 
 - [connected](XRCamera.md#connected)
-- [remove](XRCamera.md#remove)
+- [disconnected](XRCamera.md#disconnected)
+- [toAttributeObject](XRCamera.md#toattributeobject)
 
 ## Other
 
@@ -98,13 +99,13 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRCamera`](XRCamera.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRCamera`](XRCamera.md)\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+[XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
 
 ___
 
@@ -233,9 +234,9 @@ XRSceneScopeElement.connected
 
 ___
 
-### remove
+### disconnected
 
-▸ **remove**(): `void`
+▸ **disconnected**(): `void`
 
 #### Returns
 
@@ -243,7 +244,21 @@ ___
 
 #### Overrides
 
-XRSceneScopeElement.remove
+XRSceneScopeElement.disconnected
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRCamera`](XRCamera.md)
+
+#### Returns
+
+[`XRCamera`](XRCamera.md)
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## rendering
 

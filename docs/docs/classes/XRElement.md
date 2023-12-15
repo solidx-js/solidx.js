@@ -12,8 +12,6 @@
 
   ↳ **`XRElement`**
 
-  ↳↳ [`XREngine`](XREngine.md)
-
   ↳↳ [`XRScene`](XRScene.md)
 
   ↳↳ [`XRSceneScopeElement`](XRSceneScopeElement.md)
@@ -29,7 +27,7 @@
 - [animation](XRElement.md#animation)
 - [disabled](XRElement.md#disabled)
 - [entity](XRElement.md#entity)
-- [evaluatedProps](XRElement.md#evaluatedprops)
+- [evaluated](XRElement.md#evaluated)
 - [inspect](XRElement.md#inspect)
 - [logger](XRElement.md#logger)
 - [onbeforexrselect](XRElement.md#onbeforexrselect)
@@ -37,6 +35,10 @@
 - [transition](XRElement.md#transition)
 - [\_$litElement$](XRElement.md#_$litelement$)
 - [requiredAttrs](XRElement.md#requiredattrs)
+
+### Methods
+
+- [toAttributeObject](XRElement.md#toattributeobject)
 
 ## Other
 
@@ -78,9 +80,9 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRElement`](XRElement.md)\<`T`\>\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRElement`](XRElement.md)\<`T`\>\>
 
 ___
 
@@ -130,6 +132,16 @@ ___
 ### requiredAttrs
 
 ▪ `Static` **requiredAttrs**: `string`[] = `[]`
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRElement`](XRElement.md)\<`T`\>
+
+#### Returns
+
+[`XRElement`](XRElement.md)\<`T`\>
 
 ## rendering
 

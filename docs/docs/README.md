@@ -10,44 +10,56 @@
 - [ElementRegistry](classes/ElementRegistry.md)
 - [EntityInspectController](classes/EntityInspectController.md)
 - [EventDispatchController](classes/EventDispatchController.md)
-- [HierarchyController](classes/HierarchyController.md)
+- [LightController](classes/LightController.md)
+- [MaterialController](classes/MaterialController.md)
 - [Matrix](classes/Matrix.md)
 - [NodeStateController](classes/NodeStateController.md)
 - [Plane](classes/Plane.md)
 - [Quaternion](classes/Quaternion.md)
 - [RefController](classes/RefController.md)
+- [RefController2](classes/RefController2.md)
+- [TextureController](classes/TextureController.md)
 - [TickController](classes/TickController.md)
-- [TransformController](classes/TransformController.md)
+- [TransformLikeController](classes/TransformLikeController.md)
 - [TweenController](classes/TweenController.md)
 - [Vector2](classes/Vector2.md)
 - [Vector3](classes/Vector3.md)
 - [Vector4](classes/Vector4.md)
+- [XRBackgroundMaterial](classes/XRBackgroundMaterial.md)
+- [XRBaseMaterial](classes/XRBaseMaterial.md)
 - [XRCamera](classes/XRCamera.md)
+- [XRCubeTexture](classes/XRCubeTexture.md)
 - [XRDecal](classes/XRDecal.md)
 - [XRDirectionalLight](classes/XRDirectionalLight.md)
 - [XRElement](classes/XRElement.md)
-- [XREngine](classes/XREngine.md)
+- [XREnv](classes/XREnv.md)
 - [XRGeometry](classes/XRGeometry.md)
+- [XRGridMaterial](classes/XRGridMaterial.md)
+- [XRGround](classes/XRGround.md)
 - [XRHemisphericLight](classes/XRHemisphericLight.md)
 - [XRKeyFrames](classes/XRKeyFrames.md)
 - [XRMaterial](classes/XRMaterial.md)
 - [XRMesh](classes/XRMesh.md)
 - [XRModel](classes/XRModel.md)
 - [XRNode](classes/XRNode.md)
+- [XRPointLight](classes/XRPointLight.md)
 - [XRRay](classes/XRRay.md)
 - [XRScene](classes/XRScene.md)
 - [XRSceneScopeElement](classes/XRSceneScopeElement.md)
+- [XRTexture](classes/XRTexture.md)
 
 ### Type Aliases
 
 - [IDataType](README.md#idatatype)
 - [IDataTypeMap](README.md#idatatypemap)
+- [IMaterialControllerHostType](README.md#imaterialcontrollerhosttype)
 
 ### Variables
 
 - [Context](README.md#context)
 - [Decorator](README.md#decorator)
 - [ElementUtil](README.md#elementutil)
+- [EntityTagNameMap](README.md#entitytagnamemap)
 - [LerpFns](README.md#lerpfns)
 - [MathUtil](README.md#mathutil)
 - [Schema](README.md#schema)
@@ -63,7 +75,7 @@
 
 ### IDataType
 
-Ƭ **IDataType**: ``"Number"`` \| ``"String"`` \| ``"Boolean"`` \| ``"Array"`` \| ``"Vector2"`` \| ``"Vector3"`` \| ``"Vector4"`` \| ``"Object"`` \| ``"Color3"`` \| ``"Color4"``
+Ƭ **IDataType**: ``"Number"`` \| ``"String"`` \| ``"Boolean"`` \| ``"Array"`` \| ``"Vector2"`` \| ``"Vector3"`` \| ``"Vector4"`` \| ``"Object"`` \| ``"Color3"`` \| ``"Color4"`` \| ``"Matrix"``
 
 ___
 
@@ -79,12 +91,19 @@ ___
 | `Boolean` | `boolean` |
 | `Color3` | [`Color3`](classes/Color3.md) |
 | `Color4` | [`Color4`](classes/Color4.md) |
+| `Matrix` | [`Matrix`](classes/Matrix.md) |
 | `Number` | `number` |
 | `Object` | `Record`\<`string`, `string`\> |
 | `String` | `string` |
 | `Vector2` | [`Vector2`](classes/Vector2.md) |
 | `Vector3` | [`Vector3`](classes/Vector3.md) |
 | `Vector4` | [`Vector4`](classes/Vector4.md) |
+
+___
+
+### IMaterialControllerHostType
+
+Ƭ **IMaterialControllerHostType**: [`XRElement`](classes/XRElement.md)\<`Material`\> & \{ `alpha`: `number` ; `alphaMode`: `number` ; `backFaceCulling`: `boolean` ; `disableDepthWrite`: `boolean` ; `sideOrientation`: `number` ; `wireframe`: `boolean` ; `zOffset`: `number`  }
 
 ## Variables
 
@@ -126,6 +145,13 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `closestTransformNodeLike` | (`ele`: `HTMLElement`) => ``null`` \| `TransformNode` |
+| `toAttributeObject` | \<T\>(`ele`: `T`) => `T` |
+
+___
+
+### EntityTagNameMap
+
+• `Const` **EntityTagNameMap**: `Partial`\<`Record`\<`IEntityType`, `string`\>\>
 
 ___
 

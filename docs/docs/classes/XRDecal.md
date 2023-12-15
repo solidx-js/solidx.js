@@ -18,27 +18,30 @@
 
 - [angle](XRDecal.md#angle)
 - [animation](XRDecal.md#animation)
+- [direction](XRDecal.md#direction)
 - [disabled](XRDecal.md#disabled)
 - [entity](XRDecal.md#entity)
-- [evaluatedProps](XRDecal.md#evaluatedprops)
+- [evaluated](XRDecal.md#evaluated)
 - [img](XRDecal.md#img)
 - [imgLevel](XRDecal.md#imglevel)
 - [inspect](XRDecal.md#inspect)
 - [logger](XRDecal.md#logger)
-- [normal](XRDecal.md#normal)
 - [onbeforexrselect](XRDecal.md#onbeforexrselect)
-- [position](XRDecal.md#position)
+- [origin](XRDecal.md#origin)
 - [renderOptions](XRDecal.md#renderoptions)
 - [scene](XRDecal.md#scene)
 - [size](XRDecal.md#size)
 - [transition](XRDecal.md#transition)
+- [useRay](XRDecal.md#useray)
 - [\_$litElement$](XRDecal.md#_$litelement$)
 - [requiredAttrs](XRDecal.md#requiredattrs)
 
 ### Methods
 
 - [connected](XRDecal.md#connected)
-- [remove](XRDecal.md#remove)
+- [disconnected](XRDecal.md#disconnected)
+- [reload](XRDecal.md#reload)
+- [toAttributeObject](XRDecal.md#toattributeobject)
 
 ## Other
 
@@ -60,6 +63,8 @@ ___
 
 • **angle**: `number` = `0`
 
+贴花投影角度
+
 ___
 
 ### animation
@@ -69,6 +74,14 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
+
+___
+
+### direction
+
+• **direction**: [`Vector3`](Vector3.md)
+
+贴花投影方向
 
 ___
 
@@ -92,13 +105,13 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRDecal`](XRDecal.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRDecal`](XRDecal.md)\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+[XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
 
 ___
 
@@ -134,12 +147,6 @@ ___
 
 ___
 
-### normal
-
-• **normal**: [`Vector3`](Vector3.md)
-
-___
-
 ### onbeforexrselect
 
 • **onbeforexrselect**: ``null`` \| (`this`: `GlobalEventHandlers`, `ev`: `XRSessionEvent`) => `any`
@@ -155,9 +162,11 @@ at the time the input device's primary action is triggered.
 
 ___
 
-### position
+### origin
 
-• **position**: [`Vector3`](Vector3.md)
+• **origin**: [`Vector3`](Vector3.md)
+
+贴花投影体的中心
 
 ___
 
@@ -177,6 +186,10 @@ ___
 
 贴花尺寸
 
+- x: width
+- y: height
+- z: depth
+
 ___
 
 ### transition
@@ -186,6 +199,12 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
+
+___
+
+### useRay
+
+• `Optional` **useRay**: `boolean`
 
 ___
 
@@ -223,9 +242,9 @@ XRSceneScopeElement.connected
 
 ___
 
-### remove
+### disconnected
 
-▸ **remove**(): `void`
+▸ **disconnected**(): `void`
 
 #### Returns
 
@@ -233,7 +252,31 @@ ___
 
 #### Overrides
 
-XRSceneScopeElement.remove
+XRSceneScopeElement.disconnected
+
+___
+
+### reload
+
+▸ **reload**(): `void`
+
+#### Returns
+
+`void`
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRDecal`](XRDecal.md)
+
+#### Returns
+
+[`XRDecal`](XRDecal.md)
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## rendering
 

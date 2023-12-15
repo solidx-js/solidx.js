@@ -1,5 +1,7 @@
 # Class: RefController\<T\>
 
+**`Deprecated`**
+
 ## Type parameters
 
 | Name | Type |

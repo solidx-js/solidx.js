@@ -14,14 +14,18 @@
 
 ### Properties
 
+- [ID](XRScene.md#id)
+- [\_environmentTexture](XRScene.md#_environmenttexture)
 - [animation](XRScene.md#animation)
+- [autoResize](XRScene.md#autoresize)
 - [contrast](XRScene.md#contrast)
 - [disabled](XRScene.md#disabled)
 - [engine](XRScene.md#engine)
 - [entity](XRScene.md#entity)
 - [environmentTexture](XRScene.md#environmenttexture)
-- [evaluatedProps](XRScene.md#evaluatedprops)
+- [evaluated](XRScene.md#evaluated)
 - [exposure](XRScene.md#exposure)
+- [height](XRScene.md#height)
 - [inspect](XRScene.md#inspect)
 - [logger](XRScene.md#logger)
 - [onbeforexrselect](XRScene.md#onbeforexrselect)
@@ -29,13 +33,18 @@
 - [scene](XRScene.md#scene)
 - [ssao](XRScene.md#ssao)
 - [transition](XRScene.md#transition)
+- [width](XRScene.md#width)
 - [\_$litElement$](XRScene.md#_$litelement$)
+- [defaultEnvMap](XRScene.md#defaultenvmap)
 - [requiredAttrs](XRScene.md#requiredattrs)
 
 ### Methods
 
 - [connected](XRScene.md#connected)
 - [disconnected](XRScene.md#disconnected)
+- [render](XRScene.md#render)
+- [toAttributeObject](XRScene.md#toattributeobject)
+- [createEngine](XRScene.md#createengine)
 
 ## Other
 
@@ -47,9 +56,21 @@
 
 [`XRScene`](XRScene.md)
 
-#### Inherited from
+#### Overrides
 
 [XRElement](XRElement.md).[constructor](XRElement.md#constructor)
+
+___
+
+### ID
+
+• `Readonly` **ID**: `string`
+
+___
+
+### \_environmentTexture
+
+• **\_environmentTexture**: ``null`` \| `CubeTexture` = `null`
 
 ___
 
@@ -63,9 +84,15 @@ ___
 
 ___
 
+### autoResize
+
+• `Optional` **autoResize**: `boolean`
+
+___
+
 ### contrast
 
-• **contrast**: `number` = `1`
+• **contrast**: `number` = `1.6`
 
 ___
 
@@ -97,23 +124,29 @@ ___
 
 ### environmentTexture
 
-• `Optional` **environmentTexture**: `string`
+• **environmentTexture**: `string`
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRScene`](XRScene.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRScene`](XRScene.md)\>
 
 #### Inherited from
 
-[XRElement](XRElement.md).[evaluatedProps](XRElement.md#evaluatedprops)
+[XRElement](XRElement.md).[evaluated](XRElement.md#evaluated)
 
 ___
 
 ### exposure
 
-• **exposure**: `number` = `1`
+• **exposure**: `number` = `1.2`
+
+___
+
+### height
+
+• **height**: `number` = `400`
 
 ___
 
@@ -174,6 +207,12 @@ ___
 
 ___
 
+### width
+
+• **width**: `number` = `600`
+
+___
+
 ### \_$litElement$
 
 ▪ `Static` **\_$litElement$**: `boolean`
@@ -181,6 +220,12 @@ ___
 #### Inherited from
 
 [XRElement](XRElement.md).[_$litElement$](XRElement.md#_$litelement$)
+
+___
+
+### defaultEnvMap
+
+▪ `Static` **defaultEnvMap**: `string`
 
 ___
 
@@ -219,6 +264,50 @@ ___
 #### Overrides
 
 XRElement.disconnected
+
+___
+
+### render
+
+▸ **render**(): `TemplateResult`\<``1``\>
+
+#### Returns
+
+`TemplateResult`\<``1``\>
+
+#### Overrides
+
+XRElement.render
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRScene`](XRScene.md)
+
+#### Returns
+
+[`XRScene`](XRScene.md)
+
+#### Inherited from
+
+[XRElement](XRElement.md).[toAttributeObject](XRElement.md#toattributeobject)
+
+___
+
+### createEngine
+
+▸ **createEngine**(`canvas`): `Engine`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `canvas` | `HTMLCanvasElement` |
+
+#### Returns
+
+`Engine`
 
 ## rendering
 

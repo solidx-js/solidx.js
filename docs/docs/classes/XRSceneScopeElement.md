@@ -14,17 +14,25 @@
 
   ↳↳ [`XRCamera`](XRCamera.md)
 
-  ↳↳ [`XRDecal`](XRDecal.md)
-
   ↳↳ [`XRDirectionalLight`](XRDirectionalLight.md)
-
-  ↳↳ [`XRGeometry`](XRGeometry.md)
 
   ↳↳ [`XRHemisphericLight`](XRHemisphericLight.md)
 
+  ↳↳ [`XRPointLight`](XRPointLight.md)
+
+  ↳↳ [`XRBaseMaterial`](XRBaseMaterial.md)
+
+  ↳↳ [`XRDecal`](XRDecal.md)
+
   ↳↳ [`XRKeyFrames`](XRKeyFrames.md)
 
-  ↳↳ [`XRMaterial`](XRMaterial.md)
+  ↳↳ [`XRRay`](XRRay.md)
+
+  ↳↳ [`XRCubeTexture`](XRCubeTexture.md)
+
+  ↳↳ [`XRTexture`](XRTexture.md)
+
+  ↳↳ [`XRGeometry`](XRGeometry.md)
 
   ↳↳ [`XRMesh`](XRMesh.md)
 
@@ -32,7 +40,9 @@
 
   ↳↳ [`XRNode`](XRNode.md)
 
-  ↳↳ [`XRRay`](XRRay.md)
+  ↳↳ [`XREnv`](XREnv.md)
+
+  ↳↳ [`XRGround`](XRGround.md)
 
 ## Table of contents
 
@@ -45,7 +55,7 @@
 - [animation](XRSceneScopeElement.md#animation)
 - [disabled](XRSceneScopeElement.md#disabled)
 - [entity](XRSceneScopeElement.md#entity)
-- [evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+- [evaluated](XRSceneScopeElement.md#evaluated)
 - [inspect](XRSceneScopeElement.md#inspect)
 - [logger](XRSceneScopeElement.md#logger)
 - [onbeforexrselect](XRSceneScopeElement.md#onbeforexrselect)
@@ -54,6 +64,10 @@
 - [transition](XRSceneScopeElement.md#transition)
 - [\_$litElement$](XRSceneScopeElement.md#_$litelement$)
 - [requiredAttrs](XRSceneScopeElement.md#requiredattrs)
+
+### Methods
+
+- [toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## Other
 
@@ -107,13 +121,13 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRSceneScopeElement`](XRSceneScopeElement.md)\<`T`\>\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRSceneScopeElement`](XRSceneScopeElement.md)\<`T`\>\>
 
 #### Inherited from
 
-[XRElement](XRElement.md).[evaluatedProps](XRElement.md#evaluatedprops)
+[XRElement](XRElement.md).[evaluated](XRElement.md#evaluated)
 
 ___
 
@@ -185,6 +199,20 @@ ___
 #### Inherited from
 
 [XRElement](XRElement.md).[requiredAttrs](XRElement.md#requiredattrs)
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`T`\>
+
+#### Returns
+
+[`XRSceneScopeElement`](XRSceneScopeElement.md)\<`T`\>
+
+#### Inherited from
+
+[XRElement](XRElement.md).[toAttributeObject](XRElement.md#toattributeobject)
 
 ## rendering
 

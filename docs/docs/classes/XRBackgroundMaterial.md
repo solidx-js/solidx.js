@@ -1,61 +1,59 @@
-# Class: XRMaterial
+# Class: XRBackgroundMaterial
 
 ## Hierarchy
 
-- [`XRBaseMaterial`](XRBaseMaterial.md)\<`PBRMaterial`\>
+- [`XRBaseMaterial`](XRBaseMaterial.md)\<`BackgroundMaterial`\>
 
-  ↳ **`XRMaterial`**
+  ↳ **`XRBackgroundMaterial`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](XRMaterial.md#constructor)
+- [constructor](XRBackgroundMaterial.md#constructor)
 
 ### Properties
 
-- [\_albedoTexture](XRMaterial.md#_albedotexture)
-- [albedoColor](XRMaterial.md#albedocolor)
-- [albedoTexture](XRMaterial.md#albedotexture)
-- [alpha](XRMaterial.md#alpha)
-- [alphaMode](XRMaterial.md#alphamode)
-- [animation](XRMaterial.md#animation)
-- [backFaceCulling](XRMaterial.md#backfaceculling)
-- [disableDepthWrite](XRMaterial.md#disabledepthwrite)
-- [disabled](XRMaterial.md#disabled)
-- [emissiveColor](XRMaterial.md#emissivecolor)
-- [entity](XRMaterial.md#entity)
-- [evaluated](XRMaterial.md#evaluated)
-- [inspect](XRMaterial.md#inspect)
-- [logger](XRMaterial.md#logger)
-- [metallic](XRMaterial.md#metallic)
-- [onbeforexrselect](XRMaterial.md#onbeforexrselect)
-- [renderOptions](XRMaterial.md#renderoptions)
-- [roughness](XRMaterial.md#roughness)
-- [scene](XRMaterial.md#scene)
-- [sideOrientation](XRMaterial.md#sideorientation)
-- [transition](XRMaterial.md#transition)
-- [unlit](XRMaterial.md#unlit)
-- [wireframe](XRMaterial.md#wireframe)
-- [zOffset](XRMaterial.md#zoffset)
-- [\_$litElement$](XRMaterial.md#_$litelement$)
-- [requiredAttrs](XRMaterial.md#requiredattrs)
+- [\_reflectionTexture](XRBackgroundMaterial.md#_reflectiontexture)
+- [alpha](XRBackgroundMaterial.md#alpha)
+- [alphaMode](XRBackgroundMaterial.md#alphamode)
+- [animation](XRBackgroundMaterial.md#animation)
+- [backFaceCulling](XRBackgroundMaterial.md#backfaceculling)
+- [disableDepthWrite](XRBackgroundMaterial.md#disabledepthwrite)
+- [disabled](XRBackgroundMaterial.md#disabled)
+- [enableNoise](XRBackgroundMaterial.md#enablenoise)
+- [entity](XRBackgroundMaterial.md#entity)
+- [evaluated](XRBackgroundMaterial.md#evaluated)
+- [inspect](XRBackgroundMaterial.md#inspect)
+- [logger](XRBackgroundMaterial.md#logger)
+- [onbeforexrselect](XRBackgroundMaterial.md#onbeforexrselect)
+- [primaryColor](XRBackgroundMaterial.md#primarycolor)
+- [reflectionTexture](XRBackgroundMaterial.md#reflectiontexture)
+- [renderOptions](XRBackgroundMaterial.md#renderoptions)
+- [scene](XRBackgroundMaterial.md#scene)
+- [sideOrientation](XRBackgroundMaterial.md#sideorientation)
+- [transition](XRBackgroundMaterial.md#transition)
+- [useRGBColor](XRBackgroundMaterial.md#usergbcolor)
+- [wireframe](XRBackgroundMaterial.md#wireframe)
+- [zOffset](XRBackgroundMaterial.md#zoffset)
+- [\_$litElement$](XRBackgroundMaterial.md#_$litelement$)
+- [requiredAttrs](XRBackgroundMaterial.md#requiredattrs)
 
 ### Methods
 
-- [connected](XRMaterial.md#connected)
-- [disconnected](XRMaterial.md#disconnected)
-- [toAttributeObject](XRMaterial.md#toattributeobject)
+- [connected](XRBackgroundMaterial.md#connected)
+- [disconnected](XRBackgroundMaterial.md#disconnected)
+- [toAttributeObject](XRBackgroundMaterial.md#toattributeobject)
 
 ## Other
 
 ### constructor
 
-• **new XRMaterial**(): [`XRMaterial`](XRMaterial.md)
+• **new XRBackgroundMaterial**(): [`XRBackgroundMaterial`](XRBackgroundMaterial.md)
 
 #### Returns
 
-[`XRMaterial`](XRMaterial.md)
+[`XRBackgroundMaterial`](XRBackgroundMaterial.md)
 
 #### Overrides
 
@@ -63,21 +61,9 @@
 
 ___
 
-### \_albedoTexture
+### \_reflectionTexture
 
-• **\_albedoTexture**: ``null`` \| `Texture` = `null`
-
-___
-
-### albedoColor
-
-• **albedoColor**: [`Color3`](Color3.md)
-
-___
-
-### albedoTexture
-
-• **albedoTexture**: ``null`` \| `string` = `null`
+• **\_reflectionTexture**: ``null`` \| `CubeTexture` = `null`
 
 ___
 
@@ -141,15 +127,15 @@ ___
 
 ___
 
-### emissiveColor
+### enableNoise
 
-• **emissiveColor**: [`Color3`](Color3.md)
+• **enableNoise**: `boolean` = `false`
 
 ___
 
 ### entity
 
-• **entity**: ``null`` \| `PBRMaterial` = `null`
+• **entity**: ``null`` \| `BackgroundMaterial` = `null`
 
 #### Inherited from
 
@@ -159,7 +145,7 @@ ___
 
 ### evaluated
 
-• `Readonly` **evaluated**: `PickStringKey`\<[`XRMaterial`](XRMaterial.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRBackgroundMaterial`](XRBackgroundMaterial.md)\>
 
 #### Inherited from
 
@@ -187,12 +173,6 @@ ___
 
 ___
 
-### metallic
-
-• **metallic**: `number` = `0.2`
-
-___
-
 ### onbeforexrselect
 
 • **onbeforexrselect**: ``null`` \| (`this`: `GlobalEventHandlers`, `ev`: `XRSessionEvent`) => `any`
@@ -208,9 +188,15 @@ at the time the input device's primary action is triggered.
 
 ___
 
-### roughness
+### primaryColor
 
-• **roughness**: `number` = `0.8`
+• **primaryColor**: [`Color3`](Color3.md)
+
+___
+
+### reflectionTexture
+
+• **reflectionTexture**: ``null`` \| `string` = `null`
 
 ___
 
@@ -244,9 +230,9 @@ ___
 
 ___
 
-### unlit
+### useRGBColor
 
-• **unlit**: `boolean` = `false`
+• **useRGBColor**: `boolean` = `false`
 
 ___
 
@@ -320,11 +306,11 @@ ___
 
 ### toAttributeObject
 
-▸ **toAttributeObject**(): [`XRMaterial`](XRMaterial.md)
+▸ **toAttributeObject**(): [`XRBackgroundMaterial`](XRBackgroundMaterial.md)
 
 #### Returns
 
-[`XRMaterial`](XRMaterial.md)
+[`XRBackgroundMaterial`](XRBackgroundMaterial.md)
 
 #### Inherited from
 

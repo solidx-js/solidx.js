@@ -14,17 +14,22 @@
 
 ### Properties
 
+- [alpha](XRDirectionalLight.md#alpha)
 - [animation](XRDirectionalLight.md#animation)
+- [beta](XRDirectionalLight.md#beta)
+- [diffuse](XRDirectionalLight.md#diffuse)
 - [disabled](XRDirectionalLight.md#disabled)
 - [entity](XRDirectionalLight.md#entity)
-- [evaluatedProps](XRDirectionalLight.md#evaluatedprops)
+- [evaluated](XRDirectionalLight.md#evaluated)
 - [inspect](XRDirectionalLight.md#inspect)
 - [intensity](XRDirectionalLight.md#intensity)
 - [logger](XRDirectionalLight.md#logger)
 - [onbeforexrselect](XRDirectionalLight.md#onbeforexrselect)
+- [position](XRDirectionalLight.md#position)
 - [renderOptions](XRDirectionalLight.md#renderoptions)
-- [rotation](XRDirectionalLight.md#rotation)
 - [scene](XRDirectionalLight.md#scene)
+- [shadowEnabled](XRDirectionalLight.md#shadowenabled)
+- [specular](XRDirectionalLight.md#specular)
 - [transition](XRDirectionalLight.md#transition)
 - [\_$litElement$](XRDirectionalLight.md#_$litelement$)
 - [requiredAttrs](XRDirectionalLight.md#requiredattrs)
@@ -32,7 +37,8 @@
 ### Methods
 
 - [connected](XRDirectionalLight.md#connected)
-- [remove](XRDirectionalLight.md#remove)
+- [disconnected](XRDirectionalLight.md#disconnected)
+- [toAttributeObject](XRDirectionalLight.md#toattributeobject)
 
 ## Other
 
@@ -44,9 +50,15 @@
 
 [`XRDirectionalLight`](XRDirectionalLight.md)
 
-#### Inherited from
+#### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
+
+___
+
+### alpha
+
+• **alpha**: `number` = `40`
 
 ___
 
@@ -57,6 +69,18 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
+
+___
+
+### beta
+
+• **beta**: `number` = `30`
+
+___
+
+### diffuse
+
+• **diffuse**: [`Color3`](Color3.md)
 
 ___
 
@@ -80,13 +104,13 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRDirectionalLight`](XRDirectionalLight.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRDirectionalLight`](XRDirectionalLight.md)\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+[XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
 
 ___
 
@@ -131,9 +155,9 @@ at the time the input device's primary action is triggered.
 
 ___
 
-### rotation
+### position
 
-• **rotation**: [`Vector2`](Vector2.md)
+• **position**: [`Vector3`](Vector3.md)
 
 ___
 
@@ -144,6 +168,18 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[scene](XRSceneScopeElement.md#scene)
+
+___
+
+### shadowEnabled
+
+• **shadowEnabled**: `boolean` = `false`
+
+___
+
+### specular
+
+• **specular**: [`Color3`](Color3.md)
 
 ___
 
@@ -191,9 +227,9 @@ XRSceneScopeElement.connected
 
 ___
 
-### remove
+### disconnected
 
-▸ **remove**(): `void`
+▸ **disconnected**(): `void`
 
 #### Returns
 
@@ -201,7 +237,21 @@ ___
 
 #### Overrides
 
-XRSceneScopeElement.remove
+XRSceneScopeElement.disconnected
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRDirectionalLight`](XRDirectionalLight.md)
+
+#### Returns
+
+[`XRDirectionalLight`](XRDirectionalLight.md)
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## rendering
 

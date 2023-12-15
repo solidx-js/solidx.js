@@ -1,50 +1,53 @@
-# Class: XRNode
+# Class: XRGround
 
 ## Hierarchy
 
-- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`TransformNode`\>
+- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`any`\>
 
-  ↳ **`XRNode`**
+  ↳ **`XRGround`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](XRNode.md#constructor)
+- [constructor](XRGround.md#constructor)
 
 ### Properties
 
-- [animation](XRNode.md#animation)
-- [disabled](XRNode.md#disabled)
-- [entity](XRNode.md#entity)
-- [evaluated](XRNode.md#evaluated)
-- [inspect](XRNode.md#inspect)
-- [logger](XRNode.md#logger)
-- [onbeforexrselect](XRNode.md#onbeforexrselect)
-- [position](XRNode.md#position)
-- [renderOptions](XRNode.md#renderoptions)
-- [rotation](XRNode.md#rotation)
-- [scale](XRNode.md#scale)
-- [scene](XRNode.md#scene)
-- [transition](XRNode.md#transition)
-- [\_$litElement$](XRNode.md#_$litelement$)
-- [requiredAttrs](XRNode.md#requiredattrs)
+- [animation](XRGround.md#animation)
+- [disabled](XRGround.md#disabled)
+- [entity](XRGround.md#entity)
+- [evaluated](XRGround.md#evaluated)
+- [inspect](XRGround.md#inspect)
+- [logger](XRGround.md#logger)
+- [onbeforexrselect](XRGround.md#onbeforexrselect)
+- [position](XRGround.md#position)
+- [renderOptions](XRGround.md#renderoptions)
+- [rotation](XRGround.md#rotation)
+- [scale](XRGround.md#scale)
+- [scene](XRGround.md#scene)
+- [size](XRGround.md#size)
+- [transition](XRGround.md#transition)
+- [type](XRGround.md#type)
+- [\_$litElement$](XRGround.md#_$litelement$)
+- [requiredAttrs](XRGround.md#requiredattrs)
 
 ### Methods
 
-- [connected](XRNode.md#connected)
-- [disconnected](XRNode.md#disconnected)
-- [toAttributeObject](XRNode.md#toattributeobject)
+- [connected](XRGround.md#connected)
+- [disconnected](XRGround.md#disconnected)
+- [render](XRGround.md#render)
+- [toAttributeObject](XRGround.md#toattributeobject)
 
 ## Other
 
 ### constructor
 
-• **new XRNode**(): [`XRNode`](XRNode.md)
+• **new XRGround**(): [`XRGround`](XRGround.md)
 
 #### Returns
 
-[`XRNode`](XRNode.md)
+[`XRGround`](XRGround.md)
 
 #### Inherited from
 
@@ -74,7 +77,7 @@ ___
 
 ### entity
 
-• **entity**: ``null`` \| `TransformNode` = `null`
+• **entity**: `any` = `null`
 
 #### Inherited from
 
@@ -84,7 +87,7 @@ ___
 
 ### evaluated
 
-• `Readonly` **evaluated**: `PickStringKey`\<[`XRNode`](XRNode.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRGround`](XRGround.md)\>
 
 #### Inherited from
 
@@ -155,6 +158,12 @@ ___
 
 ___
 
+### size
+
+• **size**: `number` = `100`
+
+___
+
 ### transition
 
 • **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
@@ -162,6 +171,12 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
+
+___
+
+### type
+
+• **type**: `string` = `'plane'`
 
 ___
 
@@ -213,13 +228,27 @@ XRSceneScopeElement.disconnected
 
 ___
 
-### toAttributeObject
+### render
 
-▸ **toAttributeObject**(): [`XRNode`](XRNode.md)
+▸ **render**(): `TemplateResult`\<``1``\>
 
 #### Returns
 
-[`XRNode`](XRNode.md)
+`TemplateResult`\<``1``\>
+
+#### Overrides
+
+XRSceneScopeElement.render
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRGround`](XRGround.md)
+
+#### Returns
+
+[`XRGround`](XRGround.md)
 
 #### Inherited from
 

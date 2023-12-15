@@ -1,83 +1,64 @@
-# Class: XRMaterial
+# Class: XRGridMaterial
 
 ## Hierarchy
 
-- [`XRBaseMaterial`](XRBaseMaterial.md)\<`PBRMaterial`\>
+- [`XRBaseMaterial`](XRBaseMaterial.md)\<`GridMaterial`\>
 
-  ↳ **`XRMaterial`**
+  ↳ **`XRGridMaterial`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](XRMaterial.md#constructor)
+- [constructor](XRGridMaterial.md#constructor)
 
 ### Properties
 
-- [\_albedoTexture](XRMaterial.md#_albedotexture)
-- [albedoColor](XRMaterial.md#albedocolor)
-- [albedoTexture](XRMaterial.md#albedotexture)
-- [alpha](XRMaterial.md#alpha)
-- [alphaMode](XRMaterial.md#alphamode)
-- [animation](XRMaterial.md#animation)
-- [backFaceCulling](XRMaterial.md#backfaceculling)
-- [disableDepthWrite](XRMaterial.md#disabledepthwrite)
-- [disabled](XRMaterial.md#disabled)
-- [emissiveColor](XRMaterial.md#emissivecolor)
-- [entity](XRMaterial.md#entity)
-- [evaluated](XRMaterial.md#evaluated)
-- [inspect](XRMaterial.md#inspect)
-- [logger](XRMaterial.md#logger)
-- [metallic](XRMaterial.md#metallic)
-- [onbeforexrselect](XRMaterial.md#onbeforexrselect)
-- [renderOptions](XRMaterial.md#renderoptions)
-- [roughness](XRMaterial.md#roughness)
-- [scene](XRMaterial.md#scene)
-- [sideOrientation](XRMaterial.md#sideorientation)
-- [transition](XRMaterial.md#transition)
-- [unlit](XRMaterial.md#unlit)
-- [wireframe](XRMaterial.md#wireframe)
-- [zOffset](XRMaterial.md#zoffset)
-- [\_$litElement$](XRMaterial.md#_$litelement$)
-- [requiredAttrs](XRMaterial.md#requiredattrs)
+- [alpha](XRGridMaterial.md#alpha)
+- [alphaMode](XRGridMaterial.md#alphamode)
+- [animation](XRGridMaterial.md#animation)
+- [backFaceCulling](XRGridMaterial.md#backfaceculling)
+- [disableDepthWrite](XRGridMaterial.md#disabledepthwrite)
+- [disabled](XRGridMaterial.md#disabled)
+- [entity](XRGridMaterial.md#entity)
+- [evaluated](XRGridMaterial.md#evaluated)
+- [gridRatio](XRGridMaterial.md#gridratio)
+- [inspect](XRGridMaterial.md#inspect)
+- [lineColor](XRGridMaterial.md#linecolor)
+- [logger](XRGridMaterial.md#logger)
+- [mainColor](XRGridMaterial.md#maincolor)
+- [majorUnitFrequency](XRGridMaterial.md#majorunitfrequency)
+- [minorUnitVisibility](XRGridMaterial.md#minorunitvisibility)
+- [onbeforexrselect](XRGridMaterial.md#onbeforexrselect)
+- [opacity](XRGridMaterial.md#opacity)
+- [renderOptions](XRGridMaterial.md#renderoptions)
+- [scene](XRGridMaterial.md#scene)
+- [sideOrientation](XRGridMaterial.md#sideorientation)
+- [transition](XRGridMaterial.md#transition)
+- [wireframe](XRGridMaterial.md#wireframe)
+- [zOffset](XRGridMaterial.md#zoffset)
+- [\_$litElement$](XRGridMaterial.md#_$litelement$)
+- [requiredAttrs](XRGridMaterial.md#requiredattrs)
 
 ### Methods
 
-- [connected](XRMaterial.md#connected)
-- [disconnected](XRMaterial.md#disconnected)
-- [toAttributeObject](XRMaterial.md#toattributeobject)
+- [connected](XRGridMaterial.md#connected)
+- [disconnected](XRGridMaterial.md#disconnected)
+- [toAttributeObject](XRGridMaterial.md#toattributeobject)
 
 ## Other
 
 ### constructor
 
-• **new XRMaterial**(): [`XRMaterial`](XRMaterial.md)
+• **new XRGridMaterial**(): [`XRGridMaterial`](XRGridMaterial.md)
 
 #### Returns
 
-[`XRMaterial`](XRMaterial.md)
+[`XRGridMaterial`](XRGridMaterial.md)
 
 #### Overrides
 
 [XRBaseMaterial](XRBaseMaterial.md).[constructor](XRBaseMaterial.md#constructor)
-
-___
-
-### \_albedoTexture
-
-• **\_albedoTexture**: ``null`` \| `Texture` = `null`
-
-___
-
-### albedoColor
-
-• **albedoColor**: [`Color3`](Color3.md)
-
-___
-
-### albedoTexture
-
-• **albedoTexture**: ``null`` \| `string` = `null`
 
 ___
 
@@ -141,15 +122,9 @@ ___
 
 ___
 
-### emissiveColor
-
-• **emissiveColor**: [`Color3`](Color3.md)
-
-___
-
 ### entity
 
-• **entity**: ``null`` \| `PBRMaterial` = `null`
+• **entity**: ``null`` \| `GridMaterial` = `null`
 
 #### Inherited from
 
@@ -159,11 +134,17 @@ ___
 
 ### evaluated
 
-• `Readonly` **evaluated**: `PickStringKey`\<[`XRMaterial`](XRMaterial.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRGridMaterial`](XRGridMaterial.md)\>
 
 #### Inherited from
 
 [XRBaseMaterial](XRBaseMaterial.md).[evaluated](XRBaseMaterial.md#evaluated)
+
+___
+
+### gridRatio
+
+• **gridRatio**: `number` = `1`
 
 ___
 
@@ -177,6 +158,12 @@ ___
 
 ___
 
+### lineColor
+
+• **lineColor**: [`Color3`](Color3.md)
+
+___
+
 ### logger
 
 • `Readonly` **logger**: `Logger`
@@ -187,9 +174,21 @@ ___
 
 ___
 
-### metallic
+### mainColor
 
-• **metallic**: `number` = `0.2`
+• **mainColor**: [`Color3`](Color3.md)
+
+___
+
+### majorUnitFrequency
+
+• **majorUnitFrequency**: `number` = `10`
+
+___
+
+### minorUnitVisibility
+
+• **minorUnitVisibility**: `number` = `0.5`
 
 ___
 
@@ -208,9 +207,9 @@ at the time the input device's primary action is triggered.
 
 ___
 
-### roughness
+### opacity
 
-• **roughness**: `number` = `0.8`
+• **opacity**: `number` = `0.99`
 
 ___
 
@@ -241,12 +240,6 @@ ___
 #### Inherited from
 
 [XRBaseMaterial](XRBaseMaterial.md).[transition](XRBaseMaterial.md#transition)
-
-___
-
-### unlit
-
-• **unlit**: `boolean` = `false`
 
 ___
 
@@ -320,11 +313,11 @@ ___
 
 ### toAttributeObject
 
-▸ **toAttributeObject**(): [`XRMaterial`](XRMaterial.md)
+▸ **toAttributeObject**(): [`XRGridMaterial`](XRGridMaterial.md)
 
 #### Returns
 
-[`XRMaterial`](XRMaterial.md)
+[`XRGridMaterial`](XRGridMaterial.md)
 
 #### Inherited from
 

@@ -15,16 +15,20 @@
 ### Properties
 
 - [animation](XRHemisphericLight.md#animation)
+- [diffuse](XRHemisphericLight.md#diffuse)
 - [disabled](XRHemisphericLight.md#disabled)
 - [entity](XRHemisphericLight.md#entity)
-- [evaluatedProps](XRHemisphericLight.md#evaluatedprops)
+- [evaluated](XRHemisphericLight.md#evaluated)
 - [inspect](XRHemisphericLight.md#inspect)
 - [intensity](XRHemisphericLight.md#intensity)
 - [logger](XRHemisphericLight.md#logger)
 - [onbeforexrselect](XRHemisphericLight.md#onbeforexrselect)
+- [position](XRHemisphericLight.md#position)
 - [renderOptions](XRHemisphericLight.md#renderoptions)
 - [rotation](XRHemisphericLight.md#rotation)
 - [scene](XRHemisphericLight.md#scene)
+- [shadowEnabled](XRHemisphericLight.md#shadowenabled)
+- [specular](XRHemisphericLight.md#specular)
 - [transition](XRHemisphericLight.md#transition)
 - [\_$litElement$](XRHemisphericLight.md#_$litelement$)
 - [requiredAttrs](XRHemisphericLight.md#requiredattrs)
@@ -32,7 +36,8 @@
 ### Methods
 
 - [connected](XRHemisphericLight.md#connected)
-- [remove](XRHemisphericLight.md#remove)
+- [disconnected](XRHemisphericLight.md#disconnected)
+- [toAttributeObject](XRHemisphericLight.md#toattributeobject)
 
 ## Other
 
@@ -44,7 +49,7 @@
 
 [`XRHemisphericLight`](XRHemisphericLight.md)
 
-#### Inherited from
+#### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
 
@@ -57,6 +62,12 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
+
+___
+
+### diffuse
+
+• **diffuse**: [`Color3`](Color3.md)
 
 ___
 
@@ -80,13 +91,13 @@ ___
 
 ___
 
-### evaluatedProps
+### evaluated
 
-• `Readonly` **evaluatedProps**: `PickStringKey`\<[`XRHemisphericLight`](XRHemisphericLight.md)\>
+• `Readonly` **evaluated**: `PickStringKey`\<[`XRHemisphericLight`](XRHemisphericLight.md)\>
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluatedProps](XRSceneScopeElement.md#evaluatedprops)
+[XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
 
 ___
 
@@ -131,6 +142,12 @@ at the time the input device's primary action is triggered.
 
 ___
 
+### position
+
+• **position**: [`Vector3`](Vector3.md)
+
+___
+
 ### rotation
 
 • **rotation**: [`Vector2`](Vector2.md)
@@ -144,6 +161,18 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[scene](XRSceneScopeElement.md#scene)
+
+___
+
+### shadowEnabled
+
+• **shadowEnabled**: `boolean` = `false`
+
+___
+
+### specular
+
+• **specular**: [`Color3`](Color3.md)
 
 ___
 
@@ -191,9 +220,9 @@ XRSceneScopeElement.connected
 
 ___
 
-### remove
+### disconnected
 
-▸ **remove**(): `void`
+▸ **disconnected**(): `void`
 
 #### Returns
 
@@ -201,7 +230,21 @@ ___
 
 #### Overrides
 
-XRSceneScopeElement.remove
+XRSceneScopeElement.disconnected
+
+___
+
+### toAttributeObject
+
+▸ **toAttributeObject**(): [`XRHemisphericLight`](XRHemisphericLight.md)
+
+#### Returns
+
+[`XRHemisphericLight`](XRHemisphericLight.md)
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## rendering
 
