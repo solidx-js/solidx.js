@@ -1,12 +1,12 @@
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR';
-import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Decorator } from '../Decorator';
 import { MaterialController, RefController2 } from '../controller';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { state } from 'lit/decorators.js';
+import { XRBaseMaterial } from './XRBaseMaterial';
 
-export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
+export class XRMaterial extends XRBaseMaterial<PBRMaterial> {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Color3', 'albedo-color')
@@ -23,15 +23,6 @@ export class XRMaterial extends XRSceneScopeElement<PBRMaterial> {
 
   @Decorator.property('Color3', 'emissive-color')
   emissiveColor: Color3 = Color3.Black();
-
-  @Decorator.property('Boolean', 'backface-culling')
-  backFaceCulling: boolean = false;
-
-  @Decorator.property('Number')
-  alpha: number = 1;
-
-  @Decorator.property('Number', 'side-orientation')
-  sideOrientation: number = 1;
 
   @Decorator.property('Boolean', 'unlit')
   unlit: boolean = false;

@@ -61,7 +61,7 @@ Scene.prototype.queryWait = function queryWait(
 
 Scene.prototype.query = function query(type: IEntityType, id: string): any {
   if (type === 'mesh') return this.getMeshById(id);
-  else if (type === 'material' || type === 'background-material') return this.getMaterialById(id);
+  else if (type === 'material' || type === 'background-material' || type === 'grid-material') return this.getMaterialById(id);
   else if (type === 'geometry') return this.getGeometryById(id);
   else if (type === 'animation') return this.animations.find(a => a.name === id);
   else if (type === 'transformNode') return this.getTransformNodeById(id);

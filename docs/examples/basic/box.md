@@ -10,14 +10,16 @@
 </xr-scene>
 
 <script>
-  anime({
-    targets: $('#box1').toAttributeObject(),
-    rotation: ['0 0 0', '0 180 0'],
-    duration: 2000,
-    loop: true,
-    easing: 'easeInOutQuad',
-    direction: 'alternate',
-  });
+  $disposes.push(
+    anime({
+      targets: $('#box1').toAttributeObject(),
+      rotation: ['0 0 0', '0 180 0'],
+      duration: 2000,
+      loop: true,
+      easing: 'easeInOutQuad',
+      direction: 'alternate',
+    }).pause
+  );
 </script>
 ```
 

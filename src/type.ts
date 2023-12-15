@@ -2,11 +2,13 @@ import type { BaseTexture, TransformNode, CubeTexture, BackgroundMaterial } from
 import type { Material } from '@babylonjs/core/Materials/material';
 import type { Geometry } from '@babylonjs/core/Meshes/geometry';
 import type { Mesh } from '@babylonjs/core/Meshes/mesh';
+import type { GridMaterial } from '@babylonjs/materials';
 
 export type IEntityType =
   | 'mesh'
   | 'material'
   | 'background-material'
+  | 'grid-material'
   | 'geometry'
   | 'animation'
   | 'transformNode'
@@ -18,6 +20,7 @@ export type IIBjsEntityMap = {
   mesh: Mesh;
   material: Material;
   'background-material': BackgroundMaterial;
+  'grid-material': GridMaterial;
   geometry: Geometry;
   animation: Animation;
   transformNode: TransformNode;

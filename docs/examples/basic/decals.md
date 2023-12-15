@@ -26,14 +26,16 @@
 </xr-scene>
 
 <script>
-  anime({
-    targets: $('#decal-1').toAttributeObject(),
-    angle: ['0', '360'],
-    duration: 4000,
-    loop: true,
-    easing: 'easeInOutQuad',
-    direction: 'alternate',
-  });
+  $disposes.push(
+    anime({
+      targets: $('#decal-1').toAttributeObject(),
+      angle: ['0', '360'],
+      duration: 4000,
+      loop: true,
+      easing: 'easeInOutQuad',
+      direction: 'alternate',
+    }).pause
+  );
 </script>
 ```
 
@@ -71,7 +73,7 @@
     // 每秒旋转
     let r = 0;
 
-    setInterval(() => {
+    const timer = setInterval(() => {
       r += 0.01;
       const origin = [Math.cos(r) * 0.8, 0, Math.sin(r) * 0.8].join(' ');
       const direction = [-Math.cos(r), 0, -Math.sin(r)].join(' ');
@@ -79,6 +81,8 @@
       decal.setAttribute('origin', origin);
       decal.setAttribute('direction', direction);
     }, 20);
+
+    $disposes.push(() => clearInterval(timer));
   })();
 </script>
 ```

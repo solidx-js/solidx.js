@@ -6,6 +6,7 @@ import { Decorator } from '../Decorator';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { state } from 'lit/decorators.js';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
+import { GridMaterial } from '@babylonjs/materials/grid';
 import { Material } from '@babylonjs/core/Materials/material';
 
 export class XRMesh extends XRSceneScopeElement<Mesh> {
@@ -14,6 +15,9 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
 
   @Decorator.property('String')
   material: string | null = null;
+
+  @Decorator.property('String', 'grid-material')
+  gridMaterial: string | null = null;
 
   @Decorator.property('Vector3')
   position = Vector3.Zero();
@@ -30,11 +34,15 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   @state()
   _material: Material | null = null;
 
+  @state()
+  _gridMaterial: GridMaterial | null = null;
+
   constructor() {
     super();
 
     new RefController2(this, 'geometry', 'geometry', '_geometry');
     new RefController2(this, 'material', 'material', '_material');
+    new RefController2(this, 'grid-material', 'gridMaterial', '_gridMaterial');
   }
 
   connected(): void {
@@ -63,8 +71,8 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
       this.emit('loadeddata', {});
     }
 
-    if (changed.has('_material')) {
-      this.entity.material = this._material;
+    if (changed.has('_material') || changed.has('_gridMaterial')) {
+      this.entity.material = this._material || this._gridMaterial;
     }
   }
 }

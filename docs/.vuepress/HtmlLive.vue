@@ -18,6 +18,14 @@ export default {
     this.updateContent();
   },
 
+  unmounted() {
+    const scope = window[this.containerId];
+    if (scope) {
+      scope.$disposes.forEach(dispose => dispose());
+      delete window[this.containerId];
+    }
+  },
+
   updated() {
     this.updateContent();
   },
@@ -48,13 +56,13 @@ export default {
         newScript.innerHTML = `
 (function() {
   const root = document.getElementById('${this.containerId}');
+
   const $ = (selector) => root.querySelector(selector);
   const $$ = (selector) => root.querySelectorAll(selector);
+  const $disposes = [];
 
-  const scope = {
-    $,
-    $$,
-  };
+  const scope = { $, $$, $disposes };
+  window['${this.containerId}'] = scope;
 
   with (scope) {
     ${script.innerHTML}

@@ -1,22 +1,13 @@
-import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Decorator } from '../Decorator';
 import { MaterialController, RefController2 } from '../controller';
 import { state } from 'lit/decorators.js';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { BackgroundMaterial } from '@babylonjs/core/Materials/Background/backgroundMaterial';
+import { XRBaseMaterial } from './XRBaseMaterial';
 
-export class XRBackgroundMaterial extends XRSceneScopeElement<BackgroundMaterial> {
+export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> {
   static requiredAttrs: string[] = ['id'];
-
-  @Decorator.property('Boolean', 'backface-culling')
-  backFaceCulling: boolean = false;
-
-  @Decorator.property('Number')
-  alpha: number = 1;
-
-  @Decorator.property('Number', 'side-orientation')
-  sideOrientation: number = 1;
 
   @Decorator.property('Boolean', 'use-rgb-color')
   useRGBColor = false;

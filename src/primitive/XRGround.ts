@@ -10,7 +10,13 @@ export class XRGround extends XRSceneScopeElement<any> {
   rotation = new Vector3(90, 0, 0);
 
   @Decorator.property('Vector3')
-  scale = Vector3.One().scale(100);
+  scale = Vector3.One();
+
+  @Decorator.property('String')
+  type = 'plane';
+
+  @Decorator.property('Number')
+  size = 100;
 
   connected(): void {
     super.connected();
@@ -22,8 +28,14 @@ export class XRGround extends XRSceneScopeElement<any> {
 
   render() {
     return html`
-      <xr-grid-material></xr-grid-material>
-      <xr-mesh id="ground" geometry="type: plane" .position=${this.position} .rotation=${this.rotation} .scale=${this.scale}></xr-mesh>
+      <xr-mesh
+        id="ground"
+        geometry="type: ${this.evaluated.type}; size: ${this.evaluated.size}"
+        grid-material=""
+        .position=${this.evaluated.position}
+        .rotation=${this.evaluated.rotation}
+        .scale=${this.evaluated.scale}
+      ></xr-mesh>
     `;
   }
 }

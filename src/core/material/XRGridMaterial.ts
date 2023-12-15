@@ -1,56 +1,39 @@
-import { PBRMaterial } from '@babylonjs/core/Materials/PBR';
-import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Decorator } from '../Decorator';
-import { MaterialController, RefController2 } from '../controller';
-import { Texture } from '@babylonjs/core/Materials/Textures/texture';
-import { state } from 'lit/decorators.js';
+import { MaterialController } from '../controller';
+import { GridMaterial } from '@babylonjs/materials/grid';
+import { XRBaseMaterial } from './XRBaseMaterial';
 
-export class XRGridMaterial extends XRSceneScopeElement<PBRMaterial> {
+export class XRGridMaterial extends XRBaseMaterial<GridMaterial> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Color3', 'albedo-color')
-  albedoColor: Color3 = Color3.White();
+  @Decorator.property('String', 'main-color')
+  mainColor = Color3.White();
 
-  @Decorator.property('String', 'albedo-texture')
-  albedoTexture: string | null = null;
+  @Decorator.property('String', 'line-color')
+  lineColor = Color3.Black();
 
-  @Decorator.property('Number')
-  metallic: number = 0.2;
+  @Decorator.property('Number', 'grid-ratio')
+  gridRatio = 1;
 
-  @Decorator.property('Number')
-  roughness: number = 0.8;
+  @Decorator.property('Number', 'major-unit-frequency')
+  majorUnitFrequency = 10;
 
-  @Decorator.property('Color3', 'emissive-color')
-  emissiveColor: Color3 = Color3.Black();
-
-  @Decorator.property('Boolean', 'backface-culling')
-  backFaceCulling: boolean = false;
+  @Decorator.property('Number', 'minor-unit-visible')
+  minorUnitVisibility = 0.5;
 
   @Decorator.property('Number')
-  alpha: number = 1;
-
-  @Decorator.property('Number', 'side-orientation')
-  sideOrientation: number = 1;
-
-  @Decorator.property('Boolean', 'unlit')
-  unlit: boolean = false;
-
-  @state()
-  _albedoTexture: Texture | null = null;
+  opacity = 0.99; // In transparent mode (opacity < 1.0), the empty area will always be at an opacity level of 0.08
 
   constructor() {
     super();
-
-    new RefController2(this, 'texture', 'albedoTexture', '_albedoTexture');
     new MaterialController(this);
   }
 
   connected(): void {
     super.connected();
-
-    this.entity = new PBRMaterial(this.id, this.scene);
-    this.entity.useAlphaFromAlbedoTexture = true;
+    this.entity = new GridMaterial(this.id, this.scene);
+    this.entity.useMaxLine = true;
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -58,13 +41,12 @@ export class XRGridMaterial extends XRSceneScopeElement<PBRMaterial> {
 
     if (!this.entity) return;
 
-    if (changed.has('albedoColor')) this.entity.albedoColor.copyFrom(this.evaluated.albedoColor);
-    if (changed.has('metallic')) this.entity.metallic = this.evaluated.metallic;
-    if (changed.has('roughness')) this.entity.roughness = this.evaluated.roughness;
-    if (changed.has('emissiveColor')) this.entity.emissiveColor.copyFrom(this.evaluated.emissiveColor);
-    if (changed.has('unlit')) this.entity.unlit = this.evaluated.unlit;
-
-    if (changed.has('_albedoTexture')) this.entity.albedoTexture = this._albedoTexture;
+    if (changed.has('mainColor')) this.entity.mainColor.copyFrom(this.mainColor);
+    if (changed.has('lineColor')) this.entity.lineColor.copyFrom(this.lineColor);
+    if (changed.has('gridRatio')) this.entity.gridRatio = this.gridRatio;
+    if (changed.has('majorUnitFrequency')) this.entity.majorUnitFrequency = this.majorUnitFrequency;
+    if (changed.has('minorUnitVisibility')) this.entity.minorUnitVisibility = this.minorUnitVisibility;
+    if (changed.has('opacity')) this.entity.opacity = this.opacity;
   }
 
   disconnected(): void {
