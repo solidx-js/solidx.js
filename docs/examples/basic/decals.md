@@ -7,12 +7,8 @@
 ```html
 <xr-scene auto-resize>
   <xr-camera id="cam1" radius="3" alpha="-115" beta="120"></xr-camera>
-  <xr-env scale="0.5 0.5 0.5"></xr-env>
 
-  <xr-material id="m1"></xr-material>
-  <xr-geometry id="g1" type="box"></xr-geometry>
-
-  <xr-mesh id="box1" inspect="axes: true; scale: 0.5" geometry="g1" material="m1">
+  <xr-mesh id="box1" inspect="axes: true; scale: 0.5" geometry="type: box" material="">
     <xr-decal
       id="decal-1"
       img="/assets/decal.png"
@@ -48,12 +44,8 @@
 ```html
 <xr-scene auto-resize>
   <xr-camera id="cam1" radius="3" alpha="-40"></xr-camera>
-  <xr-env scale="0.5 0.5 0.5"></xr-env>
+  <xr-mesh id="box1" geometry="type: box" material="alpha: 0.3"> </xr-mesh>
 
-  <xr-material id="m1" alpha="0.3"></xr-material>
-  <xr-geometry id="g1" type="box"></xr-geometry>
-
-  <xr-mesh id="box1" geometry="g1" material="m1"> </xr-mesh>
   <xr-decal
     id="decal-1"
     img="/assets/decal.png"
