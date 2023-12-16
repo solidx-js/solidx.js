@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { PrimitiveBase } from './PrimitiveBase';
 import { Decorator } from '../core';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Color3 } from '@babylonjs/core/Maths/math';
 
 export class XRArrow extends PrimitiveBase {
   static requiredAttrs: string[] = ['id'];
@@ -18,6 +19,9 @@ export class XRArrow extends PrimitiveBase {
   @Decorator.property('Vector3', undefined, Vector3.One())
   scale!: Vector3;
 
+  @Decorator.property('Color3', undefined, Color3.Red())
+  color!: Color3;
+
   connected(): void {
     super.connected();
   }
@@ -29,7 +33,7 @@ export class XRArrow extends PrimitiveBase {
   render() {
     const thickness = this.thickness;
 
-    const material = html`<xr-material id="${this.id}-material" albedo-color="#ff0000" unlit></xr-material> `;
+    const material = html`<xr-material id="${this.id}-material" .albedoColor=${this.color} unlit></xr-material> `;
 
     const arrow = html`
       <xr-mesh

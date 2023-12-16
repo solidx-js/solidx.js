@@ -63,7 +63,7 @@ export class XREnv extends XRSceneScopeElement<any> {
         enable-noise
         reflection-texture="url: ${XREnv.defaultSkyBoxTexture}; coordinates-mode: 5"
       ></xr-material>
-      <xr-mesh id="env-sky-box" geometry="type: sphere" material="env-sky-box" scale="100 100 100"></xr-mesh>
+      <xr-mesh disable-pointer-event id="env-sky-box" geometry="type: sphere" material="env-sky-box" scale="100 100 100"></xr-mesh>
     `;
   }
 
@@ -75,7 +75,7 @@ export class XREnv extends XRSceneScopeElement<any> {
         backface-culling
         albedo-texture="url: ${XREnv.defaultGroundTexture}; has-alpha: true"
       ></xr-material>
-      <xr-mesh id="env-ground" geometry="type: plane" material="env-ground" scale="5 5 5" rotation="90 0 0"></xr-mesh>
+      <xr-mesh disable-pointer-event id="env-ground" geometry="type: plane" material="env-ground" scale="5 5 5" rotation="90 0 0"></xr-mesh>
     `;
   }
 

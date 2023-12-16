@@ -156,3 +156,10 @@ Object.defineProperty(Scene.prototype, 'defaultUtilityLayer', {
     return this._defaultUtilityLayer;
   },
 });
+
+Object.defineProperty(Scene.prototype, 'defaultUtilityLayerWithEvents', {
+  get: function () {
+    if (!this._defaultUtilityLayerWithEvents) this._defaultUtilityLayerWithEvents = new UtilityLayerRenderer(this, true);
+    return this._defaultUtilityLayerWithEvents;
+  },
+});

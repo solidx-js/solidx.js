@@ -19,6 +19,9 @@ export class XRLine extends XRSceneScopeElement<LinesMesh> {
   @Decorator.property('String', 'colors', '')
   colors!: string;
 
+  @Decorator.property('Boolean', 'disable-pointer-event', false)
+  disablePointerEvent!: boolean;
+
   private _curPointCount = 0;
 
   connected(): void {
@@ -63,9 +66,11 @@ export class XRLine extends XRSceneScopeElement<LinesMesh> {
         .map(v => new Vector3(Number(v[0]), Number(v[1]), Number(v[2])));
 
       const colors = this.evaluated.colors
-        .split(',')
-        .map(v => v.trim())
-        .map(hex => Color4.FromHexString(hex));
+        ? this.evaluated.colors
+            .split(',')
+            .map(v => v.trim())
+            .map(hex => Color4.FromHexString(hex))
+        : [];
 
       // 如果 colors 数量小于 points 数量，那么就补齐 colors 数组
       if (colors.length < points.length) {
@@ -82,11 +87,17 @@ export class XRLine extends XRSceneScopeElement<LinesMesh> {
         this._curPointCount = points.length;
         this.entity.dispose();
 
+        console.log('@@@', 'points ->', points);
+
         this.entity = CreateLines(this.id, { points, colors, updatable: true, useVertexAlpha: true }, this.scene);
         this.entity.parent = ElementUtil.closestTransformNodeLike(this);
       } else {
         CreateLines(this.id, { points, colors, instance: this.entity });
       }
+    }
+
+    if (changed.has('disablePointerEvent')) {
+      this.entity.isPickable = !this.disablePointerEvent;
     }
   }
 }

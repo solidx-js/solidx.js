@@ -17,6 +17,7 @@ declare module '@babylonjs/core/scene' {
     loadModel(url: string, forceExt?: string): Promise<AssetContainer>;
 
     defaultUtilityLayer: UtilityLayerRenderer;
+    defaultUtilityLayerWithEvents: UtilityLayerRenderer;
   }
 }
 

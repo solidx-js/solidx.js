@@ -28,6 +28,9 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
 
+  @Decorator.property('Boolean', 'disable-pointer-event', false)
+  disablePointerEvent!: boolean;
+
   @state()
   _geometry: Geometry | null = null;
 
@@ -48,9 +51,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   connected(): void {
     super.connected();
 
-    const parent = ElementUtil.closestTransformNodeLike(this);
-    this.entity = new Mesh(this.id, this.scene, parent);
-    this.entity.parent = ElementUtil.closestTransformNodeLike(this);
+    this.entity = new Mesh(this.id, this.scene, ElementUtil.closestTransformNodeLike(this));
   }
 
   disconnected(): void {
@@ -71,6 +72,10 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
 
     if (changed.has('_material') || changed.has('_gridMaterial')) {
       this.entity.material = this._material || this._gridMaterial || this.scene.defaultMaterial;
+    }
+
+    if (changed.has('disablePointerEvent')) {
+      this.entity.isPickable = !this.disablePointerEvent;
     }
   }
 }

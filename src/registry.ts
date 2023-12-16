@@ -20,6 +20,7 @@ import {
   XRGridMaterial,
   XRStyle,
   XRLine,
+  XRDragger,
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
@@ -71,6 +72,7 @@ ElementRegistry.Instance.register('xr-background-material', XRBackgroundMaterial
 ElementRegistry.Instance.register('xr-grid-material', XRGridMaterial as any);
 ElementRegistry.Instance.register('xr-style', XRStyle as any);
 ElementRegistry.Instance.register('xr-line', XRLine as any);
+ElementRegistry.Instance.register('xr-dragger', XRDragger as any);
 
 // primitives
 ElementRegistry.Instance.register('xr-env', XREnv as any);

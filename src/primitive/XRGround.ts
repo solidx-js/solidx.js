@@ -32,7 +32,13 @@ export class XRGround extends PrimitiveBase {
 
     return html`
       <xr-node id="${this.id}-root" .position=${position} .rotation=${rotation} .scale=${scale}>
-        <xr-mesh id="${this.id}-plane" geometry="type: ${type}; size: ${size}" grid-material="" rotation="90 0 0"></xr-mesh>
+        <xr-mesh
+          id="${this.id}-plane"
+          geometry="type: ${type}; size: ${size}"
+          grid-material=""
+          rotation="90 0 0"
+          disable-pointer-event
+        ></xr-mesh>
       </xr-node>
     `;
   }

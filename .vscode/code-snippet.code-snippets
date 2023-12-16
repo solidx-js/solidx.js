@@ -39,7 +39,7 @@
     "description": "Lit ReactiveController"
   },
   "Primitive": {
-    "prefix": "pri",
+    "prefix": "prim",
     "body": [
       "import { PrimitiveBase } from './PrimitiveBase';",
       "",
