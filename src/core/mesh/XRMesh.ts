@@ -13,7 +13,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   @Decorator.property('String')
   geometry: string | null = null;
 
-  @Decorator.property('String', 'material', '')
+  @Decorator.property('String', 'material')
   material!: string;
 
   @Decorator.property('String', 'grid-material')
@@ -48,10 +48,8 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   connected(): void {
     super.connected();
 
-    const id = this.id || 'mesh:' + randomID();
-
     const parent = ElementUtil.closestTransformNodeLike(this);
-    this.entity = new Mesh(id, this.scene, parent);
+    this.entity = new Mesh(this.id, this.scene, parent);
     this.entity.parent = ElementUtil.closestTransformNodeLike(this);
   }
 
@@ -72,7 +70,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
     }
 
     if (changed.has('_material') || changed.has('_gridMaterial')) {
-      this.entity.material = this._material || this._gridMaterial;
+      this.entity.material = this._material || this._gridMaterial || this.scene.defaultMaterial;
     }
   }
 }

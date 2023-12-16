@@ -8,7 +8,7 @@ import {
   TweenController,
 } from './controller';
 import { Decorator } from './Decorator';
-import { ElementUtil, parseDurationString, typedClone } from '../util';
+import { ElementUtil, parseDurationString, randomID, typedClone } from '../util';
 import { property, state } from 'lit/decorators.js';
 import { IAniItem, PickStringKey } from '../type';
 import difference from 'lodash/difference';
@@ -73,6 +73,8 @@ export class XRElement<T = any> extends LitElement {
 
   constructor() {
     super();
+
+    if (!this.id) this.id = '_' + randomID(); // 默认 id
 
     // 设置默认值
     for (const [key, def] of this._Cls.elementProperties) {

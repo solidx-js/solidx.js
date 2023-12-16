@@ -12,6 +12,7 @@ import { SSAO2RenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipe
 import { html } from 'lit';
 import { randomID } from '../util';
 import { styleMap } from 'lit/directives/style-map.js';
+import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 
 export class XRScene extends XRElement {
   static createEngine(canvas: HTMLCanvasElement) {
@@ -92,6 +93,13 @@ export class XRScene extends XRElement {
     this.scene.clearColor = new Color4(0, 0, 0, 0); // 默认透明背景
 
     this.scene.imageProcessingConfiguration.toneMappingEnabled = true;
+
+    // 默认材质
+    const defaultMaterial = new PBRMaterial('default', this.scene);
+    defaultMaterial.metallic = 0.2;
+    defaultMaterial.roughness = 0.8;
+
+    this.scene.defaultMaterial = defaultMaterial;
   }
 
   private _doRender = () => {

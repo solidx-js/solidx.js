@@ -131,7 +131,7 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
           // 创建内部元素
           if (!this._selfHostElement) {
             const _ele = new Cls();
-            _ele.id = `${this.type}:_ref_:${randomID()}`;
+            _ele.id += `_ref_${this.type}`;
             this._selfHostElement = _ele;
 
             // 设置初始属性

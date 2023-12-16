@@ -4,7 +4,8 @@
 
 ```html
 <xr-scene auto-resize>
-  <xr-camera id="cam1" radius="6" beta="75"></xr-camera>
+  <xr-camera radius="6" beta="75"></xr-camera>
+  <xr-ground></xr-ground>
 
   <xr-style selector=".box" geometry="type: box"></xr-style>
 

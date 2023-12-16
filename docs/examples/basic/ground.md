@@ -13,7 +13,7 @@
   const ani = anime({
     targets: $('#ground').toAttributeObject(),
     size: [3, 10],
-    rotation: ['90 0 0', '90 180 0'],
+    rotation: ['0 0 0', '0 180 0'],
     duration: 5000,
     loop: true,
     easing: 'easeInOutQuad',
