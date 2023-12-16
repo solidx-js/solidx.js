@@ -25,7 +25,7 @@
       "import { ReactiveController } from 'lit';",
       "import { XRElement } from '../XRElement';",
       "",
-      "export class PointerController implements ReactiveController {",
+      "export class ${TM_FILENAME_BASE} implements ReactiveController {",
       "  constructor(private host: XRElement) {",
       "    this.host.addController(this);",
       "  }",
@@ -43,7 +43,7 @@
     "body": [
       "import { PrimitiveBase } from './PrimitiveBase';",
       "",
-      "export class XRArrow extends PrimitiveBase {",
+      "export class ${TM_FILENAME_BASE} extends PrimitiveBase {",
       "  static requiredAttrs: string[] = ['id'];",
       "",
       "  connected(): void {",

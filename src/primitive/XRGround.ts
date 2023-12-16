@@ -33,8 +33,6 @@ export class XRGround extends PrimitiveBase {
     return html`
       <xr-node id="${this.id}-root" .position=${position} .rotation=${rotation} .scale=${scale}>
         <xr-mesh id="${this.id}-plane" geometry="type: ${type}; size: ${size}" grid-material="" rotation="90 0 0"></xr-mesh>
-        <xr-line id="${this.id}-x" points="-${size / 2} 0 0, ${size / 2} 0 0" colors="#ff0000"></xr-line>
-        <xr-line id="${this.id}-z" points="0 0 -${size / 2}, 0 0 ${size / 2}" colors="#0000ff"></xr-line>
       </xr-node>
     `;
   }
