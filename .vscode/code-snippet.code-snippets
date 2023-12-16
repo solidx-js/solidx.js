@@ -37,5 +37,25 @@
       ""
     ],
     "description": "Lit ReactiveController"
+  },
+  "Primitive": {
+    "prefix": "pri",
+    "body": [
+      "import { PrimitiveBase } from './PrimitiveBase';",
+      "",
+      "export class XRArrow extends PrimitiveBase {",
+      "  static requiredAttrs: string[] = ['id'];",
+      "",
+      "  connected(): void {",
+      "    super.connected();",
+      "  }",
+      "",
+      "  disconnected(): void {",
+      "    super.disconnected();",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "Primitive"
   }
 }

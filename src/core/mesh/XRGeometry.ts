@@ -63,6 +63,27 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> {
   @Decorator.property('Boolean', 'dedup-top-bottom-indices')
   dedupTopBottomIndices?: boolean;
 
+  @Decorator.property('Number', 'diameter-top')
+  diameterTop?: number;
+
+  @Decorator.property('Number', 'diameter-bottom')
+  diameterBottom?: number;
+
+  @Decorator.property('Number', 'tessellation')
+  tessellation?: number;
+
+  @Decorator.property('Number', 'subdivisions')
+  subdivisions?: number;
+
+  @Decorator.property('Boolean', 'has-rings')
+  hasRings?: boolean;
+
+  @Decorator.property('Boolean', 'enclose')
+  enclose?: boolean;
+
+  @Decorator.property('Number', 'cap')
+  cap?: number;
+
   constructor() {
     super();
   }
@@ -84,27 +105,7 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> {
 
     if (!this.entity) return;
 
-    const vert = this.scene.createVert({
-      type: this.evaluated.type,
-      size: this.evaluated.size,
-      width: this.evaluated.width,
-      height: this.evaluated.height,
-      depth: this.evaluated.depth,
-      sideOrientation: this.evaluated.sideOrientation,
-      frontUVs: this.evaluated.frontUVs,
-      backUVs: this.evaluated.backUVs,
-      wrap: this.evaluated.wrap,
-      topBaseAt: this.evaluated.topBaseAt,
-      bottomBaseAt: this.evaluated.bottomBaseAt,
-      segments: this.evaluated.segments,
-      diameter: this.evaluated.diameter,
-      diameterX: this.evaluated.diameterX,
-      diameterY: this.evaluated.diameterY,
-      diameterZ: this.evaluated.diameterZ,
-      arc: this.evaluated.arc,
-      slice: this.evaluated.slice,
-      dedupTopBottomIndices: this.evaluated.dedupTopBottomIndices,
-    } as any);
+    const vert = this.scene.createVert({ ...this.evaluated } as any);
     this.entity.setAllVerticesData(vert, true);
   }
 }

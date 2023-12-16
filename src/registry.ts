@@ -22,7 +22,7 @@ import {
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
-import { XREnv, XRGround } from './primitive';
+import { XRArrow, XREnv, XRGround } from './primitive';
 import { IEntityType } from './type';
 
 export class ElementRegistry {
@@ -73,6 +73,7 @@ ElementRegistry.Instance.register('xr-style', XRStyle as any);
 // primitives
 ElementRegistry.Instance.register('xr-env', XREnv as any);
 ElementRegistry.Instance.register('xr-ground', XRGround as any);
+ElementRegistry.Instance.register('xr-arrow', XRArrow as any);
 
 export const EntityTagNameMap: Partial<Record<IEntityType, string>> = {
   mesh: 'xr-mesh',

@@ -10,6 +10,7 @@ import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders/glTF';
 import { UtilityLayerRenderer } from '@babylonjs/core/Rendering/utilityLayerRenderer';
 import * as TWEEN from '@tweenjs/tween.js';
+import { CreateCylinderVertexData } from '@babylonjs/core/Meshes/Builders/cylinderBuilder';
 
 // fix: Found invalid interpolation list. Skipping.
 (TWEEN.Tween.prototype as any)._setupProperties = function (
@@ -71,7 +72,9 @@ Scene.prototype.query = function query(type: IEntityType, id: string): any {
   return null;
 };
 
-Scene.prototype.createVert = function createVert(arg: { type: 'box' } | { type: 'sphere' } | { type: 'plane' }): any {
+Scene.prototype.createVert = function createVert(
+  arg: { type: 'box' } | { type: 'sphere' } | { type: 'plane' } | { type: 'cylinder' }
+): any {
   const { type, ...rest } = arg;
 
   switch (arg.type) {
@@ -83,6 +86,10 @@ Scene.prototype.createVert = function createVert(arg: { type: 'box' } | { type: 
 
     case 'plane':
       return CreatePlaneVertexData({ size: 1, ...rest });
+
+    // 圆柱体
+    case 'cylinder':
+      return CreateCylinderVertexData({ ...rest });
   }
 };
 

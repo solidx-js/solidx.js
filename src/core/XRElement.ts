@@ -57,6 +57,15 @@ export class XRElement<T = any> extends LitElement {
     set(_stash, p) {
       throw new Error(`Can't set property "${p as any}" of evaluatedProps`);
     },
+    ownKeys: () => {
+      const keys = [...this._Cls.elementProperties.keys()].filter(k => typeof k === 'string') as string[];
+      return keys;
+    },
+    getOwnPropertyDescriptor: (_stash, p) => {
+      const key = p as string;
+      if (this._Cls.elementProperties.has(key)) return { enumerable: true, configurable: true }; // 令 Object.keys() 可以枚举到
+      return undefined;
+    },
   }); // 过渡期间的插值数据
 
   /** @internal */
