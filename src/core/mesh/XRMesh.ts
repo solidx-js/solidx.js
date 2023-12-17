@@ -1,7 +1,7 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { ElementUtil, randomID } from '../../util';
-import { RefController2 } from '../controller';
+import { RefController2, TransformLikeController } from '../controller';
 import { Decorator } from '../Decorator';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { state } from 'lit/decorators.js';
@@ -42,6 +42,8 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
 
   constructor() {
     super();
+
+    new TransformLikeController(this);
 
     new RefController2(this, 'geometry', 'geometry', '_geometry');
     new RefController2(this, 'material', 'material', '_material');

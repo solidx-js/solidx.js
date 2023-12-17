@@ -3,8 +3,7 @@ import { LitElement } from 'lit';
 import {
   EntityInspectController,
   EventDispatchController,
-  NodeStateController,
-  TransformLikeController,
+  NodeStateController, 
   TweenController,
 } from './controller';
 import { Decorator } from './Decorator';
@@ -84,8 +83,7 @@ export class XRElement<T = any> extends LitElement {
     // 这里初始化一些基础控制器
     new NodeStateController(this);
     new EventDispatchController(this);
-    new EntityInspectController(this);
-    new TransformLikeController(this);
+    new EntityInspectController(this); 
 
     this._tweenCtrl = new TweenController(
       this as any,

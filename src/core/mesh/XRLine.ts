@@ -5,6 +5,7 @@ import { Decorator } from '../Decorator';
 import { LinesMesh } from '@babylonjs/core/Meshes/linesMesh';
 import { Color4 } from '@babylonjs/core/Maths/math';
 import { ElementUtil } from '../../util';
+import { TransformLikeController } from '../controller';
 
 export class XRLine extends XRSceneScopeElement<LinesMesh> {
   @Decorator.property('Vector3', 'position', Vector3.Zero())
@@ -22,7 +23,16 @@ export class XRLine extends XRSceneScopeElement<LinesMesh> {
   @Decorator.property('Boolean', 'disable-pointer-event', false)
   disablePointerEvent!: boolean;
 
+  @Decorator.property('Number', 'layer', 0)
+  layer!: number;
+
   private _curPointCount = 0;
+
+  constructor() {
+    super();
+
+    new TransformLikeController(this);
+  }
 
   connected(): void {
     super.connected();
@@ -86,8 +96,6 @@ export class XRLine extends XRSceneScopeElement<LinesMesh> {
       if (_needRebuild) {
         this._curPointCount = points.length;
         this.entity.dispose();
-
-        console.log('@@@', 'points ->', points);
 
         this.entity = CreateLines(this.id, { points, colors, updatable: true, useVertexAlpha: true }, this.scene);
         this.entity.parent = ElementUtil.closestTransformNodeLike(this);

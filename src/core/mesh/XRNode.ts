@@ -15,6 +15,12 @@ export class XRNode extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
 
+  constructor() {
+    super();
+
+    new TransformLikeController(this);
+  }
+
   connected(): void {
     super.connected();
 

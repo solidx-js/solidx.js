@@ -96,7 +96,7 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
   private _lastIncomeData: Record<string, any> | null = null;
 
   constructor(
-    private host: XRElement & { scene: Scene } & Record<A, string | undefined | null> & { [key in B]: IBjsEntityType<T> | null },
+    private host: XRElement & { scene: Scene } & Partial<Record<A, string | undefined | null>> & { [key in B]: IBjsEntityType<T> | null },
     private type: T,
     private refProp: A,
     private targetProp: B

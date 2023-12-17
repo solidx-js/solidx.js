@@ -65,6 +65,12 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('Boolean')
   preload?: boolean;
 
+  constructor() {
+    super();
+
+    new TransformLikeController(this);
+  }
+
   connected(): void {
     super.connected();
 
