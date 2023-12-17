@@ -12,7 +12,7 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> {
   @Decorator.property('Color3', 'albedo-color', Color3.White())
   albedoColor!: Color3;
 
-  @Decorator.property('String', 'albedo-texture')
+  @Decorator.property('String', 'albedo-texture', null)
   albedoTexture!: string | null;
 
   @Decorator.property('Number', 'metallic', 0.2)

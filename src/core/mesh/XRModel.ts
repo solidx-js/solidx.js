@@ -29,7 +29,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
     }
   );
 
-  @Decorator.property('String')
+  @Decorator.property('String', 'src', '')
   src: string = '';
 
   @Decorator.property('Vector3', 'position', Vector3.Zero())
@@ -41,29 +41,29 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
 
-  @Decorator.property('String')
-  extension?: string;
+  @Decorator.property('String', 'extension', null)
+  extension!: string | null;
 
-  @Decorator.property('String')
-  material?: string;
+  @Decorator.property('String', 'material', null)
+  material!: string | null;
 
-  @Decorator.property('String', 'auto-play')
-  autoPlay?: string;
+  @Decorator.property('String', 'auto-play', null)
+  autoPlay!: string | null;
 
   @Decorator.property('Boolean', 'loop', false)
   loop = false;
 
-  @Decorator.property('Boolean', 'flat-shading')
+  @Decorator.property('Boolean', 'flat-shading', false)
   flatShading = false;
 
   /**
    * 原点转换。如果设置了该属性，则会把模型的原点转换到指定的位置。
    */
-  @Decorator.property('Matrix', 'origin-transform')
-  originTransform?: Matrix;
+  @Decorator.property('Matrix', 'origin-transform', null)
+  originTransform!: Matrix | null;
 
-  @Decorator.property('Boolean')
-  preload?: boolean;
+  @Decorator.property('Boolean', 'preload', false)
+  preload!: boolean | null;
 
   constructor() {
     super();
@@ -101,7 +101,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
     if (!this.src || (this.disabled && !this.preload) || this.scene.isDisposed) return;
 
-    this.scene.loadModel(this.src, this.extension).then(_container => {
+    this.scene.loadModel(this.src, this.extension || undefined).then(_container => {
       if (!this.entity) return;
 
       _container.addAllToScene();
@@ -128,7 +128,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
       this._matCtrl.reload(true);
 
       // 处理 auto-play
-      if (typeof this.autoPlay !== 'undefined') {
+      if (this.autoPlay !== null) {
         let ags: AnimationGroup[] = [];
 
         if (this.autoPlay === '') {

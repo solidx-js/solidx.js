@@ -27,7 +27,7 @@
     box2.className = ['green', 'red'][_i];
 
     i += 1;
-  }, 1000);
+  }, 200);
 
   $disposes.push(() => clearInterval(timer));
 </script>

@@ -158,7 +158,7 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
               if (!_def) continue;
 
               const _v = _def.initValue;
-              if (typeof _v == 'undefined') continue;
+              if (_v === null) continue;
 
               const propKey = [...Cls.elementProperties.entries()].find(([, v]) => v === _def)![0];
 

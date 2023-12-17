@@ -21,8 +21,8 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
   @Decorator.property('Boolean', 'enable-position', false)
   enablePosition!: Boolean;
 
-  @Decorator.property('String', 'target')
-  target?: string;
+  @Decorator.property('String', 'target', null)
+  target!: string | null;
 
   @state()
   private _dragStartInfo: {

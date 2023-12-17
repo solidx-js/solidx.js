@@ -9,7 +9,7 @@ export class XRTexture extends XRSceneScopeElement<Texture> {
   @Decorator.property('Boolean', 'has-alpha', false)
   hasAlpha: boolean = false;
 
-  @Decorator.property('Number', undefined, 1)
+  @Decorator.property('Number', 'level', 1)
   level: number = 1;
 
   @Decorator.property('Number', 'coordinates-index', 0)
@@ -24,7 +24,7 @@ export class XRTexture extends XRSceneScopeElement<Texture> {
   @Decorator.property('Number', 'wrap-v', 0)
   wrapV: number = 0;
 
-  @Decorator.property('String', undefined, '')
+  @Decorator.property('String', 'url', '')
   url: string = '';
 
   @Decorator.property('Number', 'u-offset', 0)

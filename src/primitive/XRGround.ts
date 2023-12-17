@@ -4,19 +4,19 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { PrimitiveBase } from './PrimitiveBase';
 
 export class XRGround extends PrimitiveBase {
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'position', Vector3.Zero())
   position = Vector3.Zero();
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'rotation', new Vector3(0, 0, 0))
   rotation = new Vector3(0, 0, 0);
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
 
-  @Decorator.property('String')
+  @Decorator.property('String', 'type', 'plane')
   type = 'plane';
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'size', 100)
   size = 100;
 
   connected(): void {

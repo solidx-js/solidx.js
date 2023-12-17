@@ -8,19 +8,19 @@ import { ElementUtil } from '../../util';
 export class XRPointLight extends XRSceneScopeElement<PointLight> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'position', Vector3.Zero())
   position = Vector3.Zero();
 
-  @Decorator.property('Color3')
+  @Decorator.property('Color3', 'diffuse', new Color3(1, 1, 1))
   diffuse = new Color3(1, 1, 1);
 
-  @Decorator.property('Color3')
+  @Decorator.property('Color3', 'specular', new Color3(1, 1, 1))
   specular = new Color3(1, 1, 1);
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'intensity', 1)
   intensity = 1;
 
-  @Decorator.property('Boolean')
+  @Decorator.property('Boolean', 'shadowEnabled', false)
   shadowEnabled = false;
 
   constructor() {

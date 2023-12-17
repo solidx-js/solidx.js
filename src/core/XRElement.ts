@@ -1,13 +1,8 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import {
-  EntityInspectController,
-  EventDispatchController,
-  NodeStateController, 
-  TweenController,
-} from './controller';
+import { EntityInspectController, EventDispatchController, NodeStateController, TweenController } from './controller';
 import { Decorator } from './Decorator';
-import { ElementUtil, parseDurationString, randomID, typedClone } from '../util';
+import { ElementUtil, IDataTypeMap, parseDurationString, randomID, typedClone } from '../util';
 import { property, state } from 'lit/decorators.js';
 import { IAniItem, PickStringKey } from '../type';
 import difference from 'lodash/difference';
@@ -21,19 +16,16 @@ export class XRElement<T = any> extends LitElement {
   entity: T | null = null;
 
   // 基础属性
-  @Decorator.property('Object')
-  inspect?: Record<string, string>;
+  @Decorator.property('Object', 'inspect', null)
+  inspect!: Record<string, string> | null;
 
-  @Decorator.property('Boolean')
-  disabled?: boolean;
+  @Decorator.property('Boolean', 'disabled', false)
+  disabled!: boolean;
 
-  @property({ converter: { fromAttribute: (value: string) => parseTransitions(value) } })
-  transition: { property: string; duration: number; timingFunction: string; delay: number }[] = [];
+  @Decorator.property('TransitionList', 'transition', [])
+  transition: IDataTypeMap['TransitionList'] = [];
 
-  @property({ converter: { fromAttribute: (value: string) => parseAnimations(value) } })
-  animation: IAniItem[] = [];
-
-  @Decorator.property('String')
+  @Decorator.property('String', 'class', null)
   class?: string;
 
   @Decorator.property('Boolean', 'mouse-over', false)
@@ -77,18 +69,18 @@ export class XRElement<T = any> extends LitElement {
 
     // 设置默认值
     for (const [key, def] of this._Cls.elementProperties) {
-      if (def.initValue !== undefined) (this as any)[key] = typedClone(def.initValue);
+      (this as any)[key] = typedClone(def.initValue);
     }
 
     // 这里初始化一些基础控制器
     new NodeStateController(this);
     new EventDispatchController(this);
-    new EntityInspectController(this); 
+    new EntityInspectController(this);
 
     this._tweenCtrl = new TweenController(
       this as any,
       this._tweenLerpData,
-      p => this.requestUpdate(p, undefined, { hasChanged: () => true }), // 强制标记为 changed
+      p => this.requestUpdate(p, undefined, { hasChanged: () => true } as any), // 强制标记为 changed
       () => this.requestUpdate()
     );
   }
@@ -110,7 +102,7 @@ export class XRElement<T = any> extends LitElement {
     // 移除不存在的属性
     for (const key of _removeKeys) {
       delete this._classRefData[key];
-      this.requestUpdate(key, _lastData[key], { hasChanged: () => true }); // 强制标记为 changed
+      this.requestUpdate(key, _lastData[key], { hasChanged: () => true } as any); // 强制标记为 changed
     }
 
     for (const [key, value0] of Object.entries(data)) {
@@ -120,7 +112,7 @@ export class XRElement<T = any> extends LitElement {
       const value = _def.converter ? _def.converter.fromAttribute(value0) : _def.type ? _def.type(value0) : value0;
       this._classRefData[key] = value;
 
-      this.requestUpdate(key, _lastData[key], { hasChanged: () => true }); // 强制标记为 changed
+      this.requestUpdate(key, _lastData[key], { hasChanged: () => true } as any); // 强制标记为 changed
     }
   }
 
@@ -194,19 +186,6 @@ export class XRElement<T = any> extends LitElement {
   toAttributeObject() {
     return ElementUtil.toAttributeObject(this);
   }
-}
-
-function parseTransitions(attr: string) {
-  const list: { property: string; duration: number; timingFunction: string; delay: number }[] = [];
-
-  const parts = attr.split(',').map(v => v.trim());
-
-  for (const part of parts) {
-    const [property, duration = '0s', timingFunction = '', delay = '0s'] = part.split(/\s+/g);
-    list.push({ property, duration: parseDurationString(duration), timingFunction, delay: parseFloat(delay) });
-  }
-
-  return list;
 }
 
 function parseAnimations(animation: string) {

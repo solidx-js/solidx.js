@@ -6,6 +6,7 @@ import { Mesh } from '@babylonjs/core/Meshes/mesh';
 
 export class TransformLikeController implements ReactiveController {
   private _matrixChangeOb: any;
+  private _skipMatrixChangeOb = false;
 
   constructor(
     private host: XRElement<TransformNode> & {
@@ -28,12 +29,14 @@ export class TransformLikeController implements ReactiveController {
     if (!this._matrixChangeOb) {
       // 同步 matrix 变化到 host 属性上
       this._matrixChangeOb = entity.onAfterWorldMatrixUpdateObservable.add(() => {
+        if (this._skipMatrixChangeOb) return; // 主动设置的属性不需要同步
+
         if (host.position && !host.position.equals(entity.position)) {
           host.position = entity.position.clone();
         }
 
         if (host.rotation && !host.rotation.equals(entity.rotation)) {
-          host.rotation = entity.rotation.clone();
+          host.rotation = entity.rotation.scale(180 / Math.PI); // rad -> deg
         }
 
         if (host.rotationQuaternion && entity.rotationQuaternion && !host.rotationQuaternion.equals(entity.rotationQuaternion)) {
@@ -58,6 +61,8 @@ export class TransformLikeController implements ReactiveController {
     const rotationQuaternion = this.host.evaluated.rotationQuaternion;
     const scale = this.host.evaluated.scale;
 
+    this._skipMatrixChangeOb = true; // 主动设置的属性不需要同步
+
     if (this.host.changed.has('position') && position && entity.position) {
       entity.position.copyFrom(position);
     }
@@ -74,6 +79,8 @@ export class TransformLikeController implements ReactiveController {
     if (this.host.changed.has('scale') && scale && entity.scaling) {
       entity.scaling.copyFrom(scale);
     }
+
+    this._skipMatrixChangeOb = false;
 
     if (this.host.changed.has('layer') && entity && entity instanceof Mesh) {
       entity.renderingGroupId = this.host.evaluated.layer || 0;

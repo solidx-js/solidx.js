@@ -12,10 +12,10 @@ export const Decorator = {
     return consume({ context: Context.AssetContainer, subscribe: true });
   },
 
-  property: <T extends IDataType>(dType: T, attribute?: string, initValue?: IDataTypeMap[T]) => {
+  property: <T extends IDataType>(dType: T, attribute: string, initValue: IDataTypeMap[T] | null) => {
     return property({
       dType,
-      initValue: typeof initValue !== 'undefined' ? typedClone(initValue as any) : undefined,
+      initValue: typedClone(initValue),
       reflect: true,
       attribute,
       converter: {

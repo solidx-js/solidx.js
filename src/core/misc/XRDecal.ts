@@ -39,14 +39,14 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
   @Decorator.property('Number', 'angle', 0)
   angle = 0;
 
-  @Decorator.property('String')
-  img?: string;
+  @Decorator.property('String', 'img', null)
+  img!: string | null;
 
   @Decorator.property('Number', 'img-level', 1)
   imgLevel = 1;
 
-  @Decorator.property('Boolean', 'use-ray')
-  useRay?: boolean;
+  @Decorator.property('Boolean', 'use-ray', false)
+  useRay!: boolean;
 
   private _projector: Mesh | null = null;
   private _material: StandardMaterial | null = null;

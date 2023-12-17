@@ -1,6 +1,6 @@
 import type { AssetContainer, UtilityLayerRenderer, AbstractMesh } from '@babylonjs/core';
 import { IBjsEntityType, IEntityType } from './type';
-import { IDataType } from './util/Schema';
+import { IDataType, IDataTypeMap } from './util/Schema';
 
 declare module '@babylonjs/core/scene' {
   interface Scene {
@@ -24,8 +24,8 @@ declare module '@babylonjs/core/scene' {
 declare module 'lit' {
   // 扩展 lit 的 property 装饰器
   export interface PropertyDeclaration {
-    dType?: IDataType;
-    initValue?: any;
+    dType: IDataType;
+    initValue: IDataTypeMap[IDataType] | null;
   }
 }
 

@@ -9,80 +9,80 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> {
   @Decorator.property('String', 'type', 'box')
   type = 'box';
 
-  @Decorator.property('Number', 'size')
-  size?: number;
+  @Decorator.property('Number', 'size', null)
+  size!: number | null;
 
-  @Decorator.property('Number', 'width')
-  width?: number;
+  @Decorator.property('Number', 'width', null)
+  width!: number | null;
 
-  @Decorator.property('Number', 'height')
-  height?: number;
+  @Decorator.property('Number', 'height', null)
+  height!: number | null;
 
-  @Decorator.property('Number', 'depth')
-  depth?: number;
+  @Decorator.property('Number', 'depth', null)
+  depth!: number | null;
 
-  @Decorator.property('Number', 'side-orientation')
-  sideOrientation?: number;
+  @Decorator.property('Number', 'side-orientation', null)
+  sideOrientation!: number | null;
 
-  @Decorator.property('Vector4', 'front-uvs')
-  frontUVs?: Vector4;
+  @Decorator.property('Vector4', 'front-uvs', null)
+  frontUVs!: Vector4 | null;
 
-  @Decorator.property('Vector4', 'back-uvs')
-  backUVs?: Vector4;
+  @Decorator.property('Vector4', 'back-uvs', null)
+  backUVs!: Vector4 | null;
 
-  @Decorator.property('Boolean', 'wrap')
-  wrap?: boolean;
+  @Decorator.property('Boolean', 'wrap', null)
+  wrap!: boolean | null;
 
-  @Decorator.property('Number', 'top-base-at')
-  topBaseAt?: number;
+  @Decorator.property('Number', 'top-base-at', null)
+  topBaseAt!: number | null;
 
-  @Decorator.property('Number', 'bottom-base-at')
-  bottomBaseAt?: number;
+  @Decorator.property('Number', 'bottom-base-at', null)
+  bottomBaseAt!: number | null;
 
-  @Decorator.property('Number', 'segments')
-  segments?: number;
+  @Decorator.property('Number', 'segments', null)
+  segments!: number | null;
 
-  @Decorator.property('Number', 'diameter')
-  diameter?: number;
+  @Decorator.property('Number', 'diameter', null)
+  diameter!: number | null;
 
-  @Decorator.property('Number', 'diameter-x')
-  diameterX?: number;
+  @Decorator.property('Number', 'diameter-x', null)
+  diameterX!: number | null;
 
-  @Decorator.property('Number', 'diameter-y')
-  diameterY?: number;
+  @Decorator.property('Number', 'diameter-y', null)
+  diameterY!: number | null;
 
-  @Decorator.property('Number', 'diameter-z')
-  diameterZ?: number;
+  @Decorator.property('Number', 'diameter-z', null)
+  diameterZ!: number | null;
 
-  @Decorator.property('Number', 'arc')
-  arc?: number;
+  @Decorator.property('Number', 'arc', null)
+  arc!: number | null;
 
-  @Decorator.property('Number', 'slice')
-  slice?: number;
+  @Decorator.property('Number', 'slice', null)
+  slice!: number | null;
 
-  @Decorator.property('Boolean', 'dedup-top-bottom-indices')
-  dedupTopBottomIndices?: boolean;
+  @Decorator.property('Boolean', 'dedup-top-bottom-indices', null)
+  dedupTopBottomIndices!: boolean | null;
 
-  @Decorator.property('Number', 'diameter-top')
-  diameterTop?: number;
+  @Decorator.property('Number', 'diameter-top', null)
+  diameterTop!: number | null;
 
-  @Decorator.property('Number', 'diameter-bottom')
-  diameterBottom?: number;
+  @Decorator.property('Number', 'diameter-bottom', null)
+  diameterBottom!: number | null;
 
-  @Decorator.property('Number', 'tessellation')
-  tessellation?: number;
+  @Decorator.property('Number', 'tessellation', null)
+  tessellation!: number | null;
 
-  @Decorator.property('Number', 'subdivisions')
-  subdivisions?: number;
+  @Decorator.property('Number', 'subdivisions', null)
+  subdivisions!: number | null;
 
-  @Decorator.property('Boolean', 'has-rings')
-  hasRings?: boolean;
+  @Decorator.property('Boolean', 'has-rings', null)
+  hasRings!: boolean | null;
 
-  @Decorator.property('Boolean', 'enclose')
-  enclose?: boolean;
+  @Decorator.property('Boolean', 'enclose', null)
+  enclose!: boolean | null;
 
-  @Decorator.property('Number', 'cap')
-  cap?: number;
+  @Decorator.property('Number', 'cap', null)
+  cap!: number | null;
 
   constructor() {
     super();

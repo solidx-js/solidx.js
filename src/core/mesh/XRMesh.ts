@@ -10,13 +10,13 @@ import { GridMaterial } from '@babylonjs/materials/grid';
 import { Material } from '@babylonjs/core/Materials/material';
 
 export class XRMesh extends XRSceneScopeElement<Mesh> {
-  @Decorator.property('String')
+  @Decorator.property('String', 'geometry', null)
   geometry: string | null = null;
 
-  @Decorator.property('String', 'material')
-  material!: string;
+  @Decorator.property('String', 'material', null)
+  material!: string | null;
 
-  @Decorator.property('String', 'grid-material')
+  @Decorator.property('String', 'grid-material', null)
   gridMaterial: string | null = null;
 
   @Decorator.property('Vector3', 'position', Vector3.Zero())

@@ -22,7 +22,7 @@ export class XRGridMaterial extends XRBaseMaterial<GridMaterial> {
   @Decorator.property('Number', 'minor-unit-visible', 0.5)
   minorUnitVisibility!: number;
 
-  @Decorator.property('Number', undefined, 0.99)
+  @Decorator.property('Number', 'opacity', 0.99)
   opacity!: number; // In transparent mode (opacity < 1.0), the empty area will always be at an opacity level of 0.08
 
   constructor() {

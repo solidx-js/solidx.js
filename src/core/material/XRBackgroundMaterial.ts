@@ -18,8 +18,8 @@ export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> {
   @Decorator.property('Boolean', 'enable-noise', false)
   enableNoise!: boolean;
 
-  @Decorator.property('String', 'reflection-texture', undefined)
-  reflectionTexture!: string | undefined;
+  @Decorator.property('String', 'reflection-texture', null)
+  reflectionTexture!: string | null;
 
   @state()
   _reflectionTexture: CubeTexture | null = null;
