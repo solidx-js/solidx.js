@@ -29,6 +29,7 @@ export const Decorator = {
           return Schema.stringify(dType, value);
         },
       },
+      hasChanged: (value: any, oldValue: any) => !Schema.isEqual(dType, value, oldValue),
     });
   },
 };

@@ -155,7 +155,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
     if (this.inspect && !this._projector) {
       this._projector = CreateBox('projector', { size: 1 }, this.scene);
       this._projector.enableEdgesRendering(0.99);
-      this._projector.edgesWidth = 1;
+      this._projector.edgesWidth = 2;
       this._projector.visibility = 0.001;
       this._projector.isPickable = false;
     }

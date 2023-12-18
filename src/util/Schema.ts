@@ -122,6 +122,25 @@ export const Schema = {
       throw new Error(`Schema.stringify: unknown schema type ${type}`);
     }
   },
+
+  isEqual<T extends IDataType>(type: T, a: IDataTypeMap[T] | undefined | null, b: IDataTypeMap[T] | undefined | null): boolean {
+    if (typeof a === 'undefined' || a === null) return typeof b === 'undefined' || b === null;
+
+    if (type === 'Number') return a === b;
+    else if (type === 'String') return a === b;
+    else if (type === 'Boolean') return a === b;
+    else if (type === 'Array') return a === b;
+    else if (type === 'Vector2') return (a as Vector2).equals(b as Vector2);
+    else if (type === 'Vector3') return (a as Vector3).equals(b as Vector3);
+    else if (type === 'Vector4') return (a as Vector4).equals(b as Vector4);
+    else if (type === 'Quaternion') return (a as Quaternion).equals(b as Quaternion);
+    else if (type === 'Color3') return (a as Color3).equals(b as Color3);
+    else if (type === 'Color4') return (a as Color4).equals(b as Color4);
+    else if (type === 'Matrix') return (a as Matrix).equals(b as Matrix);
+    else if (type === 'Object') return a === b;
+    else if (type === 'TransitionList') return a === b;
+    else return false;
+  },
 };
 
 function _ns(s: string) {

@@ -77,10 +77,9 @@ export class XRScene extends XRElement {
     new PointerController(this);
 
     this.style.display = 'block';
+    this.style.position = 'relative';
     this.style.width = '100%';
     this.style.height = '100%';
-
-    if (this.autoResize) this.reCalcContainerSize();
 
     const _canvas = document.createElement('canvas');
     _canvas.style.width = '100%';
@@ -93,8 +92,6 @@ export class XRScene extends XRElement {
     this.scene = new Scene(this.engine);
     this.scene.autoClear = true;
     this.scene.clearColor = new Color4(0, 0, 0, 0); // 默认透明背景
-
-    this.scene.imageProcessingConfiguration.toneMappingEnabled = true;
 
     // 默认材质
     const defaultMaterial = new PBRMaterial('default', this.scene);
@@ -119,6 +116,8 @@ export class XRScene extends XRElement {
 
   connected(): void {
     super.connected();
+
+    if (this.autoResize) this.reCalcContainerSize();
 
     this.engine.runRenderLoop(this._doRender);
   }

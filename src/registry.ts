@@ -24,8 +24,9 @@ import {
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
-import { XRArrow, XREnv, XRGround, XRWorldAxis } from './primitive';
+import { XRArrow, XREnv, XRGround, XRScreenProjector, XRWorldAxis } from './primitive';
 import { IEntityType } from './type';
+import { XROrtho } from './tooth';
 
 export class ElementRegistry {
   static Instance = new ElementRegistry();
@@ -79,6 +80,10 @@ ElementRegistry.Instance.register('xr-env', XREnv as any);
 ElementRegistry.Instance.register('xr-ground', XRGround as any);
 ElementRegistry.Instance.register('xr-arrow', XRArrow as any);
 ElementRegistry.Instance.register('xr-world-axis', XRWorldAxis as any);
+ElementRegistry.Instance.register('xr-scene-projector', XRScreenProjector as any);
+
+// biz test
+ElementRegistry.Instance.register('xr-ortho', XROrtho as any);
 
 export const EntityTagNameMap: Partial<Record<IEntityType, string>> = {
   mesh: 'xr-mesh',
