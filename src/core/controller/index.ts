@@ -1,5 +1,6 @@
 export * from './AttributeObserverController';
 export * from './EntityInspectController';
+export * from './EntityQueryController';
 export * from './EventDispatchController';
 export * from './LightController';
 export * from './MaterialController';

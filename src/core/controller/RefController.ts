@@ -5,6 +5,7 @@ import { Scene } from '@babylonjs/core/scene';
 import { Schema, randomID, typedClone } from '../../util';
 import { ElementRegistry, EntityTagNameMap } from '../../registry';
 import difference from 'lodash/difference';
+import { XRScene } from '../XRScene';
 
 /** @deprecated */
 export class RefController<T extends IEntityType> implements ReactiveController {
@@ -187,6 +188,94 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
       }
 
       // 没有 ref，清空
+      else {
+        this._setTarget(null);
+
+        if (this._selfHostElement) {
+          this._selfHostElement.remove();
+          this._selfHostElement = null;
+        }
+      }
+    }
+  }
+
+  hostDisconnected() {
+    if (this._ab) {
+      this._ab.abort();
+      this._ab = null;
+    }
+
+    this._setTarget(null);
+
+    if (this._selfHostElement) {
+      this._selfHostElement.remove();
+      this._selfHostElement = null;
+    }
+
+    this._lastIncomeData = null;
+  }
+}
+
+export class RefController3<T extends HTMLElement, A extends string, B extends string> implements ReactiveController {
+  static create<T1 extends HTMLElement>() {
+    return <A1 extends string, B1 extends string>(
+      _h: XRElement & { [key in A1]?: string | null } & { [key in B1]: T1 | null },
+      _s: A1,
+      _t: B1
+    ) => {
+      return new RefController3<T1, A1, B1>(_h, _s, _t);
+    };
+  }
+
+  private _ab: AbortController | null = null;
+  private _selfHostElement: XRElement | null = null;
+  private _lastIncomeData: Record<string, any> | null = null;
+
+  private _sceneEle: XRScene | null = null;
+
+  constructor(
+    private host: XRElement & { [key in A]?: string | null } & { [key in B]: T | null },
+    private selectorProp: A,
+    private targetProp: B
+  ) {
+    this.host.addController(this as any);
+  }
+
+  private _setTarget = (target: T | null) => {
+    const _host = this.host as any;
+    _host[this.targetProp] = target;
+  };
+
+  hostConnected(): void {
+    this._sceneEle = this.host.closest('xr-scene');
+  }
+
+  hostUpdated(): void {
+    if (!this._sceneEle) return;
+
+    if (this.host.changed.has(this.selectorProp)) {
+      const selector = this.host.evaluated[this.selectorProp] as string | null;
+
+      if (typeof selector === 'string') {
+        // object 格式
+        if (selector.includes(':') || selector === '') {
+        }
+
+        // string 格式
+        else {
+          if (this._ab) this._ab.abort();
+          this._ab = new AbortController();
+
+          if (this._selfHostElement) {
+            this._selfHostElement.remove();
+            this._selfHostElement = null;
+          }
+
+          this._sceneEle.querier.queryWatch<T>(selector, this._ab.signal, this._setTarget, this.host.displayText);
+        }
+      }
+
+      // 没有 selector, 清空
       else {
         this._setTarget(null);
 

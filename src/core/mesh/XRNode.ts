@@ -1,5 +1,5 @@
 import { Decorator } from '../Decorator';
-import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Matrix, Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { TransformLikeController } from '../controller';

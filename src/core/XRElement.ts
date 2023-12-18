@@ -90,6 +90,10 @@ export class XRElement<T = any> extends LitElement {
     return this.constructor as any as typeof XRElement;
   }
 
+  get displayText() {
+    return ElementUtil.displayText(this);
+  }
+
   protected createRenderRoot() {
     return this;
   }

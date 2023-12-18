@@ -29,4 +29,10 @@ export const ElementUtil = {
       },
     });
   },
+
+  displayText: (ele: HTMLElement) => {
+    const tagName = ele.tagName.toLowerCase();
+    if (ele.id) return `${tagName}#${ele.id}`;
+    return tagName;
+  },
 };

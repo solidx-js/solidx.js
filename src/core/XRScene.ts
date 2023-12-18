@@ -6,7 +6,7 @@ import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
-import { PointerController, RefController2, StyleSelectorController } from './controller';
+import { EntityQueryController, PointerController, RefController2, StyleSelectorController } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { SSAO2RenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssao2RenderingPipeline';
 import { html } from 'lit';
@@ -32,6 +32,8 @@ export class XRScene extends XRElement {
   static defaultEnvMap = new URL('../assets/EnvMap_3.0-256.env', import.meta.url).href;
 
   readonly ID = randomID();
+  readonly querier = new EntityQueryController(this);
+
   engine: Engine;
 
   @provide({ context: Context.Scene })

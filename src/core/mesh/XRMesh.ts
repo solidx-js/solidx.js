@@ -3,7 +3,7 @@ import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { ElementUtil, randomID } from '../../util';
 import { RefController2, TransformLikeController } from '../controller';
 import { Decorator } from '../Decorator';
-import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Matrix, Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { state } from 'lit/decorators.js';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
 import { GridMaterial } from '@babylonjs/materials/grid';

@@ -6,8 +6,9 @@ import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { state } from 'lit/decorators.js';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
-import { RefController2, TickController } from '../controller';
+import { RefController2, RefController3, TickController } from '../controller';
 import { RotationGizmo } from '@babylonjs/core/Gizmos/rotationGizmo';
+import { XRMesh, XRNode } from '../mesh';
 
 type IDragStartInfo = {
   type: 'position' | 'rotation' | 'scale';
@@ -38,7 +39,7 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
   private _dragStartInfo: IDragStartInfo | null = null;
 
   @state()
-  _target: TransformNode | null = null;
+  _target: XRMesh | XRNode | null = null;
 
   private _posGiz: PositionGizmo | null = null;
   private _rotGiz: RotationGizmo | null = null;
@@ -46,7 +47,7 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
   constructor() {
     super();
 
-    new RefController2(this, 'transformNodeLike', 'target', '_target');
+    RefController3.create<XRMesh | XRNode>()(this, 'target', '_target');
     new TickController(this, this._duringDrag);
   }
 
@@ -76,17 +77,19 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
   private _duringDrag = () => {
     if (!this._dragStartInfo || !this.entity || !this._target) return;
 
+    const _targetEntity = this._target.entity;
+    if (!_targetEntity) return;
+
     // 让 target 跟着拖动
     const world = this.entity.getWorldMatrix();
-    const parent = this._target.parent ? this._target.parent.getWorldMatrix() : Matrix.Identity();
+    const parent = _targetEntity.parent ? _targetEntity.parent.getWorldMatrix() : Matrix.Identity();
     const local = world.multiply(Matrix.Invert(parent));
 
-    local.decomposeToTransformNode(this._target);
+    local.decomposeToTransformNode(_targetEntity);
   };
 
   private _startDrag = (data: IDragStartInfo) => {
-    if (!this._target) throw new Error('target is null');
-
+    if (!this._target || !this._target.entity) return;
     this._dragStartInfo = data;
   };
 
@@ -147,8 +150,8 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
       }
     }
 
-    if (changed.has('_target') && this._target) {
-      this._target.getWorldMatrix().decomposeToTransformNode(entity);
+    if (changed.has('_target') && this._target && this._target.entity) {
+      this._target.entity.getWorldMatrix().decomposeToTransformNode(entity);
     }
   }
 

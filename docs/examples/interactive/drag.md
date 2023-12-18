@@ -15,13 +15,13 @@
     <xr-mesh class="box" id="box3" position="2 0 0"></xr-mesh>
   </xr-mesh>
 
-  <xr-dragger target="root" enable-position enable-rotation></xr-dragger>
+  <xr-dragger target="#root" enable-position enable-rotation></xr-dragger>
 </xr-scene>
 
 <script>
   $('xr-scene').addEventListener('click', ev => {
     if (ev.target.tagName === 'XR-MESH') {
-      $('xr-dragger').target = ev.target.id;
+      $('xr-dragger').target = '#' + ev.target.id;
     }
   });
 </script>
