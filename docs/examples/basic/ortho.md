@@ -7,7 +7,8 @@
   <xr-ortho></xr-ortho>
 </xr-scene>
 
-<script></script>
+<script>
+</script>
 ```
 
 :::

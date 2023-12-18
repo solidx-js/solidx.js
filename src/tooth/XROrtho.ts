@@ -2,7 +2,7 @@ import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { XRSceneScopeElement } from '../core/XRSceneScopeElement';
 import { html } from 'lit';
 import { StateController } from './StateController';
-import { IOrthoData, IPosType, IToothDataItem } from './type';
+import { IAttachmentDataItem, IOrthoData, IPosType, IToothDataItem } from './type';
 import { property, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { when } from 'lit/directives/when.js';
@@ -27,7 +27,31 @@ export class XROrtho extends XRSceneScopeElement<TransformNode> {
     super.disconnected();
   }
 
+  // 渲染单个附件
+  renderSingleAttachment(atc: IAttachmentDataItem) {
+    const position = Vector3.Zero();
+    const quaternion = Quaternion.Identity();
+    const scale = Vector3.One();
+    atc.transform.decompose(scale, quaternion, position);
+
+    return html`
+      <xr-model
+        id="attachment_${atc.id}"
+        extension=".ctm"
+        flat-shading
+        src="${atc.resourceUrl}"
+        material="attachment-mat-${atc.typeCode}"
+        .position=${position}
+        .quaternion=${quaternion}
+        .scale=${scale}
+      ></xr-model>
+    `;
+  }
+
   renderSingleTooth(tooth: IToothDataItem) {
+    const ds = this.datasource;
+    if (!ds) return null;
+
     const position = Vector3.Zero();
     const quaternion = Quaternion.Identity();
     const scale = Vector3.One();
@@ -64,6 +88,12 @@ export class XROrtho extends XRSceneScopeElement<TransformNode> {
               ></xr-decal>`
           )}
         </xr-model>
+
+        ${repeat(
+          ds.attachments.filter(atc => atc.slot === tooth.slot && atc.posType === tooth.posType),
+          atc => atc.id,
+          atc => this.renderSingleAttachment(atc)
+        )}
       </xr-node>
     `;
   }
@@ -72,19 +102,16 @@ export class XROrtho extends XRSceneScopeElement<TransformNode> {
     if (!this.datasource) return null;
     const ds = this.datasource;
 
-    const upperJawList = repeat(
-      ds.baseline.jaws.filter(j => j.posType === posType),
-      j => j.id,
-      j => html` <xr-model id="jaw_${j.id}" src="${j.resourceUrl}" extension=".ctm" material="jaw-mat"></xr-model> `
-    );
+    const jaw = ds.jaw[posType];
 
-    const upperToothList = repeat(
-      ds.baseline.toothList.filter(t => t.posType === posType),
-      t => t.id,
-      t => this.renderSingleTooth(t)
-    );
-
-    return html` <xr-node id="pos-${posType}"> ${upperJawList}${upperToothList} </xr-node>`;
+    return html` <xr-node id="jaw-${posType}">
+      <xr-model id="jaw_${jaw.id}" src="${jaw.resourceUrl}" extension=".ctm" material="jaw-mat"></xr-model>
+      ${repeat(
+        ds.toothList.filter(t => t.posType === posType),
+        t => t.id,
+        t => this.renderSingleTooth(t)
+      )}
+    </xr-node>`;
   }
 
   renderTypedMaterial() {

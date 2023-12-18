@@ -9,24 +9,25 @@ const fetchJson = async (name: string) => {
 };
 
 export async function prepare() {
-  const data: IOrthoData = {
-    baseline: {
-      jaws: [],
-      toothList: [],
-    },
-  };
+  const data: IOrthoData = { jaw: {} as any, toothList: [], attachments: [] };
 
-  const { jawMap, toothMap, toothList } = await fetchJson('treatmentPlanFirstStepTooth');
+  const [
+    { jawMap, toothMap, toothList },
+    { stepIdAndJawBaseResoureUrlMap, stepSimpleInfolist, stepIdAndJawBaseIdMap },
+    { attachmentDetailInfoList, orthoIdAndSimpleInfoMap },
+  ] = await Promise.all([
+    fetchJson('treatmentPlanFirstStepTooth'),
+    fetchJson('treatmentPlanStep'),
+    fetchJson('treatmentPlanAttachmentQuery'),
+  ]);
 
-  data.baseline.jaws.push(
-    { id: jawMap.LOWER.id, posType: jawMap.LOWER.jawType, resourceUrl: jawMap.LOWER.resourceUrl },
-    { id: jawMap.UPPER.id, posType: jawMap.UPPER.jawType, resourceUrl: jawMap.UPPER.resourceUrl }
-  );
+  data.jaw.UPPER = { id: jawMap.UPPER.id, posType: jawMap.UPPER.jawType, resourceUrl: jawMap.UPPER.resourceUrl };
+  data.jaw.LOWER = { id: jawMap.LOWER.id, posType: jawMap.LOWER.jawType, resourceUrl: jawMap.LOWER.resourceUrl };
 
   toothList.forEach((t: any) => {
     const slot = Object.entries(toothMap).find(([_, v]) => v === t.id)![0]!;
 
-    data.baseline.toothList.push({
+    data.toothList.push({
       id: t.id,
       posType: slot.startsWith('U') ? 'UPPER' : 'LOWER',
       slot,
@@ -35,6 +36,33 @@ export async function prepare() {
       width: t.width,
     });
   });
+
+  for (const _step of stepSimpleInfolist) {
+    const jawUrlMap = stepIdAndJawBaseResoureUrlMap[_step.id] || { LOWER: jawMap.LOWER.resourceUrl, UPPER: jawMap.UPPER.resourceUrl };
+    const jawIdMap = stepIdAndJawBaseIdMap[_step.id] || { LOWER: jawMap.LOWER.id, UPPER: jawMap.UPPER.id };
+
+    // data.steps.push({
+    //   ...data.baseline,
+    //   cursor: _step.stepNumber,
+    //   jaws: [
+    //     { id: jawIdMap.UPPER, posType: 'UPPER', resourceUrl: jawUrlMap.UPPER },
+    //     { id: jawIdMap.LOWER, posType: 'LOWER', resourceUrl: jawUrlMap.LOWER },
+    //   ],
+    // });
+  }
+
+  for (const _atc of attachmentDetailInfoList) {
+    const _source = orthoIdAndSimpleInfoMap[_atc.attachmentId];
+
+    data.attachments.push({
+      id: _atc.id,
+      slot: _atc.toothType,
+      posType: _atc.toothType.startsWith('U') ? 'UPPER' : 'LOWER',
+      resourceUrl: _source.resourceUrl,
+      transform: transformDataToRTS(JSON.parse(_atc.transformData)).matrix,
+      typeCode: _source.typeCode,
+    });
+  }
 
   return data;
 }
