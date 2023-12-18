@@ -3,7 +3,7 @@ import { PrimitiveBase } from './PrimitiveBase';
 import { html } from 'lit';
 
 export class XRWorldAxis extends PrimitiveBase {
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'size', 100)
   size = 100;
 
   connected(): void {

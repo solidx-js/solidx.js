@@ -7,19 +7,19 @@ import { Color3 } from '@babylonjs/core/Maths/math';
 export class XRArrow extends PrimitiveBase {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Number', undefined, 1)
+  @Decorator.property('Number', 'thickness', 1)
   thickness!: number;
 
-  @Decorator.property('Vector3', undefined, Vector3.Zero())
+  @Decorator.property('Vector3', 'position', Vector3.Zero())
   position!: Vector3;
 
-  @Decorator.property('Vector3', undefined, Vector3.Zero())
+  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
   rotation!: Vector3;
 
-  @Decorator.property('Vector3', undefined, Vector3.One())
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale!: Vector3;
 
-  @Decorator.property('Color3', undefined, Color3.Red())
+  @Decorator.property('Color3', 'color', Color3.Red())
   color!: Color3;
 
   connected(): void {

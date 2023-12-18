@@ -1,23 +1,20 @@
 import { html } from 'lit';
-import { XRSceneScopeElement } from '../core/XRSceneScopeElement';
 import { Decorator } from '../core';
 import { Vector3 } from '@babylonjs/core/Maths/math';
-import { Mesh } from '@babylonjs/core/Meshes/mesh';
+import { PrimitiveBase } from './PrimitiveBase';
 
-export class XREnv extends XRSceneScopeElement<any> {
+export class XREnv extends PrimitiveBase {
   static defaultSkyBoxTexture = new URL('../assets/Skybox_2.0-256.dds', import.meta.url).href;
   static defaultGroundTexture = new URL('../assets/Ground_2.0-256.png', import.meta.url).href;
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'position', Vector3.Zero())
   position = Vector3.Zero();
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
   rotation = Vector3.Zero();
 
-  @Decorator.property('Vector3')
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
-
-  private _ground: Mesh | null = null;
 
   connected(): void {
     super.connected();

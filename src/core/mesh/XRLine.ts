@@ -3,7 +3,7 @@ import { CreateLines } from '@babylonjs/core/Meshes/Builders/linesBuilder';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { Decorator } from '../Decorator';
 import { LinesMesh } from '@babylonjs/core/Meshes/linesMesh';
-import { Color4 } from '@babylonjs/core/Maths/math';
+import { Color4, Quaternion } from '@babylonjs/core/Maths/math';
 import { ElementUtil } from '../../util';
 import { TransformLikeController } from '../controller';
 
@@ -25,6 +25,12 @@ export class XRLine extends XRSceneScopeElement<LinesMesh> {
 
   @Decorator.property('Number', 'layer', 0)
   layer!: number;
+
+  @Decorator.property('Quaternion', 'quaternion', null)
+  quaternion!: Quaternion | null;
+
+  @Decorator.property('Vector3', 'scale', Vector3.One())
+  scale = Vector3.One();
 
   private _curPointCount = 0;
 
