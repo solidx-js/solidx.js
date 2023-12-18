@@ -1,4 +1,4 @@
-import { Color3, Color4, Matrix } from '@babylonjs/core/Maths/math';
+import { Color3, Color4, Matrix, Quaternion } from '@babylonjs/core/Maths/math';
 import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 import { parseDurationString } from './parseDurationString';
 
@@ -10,6 +10,7 @@ export type IDataType =
   | 'Vector2'
   | 'Vector3'
   | 'Vector4'
+  | 'Quaternion'
   | 'Object'
   | 'Color3'
   | 'Color4'
@@ -25,6 +26,7 @@ export type IDataTypeMap = {
   Vector2: Vector2;
   Vector3: Vector3;
   Vector4: Vector4;
+  Quaternion: Quaternion;
   Color3: Color3;
   Color4: Color4;
   Matrix: Matrix;
@@ -40,6 +42,7 @@ export const Schema = {
     else if (type === 'Vector2') return Vector2.FromArray(_ns(data)) as any;
     else if (type === 'Vector3') return Vector3.FromArray(_ns(data)) as any;
     else if (type === 'Vector4') return Vector4.FromArray(_ns(data)) as any;
+    else if (type === 'Quaternion') return Quaternion.FromArray(_ns(data)) as any;
     else if (type === 'Color3') return Color3.FromHexString(data) as any;
     else if (type === 'Color4') return Color4.FromHexString(data) as any;
     else if (type === 'Matrix') return Matrix.FromArray(_ns(data)) as any;
@@ -90,6 +93,7 @@ export const Schema = {
     else if (type === 'Vector2') return (data as Vector2).asArray().join(' ');
     else if (type === 'Vector3') return (data as Vector3).asArray().join(' ');
     else if (type === 'Vector4') return (data as Vector4).asArray().join(' ');
+    else if (type === 'Quaternion') return (data as Quaternion).asArray().join(' ');
     else if (type === 'Color3') return (data as Color3).toHexString();
     else if (type === 'Color4') return (data as Color4).toHexString();
     else if (type === 'Matrix') return (data as Matrix).asArray().join(' ');

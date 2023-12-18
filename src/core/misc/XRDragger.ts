@@ -7,6 +7,7 @@ import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { state } from 'lit/decorators.js';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { RefController2, TickController } from '../controller';
+import { RotationGizmo } from '@babylonjs/core/Gizmos/rotationGizmo';
 
 export class XRDragger extends XRSceneScopeElement<Mesh> {
   @Decorator.property('Vector3', 'position', Vector3.Zero())
@@ -20,6 +21,9 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
 
   @Decorator.property('Boolean', 'enable-position', false)
   enablePosition!: Boolean;
+
+  @Decorator.property('Boolean', 'enable-rotation', false)
+  enableRotation!: Boolean;
 
   @Decorator.property('String', 'target', null)
   target!: string | null;
@@ -35,6 +39,7 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
   _target: TransformNode | null = null;
 
   private _posGiz: PositionGizmo | null = null;
+  private _rotGiz: RotationGizmo | null = null;
 
   constructor() {
     super();
@@ -59,12 +64,22 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
       this._posGiz.dispose();
       this._posGiz = null;
     }
+
+    if (this._rotGiz) {
+      this._rotGiz.dispose();
+      this._rotGiz = null;
+    }
   }
 
   private _duringDrag = () => {
-    if (!this._dragStartInfo || !this.entity || !this._posGiz || !this._target) return;
+    if (!this._dragStartInfo || !this.entity || !this._target) return;
 
-    this.entity.getWorldMatrix().decomposeToTransformNode(this._target); // 让 target 跟着拖动
+    // 让 target 跟着拖动
+    const world = this.entity.getWorldMatrix();
+    const parent = this._target.parent ? this._target.parent.getWorldMatrix() : Matrix.Identity();
+    const local = world.multiply(Matrix.Invert(parent));
+
+    local.decomposeToTransformNode(this._target);
   };
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -99,6 +114,31 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
       }
     }
 
+    if (changed.has('enableRotation')) {
+      if (this.evaluated.enableRotation && !this._rotGiz) {
+        const _giz = new RotationGizmo(this.scene.defaultUtilityLayerWithEvents);
+        this._rotGiz = _giz;
+
+        _giz.attachedMesh = entity;
+
+        _giz.onDragStartObservable.add(() => {
+          this._dragStartInfo = {
+            type: 'rotation',
+            activeAxis: _giz.xGizmo.isHovered ? 'x' : _giz.yGizmo.isHovered ? 'y' : 'z',
+            matrix: entity.getWorldMatrix().clone(),
+          };
+        });
+        _giz.onDragEndObservable.add(() => {
+          this._dragStartInfo = null;
+        });
+      }
+
+      if (!this.evaluated.enableRotation && this._rotGiz) {
+        this._rotGiz.dispose();
+        this._rotGiz = null;
+      }
+    }
+
     if (changed.has('_target') && this._target) {
       this._target.getWorldMatrix().decomposeToTransformNode(entity);
     }
@@ -119,15 +159,15 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
 
       if (activeAxis === 'x') {
         points.push(new Vector3(-far, 0, 0), new Vector3(far, 0, 0));
-        color = '#ff0000';
+        color = '#ff000080';
       }
       if (activeAxis === 'y') {
         points.push(new Vector3(0, -far, 0), new Vector3(0, far, 0));
-        color = '#00ff00';
+        color = '#00ff0080';
       }
       if (activeAxis === 'z') {
         points.push(new Vector3(0, 0, -far), new Vector3(0, 0, far));
-        color = '#0000ff';
+        color = '#0000ff80';
       }
 
       line = html`<xr-line layer="1" points="${points.map(p => p.asArray().join(' ')).join(', ')}" colors="${color}"></xr-line>`;

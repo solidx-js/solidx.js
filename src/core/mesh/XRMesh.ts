@@ -3,7 +3,7 @@ import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { ElementUtil, randomID } from '../../util';
 import { RefController2, TransformLikeController } from '../controller';
 import { Decorator } from '../Decorator';
-import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { state } from 'lit/decorators.js';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
 import { GridMaterial } from '@babylonjs/materials/grid';
@@ -23,13 +23,19 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   position = Vector3.Zero();
 
   @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation = Vector3.Zero();
+  rotation!: Vector3;
+
+  @Decorator.property('Quaternion', 'quaternion', null)
+  quaternion!: Quaternion | null;
 
   @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
 
   @Decorator.property('Boolean', 'disable-pointer-event', false)
   disablePointerEvent!: boolean;
+
+  @Decorator.property('Number', 'layer', 0)
+  layer = 0;
 
   @state()
   _geometry: Geometry | null = null;

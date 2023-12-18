@@ -22,8 +22,8 @@ export class XRElement<T = any> extends LitElement {
   @Decorator.property('Boolean', 'disabled', false)
   disabled!: boolean;
 
-  @Decorator.property('TransitionList', 'transition', [])
-  transition: IDataTypeMap['TransitionList'] = [];
+  @Decorator.property('TransitionList', 'transition', null)
+  transition!: IDataTypeMap['TransitionList'] | null;
 
   @Decorator.property('String', 'class', null)
   class?: string;

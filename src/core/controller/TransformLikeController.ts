@@ -10,11 +10,11 @@ export class TransformLikeController implements ReactiveController {
 
   constructor(
     private host: XRElement<TransformNode> & {
-      position?: Vector3;
-      rotation?: Vector3;
-      rotationQuaternion?: Quaternion;
-      scale?: Vector3;
-      layer?: number;
+      position: Vector3;
+      rotation: Vector3;
+      quaternion: Quaternion | null;
+      scale: Vector3;
+      layer: number;
     }
   ) {
     this.host.addController(this);
@@ -36,11 +36,15 @@ export class TransformLikeController implements ReactiveController {
         }
 
         if (host.rotation && !host.rotation.equals(entity.rotation)) {
-          host.rotation = entity.rotation.scale(180 / Math.PI); // rad -> deg
+          host.rotation = entity.rotation.clone().scaleInPlace(180 / Math.PI);
         }
 
-        if (host.rotationQuaternion && entity.rotationQuaternion && !host.rotationQuaternion.equals(entity.rotationQuaternion)) {
-          host.rotationQuaternion = entity.rotationQuaternion.clone();
+        if (host.quaternion && entity.rotationQuaternion && !host.quaternion.equals(entity.rotationQuaternion)) {
+          host.quaternion = entity.rotationQuaternion.clone();
+        }
+
+        if (entity.rotationQuaternion && host.rotation) {
+          host.rotation = entity.rotationQuaternion.toEulerAngles().scaleInPlace(180 / Math.PI);
         }
 
         if (host.scale && !host.scale.equals(entity.scaling)) {
@@ -58,31 +62,28 @@ export class TransformLikeController implements ReactiveController {
 
     const position = this.host.evaluated.position;
     const rotation = this.host.evaluated.rotation;
-    const rotationQuaternion = this.host.evaluated.rotationQuaternion;
+    const quaternion = this.host.evaluated.quaternion;
     const scale = this.host.evaluated.scale;
+
+    const changed = this.host.changed;
 
     this._skipMatrixChangeOb = true; // 主动设置的属性不需要同步
 
-    if (this.host.changed.has('position') && position && entity.position) {
-      entity.position.copyFrom(position);
+    if (changed.has('position') && position) entity.position.copyFrom(position);
+    if (changed.has('rotation') && rotation) entity.rotation.copyFrom(rotation).scaleInPlace(Math.PI / 180);
+    if (changed.has('quaternion')) {
+      if (quaternion) {
+        if (!entity.rotationQuaternion) entity.rotationQuaternion = quaternion.clone();
+        else entity.rotationQuaternion.copyFrom(quaternion);
+      } else {
+        entity.rotationQuaternion = null;
+      }
     }
-
-    if (this.host.changed.has('rotation') && rotation && entity.rotation) {
-      entity.rotation.copyFrom(rotation).scaleInPlace(Math.PI / 180); // deg -> rad
-    }
-
-    if (this.host.changed.has('rotationQuaternion') && rotationQuaternion) {
-      if (!entity.rotationQuaternion) entity.rotationQuaternion = Quaternion.Identity();
-      entity.rotationQuaternion.copyFrom(rotationQuaternion);
-    }
-
-    if (this.host.changed.has('scale') && scale && entity.scaling) {
-      entity.scaling.copyFrom(scale);
-    }
+    if (changed.has('scale') && scale) entity.scaling.copyFrom(scale);
 
     this._skipMatrixChangeOb = false;
 
-    if (this.host.changed.has('layer') && entity && entity instanceof Mesh) {
+    if (changed.has('layer') && entity && entity instanceof Mesh) {
       entity.renderingGroupId = this.host.evaluated.layer || 0;
     }
   }

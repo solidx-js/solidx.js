@@ -1,5 +1,5 @@
 import { Decorator } from '../Decorator';
-import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { TransformLikeController } from '../controller';
@@ -12,8 +12,14 @@ export class XRNode extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('Vector3', 'rotation', Vector3.Zero())
   rotation = Vector3.Zero();
 
+  @Decorator.property('Quaternion', 'quaternion', null)
+  quaternion!: Quaternion | null;
+
   @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
+
+  @Decorator.property('Number', 'layer', 0)
+  layer = 0;
 
   constructor() {
     super();

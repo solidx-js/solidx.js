@@ -52,7 +52,7 @@ export class TweenController implements ReactiveController {
     //
     else {
       const dType = this.host._Cls.elementProperties.get(property)?.dType;
-      const transDef = this.host.transition.find(i => i.property === property);
+      const transDef = this.host.transition?.find(i => i.property === property);
 
       if (typeof oldValue !== 'undefined' && dType && transDef) {
         this._tweenRef[property] = typedClone(oldValue);

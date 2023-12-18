@@ -4,7 +4,7 @@ import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { ElementUtil, Schema, randomID } from '../../util';
 import { RefController, TransformLikeController } from '../controller';
-import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Matrix, Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { provide } from '@lit/context';
 import { Context } from '../Context';
 import { state } from 'lit/decorators.js';
@@ -37,6 +37,12 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
 
   @Decorator.property('Vector3', 'rotation', Vector3.Zero())
   rotation = Vector3.Zero();
+
+  @Decorator.property('Quaternion', 'quaternion', null)
+  quaternion!: Quaternion | null;
+
+  @Decorator.property('Number', 'layer', 0)
+  layer = 0;
 
   @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();
