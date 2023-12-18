@@ -19,7 +19,7 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
   @Decorator.property('Vector3', 'target', Vector3.Zero())
   target = Vector3.Zero();
 
-  @Decorator.property('String', 'lock-target')
+  @Decorator.property('String', 'lock-target', null)
   lockTarget?: string;
 
   @Decorator.property('Boolean', 'lock-to-center', false)

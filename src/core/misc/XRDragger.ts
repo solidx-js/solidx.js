@@ -9,6 +9,12 @@ import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { RefController2, TickController } from '../controller';
 import { RotationGizmo } from '@babylonjs/core/Gizmos/rotationGizmo';
 
+type IDragStartInfo = {
+  type: 'position' | 'rotation' | 'scale';
+  activeAxis: 'x' | 'y' | 'z';
+  matrix: Matrix;
+};
+
 export class XRDragger extends XRSceneScopeElement<Mesh> {
   @Decorator.property('Vector3', 'position', Vector3.Zero())
   position = Vector3.Zero();
@@ -29,11 +35,7 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
   target!: string | null;
 
   @state()
-  private _dragStartInfo: {
-    type: 'position' | 'rotation' | 'scale';
-    activeAxis: 'x' | 'y' | 'z';
-    matrix: Matrix;
-  } | null = null;
+  private _dragStartInfo: IDragStartInfo | null = null;
 
   @state()
   _target: TransformNode | null = null;
@@ -82,6 +84,16 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
     local.decomposeToTransformNode(this._target);
   };
 
+  private _startDrag = (data: IDragStartInfo) => {
+    if (!this._target) throw new Error('target is null');
+
+    this._dragStartInfo = data;
+  };
+
+  private _endDrag = () => {
+    this._dragStartInfo = null;
+  };
+
   protected willUpdate(changed: Map<string, any>): void {
     super.willUpdate(changed);
 
@@ -97,15 +109,13 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
         _giz.attachedMesh = entity;
 
         _giz.onDragStartObservable.add(() => {
-          this._dragStartInfo = {
+          this._startDrag({
             type: 'position',
             activeAxis: _giz.xGizmo.isHovered ? 'x' : _giz.yGizmo.isHovered ? 'y' : 'z',
             matrix: entity.getWorldMatrix().clone(),
-          };
+          });
         });
-        _giz.onDragEndObservable.add(() => {
-          this._dragStartInfo = null;
-        });
+        _giz.onDragEndObservable.add(() => this._endDrag());
       }
 
       if (!this.evaluated.enablePosition && this._posGiz) {
@@ -122,15 +132,13 @@ export class XRDragger extends XRSceneScopeElement<Mesh> {
         _giz.attachedMesh = entity;
 
         _giz.onDragStartObservable.add(() => {
-          this._dragStartInfo = {
+          this._startDrag({
             type: 'rotation',
             activeAxis: _giz.xGizmo.isHovered ? 'x' : _giz.yGizmo.isHovered ? 'y' : 'z',
             matrix: entity.getWorldMatrix().clone(),
-          };
+          });
         });
-        _giz.onDragEndObservable.add(() => {
-          this._dragStartInfo = null;
-        });
+        _giz.onDragEndObservable.add(() => this._endDrag());
       }
 
       if (!this.evaluated.enableRotation && this._rotGiz) {

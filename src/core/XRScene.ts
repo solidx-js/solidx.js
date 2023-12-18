@@ -35,28 +35,28 @@ export class XRScene extends XRElement {
   engine: Engine;
 
   @provide({ context: Context.Scene })
-  @property({ attribute: false })
+  @state()
   scene: Scene;
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'width', 600)
   width: number = 600;
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'height', 400)
   height: number = 400;
 
-  @Decorator.property('String')
+  @Decorator.property('String', 'environment-texture', XRScene.defaultEnvMap)
   environmentTexture: string = `url: ${XRScene.defaultEnvMap}`;
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'environment-intensity', 1)
   contrast = 1.6;
 
-  @Decorator.property('Number')
+  @Decorator.property('Number', 'exposure', 1.2)
   exposure = 1.2;
 
-  @Decorator.property('Object')
+  @Decorator.property('Object', 'ssao', null)
   ssao?: any;
 
-  @Decorator.property('Boolean', 'auto-resize')
+  @Decorator.property('Boolean', 'auto-resize', false)
   autoResize?: boolean;
 
   @state()
