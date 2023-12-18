@@ -216,14 +216,14 @@ export class RefController2<T extends IEntityType, A extends string, B extends s
   }
 }
 
-export class RefController3<T extends HTMLElement, A extends string, B extends string> implements ReactiveController {
+export class TagRefController<T extends HTMLElement, A extends string, B extends string> implements ReactiveController {
   static create<T1 extends HTMLElement>() {
     return <A1 extends string, B1 extends string>(
       _h: XRElement & { [key in A1]?: string | null } & { [key in B1]: T1 | null },
       _s: A1,
       _t: B1
     ) => {
-      return new RefController3<T1, A1, B1>(_h, _s, _t);
+      return new TagRefController<T1, A1, B1>(_h, _s, _t);
     };
   }
 

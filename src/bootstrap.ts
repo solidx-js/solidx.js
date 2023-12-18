@@ -11,6 +11,10 @@ import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders
 import { UtilityLayerRenderer } from '@babylonjs/core/Rendering/utilityLayerRenderer';
 import * as TWEEN from '@tweenjs/tween.js';
 import { CreateCylinderVertexData } from '@babylonjs/core/Meshes/Builders/cylinderBuilder';
+import { Gizmo } from '@babylonjs/core/Gizmos/gizmo';
+
+Gizmo.PreserveScaling = true;
+Gizmo.UseAbsoluteScaling = false;
 
 // fix: Found invalid interpolation list. Skipping.
 (TWEEN.Tween.prototype as any)._setupProperties = function (

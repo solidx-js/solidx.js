@@ -6,7 +6,7 @@ import '@babylonjs/core/Animations';
 import '@babylonjs/core/Rendering';
 import '@babylonjs/core/Lights';
 
-import './patch';
+import './bootstrap';
 
 // 为了方便使用, 将一些常用的类导出
 export { Matrix, Vector2, Vector3, Vector4, Quaternion, Color3, Color4, Plane } from '@babylonjs/core/Maths';
