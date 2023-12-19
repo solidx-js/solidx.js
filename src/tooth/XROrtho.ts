@@ -9,6 +9,7 @@ import { when } from 'lit/directives/when.js';
 import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math';
 import { DecalImages } from './Const';
 import uniq from 'lodash/uniq';
+import { styleMap } from 'lit/directives/style-map.js';
 
 export class XROrtho extends XRSceneScopeElement<TransformNode> {
   readonly state = new StateController(this);
@@ -19,8 +20,16 @@ export class XROrtho extends XRSceneScopeElement<TransformNode> {
   @state()
   _loadedToothIds: number[] = [];
 
+  @state()
+  _loading = true;
+
   connected(): void {
     super.connected();
+
+    this.style.display = 'block';
+    this.style.width = '100%';
+    this.style.height = '100%';
+    this.style.position = 'relative';
   }
 
   disconnected(): void {
@@ -130,17 +139,89 @@ export class XROrtho extends XRSceneScopeElement<TransformNode> {
     `;
   }
 
+  renderOverlay() {
+    if (this._loading) {
+      return html`<div
+        style=${styleMap({
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        })}
+      >
+        ${Loading()}
+      </div>`;
+    }
+  }
+
   render() {
     return html`
-      <xr-camera id="cam1" radius="80" min-z="0.5" max-z="500"></xr-camera>
+      <xr-scene auto-resize env-rotation-y="216">
+        <xr-camera id="cam1" radius="80" min-z="0.5" max-z="500"></xr-camera>
 
-      <xr-pipeline-ssao2 id="ssao" samples="32" radius="6" max-z="200"></xr-pipeline-ssao2>
+        <xr-pipeline-ssao2 id="ssao" samples="32" radius="6" max-z="200"></xr-pipeline-ssao2>
 
-      ${this.renderTypedMaterial()}
+        ${this.renderTypedMaterial()}
 
-      <xr-node id="HeadSpaceRoot" scale="1 1 -1" rotation="90 180 0">
-        ${this.renderPosType('UPPER')}${this.renderPosType('LOWER')}
-      </xr-node>
+        <xr-node id="HeadSpaceRoot" scale="1 1 -1" rotation="90 180 0">
+          ${this.renderPosType('UPPER')}${this.renderPosType('LOWER')}
+        </xr-node>
+      </xr-scene>
+
+      ${this.renderOverlay()}
     `;
   }
 }
+
+const Loading = () => html`
+  <svg height="1em" viewBox="0 0 100 40" style="vertical-align: -0.125em;">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g transform="translate(-100.000000, -71.000000)">
+        <g transform="translate(95.000000, 71.000000)">
+          <g transform="translate(5.000000, 0.000000)">
+            <rect fill="currentColor" x="20" y="16" width="8" height="8" rx="2">
+              <animate
+                attributeName="y"
+                from="16"
+                to="16"
+                dur="2s"
+                begin="0s"
+                repeatCount="indefinite"
+                values="16; 6; 26; 16; 16"
+                keyTimes="0; 0.1; 0.3; 0.4; 1"
+              ></animate>
+            </rect>
+            <rect fill="currentColor" x="46" y="16" width="8" height="8" rx="2">
+              <animate
+                attributeName="y"
+                from="16"
+                to="16"
+                dur="2s"
+                begin="0.2s"
+                repeatCount="indefinite"
+                values="16; 6; 26; 16; 16"
+                keyTimes="0; 0.1; 0.3; 0.4; 1"
+              ></animate>
+            </rect>
+            <rect fill="currentColor" x="72" y="16" width="8" height="8" rx="2">
+              <animate
+                attributeName="y"
+                from="16"
+                to="16"
+                dur="2s"
+                begin="0.4s"
+                repeatCount="indefinite"
+                values="16; 6; 26; 16; 16"
+                keyTimes="0; 0.1; 0.3; 0.4; 1"
+              ></animate>
+            </rect>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+`;

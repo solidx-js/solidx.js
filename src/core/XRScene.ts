@@ -63,7 +63,6 @@ export class XRScene extends XRElement {
   @query('.xr-canvas-wrapper')
   private containerEle!: HTMLDivElement;
 
-
   private _doRender = () => {
     if (!this.scene.activeCamera) return;
     this.scene.render();
@@ -119,16 +118,18 @@ export class XRScene extends XRElement {
     this.containerEle.appendChild(this.engine.getRenderingCanvas()!);
     if (this.autoResize) this.reCalcContainerSize();
 
-    if (this.inspect) {
-      const m = import('@babylonjs/inspector');
+    if (this.inspect && this.scene.debugLayer) {
+      this.scene.debugLayer.show();
 
-      if ((m as any).then) {
-        m.then(() => {
-          this.scene.debugLayer.show();
-        });
-      } else {
-        this.scene.debugLayer.show();
-      }
+      // const m = import('@babylonjs/inspector');
+
+      // if ((m as any).then) {
+      //   m.then(() => {
+      //     this.scene.debugLayer.show();
+      //   });
+      // } else {
+      //   this.scene.debugLayer.show();
+      // }
     }
   }
 

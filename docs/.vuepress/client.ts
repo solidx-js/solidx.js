@@ -2,7 +2,7 @@
 
 import { defineClientConfig } from '@vuepress/client';
 import { defineAutoCatalogGetter } from 'vuepress-plugin-auto-catalog/client';
-import '../../src';
+import '../../src/max';
 import HtmlLive from './HtmlLive.vue';
 
 export default defineClientConfig({

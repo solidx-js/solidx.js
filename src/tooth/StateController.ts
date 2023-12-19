@@ -12,6 +12,7 @@ export class StateController implements ReactiveController {
 
     prepare().then(data => {
       this.host.datasource = data;
+      this.host._loading = false;
       console.log('@@@', 'data ->', data);
     });
   }
