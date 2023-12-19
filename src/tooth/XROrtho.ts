@@ -134,6 +134,8 @@ export class XROrtho extends XRSceneScopeElement<TransformNode> {
     return html`
       <xr-camera id="cam1" radius="80" min-z="0.5" max-z="500"></xr-camera>
 
+      <xr-pipeline-ssao2 id="ssao" samples="32" radius="6" max-z="200"></xr-pipeline-ssao2>
+
       ${this.renderTypedMaterial()}
 
       <xr-node id="HeadSpaceRoot" scale="1 1 -1" rotation="90 180 0">

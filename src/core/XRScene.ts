@@ -1,12 +1,12 @@
 import { Scene } from '@babylonjs/core/scene';
 import { XRElement } from './XRElement';
-import { property, query, state } from 'lit/decorators.js';
+import { query, state } from 'lit/decorators.js';
 import { provide } from '@lit/context';
 import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
-import { EntityQueryController, PointerController, RefController2, StyleSelectorController } from './controller';
+import { EntityQueryController, PointerController, StyleSelectorController } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { SSAO2RenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssao2RenderingPipeline';
 import { html } from 'lit';
@@ -58,9 +58,6 @@ export class XRScene extends XRElement {
 
   @Decorator.property('Number', 'exposure', 1.2)
   exposure = 1.2;
-
-  @Decorator.property('Object', 'ssao', null)
-  ssao: any = null;
 
   @Decorator.property('Boolean', 'auto-resize', false)
   autoResize = false;
@@ -151,21 +148,6 @@ export class XRScene extends XRElement {
 
     if (changed.has('exposure')) {
       this.scene.imageProcessingConfiguration.exposure = this.evaluated.exposure;
-    }
-
-    if (changed.has('ssao')) {
-      if (this.ssao && !this._ssaoPipeline) {
-        this._ssaoPipeline = new SSAO2RenderingPipeline('SSAO2 rendering pipeline', this.scene, 1, this.scene.cameras);
-      }
-
-      if (!this.ssao && this._ssaoPipeline) {
-        this._ssaoPipeline.dispose();
-        this._ssaoPipeline = null;
-      }
-
-      if (this.ssao && this._ssaoPipeline) {
-        Object.assign(this._ssaoPipeline, this.ssao);
-      }
     }
 
     if (changed.has('envUrl') && this.scene.environmentTexture instanceof CubeTexture) {

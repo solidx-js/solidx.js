@@ -21,6 +21,7 @@ import {
   XRStyle,
   XRLine,
   XRDragger,
+  XRPipelineSSAO2,
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
@@ -74,6 +75,7 @@ ElementRegistry.Instance.register('xr-grid-material', XRGridMaterial as any);
 ElementRegistry.Instance.register('xr-style', XRStyle as any);
 ElementRegistry.Instance.register('xr-line', XRLine as any);
 ElementRegistry.Instance.register('xr-dragger', XRDragger as any);
+ElementRegistry.Instance.register('xr-pipeline-ssao2', XRPipelineSSAO2 as any);
 
 // primitives
 ElementRegistry.Instance.register('xr-env', XREnv as any);
