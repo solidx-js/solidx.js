@@ -48,6 +48,9 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
   @Decorator.property('Boolean', 'use-ray', false)
   useRay = false;
 
+  @Decorator.property('String', 'ray-scope', 'scene')
+  rayScope: 'scene' | 'parent' = 'scene';
+
   private _projector: Mesh | null = null;
   private _material: StandardMaterial | null = null;
   private _texture: Texture | null = null;
@@ -102,7 +105,13 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       // 射线起点在投影体的中心偏移一半射线长度
       origin.addToRef(direction.scale(-this._ray.length / 2), this._ray.origin);
 
-      const pk = this.scene.pickWithRay(this._ray);
+      const canHitMeshes = new Set(
+        (this.rayScope === 'parent' && parent ? parent.getChildMeshes(false) : this.scene.meshes).filter(
+          m => m.isPickable && m.isVisible && m.isEnabled() && m.visibility > 0
+        )
+      );
+
+      const pk = this.scene.pickWithRay(this._ray, m => canHitMeshes.has(m));
       if (pk?.pickedMesh && pk.pickedMesh instanceof Mesh) {
         targetMesh = pk.pickedMesh;
       }
@@ -138,7 +147,12 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
     super.willUpdate(changed);
 
     const shouldRecreate =
-      changed.has('size') || changed.has('position') || changed.has('direction') || changed.has('angle') || changed.has('useRay');
+      changed.has('size') ||
+      changed.has('position') ||
+      changed.has('direction') ||
+      changed.has('angle') ||
+      changed.has('useRay') ||
+      changed.has('rayScope');
 
     if (shouldRecreate) this.reload();
 

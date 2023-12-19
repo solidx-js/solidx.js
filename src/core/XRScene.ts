@@ -53,8 +53,8 @@ export class XRScene extends XRElement {
   @Decorator.property('Number', 'env-rotation-y', 0)
   envRotationY = 0;
 
-  @Decorator.property('Number', 'contrast', 1)
-  contrast = 1.6;
+  @Decorator.property('Number', 'contrast', 1.2)
+  contrast = 1.2;
 
   @Decorator.property('Number', 'exposure', 1.2)
   exposure = 1.2;

@@ -77,15 +77,17 @@ export class XROrtho extends XRSceneScopeElement<TransformNode> {
         >
           ${when(
             this._loadedToothIds.includes(tooth.id) && decalImg,
-            () =>
-              html`<xr-decal
+            () => html`
+              <xr-decal
                 id="tooth_decal_${tooth.id}"
                 img="${decalImg}"
                 origin="5 0 0"
                 size="2 2 8"
                 direction="-1 0 0"
                 use-ray
-              ></xr-decal>`
+                ray-scope="parent"
+              ></xr-decal>
+            `
           )}
         </xr-model>
 
@@ -104,23 +106,25 @@ export class XROrtho extends XRSceneScopeElement<TransformNode> {
 
     const jaw = ds.jaw[posType];
 
-    return html` <xr-node id="jaw-${posType}">
-      <xr-model id="jaw_${jaw.id}" src="${jaw.resourceUrl}" extension=".ctm" material="jaw-mat"></xr-model>
-      ${repeat(
-        ds.toothList.filter(t => t.posType === posType),
-        t => t.id,
-        t => this.renderSingleTooth(t)
-      )}
-    </xr-node>`;
+    return html`
+      <xr-node id="jaw-${posType}">
+        <xr-model id="jaw_${jaw.id}" src="${jaw.resourceUrl}" extension=".ctm" material="jaw-mat"></xr-model>
+        ${repeat(
+          ds.toothList.filter(t => t.posType === posType),
+          t => t.id,
+          t => this.renderSingleTooth(t)
+        )}
+      </xr-node>
+    `;
   }
 
   renderTypedMaterial() {
     return html`
       <xr-material id="tooth-mat" metallic="0.5" roughness="0.8"></xr-material>
 
-      <xr-material id="attachment-mat-PRESSURE_BAR" metallic="0.8" roughness="0.2" albedo-color="#65B9FF"></xr-material>
-      <xr-material id="attachment-mat-INDICATIVE" metallic="0.8" roughness="0.2" albedo-color="#6fabe7"></xr-material>
-      <xr-material id="attachment-mat-NORMAL" metallic="0.8" roughness="0.2" albedo-color="#e7706f"></xr-material>
+      <xr-material id="attachment-mat-PRESSURE_BAR" alpha="0.8" metallic="0.8" roughness="0.2" albedo-color="#65B9FF"></xr-material>
+      <xr-material id="attachment-mat-INDICATIVE" alpha="0.8" metallic="0.8" roughness="0.2" albedo-color="#6fabe7"></xr-material>
+      <xr-material id="attachment-mat-NORMAL" alpha="0.8" metallic="0.8" roughness="0.2" albedo-color="#e7706f"></xr-material>
 
       <xr-material id="jaw-mat" metallic="0" roughness="1" albedo-color="#FF7A7A" backface-culling></xr-material>
     `;
