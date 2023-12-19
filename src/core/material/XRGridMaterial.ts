@@ -8,22 +8,22 @@ export class XRGridMaterial extends XRBaseMaterial<GridMaterial> {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Color3', 'main-color', Color3.White())
-  mainColor!: Color3;
+  mainColor: Color3 = Color3.White();
 
   @Decorator.property('Color3', 'line-color', Color3.Black())
-  lineColor!: Color3;
+  lineColor: Color3 = Color3.Black();
 
   @Decorator.property('Number', 'grid-ratio', 1)
-  gridRatio!: number;
+  gridRatio: number = 1;
 
   @Decorator.property('Number', 'major-unit-frequency', 10)
-  majorUnitFrequency!: number;
+  majorUnitFrequency: number = 10;
 
   @Decorator.property('Number', 'minor-unit-visible', 0.5)
-  minorUnitVisibility!: number;
+  minorUnitVisibility: number = 0.5;
 
   @Decorator.property('Number', 'opacity', 0.99)
-  opacity!: number; // In transparent mode (opacity < 1.0), the empty area will always be at an opacity level of 0.08
+  opacity: number = 0.99; // In transparent mode (opacity < 1.0), the empty area will always be at an opacity level of 0.08
 
   constructor() {
     super();

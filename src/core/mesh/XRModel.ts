@@ -30,7 +30,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   );
 
   @Decorator.property('String', 'src', '')
-  src: string = '';
+  src = '';
 
   @Decorator.property('Vector3', 'position', Vector3.Zero())
   position = Vector3.Zero();
@@ -39,7 +39,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   rotation = Vector3.Zero();
 
   @Decorator.property('Quaternion', 'quaternion', null)
-  quaternion!: Quaternion | null;
+  quaternion = null;
 
   @Decorator.property('Number', 'layer', 0)
   layer = 0;
@@ -48,13 +48,13 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
   scale = Vector3.One();
 
   @Decorator.property('String', 'extension', null)
-  extension!: string | null;
+  extension = null;
 
   @Decorator.property('String', 'material', null)
-  material!: string | null;
+  material = null;
 
   @Decorator.property('String', 'auto-play', null)
-  autoPlay!: string | null;
+  autoPlay = null;
 
   @Decorator.property('Boolean', 'loop', false)
   loop = false;
@@ -66,10 +66,10 @@ export class XRModel extends XRSceneScopeElement<TransformNode> {
    * 原点转换。如果设置了该属性，则会把模型的原点转换到指定的位置。
    */
   @Decorator.property('Matrix', 'origin-transform', null)
-  originTransform!: Matrix | null;
+  originTransform: Matrix | null = null;
 
   @Decorator.property('Boolean', 'preload', false)
-  preload!: boolean | null;
+  preload: boolean | null = false;
 
   constructor() {
     super();

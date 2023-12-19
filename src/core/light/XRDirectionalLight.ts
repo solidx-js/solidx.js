@@ -10,25 +10,25 @@ export class XRDirectionalLight extends XRSceneScopeElement<DirectionalLight> {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position!: Vector3;
+  position = Vector3.Zero();
 
   @Decorator.property('Color3', 'diffuse', new Color3(1, 1, 1))
-  diffuse!: Color3;
+  diffuse: Color3 = new Color3(1, 1, 1);
 
   @Decorator.property('Color3', 'specular', new Color3(1, 1, 1))
-  specular!: Color3;
+  specular: Color3 = new Color3(1, 1, 1);
 
   @Decorator.property('Number', 'intensity', 1)
-  intensity!: number;
+  intensity: number = 1;
 
   @Decorator.property('Boolean', 'shadowEnabled', false)
-  shadowEnabled!: boolean;
+  shadowEnabled: boolean = false;
 
   @Decorator.property('Number', 'alpha', 40)
-  alpha = 40;
+  alpha: number = 40;
 
   @Decorator.property('Number', 'beta', 30)
-  beta = 30;
+  beta: number = 30;
 
   constructor() {
     super();

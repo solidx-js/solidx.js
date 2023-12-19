@@ -10,22 +10,22 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Color3', 'albedo-color', Color3.White())
-  albedoColor!: Color3;
+  albedoColor = Color3.White();
 
   @Decorator.property('String', 'albedo-texture', null)
-  albedoTexture!: string | null;
+  albedoTexture = null;
 
   @Decorator.property('Number', 'metallic', 0.2)
-  metallic!: number;
+  metallic = 0.2;
 
   @Decorator.property('Number', 'roughness', 0.8)
-  roughness!: number;
+  roughness = 0.8;
 
   @Decorator.property('Color3', 'emissive-color', Color3.Black())
-  emissiveColor!: Color3;
+  emissiveColor = Color3.Black();
 
   @Decorator.property('Boolean', 'unlit', false)
-  unlit!: boolean;
+  unlit = false;
 
   @state()
   _albedoTexture: Texture | null = null;

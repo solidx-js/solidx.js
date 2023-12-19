@@ -13,7 +13,7 @@ export class XRNode extends XRSceneScopeElement<TransformNode> {
   rotation = Vector3.Zero();
 
   @Decorator.property('Quaternion', 'quaternion', null)
-  quaternion!: Quaternion | null;
+  quaternion: Quaternion | null = null;
 
   @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();

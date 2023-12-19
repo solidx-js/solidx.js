@@ -17,19 +17,19 @@ export class XRElement<T = any> extends LitElement {
 
   // 基础属性
   @Decorator.property('Object', 'inspect', null)
-  inspect!: Record<string, string> | null;
+  inspect: Record<string, string> | null = null;
 
   @Decorator.property('Boolean', 'disabled', false)
-  disabled!: boolean;
+  disabled = false;
 
   @Decorator.property('TransitionList', 'transition', null)
-  transition!: IDataTypeMap['TransitionList'] | null;
+  transition: IDataTypeMap['TransitionList'] | null = null;
 
   @Decorator.property('String', 'class', null)
-  class?: string;
+  class: string | null = null;
 
   @Decorator.property('Boolean', 'mouse-over', false)
-  mouseOver!: boolean;
+  mouseOver = false;
 
   private _tweenCtrl: TweenController;
   private _tweenLerpData: { [key: string]: any } = {}; // 过渡期间的插值数据
@@ -64,13 +64,6 @@ export class XRElement<T = any> extends LitElement {
 
   constructor() {
     super();
-
-    if (!this.id) this.id = '_' + randomID(); // 默认 id
-
-    // 设置默认值
-    for (const [key, def] of this._Cls.elementProperties) {
-      (this as any)[key] = typedClone(def.initValue);
-    }
 
     // 这里初始化一些基础控制器
     new NodeStateController(this);
@@ -129,7 +122,14 @@ export class XRElement<T = any> extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
+    // 检查默认值
+    for (const [key, def] of this._Cls.elementProperties) {
+      if (typeof (this as any)[key] === 'undefined') this.logger.warn(`Missing default value for property: %s`, key);
+    }
+
     this.logger.debug('connected');
+
+    if (!this.id) this.id = '_' + randomID(); // 默认 id
 
     // 检查必须的属性
     if (this._Cls.requiredAttrs.length > 0) {

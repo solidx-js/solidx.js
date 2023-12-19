@@ -30,15 +30,16 @@ export class XRScene extends XRElement {
   }
 
   static defaultEnvMap = new URL('../assets/EnvMap_3.0-256.env', import.meta.url).href;
+  // static defaultEnvMap = 'https://assets.babylonjs.com/environments/studio.env';
 
   readonly ID = randomID();
   readonly querier = new EntityQueryController(this);
 
-  engine: Engine;
+  engine!: Engine;
 
   @provide({ context: Context.Scene })
   @state()
-  scene: Scene;
+  scene: Scene = null as any;
 
   @Decorator.property('Number', 'width', 600)
   width: number = 600;
@@ -46,35 +47,44 @@ export class XRScene extends XRElement {
   @Decorator.property('Number', 'height', 400)
   height: number = 400;
 
-  @Decorator.property('String', 'environment-texture', XRScene.defaultEnvMap)
-  environmentTexture: string = `url: ${XRScene.defaultEnvMap}`;
+  @Decorator.property('String', 'env-url', XRScene.defaultEnvMap)
+  envUrl: string = XRScene.defaultEnvMap;
 
-  @Decorator.property('Number', 'environment-intensity', 1)
+  @Decorator.property('Number', 'env-rotation-y', 0)
+  envRotationY = 0;
+
+  @Decorator.property('Number', 'contrast', 1)
   contrast = 1.6;
 
   @Decorator.property('Number', 'exposure', 1.2)
   exposure = 1.2;
 
   @Decorator.property('Object', 'ssao', null)
-  ssao?: any;
+  ssao: any = null;
 
   @Decorator.property('Boolean', 'auto-resize', false)
-  autoResize?: boolean;
-
-  @state()
-  _environmentTexture: CubeTexture | null = null;
+  autoResize = false;
 
   @query('.xr-canvas-wrapper')
   private containerEle!: HTMLDivElement;
 
   private _ssaoPipeline: SSAO2RenderingPipeline | null = null;
 
-  constructor() {
-    super();
+  private _doRender = () => {
+    if (!this.scene.activeCamera) return;
+    this.scene.render();
+  };
 
-    new RefController2(this, 'cube-texture', 'environmentTexture', '_environmentTexture');
-    new StyleSelectorController(this);
-    new PointerController(this);
+  private reCalcContainerSize() {
+    const rect = this.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      this.width = rect.width;
+      this.height = rect.height;
+    }
+  }
+
+  connected(): void {
+    super.connected();
 
     this.style.display = 'block';
     this.style.position = 'relative';
@@ -93,33 +103,22 @@ export class XRScene extends XRElement {
     this.scene.autoClear = true;
     this.scene.clearColor = new Color4(0, 0, 0, 0); // 默认透明背景
 
+    // FIXME: 一定要提前设置好环境贴图，否则后面不会生效（即使重新标记 material markAsDirty）。why?
+    this.scene.environmentTexture = CubeTexture.CreateFromPrefilteredData(XRScene.defaultEnvMap, this.scene);
+
     // 默认材质
     const defaultMaterial = new PBRMaterial('default', this.scene);
     defaultMaterial.metallic = 0.2;
     defaultMaterial.roughness = 0.8;
 
     this.scene.defaultMaterial = defaultMaterial;
-  }
-
-  private _doRender = () => {
-    if (!this.scene.activeCamera) return;
-    this.scene.render();
-  };
-
-  private reCalcContainerSize() {
-    const rect = this.getBoundingClientRect();
-    if (rect.width && rect.height) {
-      this.width = rect.width;
-      this.height = rect.height;
-    }
-  }
-
-  connected(): void {
-    super.connected();
 
     if (this.autoResize) this.reCalcContainerSize();
-
     this.engine.runRenderLoop(this._doRender);
+
+    // 放到最后
+    new StyleSelectorController(this);
+    new PointerController(this);
   }
 
   protected firstUpdated(): void {
@@ -127,9 +126,15 @@ export class XRScene extends XRElement {
     if (this.autoResize) this.reCalcContainerSize();
 
     if (this.inspect) {
-      import('@babylonjs/inspector').then(() => {
-        this.scene.debugLayer.show(); // for debug
-      });
+      const m = import('@babylonjs/inspector');
+
+      if ((m as any).then) {
+        m.then(() => {
+          this.scene.debugLayer.show();
+        });
+      } else {
+        this.scene.debugLayer.show();
+      }
     }
   }
 
@@ -163,7 +168,13 @@ export class XRScene extends XRElement {
       }
     }
 
-    if (changed.has('_environmentTexture')) this.scene.environmentTexture = this._environmentTexture;
+    if (changed.has('envUrl') && this.scene.environmentTexture instanceof CubeTexture) {
+      this.scene.environmentTexture.updateURL(this.evaluated.envUrl);
+    }
+
+    if (changed.has('envRotationY') && this.scene.environmentTexture instanceof CubeTexture) {
+      this.scene.environmentTexture.rotationY = this.evaluated.envRotationY * (Math.PI / 180);
+    }
   }
 
   disconnected(): void {

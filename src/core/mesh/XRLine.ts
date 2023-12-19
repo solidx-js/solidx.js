@@ -9,25 +9,25 @@ import { TransformLikeController } from '../controller';
 
 export class XRLine extends XRSceneScopeElement<LinesMesh> {
   @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position!: Vector3;
+  position = Vector3.Zero();
 
   @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation!: Vector3;
+  rotation = Vector3.Zero();
 
   @Decorator.property('String', 'points', '')
-  points!: string;
+  points = '';
 
   @Decorator.property('String', 'colors', '')
-  colors!: string;
+  colors = '';
 
   @Decorator.property('Boolean', 'disable-pointer-event', false)
-  disablePointerEvent!: boolean;
+  disablePointerEvent = false;
 
   @Decorator.property('Number', 'layer', 0)
-  layer!: number;
+  layer = 0;
 
   @Decorator.property('Quaternion', 'quaternion', null)
-  quaternion!: Quaternion | null;
+  quaternion: Quaternion | null = null;
 
   @Decorator.property('Vector3', 'scale', Vector3.One())
   scale = Vector3.One();

@@ -10,79 +10,79 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> {
   type = 'box';
 
   @Decorator.property('Number', 'size', null)
-  size!: number | null;
+  size: number | null = null;
 
   @Decorator.property('Number', 'width', null)
-  width!: number | null;
+  width: number | null = null;
 
   @Decorator.property('Number', 'height', null)
-  height!: number | null;
+  height: number | null = null;
 
   @Decorator.property('Number', 'depth', null)
-  depth!: number | null;
+  depth: number | null = null;
 
   @Decorator.property('Number', 'side-orientation', null)
-  sideOrientation!: number | null;
+  sideOrientation: number | null = null;
 
   @Decorator.property('Vector4', 'front-uvs', null)
-  frontUVs!: Vector4 | null;
+  frontUVs: Vector4 | null = null;
 
   @Decorator.property('Vector4', 'back-uvs', null)
-  backUVs!: Vector4 | null;
+  backUVs: Vector4 | null = null;
 
   @Decorator.property('Boolean', 'wrap', null)
-  wrap!: boolean | null;
+  wrap: boolean | null = null;
 
   @Decorator.property('Number', 'top-base-at', null)
-  topBaseAt!: number | null;
+  topBaseAt: number | null = null;
 
   @Decorator.property('Number', 'bottom-base-at', null)
-  bottomBaseAt!: number | null;
+  bottomBaseAt: number | null = null;
 
   @Decorator.property('Number', 'segments', null)
-  segments!: number | null;
+  segments: number | null = null;
 
   @Decorator.property('Number', 'diameter', null)
-  diameter!: number | null;
+  diameter: number | null = null;
 
   @Decorator.property('Number', 'diameter-x', null)
-  diameterX!: number | null;
+  diameterX: number | null = null;
 
   @Decorator.property('Number', 'diameter-y', null)
-  diameterY!: number | null;
+  diameterY: number | null = null;
 
   @Decorator.property('Number', 'diameter-z', null)
-  diameterZ!: number | null;
+  diameterZ: number | null = null;
 
   @Decorator.property('Number', 'arc', null)
-  arc!: number | null;
+  arc: number | null = null;
 
   @Decorator.property('Number', 'slice', null)
-  slice!: number | null;
+  slice: number | null = null;
 
   @Decorator.property('Boolean', 'dedup-top-bottom-indices', null)
-  dedupTopBottomIndices!: boolean | null;
+  dedupTopBottomIndices: boolean | null = null;
 
   @Decorator.property('Number', 'diameter-top', null)
-  diameterTop!: number | null;
+  diameterTop: number | null = null;
 
   @Decorator.property('Number', 'diameter-bottom', null)
-  diameterBottom!: number | null;
+  diameterBottom: number | null = null;
 
   @Decorator.property('Number', 'tessellation', null)
-  tessellation!: number | null;
+  tessellation: number | null = null;
 
   @Decorator.property('Number', 'subdivisions', null)
-  subdivisions!: number | null;
+  subdivisions: number | null = null;
 
   @Decorator.property('Boolean', 'has-rings', null)
-  hasRings!: boolean | null;
+  hasRings: boolean | null = null;
 
   @Decorator.property('Boolean', 'enclose', null)
-  enclose!: boolean | null;
+  enclose: boolean | null = null;
 
   @Decorator.property('Number', 'cap', null)
-  cap!: number | null;
+  cap: number | null = null;
 
   constructor() {
     super();

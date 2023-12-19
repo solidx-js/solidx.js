@@ -10,16 +10,16 @@ export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Boolean', 'use-rgb-color', false)
-  useRGBColor!: boolean;
+  useRGBColor = false;
 
   @Decorator.property('Color3', 'primary-color', Color3.White())
-  primaryColor!: Color3;
+  primaryColor = Color3.White();
 
   @Decorator.property('Boolean', 'enable-noise', false)
-  enableNoise!: boolean;
+  enableNoise = false;
 
   @Decorator.property('String', 'reflection-texture', null)
-  reflectionTexture!: string | null;
+  reflectionTexture: string | null = null;
 
   @state()
   _reflectionTexture: CubeTexture | null = null;

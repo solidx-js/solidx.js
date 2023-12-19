@@ -14,28 +14,28 @@ export class XRMesh extends XRSceneScopeElement<Mesh> {
   geometry: string | null = null;
 
   @Decorator.property('String', 'material', null)
-  material!: string | null;
+  material: string | null = null;
 
   @Decorator.property('String', 'grid-material', null)
   gridMaterial: string | null = null;
 
   @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position = Vector3.Zero();
+  position: Vector3 = Vector3.Zero();
 
   @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation!: Vector3;
+  rotation: Vector3 = Vector3.Zero();
 
   @Decorator.property('Quaternion', 'quaternion', null)
-  quaternion!: Quaternion | null;
+  quaternion: Quaternion | null = null;
 
   @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale = Vector3.One();
+  scale: Vector3 = Vector3.One();
 
   @Decorator.property('Boolean', 'disable-pointer-event', false)
-  disablePointerEvent!: boolean;
+  disablePointerEvent: boolean = false;
 
   @Decorator.property('Number', 'layer', 0)
-  layer = 0;
+  layer: number = 0;
 
   @state()
   _geometry: Geometry | null = null;

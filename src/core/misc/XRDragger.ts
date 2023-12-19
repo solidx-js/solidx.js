@@ -19,19 +19,19 @@ type IDragStartInfo = {
 
 export class XRDragger extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale = Vector3.One();
+  scale: Vector3 = Vector3.One();
 
   @Decorator.property('Boolean', 'enable-position', false)
-  enablePosition!: Boolean;
+  enablePosition: boolean = false;
 
   @Decorator.property('Boolean', 'enable-rotation', false)
-  enableRotation!: Boolean;
+  enableRotation: boolean = false;
 
   @Decorator.property('Boolean', 'enable-scale', false)
-  enableScale!: Boolean;
+  enableScale: boolean = false;
 
   @Decorator.property('String', 'target', null)
-  target!: string | null;
+  target: string | null = null;
 
   @state()
   private _dragStartInfo: IDragStartInfo | null = null;

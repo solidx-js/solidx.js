@@ -8,19 +8,19 @@ export class XRArrow extends PrimitiveBase {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Number', 'thickness', 1)
-  thickness!: number;
+  thickness = 1;
 
   @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position!: Vector3;
+  position = Vector3.Zero();
 
   @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation!: Vector3;
+  rotation = Vector3.Zero();
 
   @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale!: Vector3;
+  scale = Vector3.One();
 
   @Decorator.property('Color3', 'color', Color3.Red())
-  color!: Color3;
+  color = Color3.Red();
 
   connected(): void {
     super.connected();

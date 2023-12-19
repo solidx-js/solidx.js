@@ -30,6 +30,9 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> {
   @Decorator.property('Number', 'rotation-y', 0)
   rotationY: number = 0;
 
+  @Decorator.property('Boolean', 'extension', null)
+  extension: string | null = null;
+
   constructor() {
     super();
     new TextureController(this);
@@ -47,7 +50,11 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> {
 
     if (!this.entity) return;
 
-    if (changed.has('url')) this.entity.updateURL(this.evaluated.url || '');
+    if (changed.has('url') && this.evaluated.url) {
+      const url = this.evaluated.url;
+      this.entity.updateURL(url, this.evaluated.extension || undefined);
+    }
+
     if (changed.has('rotationY')) this.entity.rotationY = this.evaluated.rotationY;
   }
 
