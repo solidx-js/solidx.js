@@ -4,7 +4,7 @@ import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { ElementUtil, Schema, randomID } from '../../util';
 import { RefController, TransformLikeController } from '../controller';
-import { Matrix, Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { provide } from '@lit/context';
 import { Context } from '../Context';
 import { state } from 'lit/decorators.js';

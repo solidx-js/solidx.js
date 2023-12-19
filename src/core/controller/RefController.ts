@@ -259,6 +259,7 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
       if (typeof selector === 'string') {
         // object 格式
         if (selector.includes(':') || selector === '') {
+          this.host.logger.warn('TagRefController: object selector is not supported yet.');
         }
 
         // string 格式

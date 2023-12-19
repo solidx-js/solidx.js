@@ -8,7 +8,6 @@ import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
 import { EntityQueryController, PointerController, StyleSelectorController } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
-import { SSAO2RenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssao2RenderingPipeline';
 import { html } from 'lit';
 import { randomID } from '../util';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -30,7 +29,6 @@ export class XRScene extends XRElement {
   }
 
   static defaultEnvMap = new URL('../assets/EnvMap_3.0-256.env', import.meta.url).href;
-  // static defaultEnvMap = 'https://assets.babylonjs.com/environments/studio.env';
 
   readonly ID = randomID();
   readonly querier = new EntityQueryController(this);
@@ -65,7 +63,6 @@ export class XRScene extends XRElement {
   @query('.xr-canvas-wrapper')
   private containerEle!: HTMLDivElement;
 
-  private _ssaoPipeline: SSAO2RenderingPipeline | null = null;
 
   private _doRender = () => {
     if (!this.scene.activeCamera) return;
