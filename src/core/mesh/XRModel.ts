@@ -10,8 +10,9 @@ import { Context } from '../Context';
 import { state } from 'lit/decorators.js';
 import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
+import { ITransformNodeLikeImpl } from '../../type';
 
-export class XRModel extends XRSceneScopeElement<TransformNode> {
+export class XRModel extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
   @provide({ context: Context.AssetContainer })
   @state()
   private _container: AssetContainer | null = null;

@@ -8,8 +8,8 @@ import { state } from 'lit/decorators.js';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { TagRefController, TickController } from '../controller';
 import { RotationGizmo } from '@babylonjs/core/Gizmos/rotationGizmo';
-import { XRMesh, XRNode } from '../mesh';
 import { ScaleGizmo } from '@babylonjs/core/Gizmos/scaleGizmo';
+import { ITransformNodeLikeImpl } from '../../type';
 
 type IDragStartInfo = {
   type: 'position' | 'rotation' | 'scale';
@@ -37,7 +37,7 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
   private _dragStartInfo: IDragStartInfo | null = null;
 
   @state()
-  _target: XRMesh | XRNode | null = null;
+  _target: ITransformNodeLikeImpl | null = null;
 
   private _rotEntity: Mesh | null = null; // 用于旋转的 host
   private _posScaleEntity: Mesh | null = null; // 用于平移和缩放的 host
@@ -49,7 +49,7 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
   constructor() {
     super();
 
-    TagRefController.create<XRMesh | XRNode>()(this, 'target', '_target');
+    new TagRefController(this, 'target', '_target');
     new TickController(this, this._onTick);
   }
 
@@ -155,7 +155,7 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
 
     // 没有拖拽中
     if (!this._dragStartInfo) {
-      this._resetRootTransform();
+      this._resetCursorTransform();
     }
   };
 
@@ -166,10 +166,10 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
 
   private _endDrag = () => {
     this._dragStartInfo = null;
-    this._resetRootTransform();
+    this._resetCursorTransform();
   };
 
-  private _resetRootTransform() {
+  private _resetCursorTransform() {
     if (this.entity && this._rotEntity && this._posScaleEntity && this._target && this._target.entity) {
       const world = this._target.entity.getWorldMatrix();
 
@@ -291,7 +291,7 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
     }
 
     if (changed.has('_target')) {
-      this._resetRootTransform();
+      this._resetCursorTransform();
     }
   }
 

@@ -8,8 +8,9 @@ import { state } from 'lit/decorators.js';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
 import { GridMaterial } from '@babylonjs/materials/grid';
 import { Material } from '@babylonjs/core/Materials/material';
+import { ITransformNodeLikeImpl } from '../../type';
 
-export class XRMesh extends XRSceneScopeElement<Mesh> {
+export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeLikeImpl {
   @Decorator.property('String', 'geometry', null)
   geometry: string | null = null;
 

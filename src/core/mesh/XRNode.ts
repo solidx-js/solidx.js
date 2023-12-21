@@ -4,8 +4,9 @@ import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { TransformLikeController } from '../controller';
 import { ElementUtil, randomID } from '../../util';
+import { ITransformNodeLikeImpl } from '../../type';
 
-export class XRNode extends XRSceneScopeElement<TransformNode> {
+export class XRNode extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
   @Decorator.property('Vector3', 'position', Vector3.Zero())
   position = Vector3.Zero();
 

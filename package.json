@@ -70,7 +70,8 @@
     "@tweenjs/tween.js": "^21.0.0",
     "ah-logger": "^3.2.8",
     "lit": "^3.1.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "tslib": "^2.6.2"
   },
   "targets": {
     "global": {

@@ -54,7 +54,7 @@ export class EntityInspectController implements ReactiveController {
       const color = inspect.color || '#ff0000';
       const scale = parseFloat(inspect.scale || '1');
 
-      const axesVisible = Tags.MatchesQuery(entity, 'decal') ? false : inspect.axes === 'false' ? false : true;
+      const axesVisible = inspect.axes === 'false' ? false : true;
 
       // TransformNode
       if (entity instanceof TransformNode) {

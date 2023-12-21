@@ -34,3 +34,13 @@ declare global {
     pick: any;
   }
 }
+
+declare module '*.png' {
+  const value: any;
+  export default value;
+}
+
+declare module '*.env' {
+  const value: any;
+  export default value;
+}

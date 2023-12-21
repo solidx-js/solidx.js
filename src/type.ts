@@ -1,4 +1,4 @@
-import type { BaseTexture, TransformNode, CubeTexture, BackgroundMaterial } from '@babylonjs/core';
+import type { BaseTexture, TransformNode, CubeTexture, BackgroundMaterial, Vector3, Quaternion } from '@babylonjs/core';
 import type { Material } from '@babylonjs/core/Materials/material';
 import type { Geometry } from '@babylonjs/core/Meshes/geometry';
 import type { Mesh } from '@babylonjs/core/Meshes/mesh';
@@ -48,4 +48,13 @@ export type IAniItem = {
   timingFunction: string;
   delay: number;
   name: string;
+};
+
+export type ITransformNodeLikeImpl = {
+  entity: TransformNode | null;
+  position: Vector3;
+  rotation: Vector3;
+  quaternion: Quaternion | null;
+  scale: Vector3;
+  layer: number;
 };

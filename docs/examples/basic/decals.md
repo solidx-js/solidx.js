@@ -6,17 +6,17 @@
 
 ```html
 <xr-scene auto-resize>
-  <xr-camera id="cam1" radius="3" alpha="-115" beta="120"></xr-camera>
+  <xr-camera id="cam1" radius="3" alpha="-70"></xr-camera>
 
   <xr-mesh id="box1" inspect="axes: true; scale: 0.5" geometry="type: box" material="">
     <xr-decal
       id="decal-1"
       img="/assets/decal.png"
       img-level="2"
-      origin="-0.5 -0.5 -0.5"
-      direction="1 1 1.01"
-      size="0.8 0.8 1"
-      inspect
+      position="0 0 -0.5"
+      rotation="0 0 0"
+      scale="0.8 0.8 1"
+      inspect="axes: false"
     ></xr-decal>
   </xr-mesh>
 </xr-scene>
@@ -25,7 +25,7 @@
   $disposes.push(
     anime({
       targets: $('#decal-1').toAttributeObject(),
-      angle: ['0', '360'],
+      rotation: ['0 0 0', '0 0 360'],
       duration: 4000,
       loop: true,
       easing: 'easeInOutQuad',
@@ -50,11 +50,10 @@
     id="decal-1"
     img="/assets/decal.png"
     img-level="2"
-    origin="1 0 0"
-    direction="-1 0 0"
-    size="0.8 0.8 1.3"
+    position="1 0 0"
+    scale="0.8 0.8 1.3"
     use-ray
-    inspect
+    inspect="axes: false"
   ></xr-decal>
 </xr-scene>
 
@@ -67,16 +66,40 @@
 
     const timer = setInterval(() => {
       r += 0.01;
-      const origin = [Math.cos(r) * 0.8, 0, Math.sin(r) * 0.8].join(' ');
-      const direction = [-Math.cos(r), 0, -Math.sin(r)].join(' ');
+      const position = [Math.cos(r) * 0.8, 0, Math.sin(r) * 0.8].join(' ');
 
-      decal.setAttribute('origin', origin);
-      decal.setAttribute('direction', direction);
+      decal.setAttribute('position', position);
+      decal.setAttribute('rotation', `0 -${(r * 180) / Math.PI + 90} 0`);
     }, 20);
 
     $disposes.push(() => clearInterval(timer));
   })();
 </script>
+```
+
+:::
+
+## 调整位置
+
+::: demo
+
+```html
+<xr-scene auto-resize>
+  <xr-camera id="cam1" radius="4" alpha="-40"></xr-camera>
+  <xr-mesh id="box1" geometry="type: box" material="alpha: 0.3">
+    <xr-decal
+      id="decal-1"
+      img="/assets/decal.png"
+      img-level="2"
+      position="0 0 -0.5"
+      rotation="0 0 0"
+      scale="0.8 0.8 1"
+      inspect="axes: false"
+    ></xr-decal>
+  </xr-mesh>
+
+  <xr-dragger target="#decal-1" enable-position enable-rotation></xr-dragger>
+</xr-scene>
 ```
 
 :::

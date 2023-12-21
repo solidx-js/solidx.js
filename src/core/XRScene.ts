@@ -118,18 +118,16 @@ export class XRScene extends XRElement {
     this.containerEle.appendChild(this.engine.getRenderingCanvas()!);
     if (this.autoResize) this.reCalcContainerSize();
 
-    if (this.inspect && this.scene.debugLayer) {
-      this.scene.debugLayer.show();
+    if (this.inspect) {
+      const m = import('@babylonjs/inspector');
 
-      // const m = import('@babylonjs/inspector');
-
-      // if ((m as any).then) {
-      //   m.then(() => {
-      //     this.scene.debugLayer.show();
-      //   });
-      // } else {
-      //   this.scene.debugLayer.show();
-      // }
+      if ((m as any).then) {
+        m.then(() => {
+          this.scene.debugLayer.show();
+        });
+      } else {
+        this.scene.debugLayer.show();
+      }
     }
   }
 

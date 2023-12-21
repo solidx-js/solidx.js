@@ -1,6 +1,6 @@
 import { ReactiveController } from 'lit';
 import { XRElement } from '../XRElement';
-import { XRStyle } from '../misc';
+import { XRStyle } from '../misc/XRStyle';
 
 type IStyleItem = { weight: number; domOrder: number; selector: string; attributes: Record<string, string> };
 

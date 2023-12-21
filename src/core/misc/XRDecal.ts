@@ -1,7 +1,7 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Decorator } from '../Decorator';
-import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Quaternion, TmpVectors, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { CreateDecal } from '@babylonjs/core/Meshes/Builders/decalBuilder';
 import { ElementUtil } from '../../util/ElementUtil';
 import { CreateBox } from '@babylonjs/core/Meshes/Builders/boxBuilder';
@@ -11,12 +11,27 @@ import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { Ray } from '@babylonjs/core/Culling/ray';
 import { randomID } from '../../util';
 import { RayHelper } from '@babylonjs/core/Debug/rayHelper';
-import { Tags } from '@babylonjs/core/Misc/tags';
+import { XRScene } from '../XRScene';
+import { XRElement } from '../XRElement';
+import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
+import { TransformLikeController } from '../controller';
+import { ITransformNodeLikeImpl } from '../../type';
 
 /**
  * 贴花
  */
-export class XRDecal extends XRSceneScopeElement<Mesh> {
+export class XRDecal extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
+  /** 贴花投影体的中心 */
+  @Decorator.property('Vector3', 'position', Vector3.Zero())
+  position: Vector3 = Vector3.Zero();
+
+  /** 贴花投影方向 */
+  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
+  rotation: Vector3 = Vector3.Zero();
+
+  @Decorator.property('Quaternion', 'quaternion', null)
+  quaternion: Quaternion | null = null;
+
   /**
    * 贴花尺寸
    *
@@ -24,20 +39,11 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
    * - y: height
    * - z: depth
    */
-  @Decorator.property('Vector3', 'size', Vector3.One())
-  size = Vector3.One();
+  @Decorator.property('Vector3', 'scale', Vector3.One())
+  scale: Vector3 = Vector3.One();
 
-  /** 贴花投影体的中心 */
-  @Decorator.property('Vector3', 'origin', Vector3.Zero())
-  origin = Vector3.Zero();
-
-  /** 贴花投影方向 */
-  @Decorator.property('Vector3', 'direction', Vector3.Up())
-  direction = Vector3.Up();
-
-  /** 贴花投影角度 */
-  @Decorator.property('Number', 'angle', 0)
-  angle = 0;
+  @Decorator.property('Number', 'layer', 0)
+  layer: number = 0;
 
   @Decorator.property('String', 'img', null)
   img: string | null = null;
@@ -51,15 +57,27 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
   @Decorator.property('String', 'ray-scope', 'scene')
   rayScope: 'scene' | 'parent' = 'scene';
 
+  private _lastTargetMesh: Mesh | null = null; // 上一次贴花的目标对象
+  private _decal: Mesh | null = null;
+
   private _projector: Mesh | null = null;
   private _material: StandardMaterial | null = null;
   private _texture: Texture | null = null;
   private _ray: Ray | null = null;
 
   private _rayHelper: RayHelper | null = null;
+  private _sceneEle: XRScene | null = null;
+
+  constructor() {
+    super();
+
+    new TransformLikeController(this);
+  }
 
   connected(): void {
     super.connected();
+
+    this.entity = new TransformNode('decal_' + this.id, this.scene);
 
     this._texture = new Texture(this.img || null, this.scene);
     this._texture.hasAlpha = true;
@@ -70,26 +88,48 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
     this._material.diffuseTexture = this._texture;
     this._material.emissiveTexture = this._texture;
     this._material.disableLighting = true;
+
+    this._sceneEle = this.closest('xr-scene');
+    if (this._sceneEle) {
+      // FIXME: xr-mesh 应用 geometry 会触发 loadeddata 事件, 贴花要重新加载
+      this._sceneEle.addEventListener('loadeddata', this._handleSceneElementLoaded);
+    }
   }
 
+  private _handleSceneElementLoaded = (ev: Event) => {
+    if (ev.target instanceof XRElement && ev.target.entity && ev.target.entity === this._lastTargetMesh) {
+      this.reload();
+    }
+  };
+
   reload() {
-    if (this.entity) {
-      this.entity.dispose();
-      this.entity = null;
+    if (this._decal) {
+      this._decal.dispose();
+      this._decal = null;
+      this._lastTargetMesh = null;
     }
 
-    const origin = this.evaluated.origin.clone();
-    const direction = this.evaluated.direction.clone();
-    direction.normalize();
+    const position = this.evaluated.position.clone();
 
-    const size = this.evaluated.size;
-    const angle = (this.evaluated.angle * Math.PI) / 180; // degree to radian
+    const _quat =
+      this.evaluated.quaternion ||
+      Quaternion.FromEulerAnglesToRef(
+        (this.evaluated.rotation.x * Math.PI) / 180,
+        (this.evaluated.rotation.y * Math.PI) / 180,
+        (this.evaluated.rotation.z * Math.PI) / 180,
+        TmpVectors.Quaternion[0]
+      );
+
+    const direction = Vector3.Forward().applyRotationQuaternion(_quat).normalize();
+
+    const size = this.evaluated.scale.clone();
+    const angle = _quat.toEulerAnglesToRef(TmpVectors.Vector3[0]).z;
 
     const parent = ElementUtil.closestTransformNodeLike(this);
     if (parent) {
       // 如果有 parent, 要做世界矩阵转换
       const worldMatrix = parent.getWorldMatrix();
-      Vector3.TransformCoordinatesToRef(origin, worldMatrix, origin);
+      Vector3.TransformCoordinatesToRef(position, worldMatrix, position);
       Vector3.TransformNormalToRef(direction, worldMatrix, direction);
     }
 
@@ -103,7 +143,7 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
       this._ray.length = size.z; // 用 size.z 作为射线长度
 
       // 射线起点在投影体的中心偏移一半射线长度
-      origin.addToRef(direction.scale(-this._ray.length / 2), this._ray.origin);
+      position.addToRef(direction.scale(-this._ray.length / 2), this._ray.origin);
 
       const canHitMeshes = new Set(
         (this.rayScope === 'parent' && parent ? parent.getChildMeshes(false) : this.scene.meshes).filter(
@@ -124,22 +164,22 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
 
     // 创建贴花
     if (targetMesh) {
+      this._lastTargetMesh = targetMesh;
+
       const id = this.id || randomID();
-      this.entity = CreateDecal('decal_' + id, targetMesh, {
+      this._decal = CreateDecal('decal_' + id, targetMesh, {
         localMode: true,
-        position: origin,
+        position: position,
         normal: direction.scale(-1), // 贴花定义的法线方向与射线方向相反
         size,
         angle,
         cullBackFaces: true,
       });
 
-      this.entity.material = this._material;
-
-      Tags.AddTagsTo(this.entity, 'decal');
+      this._decal.material = this._material;
     }
 
-    this._updateProjector(origin, direction, size, angle);
+    this._updateProjector(position, direction, size, angle);
     this._updateRayHelper();
   }
 
@@ -147,10 +187,10 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
     super.willUpdate(changed);
 
     const shouldRecreate =
-      changed.has('size') ||
+      changed.has('scale') ||
       changed.has('position') ||
-      changed.has('direction') ||
-      changed.has('angle') ||
+      changed.has('rotation') ||
+      changed.has('quaternion') ||
       changed.has('useRay') ||
       changed.has('rayScope');
 
@@ -232,5 +272,17 @@ export class XRDecal extends XRSceneScopeElement<Mesh> {
 
     if (this._rayHelper) this._rayHelper.dispose();
     this._rayHelper = null;
+
+    if (this._decal) {
+      this._decal.dispose();
+      this._decal = null;
+    }
+
+    this._lastTargetMesh = null;
+
+    if (this._sceneEle) {
+      this._sceneEle.removeEventListener('loadeddata', this._handleSceneElementLoaded);
+      this._sceneEle = null;
+    }
   }
 }
