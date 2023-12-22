@@ -6,7 +6,7 @@ export * from './LightController';
 export * from './MaterialController';
 export * from './NodeStateController';
 export * from './PointerController';
-export * from './RefController';
+export * from './TagRefController';
 export * from './StyleSelectorController';
 export * from './TextureController';
 export * from './TickController';

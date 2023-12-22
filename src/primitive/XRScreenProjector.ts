@@ -13,7 +13,7 @@ export class XRScreenProjector extends PrimitiveBase {
   constructor() {
     super();
 
-    new TagRefController(this, 'target', '_target');
+    new TagRefController(this, 'target', '_target', null);
   }
 
   connected(): void {

@@ -3,7 +3,7 @@ import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { ElementUtil, Schema, randomID } from '../../util';
-import { RefController, TransformLikeController } from '../controller';
+import { TagRefController, TransformLikeController } from '../controller';
 import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { provide } from '@lit/context';
 import { Context } from '../Context';
@@ -11,24 +11,12 @@ import { state } from 'lit/decorators.js';
 import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { ITransformNodeLikeImpl } from '../../type';
+import { IMaterialImpl } from '../impl';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
   @provide({ context: Context.AssetContainer })
   @state()
   private _container: AssetContainer | null = null;
-
-  private _matCtrl = new RefController(
-    this as any,
-    'material',
-    () => this.material || null,
-    mat => {
-      if (this._container && mat) {
-        this._container.meshes.forEach(mesh => {
-          mesh.material = mat;
-        });
-      }
-    }
-  );
 
   @Decorator.property('String', 'src', '')
   src = '';
@@ -72,10 +60,14 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @Decorator.property('Boolean', 'preload', false)
   preload: boolean | null = false;
 
+  @state()
+  _material: (HTMLElement & IMaterialImpl) | null = null;
+
   constructor() {
     super();
 
     new TransformLikeController(this);
+    new TagRefController(this, 'material', '_material', 'xr-material');
   }
 
   connected(): void {
@@ -131,9 +123,6 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
         }
       }
 
-      // 重新加载材质
-      this._matCtrl.reload(true);
-
       // 处理 auto-play
       if (this.autoPlay !== null) {
         let ags: AnimationGroup[] = [];
@@ -150,7 +139,10 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
         }
       }
 
+      // 立刻刷新
+      this.requestUpdate('_material');
       this.requestUpdate('disabled');
+      this.performUpdate();
 
       this.emit('loadeddata', { container: _container });
     });
@@ -164,6 +156,12 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
     if (changed.has('disabled') && this._container) {
       for (const item of [...this._container.meshes, ...this._container.transformNodes]) {
         item.setEnabled(!this.disabled);
+      }
+    }
+
+    if (changed.has('_material') && this._container && this._material?.entity) {
+      for (const m of this._container.meshes) {
+        m.material = this._material.entity;
       }
     }
   }

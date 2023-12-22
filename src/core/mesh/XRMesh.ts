@@ -1,14 +1,12 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
-import { ElementUtil, randomID } from '../../util';
-import { RefController2, TransformLikeController } from '../controller';
+import { ElementUtil } from '../../util';
+import { TagRefController, TransformLikeController } from '../controller';
 import { Decorator } from '../Decorator';
-import { Matrix, Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { state } from 'lit/decorators.js';
-import { Geometry } from '@babylonjs/core/Meshes/geometry';
-import { GridMaterial } from '@babylonjs/materials/grid';
-import { Material } from '@babylonjs/core/Materials/material';
 import { ITransformNodeLikeImpl } from '../../type';
+import { IGeometryImpl, IMaterialImpl } from '../impl';
 
 export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeLikeImpl {
   @Decorator.property('String', 'geometry', null)
@@ -16,9 +14,6 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeL
 
   @Decorator.property('String', 'material', null)
   material: string | null = null;
-
-  @Decorator.property('String', 'grid-material', null)
-  gridMaterial: string | null = null;
 
   @Decorator.property('Vector3', 'position', Vector3.Zero())
   position: Vector3 = Vector3.Zero();
@@ -39,22 +34,18 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeL
   layer: number = 0;
 
   @state()
-  _geometry: Geometry | null = null;
+  _geometry: (HTMLElement & IGeometryImpl) | null = null;
 
   @state()
-  _material: Material | null = null;
-
-  @state()
-  _gridMaterial: GridMaterial | null = null;
+  _material: (HTMLElement & IMaterialImpl) | null = null;
 
   constructor() {
     super();
 
     new TransformLikeController(this);
 
-    new RefController2(this, 'geometry', 'geometry', '_geometry');
-    new RefController2(this, 'material', 'material', '_material');
-    new RefController2(this, 'grid-material', 'gridMaterial', '_gridMaterial');
+    new TagRefController(this, 'geometry', '_geometry', 'xr-geometry');
+    new TagRefController(this, 'material', '_material', d => d.el || 'xr-material');
   }
 
   connected(): void {
@@ -74,13 +65,13 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeL
 
     if (!this.entity) return;
 
-    if (changed.has('_geometry') && this._geometry) {
-      this._geometry.applyToMesh(this.entity);
+    if (changed.has('_geometry') && this._geometry && this._geometry.entity) {
+      this._geometry.entity.applyToMesh(this.entity);
       this.emit('loadeddata', {});
     }
 
-    if (changed.has('_material') || changed.has('_gridMaterial')) {
-      this.entity.material = this._material || this._gridMaterial || this.scene.defaultMaterial;
+    if (changed.has('_material')) {
+      this.entity.material = this._material?.entity || this.scene.defaultMaterial;
     }
 
     if (changed.has('disablePointerEvent')) {

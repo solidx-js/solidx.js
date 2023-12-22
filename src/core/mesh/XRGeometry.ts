@@ -1,9 +1,10 @@
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
-import { Geometry } from '@babylonjs/core/Meshes/geometry';
 import { Decorator } from '../Decorator';
 import { Vector4 } from '@babylonjs/core/Maths/math.vector';
+import { IGeometryImpl } from '../impl';
+import { Geometry } from '@babylonjs/core/Meshes/geometry';
 
-export class XRGeometry extends XRSceneScopeElement<Geometry> {
+export class XRGeometry extends XRSceneScopeElement<Geometry> implements IGeometryImpl {
   static requiredAttrs: string[] = ['id', 'type'];
 
   @Decorator.property('String', 'type', 'box')

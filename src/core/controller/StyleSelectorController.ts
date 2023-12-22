@@ -1,6 +1,5 @@
 import { ReactiveController } from 'lit';
-import { XRElement } from '../XRElement';
-import { XRStyle } from '../misc/XRStyle';
+import type { XRElement } from '../XRElement';
 
 type IStyleItem = { weight: number; domOrder: number; selector: string; attributes: Record<string, string> };
 
@@ -26,19 +25,19 @@ export class StyleSelectorController implements ReactiveController {
           const _removedList = Array.from(removedNodes);
 
           // 如果是样式表变化，需要重新收集
-          _needDoCollect = [..._addedList, ..._removedList].some(n => n instanceof XRStyle);
+          _needDoCollect = [..._addedList, ..._removedList].some(n => n instanceof HTMLElement && n.tagName === 'XR-STYLE');
 
           // 在新增元素上应用样式
           _addedList.filter(n => n instanceof HTMLElement).forEach(n => _needDoApply.add(n as HTMLElement));
         }
 
         // 2. attributes
-        if (type === 'attributes') {
+        if (type === 'attributes' && target instanceof HTMLElement) {
           // 如果是样式表变化，需要重新收集
-          if (target instanceof XRStyle) _needDoCollect = true;
+          if (target.tagName === 'XR-STYLE') _needDoCollect = true;
 
           // 如果是元素 class 变化，需要重新应用
-          if (target instanceof XRElement && (attributeName === 'class' || attributeName === 'mouse-over')) _needDoApply.add(target);
+          if (target.tagName.startsWith('XR-') && (attributeName === 'class' || attributeName === 'mouse-over')) _needDoApply.add(target);
         }
       }
 
@@ -106,7 +105,7 @@ export class StyleSelectorController implements ReactiveController {
 
     // 3. 应用样式
     for (const [target, list] of groups) {
-      if (list.length === 0 || !(target instanceof XRElement)) continue;
+      if (list.length === 0 || !target.tagName.startsWith('XR-')) continue;
 
       // this.host.logger.debug(
       //   'apply style -> %s <- %s',
@@ -115,14 +114,16 @@ export class StyleSelectorController implements ReactiveController {
       // );
 
       const data = list.reduceRight((prev, curr) => ({ ...prev, ...curr.attributes }), {});
-      target._setClassRefData(data);
+      (target as XRElement)._setClassRefData?.(data);
     }
 
     // 4. 剩下的是没有匹配的元素，需要清空样式
     const toCleanList = Array.from(this.host.querySelectorAll<XRElement>('*')).filter(
-      el => el instanceof XRElement && !(el instanceof XRStyle) && !groups.has(el)
+      el => el.tagName.startsWith('XR-') && !el.tagName.startsWith('XR-STYLE') && !groups.has(el)
     );
-    for (const ele of toCleanList) ele._setClassRefData({});
+    for (const ele of toCleanList) {
+      ele._setClassRefData?.({});
+    }
   }
 }
 

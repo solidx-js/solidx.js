@@ -1,16 +1,9 @@
 import { ReactiveController } from 'lit';
 import { XRElement } from '../XRElement';
 import { Material } from '@babylonjs/core/Materials/material';
+import { IMaterialImpl } from '../impl';
 
-export type IMaterialControllerHostType = XRElement<Material> & {
-  backFaceCulling: boolean;
-  wireframe: boolean;
-  alpha: number;
-  alphaMode: number;
-  disableDepthWrite: boolean;
-  zOffset: number;
-  sideOrientation: number;
-};
+export type IMaterialControllerHostType = XRElement<IMaterialImpl['entity']> & IMaterialImpl;
 
 export class MaterialController implements ReactiveController {
   constructor(private host: IMaterialControllerHostType) {

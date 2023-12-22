@@ -1,12 +1,12 @@
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Decorator } from '../Decorator';
-import { MaterialController, RefController2 } from '../controller';
+import { MaterialController, TagRefController } from '../controller';
 import { state } from 'lit/decorators.js';
-import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { BackgroundMaterial } from '@babylonjs/core/Materials/Background/backgroundMaterial';
 import { XRBaseMaterial } from './XRBaseMaterial';
+import { IMaterialImpl, ITextureImpl } from '../impl';
 
-export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> {
+export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> implements IMaterialImpl {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Boolean', 'use-rgb-color', false)
@@ -22,12 +22,12 @@ export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> {
   reflectionTexture: string | null = null;
 
   @state()
-  _reflectionTexture: CubeTexture | null = null;
+  _reflectionTexture: (HTMLElement & ITextureImpl) | null = null;
 
   constructor() {
     super();
 
-    new RefController2(this, 'cube-texture', 'reflectionTexture', '_reflectionTexture');
+    new TagRefController(this, 'reflectionTexture', '_reflectionTexture', 'xr-cube-texture');
     new MaterialController(this);
   }
 
@@ -45,7 +45,7 @@ export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> {
     if (changed.has('primaryColor')) this.entity.primaryColor.copyFrom(this.evaluated.primaryColor);
     if (changed.has('enableNoise')) this.entity.enableNoise = this.evaluated.enableNoise;
 
-    if (changed.has('_reflectionTexture')) this.entity.reflectionTexture = this._reflectionTexture;
+    if (changed.has('_reflectionTexture')) this.entity.reflectionTexture = this._reflectionTexture?.entity || null;
   }
 
   disconnected(): void {

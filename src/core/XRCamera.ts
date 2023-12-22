@@ -1,7 +1,6 @@
 import { Decorator } from './Decorator';
 import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
-import { TmpVectors, Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { RefController, TickController } from './controller';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { XRSceneScopeElement } from './XRSceneScopeElement';
 
 export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
@@ -19,48 +18,11 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
   @Decorator.property('Vector3', 'target', Vector3.Zero())
   target = Vector3.Zero();
 
-  @Decorator.property('String', 'lock-target', null)
-  lockTarget: string | null = null;
-
-  @Decorator.property('Boolean', 'lock-to-center', false)
-  lockToCenter = false;
-
   @Decorator.property('Number', 'min-z', 0.1)
   minZ = 0.1;
 
   @Decorator.property('Number', 'max-z', 100)
   maxZ = 100;
-
-  constructor() {
-    super();
-
-    const refCtrl = new RefController(
-      this as any,
-      'transformNodeLike',
-      () => this.lockTarget || null,
-      () => {}
-    );
-
-    new TickController(this as any, () => {
-      if (!this.entity) return;
-
-      if (refCtrl.target) {
-        const _tmpVec = TmpVectors.Vector3[0];
-
-        if (this.lockToCenter) {
-          const _b = refCtrl.target.getHierarchyBoundingVectors();
-          Vector3.CenterToRef(_b.min, _b.max, _tmpVec);
-        } else {
-          _tmpVec.copyFrom(refCtrl.target.getAbsolutePosition());
-        }
-
-        if (!this.target.equals(_tmpVec)) {
-          this.target.copyFrom(_tmpVec);
-          this.requestUpdate('target');
-        }
-      }
-    });
-  }
 
   connected(): void {
     super.connected();

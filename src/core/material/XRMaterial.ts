@@ -1,12 +1,12 @@
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Decorator } from '../Decorator';
-import { MaterialController, RefController2 } from '../controller';
-import { Texture } from '@babylonjs/core/Materials/Textures/texture';
+import { MaterialController, TagRefController } from '../controller';
 import { state } from 'lit/decorators.js';
 import { XRBaseMaterial } from './XRBaseMaterial';
+import { IMaterialImpl, ITextureImpl } from '../impl';
 
-export class XRMaterial extends XRBaseMaterial<PBRMaterial> {
+export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IMaterialImpl {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Color3', 'albedo-color', Color3.White())
@@ -28,12 +28,12 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> {
   unlit = false;
 
   @state()
-  _albedoTexture: Texture | null = null;
+  _albedoTexture: (HTMLElement & ITextureImpl) | null = null;
 
   constructor() {
     super();
 
-    new RefController2(this, 'texture', 'albedoTexture', '_albedoTexture');
+    new TagRefController(this, 'albedoTexture', '_albedoTexture', 'xr-texture');
     new MaterialController(this);
   }
 
@@ -55,7 +55,7 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> {
     if (changed.has('emissiveColor')) this.entity.emissiveColor.copyFrom(this.evaluated.emissiveColor);
     if (changed.has('unlit')) this.entity.unlit = this.evaluated.unlit;
 
-    if (changed.has('_albedoTexture')) this.entity.albedoTexture = this._albedoTexture;
+    if (changed.has('_albedoTexture')) this.entity.albedoTexture = this._albedoTexture?.entity || null;
   }
 
   disconnected(): void {

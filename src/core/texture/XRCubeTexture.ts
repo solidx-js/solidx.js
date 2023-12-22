@@ -2,8 +2,9 @@ import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Decorator } from '../Decorator';
 import { TextureController } from '../controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
+import { ITextureImpl } from '../impl';
 
-export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> {
+export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements ITextureImpl {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Boolean', 'has-alpha', false)

@@ -2,8 +2,9 @@ import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Decorator } from '../Decorator';
 import { TextureController } from '../controller';
+import { ITextureImpl } from '../impl';
 
-export class XRTexture extends XRSceneScopeElement<Texture> {
+export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureImpl {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Boolean', 'has-alpha', false)

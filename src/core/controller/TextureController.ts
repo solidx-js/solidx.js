@@ -1,18 +1,10 @@
 import { ReactiveController } from 'lit';
 import { XRElement } from '../XRElement';
 import { BaseTexture } from '@babylonjs/core/Materials/Textures/baseTexture';
+import { ITextureImpl } from '../impl';
 
 export class TextureController implements ReactiveController {
-  constructor(
-    private host: XRElement<BaseTexture> & {
-      hasAlpha?: boolean;
-      level?: number;
-      coordinatesIndex?: number;
-      coordinatesMode?: number;
-      wrapU?: number;
-      wrapV?: number;
-    }
-  ) {
+  constructor(private host: XRElement<ITextureImpl['entity']> & ITextureImpl) {
     this.host.addController(this);
   }
 

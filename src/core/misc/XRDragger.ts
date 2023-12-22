@@ -49,7 +49,7 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
   constructor() {
     super();
 
-    new TagRefController(this, 'target', '_target');
+    new TagRefController(this, 'target', '_target', null);
     new TickController(this, this._onTick);
   }
 

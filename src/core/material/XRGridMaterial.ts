@@ -3,8 +3,9 @@ import { Decorator } from '../Decorator';
 import { MaterialController } from '../controller';
 import { GridMaterial } from '@babylonjs/materials/grid';
 import { XRBaseMaterial } from './XRBaseMaterial';
+import { IMaterialImpl } from '../impl';
 
-export class XRGridMaterial extends XRBaseMaterial<GridMaterial> {
+export class XRGridMaterial extends XRBaseMaterial<GridMaterial> implements IMaterialImpl {
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Color3', 'main-color', Color3.White())
