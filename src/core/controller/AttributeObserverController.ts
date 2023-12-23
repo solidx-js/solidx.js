@@ -6,7 +6,8 @@ export class AttributeObserverController implements ReactiveController {
 
   constructor(
     private host: XRElement,
-    private _onChange?: (name: string, oldValue: string | null) => void
+    private _onChange?: (name: string, oldValue: string | null) => void,
+    private _skipRequestUpdate = false
   ) {
     this.host.addController(this);
   }
@@ -16,7 +17,7 @@ export class AttributeObserverController implements ReactiveController {
       mutations.forEach(mutation => {
         const { type, attributeName, oldValue } = mutation;
         if (type === 'attributes' && attributeName) {
-          this.host.requestUpdate(attributeName, oldValue);
+          if (!this._skipRequestUpdate) this.host.requestUpdate(attributeName, oldValue);
           this._onChange?.(attributeName, oldValue);
         }
       });

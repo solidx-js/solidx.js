@@ -21,7 +21,7 @@ export default {
   unmounted() {
     const scope = window[this.containerId];
     if (scope) {
-      scope.$disposes.forEach(dispose => dispose());
+      scope.$disposes?.forEach(dispose => dispose());
       delete window[this.containerId];
     }
   },

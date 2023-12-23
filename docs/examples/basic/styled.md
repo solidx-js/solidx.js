@@ -6,11 +6,16 @@
 
 ```html
 <xr-scene auto-resize>
+  <style>
+    .red {
+      --material: 'albedo-color: #ff0000';
+    }
+    .green {
+      --material: 'albedo-color: #00ff00; alpha: 0.1';
+    }
+  </style>
+
   <xr-camera id="cam1" radius="6" beta="75"></xr-camera>
-
-  <xr-style selector=".red" material="albedo-color: #ff0000"></xr-style>
-  <xr-style selector=".green" material="albedo-color: #00ff00; alpha: 0.1"></xr-style>
-
   <xr-mesh id="box1" class="red" geometry="type: box" position="-0.8 0 0"></xr-mesh>
   <xr-mesh id="box2" class="green" geometry="type: box" position="0.8 0 0"></xr-mesh>
 </xr-scene>

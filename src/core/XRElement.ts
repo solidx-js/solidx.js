@@ -1,6 +1,12 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import { EntityInspectController, EventDispatchController, NodeStateController, TweenController } from './controller';
+import {
+  AttributeObserverController,
+  EntityInspectController,
+  EventDispatchController,
+  NodeStateController,
+  TweenController,
+} from './controller';
 import { Decorator } from './Decorator';
 import { ElementUtil, IDataTypeMap, parseDurationString, randomID, typedClone } from '../util';
 import { property, state } from 'lit/decorators.js';
@@ -31,6 +37,7 @@ export class XRElement<T = any> extends LitElement {
   @Decorator.property('Boolean', 'mouse-over', false)
   mouseOver = false;
 
+  private _styles: CSSStyleDeclaration | null = null;
   private _tweenCtrl: TweenController;
   private _tweenLerpData: { [key: string]: any } = {}; // 过渡期间的插值数据
   private _classRefData: Record<string, any> = {}; // class 引入数据
@@ -70,6 +77,14 @@ export class XRElement<T = any> extends LitElement {
     new EventDispatchController(this);
     new EntityInspectController(this);
 
+    new AttributeObserverController(
+      this,
+      () => {
+        this.reloadAttrFromComputedStyles();
+      },
+      true
+    );
+
     this._tweenCtrl = new TweenController(
       this as any,
       this._tweenLerpData,
@@ -91,8 +106,7 @@ export class XRElement<T = any> extends LitElement {
     return this;
   }
 
-  /** @internal */
-  _setClassRefData(data: Record<string, string>) {
+  private _setClassRefData(data: Record<string, string>) {
     const _lastData = { ...this._classRefData };
     const _removeKeys = difference(Object.keys(_lastData), Object.keys(data));
 
@@ -106,11 +120,40 @@ export class XRElement<T = any> extends LitElement {
       const _def = this._Cls.elementProperties.get(key) as any;
       if (!_def) continue; // 不支持的属性
 
-      const value = _def.converter ? _def.converter.fromAttribute(value0) : _def.type ? _def.type(value0) : value0;
-      this._classRefData[key] = value;
+      const oldValue = _lastData[key];
+      const newValue = this.convertPropertyValue(key, value0);
+      if (oldValue === newValue) continue; // 值没有变化
 
-      this.requestUpdate(key, _lastData[key], { hasChanged: () => true } as any); // 强制标记为 changed
+      this._classRefData[key] = newValue;
+      this.requestUpdate(key, oldValue, { hasChanged: () => true } as any);
     }
+  }
+
+  // 从 style 中读取属性
+  reloadAttrFromComputedStyles() {
+    if (!this._styles) return;
+
+    const data: Record<string, string> = {};
+
+    for (const [key, def] of this._Cls.elementProperties) {
+      if (typeof key !== 'string') continue; // 只支持 string 类型
+
+      const _propName = def.attribute ?? key;
+      let value = this._styles.getPropertyValue('--' + _propName).trim();
+
+      // 去掉前后的引号
+      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) value = value.slice(1, -1);
+      if (!value) continue; // 没有值
+
+      data[key] = value;
+    }
+
+    this._setClassRefData(data);
+  }
+
+  convertPropertyValue(key: string, value: string) {
+    const _def = this._Cls.elementProperties.get(key) as any;
+    return _def.converter ? _def.converter.fromAttribute(value) : _def.type ? _def.type(value) : value;
   }
 
   /** @internal */
@@ -137,6 +180,9 @@ export class XRElement<T = any> extends LitElement {
       if (missingAttrs.length > 0) throw new Error(`[${this.tagName}] Missing required attributes: ${missingAttrs.join(', ')}`);
     }
 
+    this._styles = getComputedStyle(this);
+    this.reloadAttrFromComputedStyles();
+
     this.connected();
   }
 
@@ -145,6 +191,7 @@ export class XRElement<T = any> extends LitElement {
 
     // 把 changed 复制到 this.changed
     this.changed.clear();
+
     for (const [key, value] of changed) this.changed.set(key, value);
 
     // 触发补间
@@ -165,6 +212,9 @@ export class XRElement<T = any> extends LitElement {
     super.disconnectedCallback();
 
     this.logger.debug('remove');
+
+    this._styles = null;
+    this._tweenLerpData = {};
 
     for (const dispose of this._disposes) dispose();
     this._disposes = [];

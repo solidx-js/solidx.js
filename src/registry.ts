@@ -18,7 +18,6 @@ import {
   XRCubeTexture,
   XRBackgroundMaterial,
   XRGridMaterial,
-  XRStyle,
   XRLine,
   XRDragger,
   XRPipelineSSAO2,
@@ -72,7 +71,6 @@ ElementRegistry.Instance.register('xr-texture', XRTexture as any);
 ElementRegistry.Instance.register('xr-cube-texture', XRCubeTexture as any);
 ElementRegistry.Instance.register('xr-background-material', XRBackgroundMaterial as any);
 ElementRegistry.Instance.register('xr-grid-material', XRGridMaterial as any);
-ElementRegistry.Instance.register('xr-style', XRStyle as any);
 ElementRegistry.Instance.register('xr-line', XRLine as any);
 ElementRegistry.Instance.register('xr-dragger', XRDragger as any);
 ElementRegistry.Instance.register('xr-pipeline-ssao2', XRPipelineSSAO2 as any);

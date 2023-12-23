@@ -1,147 +1,93 @@
 import { ReactiveController } from 'lit';
 import type { XRElement } from '../XRElement';
 
-type IStyleItem = { weight: number; domOrder: number; selector: string; attributes: Record<string, string> };
-
 export class StyleSelectorController implements ReactiveController {
-  private _styles: IStyleItem[] = [];
-  private _mob: MutationObserver | null = null;
+  private _styleEleMob: MutationObserver | null = null;
 
   constructor(private host: XRElement<any>) {
     this.host.addController(this);
   }
 
   hostConnected(): void {
-    // 监听后代变化
-    this._mob = new MutationObserver(records => {
-      let _needDoCollect = false;
-      const _needDoApply = new Set<HTMLElement>();
+    // 监听样式表变化
+    this._styleEleMob = new MutationObserver(records => {
+      const selectors = new Set<string>();
 
-      // 遍历所有变化
-      for (const { addedNodes, removedNodes, type, attributeName, target } of records) {
-        // 1. childList
+      for (const { addedNodes, removedNodes, type, target, oldValue } of records) {
         if (type === 'childList') {
           const _addedList = Array.from(addedNodes);
           const _removedList = Array.from(removedNodes);
 
-          // 如果是样式表变化，需要重新收集
-          _needDoCollect = [..._addedList, ..._removedList].some(n => n instanceof HTMLElement && n.tagName === 'XR-STYLE');
+          // 收集所有受影响的样式表
+          const _effectStyleEleList = [..._addedList, ..._removedList].filter(n => n instanceof HTMLElement && n.tagName === 'STYLE');
+          for (const _style of _effectStyleEleList) {
+            const _content = _style.textContent;
+            if (!_content) continue;
 
-          // 在新增元素上应用样式
-          _addedList.filter(n => n instanceof HTMLElement).forEach(n => _needDoApply.add(n as HTMLElement));
+            // 提取所有选择器
+            const _subSelectors = Object.keys(parseStyleTextContent(_content));
+            _subSelectors.forEach(s => selectors.add(s));
+          }
         }
 
-        // 2. attributes
-        if (type === 'attributes' && target instanceof HTMLElement) {
-          // 如果是样式表变化，需要重新收集
-          if (target.tagName === 'XR-STYLE') _needDoCollect = true;
+        if (type === 'characterData') {
+          const _content = target.textContent;
+          if (!_content) continue;
 
-          // 如果是元素 class 变化，需要重新应用
-          if (target.tagName.startsWith('XR-') && (attributeName === 'class' || attributeName === 'mouse-over')) _needDoApply.add(target);
+          // 提取所有选择器
+          const _subSelectors = Object.keys(parseStyleTextContent(_content));
+          _subSelectors.forEach(s => selectors.add(s));
+
+          if (oldValue) {
+            Object.keys(parseStyleTextContent(oldValue)).forEach(s => selectors.add(s));
+          }
         }
       }
 
-      if (_needDoCollect) this._doCollect();
-      if (_needDoApply.size) this._doApply();
+      if (selectors.size) {
+        const eleList = this.host.querySelectorAll([...selectors].join(', '));
+
+        eleList.forEach(_ele => {
+          (_ele as XRElement).reloadAttrFromComputedStyles?.();
+        });
+      }
     });
-
-    this._mob.observe(this.host, { childList: true, subtree: true, attributes: true });
-
-    this._doCollect();
-    this._doApply();
+    this._styleEleMob.observe(document, { childList: true, subtree: true, characterData: true, characterDataOldValue: true });
   }
 
   hostDisconnected(): void {
-    if (this._mob) {
-      this._mob.disconnect();
-      this._mob = null;
-    }
-  }
-
-  // 收集样式表
-  _doCollect() {
-    const styles: IStyleItem[] = [];
-
-    let domOrder = 0;
-
-    for (const styleEle of Array.from(this.host.querySelectorAll('xr-style'))) {
-      const selector = styleEle.getAttribute('selector');
-      if (!selector) continue;
-
-      const attributes: Record<string, string> = {};
-
-      for (const attr of Array.from(styleEle.attributes)) {
-        if (attr.name === 'selector') continue; // selector 本身不需要
-        attributes[attr.name] = attr.value;
-      }
-
-      const weight = calcSelectorWeight(selector);
-      styles.push({ domOrder, weight, attributes, selector });
-
-      domOrder++;
-    }
-
-    this._styles = styles;
-  }
-
-  // 应用样式
-  _doApply() {
-    // 1. 按元素分组
-    const groups = new Map<HTMLElement, IStyleItem[]>();
-
-    for (const sty of this._styles) {
-      const targets = this.host.querySelectorAll<HTMLElement>(sty.selector);
-
-      for (const t of Array.from(targets)) {
-        if (!groups.has(t)) groups.set(t, []);
-        groups.get(t)!.push(sty);
-      }
-    }
-
-    // 2. 组内按权重排序
-    for (const list of groups.values()) {
-      list.sort((a, b) => b.weight - a.weight || b.domOrder - a.domOrder); // 从大到小
-    }
-
-    // 3. 应用样式
-    for (const [target, list] of groups) {
-      if (list.length === 0 || !target.tagName.startsWith('XR-')) continue;
-
-      // this.host.logger.debug(
-      //   'apply style -> %s <- %s',
-      //   target.tagName.toLowerCase() + ':#' + target.id || '',
-      //   list.map(d => d.selector).join(' ')
-      // );
-
-      const data = list.reduceRight((prev, curr) => ({ ...prev, ...curr.attributes }), {});
-      (target as XRElement)._setClassRefData?.(data);
-    }
-
-    // 4. 剩下的是没有匹配的元素，需要清空样式
-    const toCleanList = Array.from(this.host.querySelectorAll<XRElement>('*')).filter(
-      el => el.tagName.startsWith('XR-') && !el.tagName.startsWith('XR-STYLE') && !groups.has(el)
-    );
-    for (const ele of toCleanList) {
-      ele._setClassRefData?.({});
+    if (this._styleEleMob) {
+      this._styleEleMob.disconnect();
+      this._styleEleMob = null;
     }
   }
 }
 
-function calcSelectorWeight(selector: string) {
-  if (selector.includes(',')) return 0; // 不支持逗号分隔的选择器
+// 解析样式表
+function parseStyleTextContent(text: string) {
+  const ret: Record<string, Record<string, string>> = {};
 
-  const parts = selector
-    .split(' ')
-    .map(p => p.trim())
-    .filter(Boolean);
+  // 提取所有选择器
+  const selectors = text.match(/(?<=^|})([^{]+){/g);
+  if (!selectors) return ret;
 
-  let weight = 0;
+  // 提取所有属性
+  const attrs = text.match(/(?<=^|;)([^:]+):/g);
+  if (!attrs) return ret;
 
-  for (const part of parts) {
-    if (part.startsWith('#')) weight += 100;
-    else if (part.startsWith('.')) weight += 10;
-    else weight += 1;
+  // 提取所有值
+  const values = text.match(/(?<=:)([^;]+);/g);
+  if (!values) return ret;
+
+  // 组装
+  for (let i = 0; i < selectors.length; i++) {
+    const selector = selectors[i].trim();
+    const attr = attrs[i].trim();
+    const value = values[i].trim();
+
+    if (!ret[selector]) ret[selector] = {};
+    ret[selector][attr] = value;
   }
 
-  return weight;
+  return ret;
 }

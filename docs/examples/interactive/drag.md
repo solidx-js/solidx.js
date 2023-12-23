@@ -4,10 +4,14 @@
 
 ```html
 <xr-scene auto-resize>
+  <style>
+    .box {
+      --geometry: 'type: box';
+    }
+  </style>
+
   <xr-camera radius="4" beta="75" alpha="-115"></xr-camera>
   <xr-ground></xr-ground>
-
-  <xr-style selector=".box" geometry="type: box"></xr-style>
 
   <xr-mesh id="root" geometry="type: sphere; diameter: 0.2" material="albedo-color: #CCDFFB">
     <xr-mesh class="box" id="box1" position="-2 0 0"></xr-mesh>
