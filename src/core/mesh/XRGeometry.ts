@@ -3,6 +3,12 @@ import { Decorator } from '../Decorator';
 import { Vector4 } from '@babylonjs/core/Maths/math.vector';
 import { IGeometryImpl } from '../impl';
 import { Geometry } from '@babylonjs/core/Meshes/geometry';
+import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
+import { CreateBoxVertexData } from '@babylonjs/core/Meshes/Builders/boxBuilder';
+import { CreateSphereVertexData } from '@babylonjs/core/Meshes/Builders/sphereBuilder';
+import { CreateDiscVertexData } from '@babylonjs/core/Meshes/Builders/discBuilder';
+import { CreateCylinderVertexData } from '@babylonjs/core/Meshes/Builders/cylinderBuilder';
+import { CreatePlaneVertexData } from '@babylonjs/core/Meshes/Builders/planeBuilder';
 
 export class XRGeometry extends XRSceneScopeElement<Geometry> implements IGeometryImpl {
   static requiredAttrs: string[] = ['id', 'type'];
@@ -106,7 +112,92 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> implements IGeomet
 
     if (!this.entity) return;
 
-    const vert = this.scene.createVert({ ...this.evaluated } as any);
+    let vert: VertexData | null = null;
+    const data = { ...this.evaluated };
+
+    // box
+    if (
+      (changed.has('type') && data.type === 'box') ||
+      (data.type === 'box' &&
+        (changed.has('size') ||
+          changed.has('width') ||
+          changed.has('height') ||
+          changed.has('depth') ||
+          changed.has('sideOrientation') ||
+          changed.has('frontUVs') ||
+          changed.has('backUVs') ||
+          changed.has('wrap') ||
+          changed.has('topBaseAt') ||
+          changed.has('bottomBaseAt')))
+    ) {
+      vert = CreateBoxVertexData({ ...data } as any);
+    }
+
+    // sphere
+    if (
+      (changed.has('type') && data.type === 'sphere') ||
+      (data.type === 'sphere' &&
+        (changed.has('diameter') ||
+          changed.has('diameterX') ||
+          changed.has('diameterY') ||
+          changed.has('diameterZ') ||
+          changed.has('arc') ||
+          changed.has('slice') ||
+          changed.has('sideOrientation') ||
+          changed.has('frontUVs') ||
+          changed.has('backUVs') ||
+          changed.has('dedupTopBottomIndices')))
+    ) {
+      vert = CreateSphereVertexData({ ...data } as any);
+    }
+
+    // Disc
+    if (
+      (changed.has('type') && data.type === 'disc') ||
+      (data.type === 'disc' &&
+        (changed.has('radius') ||
+          changed.has('tessellation') ||
+          changed.has('sideOrientation') ||
+          changed.has('frontUVs') ||
+          changed.has('backUVs')))
+    ) {
+      vert = CreateDiscVertexData({ ...data } as any);
+    }
+
+    // Cylinder
+    if (
+      (changed.has('type') && data.type === 'cylinder') ||
+      (data.type === 'cylinder' &&
+        (changed.has('height') ||
+          changed.has('diameterTop') ||
+          changed.has('diameterBottom') ||
+          changed.has('tessellation') ||
+          changed.has('subdivisions') ||
+          changed.has('hasRings') ||
+          changed.has('enclose') ||
+          changed.has('cap') ||
+          changed.has('sideOrientation') ||
+          changed.has('frontUVs') ||
+          changed.has('backUVs')))
+    ) {
+      vert = CreateCylinderVertexData({ ...data } as any);
+    }
+
+    // Plane
+    if (
+      (changed.has('type') && data.type === 'plane') ||
+      (data.type === 'plane' &&
+        (changed.has('size') ||
+          changed.has('width') ||
+          changed.has('height') ||
+          changed.has('sideOrientation') ||
+          changed.has('frontUVs') ||
+          changed.has('backUVs')))
+    ) {
+      vert = CreatePlaneVertexData({ ...data } as any);
+    }
+
+    if (!vert) return;
     this.entity.setAllVerticesData(vert, true);
   }
 }

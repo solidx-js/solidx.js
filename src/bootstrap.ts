@@ -1,8 +1,5 @@
 import { Scene } from '@babylonjs/core/scene';
 import { IEntityType } from './type';
-import { CreateBoxVertexData } from '@babylonjs/core/Meshes/Builders/boxBuilder';
-import { CreateSphereVertexData } from '@babylonjs/core/Meshes/Builders/sphereBuilder';
-import { CreatePlaneVertexData } from '@babylonjs/core/Meshes/Builders/planeBuilder';
 import { AssetContainer } from '@babylonjs/core/assetContainer';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import { InstancedMesh } from '@babylonjs/core/Meshes/instancedMesh';
@@ -10,7 +7,6 @@ import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders/glTF';
 import { UtilityLayerRenderer } from '@babylonjs/core/Rendering/utilityLayerRenderer';
 import * as TWEEN from '@tweenjs/tween.js';
-import { CreateCylinderVertexData } from '@babylonjs/core/Meshes/Builders/cylinderBuilder';
 import { Gizmo } from '@babylonjs/core/Gizmos/gizmo';
 
 Gizmo.PreserveScaling = true;
@@ -74,27 +70,6 @@ Scene.prototype.query = function query(type: IEntityType, id: string): any {
   else if (type === 'transformNodeLike') return this.getMeshById(id) || this.getTransformNodeById(id);
 
   return null;
-};
-
-Scene.prototype.createVert = function createVert(
-  arg: { type: 'box' } | { type: 'sphere' } | { type: 'plane' } | { type: 'cylinder' }
-): any {
-  const { type, ...rest } = arg;
-
-  switch (arg.type) {
-    case 'box':
-      return CreateBoxVertexData({ ...rest });
-
-    case 'sphere':
-      return CreateSphereVertexData({ diameter: 1, ...rest });
-
-    case 'plane':
-      return CreatePlaneVertexData({ size: 1, ...rest });
-
-    // 圆柱体
-    case 'cylinder':
-      return CreateCylinderVertexData({ ...rest });
-  }
 };
 
 Scene.prototype.loadModel = async function loadModel(url: string, forceExt?: string): Promise<AssetContainer> {
