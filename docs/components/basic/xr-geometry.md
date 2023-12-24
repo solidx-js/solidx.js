@@ -55,8 +55,10 @@
 
 ```html
 <xr-scene auto-resize>
-  <xr-camera radius="3" beta="75"></xr-camera>
+  <xr-camera radius="5" beta="75"></xr-camera>
+  <xr-mesh geometry="type: torus; diameter: 0.6" material="albedo-color: #ffc069" position="-2 0 0"></xr-mesh>
   <xr-mesh geometry="type: torus" material="albedo-color: #ffc069" position="0 0 0"></xr-mesh>
+  <xr-mesh geometry="type: torus; thickness: 0.2; tessellation: 32" material="albedo-color: #ffc069" position="2 0 0"></xr-mesh>
 </xr-scene>
 ```
 
@@ -96,3 +98,11 @@
 | **diameter-top**    | 顶部直径 | `Number` | `1`    |
 | **diameter-bottom** | 底部直径 | `Number` | `1`    |
 | **height**          | 高度     | `Number` | `2`    |
+
+### 圆环体: torus
+
+| 属性名          | 描述   | 类型     | 默认值 |
+| --------------- | ------ | -------- | ------ |
+| **diameter**    | 直径   | `Number` | `1`    |
+| **thickness**   | 厚度   | `Number` | `0.5`  |
+| **tessellation** | 细分数 | `Number` | `16`   |
