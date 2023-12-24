@@ -9,6 +9,7 @@ import { CreateSphereVertexData } from '@babylonjs/core/Meshes/Builders/sphereBu
 import { CreateDiscVertexData } from '@babylonjs/core/Meshes/Builders/discBuilder';
 import { CreateCylinderVertexData } from '@babylonjs/core/Meshes/Builders/cylinderBuilder';
 import { CreatePlaneVertexData } from '@babylonjs/core/Meshes/Builders/planeBuilder';
+import { CreateTorusVertexData } from '@babylonjs/core/Meshes/Builders/torusBuilder';
 
 export class XRGeometry extends XRSceneScopeElement<Geometry> implements IGeometryImpl {
   static requiredAttrs: string[] = ['id', 'type'];
@@ -91,6 +92,9 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> implements IGeomet
   @Decorator.property('Number', 'cap', null)
   cap: number | null = null;
 
+  @Decorator.property('Number', 'thickness', null)
+  thickness: number | null = null;
+
   constructor() {
     super();
   }
@@ -111,93 +115,63 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> implements IGeomet
     super.willUpdate(changed);
 
     if (!this.entity) return;
+    if (!GEO_DEFS[this.evaluated.type]) return;
 
-    let vert: VertexData | null = null;
     const data = { ...this.evaluated };
 
-    // box
-    if (
-      (changed.has('type') && data.type === 'box') ||
-      (data.type === 'box' &&
-        (changed.has('size') ||
-          changed.has('width') ||
-          changed.has('height') ||
-          changed.has('depth') ||
-          changed.has('sideOrientation') ||
-          changed.has('frontUVs') ||
-          changed.has('backUVs') ||
-          changed.has('wrap') ||
-          changed.has('topBaseAt') ||
-          changed.has('bottomBaseAt')))
-    ) {
-      vert = CreateBoxVertexData({ ...data } as any);
+    if (changed.has('type') || GEO_DEFS[data.type].props.some(p => changed.has(p))) {
+      const vert = GEO_DEFS[data.type].factory(data);
+      this.entity.setAllVerticesData(vert, true);
     }
-
-    // sphere
-    if (
-      (changed.has('type') && data.type === 'sphere') ||
-      (data.type === 'sphere' &&
-        (changed.has('diameter') ||
-          changed.has('diameterX') ||
-          changed.has('diameterY') ||
-          changed.has('diameterZ') ||
-          changed.has('arc') ||
-          changed.has('slice') ||
-          changed.has('sideOrientation') ||
-          changed.has('frontUVs') ||
-          changed.has('backUVs') ||
-          changed.has('dedupTopBottomIndices')))
-    ) {
-      vert = CreateSphereVertexData({ ...data } as any);
-    }
-
-    // Disc
-    if (
-      (changed.has('type') && data.type === 'disc') ||
-      (data.type === 'disc' &&
-        (changed.has('radius') ||
-          changed.has('tessellation') ||
-          changed.has('sideOrientation') ||
-          changed.has('frontUVs') ||
-          changed.has('backUVs')))
-    ) {
-      vert = CreateDiscVertexData({ ...data } as any);
-    }
-
-    // Cylinder
-    if (
-      (changed.has('type') && data.type === 'cylinder') ||
-      (data.type === 'cylinder' &&
-        (changed.has('height') ||
-          changed.has('diameterTop') ||
-          changed.has('diameterBottom') ||
-          changed.has('tessellation') ||
-          changed.has('subdivisions') ||
-          changed.has('hasRings') ||
-          changed.has('enclose') ||
-          changed.has('cap') ||
-          changed.has('sideOrientation') ||
-          changed.has('frontUVs') ||
-          changed.has('backUVs')))
-    ) {
-      vert = CreateCylinderVertexData({ ...data } as any);
-    }
-
-    // Plane
-    if (
-      (changed.has('type') && data.type === 'plane') ||
-      (data.type === 'plane' &&
-        (changed.has('size') ||
-          changed.has('width') ||
-          changed.has('height') ||
-          changed.has('sideOrientation') ||
-          changed.has('frontUVs') ||
-          changed.has('backUVs')))
-    ) {
-      vert = CreatePlaneVertexData({ ...data } as any);
-    }
-
-    if (!vert) return;
-    this.entity.setAllVerticesData(vert, true);
   }
 }
+
+const GEO_DEFS: Record<string, { props: string[]; factory: (data: any) => VertexData }> = {
+  box: {
+    props: ['size', 'width', 'height', 'depth', 'sideOrientation', 'frontUVs', 'backUVs', 'wrap', 'topBaseAt', 'bottomBaseAt'],
+    factory: CreateBoxVertexData,
+  },
+  sphere: {
+    props: [
+      'diameter',
+      'diameterX',
+      'diameterY',
+      'diameterZ',
+      'arc',
+      'slice',
+      'sideOrientation',
+      'frontUVs',
+      'backUVs',
+      'dedupTopBottomIndices',
+    ],
+    factory: CreateSphereVertexData,
+  },
+  disc: {
+    props: ['radius', 'tessellation', 'sideOrientation', 'frontUVs', 'backUVs'],
+    factory: CreateDiscVertexData,
+  },
+  cylinder: {
+    props: [
+      'height',
+      'diameterTop',
+      'diameterBottom',
+      'tessellation',
+      'subdivisions',
+      'hasRings',
+      'enclose',
+      'cap',
+      'sideOrientation',
+      'frontUVs',
+      'backUVs',
+    ],
+    factory: CreateCylinderVertexData,
+  },
+  plane: {
+    props: ['size', 'width', 'height', 'sideOrientation', 'frontUVs', 'backUVs'],
+    factory: CreatePlaneVertexData,
+  },
+  torus: {
+    props: ['diameter', 'thickness', 'tessellation', 'sideOrientation', 'frontUVs', 'backUVs'],
+    factory: CreateTorusVertexData,
+  },
+};

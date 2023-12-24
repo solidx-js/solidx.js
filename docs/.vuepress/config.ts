@@ -20,17 +20,21 @@ export default defineUserConfig({
 
   theme: defaultTheme({
     navbar: [
+      { text: '组件', link: '/components/' },
       { text: '示例', link: '/examples/' },
+      { text: 'WiKi', link: '/wiki/' },
       { text: '文档', link: '/docs/' },
     ],
     sidebar: {
+      '/components/': [{ text: '基础', children: list('components/basic/*.md') }],
       '/examples/': [
         { text: '基础', children: list('examples/basic/*.md') },
         { text: '交互', children: list('examples/interactive/*.md') },
       ],
+      '/wiki/': list('wiki/*.md'),
       '/docs/': [{ text: 'Class', children: list('docs/classes/*.md') }],
     },
-    sidebarDepth: 1,
+    sidebarDepth: 2,
     contributors: false,
     lastUpdated: false,
   }),
