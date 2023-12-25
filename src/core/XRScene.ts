@@ -39,6 +39,9 @@ export class XRScene extends XRElement {
   @state()
   scene: Scene = null as any;
 
+  @Decorator.property('Color4', 'background', new Color4(1, 1, 1, 0))
+  background: Color4 = new Color4(1, 1, 1, 0);
+
   @Decorator.property('Number', 'width', 600)
   width: number = 600;
 
@@ -50,6 +53,9 @@ export class XRScene extends XRElement {
 
   @Decorator.property('Number', 'env-rotation-y', 0)
   envRotationY = 0;
+
+  @Decorator.property('Number', 'env-intensity', 1)
+  envIntensity = 1;
 
   @Decorator.property('Number', 'contrast', 1.2)
   contrast = 1.2;
@@ -153,6 +159,10 @@ export class XRScene extends XRElement {
     if (changed.has('envRotationY') && this.scene.environmentTexture instanceof CubeTexture) {
       this.scene.environmentTexture.rotationY = this.evaluated.envRotationY * (Math.PI / 180);
     }
+
+    if (changed.has('envIntensity')) {
+      this.scene.environmentIntensity = this.evaluated.envIntensity;
+    }
   }
 
   disconnected(): void {
@@ -164,7 +174,11 @@ export class XRScene extends XRElement {
 
   render() {
     return html`
-      <div id=${this.ID} class="xr-canvas-wrapper" style=${styleMap({ width: this.width + 'px', height: this.height + 'px' })}></div>
+      <div
+        id=${this.ID}
+        class="xr-canvas-wrapper"
+        style=${styleMap({ width: this.width + 'px', height: this.height + 'px', background: this.background.toHexString() })}
+      ></div>
     `;
   }
 }
