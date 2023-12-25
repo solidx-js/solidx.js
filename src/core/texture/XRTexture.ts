@@ -40,6 +40,9 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureI
   @Decorator.property('Number', 'v-scale', 1)
   vScale: number = 1;
 
+  @Decorator.property('Boolean', 'invert-y', false)
+  invertY: boolean = false;
+
   constructor() {
     super();
     new TextureController(this);
@@ -48,7 +51,7 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureI
   connected(): void {
     super.connected();
 
-    this.entity = new Texture(null, this.scene);
+    this.entity = new Texture(null, this.scene, undefined, this.invertY);
     this.entity.name = this.id;
   }
 
@@ -58,6 +61,10 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureI
     if (!this.entity) return;
 
     if (changed.has('url')) this.entity.updateURL(this.evaluated.url || '');
+    if (changed.has('uOffset')) this.entity.uOffset = this.evaluated.uOffset;
+    if (changed.has('vOffset')) this.entity.vOffset = this.evaluated.vOffset;
+    if (changed.has('uScale')) this.entity.uScale = this.evaluated.uScale;
+    if (changed.has('vScale')) this.entity.vScale = this.evaluated.vScale;
   }
 
   disconnected(): void {

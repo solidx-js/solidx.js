@@ -38,7 +38,7 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
 
       if (typeof selector === 'string') {
         // object 格式
-        if ((selector.includes(':') || selector === '') && this.fallbackTagName) {
+        if ((selector.includes(': ') || selector === '') && this.fallbackTagName) {
           const _inData = Schema.parse('Object', selector);
 
           const _tagName = typeof this.fallbackTagName === 'function' ? this.fallbackTagName(_inData) : this.fallbackTagName;
