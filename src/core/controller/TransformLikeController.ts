@@ -3,7 +3,7 @@ import { XRElement } from '../XRElement';
 import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
-import { ITransformNodeLikeImpl } from '../../type';
+import { ITransformNodeLikeImpl } from '../impl';
 
 export class TransformLikeController implements ReactiveController {
   private _matrixChangeOb: any;

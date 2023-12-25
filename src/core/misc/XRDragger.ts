@@ -9,7 +9,7 @@ import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { TagRefController, TickController } from '../controller';
 import { RotationGizmo } from '@babylonjs/core/Gizmos/rotationGizmo';
 import { ScaleGizmo } from '@babylonjs/core/Gizmos/scaleGizmo';
-import { ITransformNodeLikeImpl } from '../../type';
+import { ITransformNodeLikeImpl } from '../impl';
 
 type IDragStartInfo = {
   type: 'position' | 'rotation' | 'scale';

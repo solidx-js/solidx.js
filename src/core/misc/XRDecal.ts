@@ -15,7 +15,7 @@ import { XRScene } from '../XRScene';
 import { XRElement } from '../XRElement';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { TransformLikeController } from '../controller';
-import { ITransformNodeLikeImpl } from '../../type';
+import { ITransformNodeLikeImpl } from '../impl';
 
 /**
  * 贴花

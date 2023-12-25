@@ -17,20 +17,12 @@
   <xr-point-light position="0 0 0" intensity="1000"></xr-point-light>
 
   <xr-mesh id="earth" geometry="type: sphere" material="albedo-texture: #earth-tex" position="12 0 0" scale="-1 1 1"></xr-mesh>
-  <xr-mesh
-    id="mercury"
-    geometry="type: sphere"
-    material="albedo-texture: #mercury-tex"
-    position="8 0 0"
-    scale="-0.5 0.5 0.5"
-  ></xr-mesh>
-  <xr-mesh
-    id="venus"
-    geometry="type: sphere"
-    material="albedo-texture: #venus-tex"
-    position="10 0 0"
-    scale="-0.8 0.8 0.8"
-  ></xr-mesh>
+  <xr-ellipse id="earth-orth" radius-x="12" radius-y="12" rotation="90 0 0"></xr-ellipse>
+
+  <xr-mesh id="mercury" geometry="type: sphere" material="albedo-texture: #mercury-tex" position="8 0 0" scale="-0.5 0.5 0.5"></xr-mesh>
+  <xr-ellipse id="mercury-orth" radius-x="8" radius-y="8" rotation="90 0 0"></xr-ellipse>
+
+  <xr-mesh id="venus" geometry="type: sphere" material="albedo-texture: #venus-tex" position="10 0 0" scale="-0.8 0.8 0.8"></xr-mesh>
 </xr-scene>
 ```
 

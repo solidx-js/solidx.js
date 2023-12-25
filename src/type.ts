@@ -49,12 +49,3 @@ export type IAniItem = {
   delay: number;
   name: string;
 };
-
-export type ITransformNodeLikeImpl = {
-  entity: TransformNode | null;
-  position: Vector3;
-  rotation: Vector3;
-  quaternion: Quaternion | null;
-  scale: Vector3;
-  layer: number;
-};

@@ -6,7 +6,7 @@ import { LinesMesh } from '@babylonjs/core/Meshes/linesMesh';
 import { Color4, Quaternion } from '@babylonjs/core/Maths/math';
 import { ElementUtil } from '../../util';
 import { TransformLikeController } from '../controller';
-import { ITransformNodeLikeImpl } from '../../type';
+import { ITransformNodeLikeImpl } from '../impl';
 
 export class XRLine extends XRSceneScopeElement<LinesMesh> implements ITransformNodeLikeImpl {
   @Decorator.property('Vector3', 'position', Vector3.Zero())

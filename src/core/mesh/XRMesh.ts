@@ -5,7 +5,7 @@ import { TagRefController, TransformLikeController } from '../controller';
 import { Decorator } from '../Decorator';
 import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { state } from 'lit/decorators.js';
-import { ITransformNodeLikeImpl } from '../../type';
+import { ITransformNodeLikeImpl } from '../impl';
 import { IGeometryImpl, IMaterialImpl } from '../impl';
 
 export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeLikeImpl {
