@@ -1,5 +1,4 @@
 import { Scene } from '@babylonjs/core/scene';
-import { IEntityType } from './type';
 import { AssetContainer } from '@babylonjs/core/assetContainer';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import { InstancedMesh } from '@babylonjs/core/Meshes/instancedMesh';
@@ -29,47 +28,6 @@ Gizmo.UseAbsoluteScaling = false;
 
     _valuesStartRepeat[property] = _valuesEnd[property].slice().reverse();
   }
-};
-
-Scene.prototype.queryWait = function queryWait(
-  type: IEntityType,
-  id: string,
-  abortSignal: AbortSignal,
-  resolve: (target: any) => any,
-  reject: (err: Error) => any
-): any {
-  abortSignal.throwIfAborted();
-
-  const _entity = this.query(type, id);
-  if (_entity) return resolve(_entity);
-
-  new Promise((_resolve, _reject) => {
-    const _handler = () => {
-      const _entity = this.query(type, id);
-      if (_entity) {
-        this.onAfterRenderObservable.removeCallback(_handler);
-        _resolve(_entity);
-      }
-    };
-    this.onAfterRenderObservable.add(_handler);
-
-    abortSignal.addEventListener('abort', () => {
-      this.onAfterRenderObservable.removeCallback(_handler);
-      _reject(new DOMException('Aborted', 'AbortError'));
-    });
-  }).then(resolve, reject);
-};
-
-Scene.prototype.query = function query(type: IEntityType, id: string): any {
-  if (type === 'mesh') return this.getMeshById(id);
-  else if (type === 'material' || type === 'background-material' || type === 'grid-material') return this.getMaterialById(id);
-  else if (type === 'geometry') return this.getGeometryById(id);
-  else if (type === 'animation') return this.animations.find(a => a.name === id);
-  else if (type === 'transformNode') return this.getTransformNodeById(id);
-  else if (type === 'texture' || type === 'cube-texture') return this.getTextureByName(id);
-  else if (type === 'transformNodeLike') return this.getMeshById(id) || this.getTransformNodeById(id);
-
-  return null;
 };
 
 Scene.prototype.loadModel = async function loadModel(url: string, forceExt?: string): Promise<AssetContainer> {

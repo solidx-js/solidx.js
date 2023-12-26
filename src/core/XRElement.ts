@@ -4,7 +4,7 @@ import { EntityInspectController, EventDispatchController, NodeStateController, 
 import { Decorator } from './Decorator';
 import { ElementUtil, IDataTypeMap, Schema, parseDurationString, randomID } from '../util';
 import { state } from 'lit/decorators.js';
-import { IAniItem, PickStringKey } from '../type';
+import { PickStringKey } from '../type';
 
 // 临时对象, 用于减轻 GC 压力
 const TmpObject = {
@@ -249,31 +249,4 @@ export class XRElement<T = any> extends LitElement {
   toAttributeObject() {
     return ElementUtil.toAttributeObject(this);
   }
-}
-
-function parseAnimations(animation: string) {
-  const list: IAniItem[] = [];
-  const parts = animation.split(',').map(v => v.trim());
-
-  for (const part of parts) {
-    const segs = part.split(/\s+/g);
-
-    const name = segs.pop() as string;
-    if (!name) continue;
-
-    const [duration = '0s', ...args] = segs;
-
-    list.push({
-      name,
-      duration: parseDurationString(duration),
-      timingFunction: '',
-      delay: 0,
-      iterationCount: 1,
-      direction: 'normal',
-      fillMode: 'none',
-      playState: 'running',
-    });
-  }
-
-  return list;
 }

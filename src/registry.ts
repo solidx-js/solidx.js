@@ -26,7 +26,6 @@ import {
 import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
 import { XRArrow, XREllipse, XREnv, XRGround, XRScreenProjector, XRWorldAxis } from './primitive';
-import { IEntityType } from './type';
 import { DefaultBizLogger } from './BizLogger';
 // import { XROrtho } from './tooth';
 
@@ -85,17 +84,6 @@ ElementRegistry.Instance.register('xr-ellipse', XREllipse as any);
 
 // biz test
 // ElementRegistry.Instance.register('xr-ortho', XROrtho as any);
-
-export const EntityTagNameMap: Partial<Record<IEntityType, string>> = {
-  mesh: 'xr-mesh',
-  material: 'xr-material',
-  'background-material': 'xr-background-material',
-  'grid-material': 'xr-grid-material',
-  geometry: 'xr-geometry',
-  transformNode: 'xr-node',
-  texture: 'xr-texture',
-  'cube-texture': 'xr-cube-texture',
-};
 
 // 开始注册 elements
 // =======================
