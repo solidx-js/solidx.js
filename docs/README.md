@@ -6,7 +6,7 @@
 <xr-scene auto-resize background="#000000" env-intensity="0.8">
   <style>
     .orth {
-      --color: #a5b6ca;
+      ---color: #a5b6ca;
     }
   </style>
 

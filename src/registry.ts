@@ -27,6 +27,7 @@ import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
 import { XRArrow, XREllipse, XREnv, XRGround, XRScreenProjector, XRWorldAxis } from './primitive';
 import { IEntityType } from './type';
+import { DefaultBizLogger } from './BizLogger';
 // import { XROrtho } from './tooth';
 
 export class ElementRegistry {
@@ -35,11 +36,8 @@ export class ElementRegistry {
   private _elements: Record<string, typeof XRElement> = {};
 
   register(name: string, Ele: typeof XRElement) {
+    if (this._elements[name]) throw new Error(`Element "${name}" already registered`);
     this._elements[name] = Ele;
-
-    if (!customElements.get(name)) {
-      customElement(name)(Ele as any);
-    }
   }
 
   get(name: string) {
@@ -98,3 +96,31 @@ export const EntityTagNameMap: Partial<Record<IEntityType, string>> = {
   texture: 'xr-texture',
   'cube-texture': 'xr-cube-texture',
 };
+
+// 开始注册 elements
+// =======================
+const _cssProps = new Set<string>();
+
+for (const name of ElementRegistry.Instance.keys()) {
+  DefaultBizLogger.info('register element: %s', name);
+
+  const Ele = ElementRegistry.Instance.get(name)!;
+
+  // 注册到 customElements
+  customElement(name)(Ele as any);
+
+  // 记录 CSS 自定义属性
+  for (const [key, def] of Ele.elementProperties) {
+    if (typeof key !== 'string' || def.state) continue;
+    const propName = typeof def.attribute === 'string' ? def.attribute : key;
+    _cssProps.add(propName);
+  }
+}
+
+// 注册到 CSS 自定义属性
+// 用 --- 开头，禁用继承
+for (const _n of _cssProps) {
+  const _prop = `---${_n}`;
+  DefaultBizLogger.info('register css property: %s', _prop);
+  CSS.registerProperty({ name: _prop, inherits: false });
+}

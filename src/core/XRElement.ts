@@ -146,7 +146,7 @@ export class XRElement<T = any> extends LitElement {
       if (typeof key !== 'string') continue; // 只支持 string 类型
 
       const _propName = def.attribute ?? key;
-      let value = this._styles.getPropertyValue('--' + _propName).trim();
+      let value = this._styles.getPropertyValue('---' + _propName).trim();
 
       // 去掉前后的引号
       if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) value = value.slice(1, -1);
