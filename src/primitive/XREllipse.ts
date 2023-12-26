@@ -2,6 +2,7 @@ import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { Decorator, ITransformNodeLikeImpl } from '../core';
 import { PrimitiveBase } from './PrimitiveBase';
 import { html } from 'lit';
+import { Color3 } from '@babylonjs/core/Maths/math.color';
 
 export class XREllipse extends PrimitiveBase implements ITransformNodeLikeImpl {
   @Decorator.property('Vector3', 'position', Vector3.Zero())
@@ -25,6 +26,9 @@ export class XREllipse extends PrimitiveBase implements ITransformNodeLikeImpl {
   @Decorator.property('Number', 'radius-y', 1)
   radiusY: number = 1;
 
+  @Decorator.property('Color3', 'color', null)
+  color: Color3 | null = null;
+
   connected(): void {
     super.connected();
   }
@@ -34,12 +38,12 @@ export class XREllipse extends PrimitiveBase implements ITransformNodeLikeImpl {
   }
 
   render() {
-    const { position, rotation, scale, layer, quaternion, radiusX: a, radiusY: b } = this.evaluated;
+    const { position, rotation, scale, layer, quaternion, radiusX: a, radiusY: b, color } = this.evaluated;
 
     const points: [number, number, number][] = [];
 
     // 根据椭圆的参数方程计算椭圆上的点
-    for (let i = 0; i < 360; i += 2) {
+    for (let i = 0; i <= 360; i += 10) {
       const x = a * Math.cos((i * Math.PI) / 180);
       const y = b * Math.sin((i * Math.PI) / 180);
       points.push([x, y, 0]);
@@ -54,6 +58,7 @@ export class XREllipse extends PrimitiveBase implements ITransformNodeLikeImpl {
         .layer=${layer}
         .quaternion=${quaternion}
         .points=${points.map(p => p.join(' ')).join(', ')}
+        .colors=${color?.toHexString()}
       ></xr-line>
     `;
   }

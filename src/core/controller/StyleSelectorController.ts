@@ -45,11 +45,11 @@ export class StyleSelectorController implements ReactiveController {
       }
 
       if (selectors.size) {
-        const eleList = this.host.querySelectorAll([...selectors].join(', '));
+        // const eleList = this.host.querySelectorAll([...selectors].join(', '));
 
-        eleList.forEach(_ele => {
-          (_ele as XRElement).reloadAttrFromComputedStyles?.();
-        });
+        // eleList.forEach(_ele => {
+        //   (_ele as XRElement).reloadAttrFromComputedStyles?.();
+        // });
       }
     });
     this._styleEleMob.observe(document, { childList: true, subtree: true, characterData: true, characterDataOldValue: true });
