@@ -1,17 +1,16 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import {
-  AttributeObserverController,
-  EntityInspectController,
-  EventDispatchController,
-  NodeStateController,
-  TweenController,
-} from './controller';
+import { EntityInspectController, EventDispatchController, NodeStateController, TickController, TweenController } from './controller';
 import { Decorator } from './Decorator';
-import { ElementUtil, IDataTypeMap, parseDurationString, randomID, typedClone } from '../util';
-import { property, state } from 'lit/decorators.js';
+import { ElementUtil, IDataTypeMap, parseDurationString, randomID } from '../util';
+import { state } from 'lit/decorators.js';
 import { IAniItem, PickStringKey } from '../type';
-import difference from 'lodash/difference';
+
+// 临时对象, 用于减轻 GC 压力
+const TmpObject = {
+  map1: new Map(),
+  set1: new Set(),
+};
 
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
@@ -77,13 +76,9 @@ export class XRElement<T = any> extends LitElement {
     new EventDispatchController(this);
     new EntityInspectController(this);
 
-    new AttributeObserverController(
-      this,
-      () => {
-        this.reloadAttrFromComputedStyles();
-      },
-      true
-    );
+    new TickController(this, () => {
+      this.reloadAttrFromComputedStyles();
+    });
 
     this._tweenCtrl = new TweenController(
       this as any,
@@ -106,26 +101,35 @@ export class XRElement<T = any> extends LitElement {
     return this;
   }
 
-  private _setClassRefData(data: Record<string, string>) {
-    const _lastData = { ...this._classRefData };
-    const _removeKeys = difference(Object.keys(_lastData), Object.keys(data));
+  private _setClassRefData(data: Map<string, string>) {
+    // 收集所有 key
+    const _allKeys = TmpObject.set1 as Set<string>;
+    _allKeys.clear();
 
-    // 移除不存在的属性
-    for (const key of _removeKeys) {
-      delete this._classRefData[key];
-      this.requestUpdate(key, _lastData[key], { hasChanged: () => true } as any); // 强制标记为 changed
-    }
+    for (const key of Object.keys(this._classRefData)) _allKeys.add(key);
+    for (const key of data.keys()) _allKeys.add(key);
 
-    for (const [key, value0] of Object.entries(data)) {
-      const _def = this._Cls.elementProperties.get(key) as any;
-      if (!_def) continue; // 不支持的属性
+    for (const key of _allKeys) {
+      const _oldData = this._classRefData[key];
+      const _newDataStr = data.get(key);
 
-      const oldValue = _lastData[key];
-      const newValue = this.convertPropertyValue(key, value0);
-      if (oldValue === newValue) continue; // 值没有变化
+      // 移除旧的
+      if (typeof _oldData !== 'undefined' && typeof _newDataStr === 'undefined') {
+        delete this._classRefData[key];
+        this.requestUpdate(key, _oldData, { hasChanged: () => true } as any); // 强制标记为 changed
+      }
 
-      this._classRefData[key] = newValue;
-      this.requestUpdate(key, oldValue, { hasChanged: () => true } as any);
+      // 添加新的 or 替换旧的
+      if (typeof _newDataStr !== 'undefined') {
+        const _def = this._Cls.elementProperties.get(key) as any;
+        if (!_def) continue; // 不支持的属性
+
+        const _newData = this.convertPropertyValue(key, _newDataStr);
+        if (_oldData === _newData) continue; // 值没有变化
+
+        this._classRefData[key] = _newData;
+        this.requestUpdate(key, _oldData, { hasChanged: () => true } as any); // 强制标记为 changed
+      }
     }
   }
 
@@ -133,7 +137,8 @@ export class XRElement<T = any> extends LitElement {
   reloadAttrFromComputedStyles() {
     if (!this._styles) return;
 
-    const data: Record<string, string> = {};
+    const data: Map<string, string> = TmpObject.map1; // 使用临时对象, 用于减轻 GC 压力
+    data.clear();
 
     for (const [key, def] of this._Cls.elementProperties) {
       if (typeof key !== 'string') continue; // 只支持 string 类型
@@ -145,8 +150,10 @@ export class XRElement<T = any> extends LitElement {
       if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) value = value.slice(1, -1);
       if (!value) continue; // 没有值
 
-      data[key] = value;
+      data.set(key, value);
     }
+
+    if (data.size === 0) return;
 
     this._setClassRefData(data);
   }

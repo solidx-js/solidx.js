@@ -6,7 +6,7 @@ import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
-import { EntityQueryController, PointerController, StyleSelectorController } from './controller';
+import { EntityQueryController, PointerController } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { html } from 'lit';
 import { randomID } from '../util';
@@ -116,7 +116,6 @@ export class XRScene extends XRElement {
     this.engine.runRenderLoop(this._doRender);
 
     // 放到最后
-    new StyleSelectorController(this);
     new PointerController(this);
   }
 
