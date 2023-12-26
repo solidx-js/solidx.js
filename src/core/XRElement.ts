@@ -2,7 +2,7 @@ import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
 import { EntityInspectController, EventDispatchController, NodeStateController, TickController, TweenController } from './controller';
 import { Decorator } from './Decorator';
-import { ElementUtil, IDataTypeMap, parseDurationString, randomID } from '../util';
+import { ElementUtil, IDataTypeMap, Schema, parseDurationString, randomID } from '../util';
 import { state } from 'lit/decorators.js';
 import { IAniItem, PickStringKey } from '../type';
 
@@ -39,7 +39,7 @@ export class XRElement<T = any> extends LitElement {
   private _styles: CSSStyleDeclaration | null = null;
   private _tweenCtrl: TweenController;
   private _tweenLerpData: { [key: string]: any } = {}; // 过渡期间的插值数据
-  private _classRefData: Record<string, any> = {}; // class 引入数据
+  private _styleRefData: Record<string, { raw: string; data: any }> = {}; // class 引入数据
 
   private _disposes: (() => void)[] = [];
 
@@ -49,7 +49,7 @@ export class XRElement<T = any> extends LitElement {
       const p = _p as string;
 
       // 顺序: 过渡 -> class ref -> 本身的属性
-      return this._tweenLerpData[p] ?? this._classRefData[p] ?? (this as any)[p];
+      return this._tweenLerpData[p] ?? this._styleRefData[p]?.data ?? (this as any)[p];
     },
     set(_stash, p) {
       throw new Error(`Can't set property "${p as any}" of evaluatedProps`);
@@ -101,33 +101,35 @@ export class XRElement<T = any> extends LitElement {
     return this;
   }
 
-  private _setClassRefData(data: Map<string, string>) {
+  private _setStyleRefData(data: Map<string, string>) {
     // 收集所有 key
     const _allKeys = TmpObject.set1 as Set<string>;
     _allKeys.clear();
 
-    for (const key of Object.keys(this._classRefData)) _allKeys.add(key);
+    for (const key of Object.keys(this._styleRefData)) _allKeys.add(key);
     for (const key of data.keys()) _allKeys.add(key);
 
     for (const key of _allKeys) {
-      const _oldData = this._classRefData[key];
+      const _oldData = this._styleRefData[key];
       const _newDataStr = data.get(key);
 
       // 移除旧的
       if (typeof _oldData !== 'undefined' && typeof _newDataStr === 'undefined') {
-        delete this._classRefData[key];
-        this.requestUpdate(key, _oldData, { hasChanged: () => true } as any); // 强制标记为 changed
+        delete this._styleRefData[key];
+        this.requestUpdate(key, _oldData.data, { hasChanged: () => true } as any); // 强制标记为 changed
       }
 
       // 添加新的 or 替换旧的
       if (typeof _newDataStr !== 'undefined') {
-        const _def = this._Cls.elementProperties.get(key) as any;
+        if (_oldData && _oldData.raw === _newDataStr) continue; // 值没有变化
+
+        const _def = this._Cls.elementProperties.get(key);
         if (!_def) continue; // 不支持的属性
 
         const _newData = this.convertPropertyValue(key, _newDataStr);
-        if (_oldData === _newData) continue; // 值没有变化
+        if (_oldData && Schema.isEqual(_def.dType, _oldData?.data, _newData)) continue; // 值没有变化(第二次判断)
 
-        this._classRefData[key] = _newData;
+        this._styleRefData[key] = { raw: _newDataStr, data: _newData };
         this.requestUpdate(key, _oldData, { hasChanged: () => true } as any); // 强制标记为 changed
       }
     }
@@ -155,7 +157,7 @@ export class XRElement<T = any> extends LitElement {
 
     if (data.size === 0) return;
 
-    this._setClassRefData(data);
+    this._setStyleRefData(data);
   }
 
   convertPropertyValue(key: string, value: string) {
