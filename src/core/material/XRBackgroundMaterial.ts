@@ -9,14 +9,14 @@ import { IMaterialImpl, ITextureImpl } from '../impl';
 export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> implements IMaterialImpl {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Boolean', 'use-rgb-color', false)
-  useRGBColor = false;
+  @Decorator.property('Boolean', 'use-rgb-color', null)
+  useRGBColor: boolean | null = null;
 
-  @Decorator.property('Color3', 'primary-color', Color3.White())
-  primaryColor = Color3.White();
+  @Decorator.property('Color3', 'primary-color', null)
+  primaryColor: Color3 | null = null;
 
-  @Decorator.property('Boolean', 'enable-noise', false)
-  enableNoise = false;
+  @Decorator.property('Boolean', 'enable-noise', null)
+  enableNoise: boolean | null = null;
 
   @Decorator.property('String', 'reflection-texture', null)
   reflectionTexture: string | null = null;
@@ -41,9 +41,9 @@ export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> imp
 
     if (!this.entity) return;
 
-    if (changed.has('useRGBColor')) this.entity.useRGBColor = this.evaluated.useRGBColor;
-    if (changed.has('primaryColor')) this.entity.primaryColor.copyFrom(this.evaluated.primaryColor);
-    if (changed.has('enableNoise')) this.entity.enableNoise = this.evaluated.enableNoise;
+    if (changed.has('useRGBColor') && this.evaluated.useRGBColor) this.entity.useRGBColor = this.evaluated.useRGBColor;
+    if (changed.has('primaryColor') && this.evaluated.primaryColor) this.entity.primaryColor.copyFrom(this.evaluated.primaryColor);
+    if (changed.has('enableNoise')) this.entity.enableNoise = !!this.evaluated.enableNoise;
 
     if (changed.has('_reflectionTexture')) this.entity.reflectionTexture = this._reflectionTexture?.entity || null;
   }

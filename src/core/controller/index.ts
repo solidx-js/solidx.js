@@ -10,4 +10,3 @@ export * from './TagRefController';
 export * from './TextureController';
 export * from './TickController';
 export * from './TransformLikeController';
-export * from './TweenController';

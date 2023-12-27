@@ -4,7 +4,7 @@ import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { ElementUtil, Schema, randomID } from '../../util';
 import { TagRefController, TransformLikeController } from '../controller';
-import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Matrix, Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { provide } from '@lit/context';
 import { Context } from '../Context';
 import { state } from 'lit/decorators.js';
@@ -21,35 +21,38 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @Decorator.property('String', 'src', '')
   src = '';
 
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position = Vector3.Zero();
+  @Decorator.property('Vector3', 'position', null)
+  position: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation = Vector3.Zero();
+  @Decorator.property('Vector3', 'rotation', null)
+  rotation: Vector3 | null = null;
 
   @Decorator.property('Quaternion', 'quaternion', null)
-  quaternion = null;
+  quaternion: Quaternion | null = null;
 
-  @Decorator.property('Number', 'layer', 0)
-  layer = 0;
+  @Decorator.property('Vector3', 'scale', null)
+  scale: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale = Vector3.One();
+  @Decorator.property('Boolean', 'disable-pointer-event', null)
+  disablePointerEvent: boolean | null = null;
+
+  @Decorator.property('Number', 'layer', null)
+  layer: number | null = null;
 
   @Decorator.property('String', 'extension', null)
-  extension = null;
+  extension: string | null = null;
 
   @Decorator.property('String', 'material', null)
-  material = null;
+  material: string | null = null;
 
   @Decorator.property('String', 'auto-play', null)
-  autoPlay = null;
+  autoPlay: string | null = null;
 
-  @Decorator.property('Boolean', 'loop', false)
-  loop = false;
+  @Decorator.property('Boolean', 'loop', null)
+  loop: boolean | null = null;
 
-  @Decorator.property('Boolean', 'flat-shading', false)
-  flatShading = false;
+  @Decorator.property('Boolean', 'flat-shading', null)
+  flatShading: boolean | null = null;
 
   /**
    * 原点转换。如果设置了该属性，则会把模型的原点转换到指定的位置。
@@ -57,8 +60,8 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @Decorator.property('Matrix', 'origin-transform', null)
   originTransform: Matrix | null = null;
 
-  @Decorator.property('Boolean', 'preload', false)
-  preload: boolean | null = false;
+  @Decorator.property('Boolean', 'preload', null)
+  preload: boolean | null = null;
 
   @state()
   _material: (HTMLElement & IMaterialImpl) | null = null;
@@ -135,7 +138,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
         }
 
         for (const ag of ags) {
-          ag.play(this.loop);
+          ag.play(!!this.loop);
         }
       }
 

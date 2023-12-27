@@ -8,12 +8,22 @@
     .orth {
       ---color: #a5b6ca;
     }
+
+    /* @property ---rotation-y {
+      syntax: '<number>';
+      initial-value: 90;
+      inherits: false;
+    }
+
+    #sun {
+      ---rotation: 0 var(---rotation-y) 0;
+    } */
   </style>
 
   <xr-camera radius="30" alpha="-35" beta="75" max-z="1000"></xr-camera>
   <xr-volumetric-light mesh="#sun" exposure="0.1" weight="0.5" density="1.5"></xr-volumetric-light>
 
-  <!-- <xr-ground size="1000"></xr-ground> -->
+  <xr-ground size="1000"></xr-ground>
 
   <xr-texture id="earth-tex" url="/1k_earth_daymap.jpg"></xr-texture>
   <xr-texture id="sun-tex" url="/1k_sun.jpg"></xr-texture>

@@ -14,14 +14,13 @@ export class MaterialController implements ReactiveController {
     if (!(this.host.entity instanceof Material)) return;
 
     const mat = this.host.entity;
-    const changed = this.host.changed;
 
-    if (changed.has('backFaceCulling')) mat.backFaceCulling = this.host.backFaceCulling;
-    if (changed.has('wireframe')) mat.wireframe = this.host.wireframe;
-    if (changed.has('alpha')) mat.alpha = this.host.alpha;
-    if (changed.has('alphaMode')) mat.alphaMode = this.host.alphaMode;
-    if (changed.has('disableDepthWrite')) mat.disableDepthWrite = this.host.disableDepthWrite;
-    if (changed.has('zOffset')) mat.zOffset = this.host.zOffset;
-    if (changed.has('sideOrientation')) mat.sideOrientation = this.host.sideOrientation;
+    mat.backFaceCulling = !!this.host.evaluated.backFaceCulling;
+    mat.wireframe = !!this.host.evaluated.wireframe;
+    mat.alpha = this.host.evaluated.alpha || 1;
+    if (this.host.evaluated.alphaMode !== null) mat.alphaMode = this.host.evaluated.alphaMode;
+    mat.disableDepthWrite = !!this.host.evaluated.disableDepthWrite;
+    mat.zOffset = this.host.evaluated.zOffset || 0;
+    if (this.host.evaluated.sideOrientation !== null) mat.sideOrientation = this.host.evaluated.sideOrientation;
   }
 }

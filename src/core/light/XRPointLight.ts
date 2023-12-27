@@ -8,20 +8,20 @@ import { ElementUtil } from '../../util';
 export class XRPointLight extends XRSceneScopeElement<PointLight> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position = Vector3.Zero();
+  @Decorator.property('Vector3', 'position', null)
+  position: Vector3 | null = null;
 
-  @Decorator.property('Color3', 'diffuse', new Color3(1, 1, 1))
-  diffuse = new Color3(1, 1, 1);
+  @Decorator.property('Color3', 'diffuse', null)
+  diffuse: Color3 | null = null;
 
-  @Decorator.property('Color3', 'specular', new Color3(1, 1, 1))
-  specular = new Color3(1, 1, 1);
+  @Decorator.property('Color3', 'specular', null)
+  specular: Color3 | null = null;
 
-  @Decorator.property('Number', 'intensity', 1)
-  intensity = 1;
+  @Decorator.property('Number', 'intensity', null)
+  intensity: number | null = null;
 
-  @Decorator.property('Boolean', 'shadowEnabled', false)
-  shadowEnabled = false;
+  @Decorator.property('Boolean', 'shadowEnabled', null)
+  shadowEnabled: boolean | null = null;
 
   constructor() {
     super();
@@ -31,8 +31,16 @@ export class XRPointLight extends XRSceneScopeElement<PointLight> {
   connected(): void {
     super.connected();
 
-    this.entity = new PointLight(this.id, this.position, this.scene);
+    this.entity = new PointLight(this.id, Vector3.Zero(), this.scene);
     this.entity.parent = ElementUtil.closestTransformNodeLike(this);
+  }
+
+  protected willUpdate(changed: Map<string, any>): void {
+    super.willUpdate(changed);
+
+    if (!this.entity) return;
+
+    if (changed.has('position') && this.evaluated.position) this.entity.position.copyFrom(this.evaluated.position);
   }
 
   disconnected(): void {

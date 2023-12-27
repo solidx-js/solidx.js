@@ -10,6 +10,7 @@ import { TagRefController, TickController } from '../controller';
 import { RotationGizmo } from '@babylonjs/core/Gizmos/rotationGizmo';
 import { ScaleGizmo } from '@babylonjs/core/Gizmos/scaleGizmo';
 import { ITransformNodeLikeImpl } from '../impl';
+import { XRElement } from '../XRElement';
 
 type IDragStartInfo = {
   type: 'position' | 'rotation' | 'scale';
@@ -18,17 +19,17 @@ type IDragStartInfo = {
 };
 
 export class XRDragger extends XRSceneScopeElement<TransformNode> {
-  @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale: Vector3 = Vector3.One();
+  @Decorator.property('Vector3', 'scale', null)
+  scale: Vector3 | null = null;
 
-  @Decorator.property('Boolean', 'enable-position', false)
-  enablePosition: boolean = false;
+  @Decorator.property('Boolean', 'enable-position', null)
+  enablePosition: boolean | null = null;
 
-  @Decorator.property('Boolean', 'enable-rotation', false)
-  enableRotation: boolean = false;
+  @Decorator.property('Boolean', 'enable-rotation', null)
+  enableRotation: boolean | null = null;
 
-  @Decorator.property('Boolean', 'enable-scale', false)
-  enableScale: boolean = false;
+  @Decorator.property('Boolean', 'enable-scale', null)
+  enableScale: boolean | null = null;
 
   @Decorator.property('String', 'target', null)
   target: string | null = null;
@@ -37,7 +38,7 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
   private _dragStartInfo: IDragStartInfo | null = null;
 
   @state()
-  _target: ITransformNodeLikeImpl | null = null;
+  _target: (XRElement<ITransformNodeLikeImpl['entity']> & ITransformNodeLikeImpl) | null = null;
 
   private _rotEntity: Mesh | null = null; // 用于旋转的 host
   private _posScaleEntity: Mesh | null = null; // 用于平移和缩放的 host
@@ -132,14 +133,14 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
       local.decompose(lScale, lRotation, lPosition);
 
       // 作为 props 设置到 target element 上
-      if (!this._target.position.equals(lPosition)) this._target.position = lPosition.clone();
-      if (!this._target.scale.equals(lScale)) this._target.scale = lScale.clone();
+      this._target.position = lPosition.clone();
+      this._target.scale = lScale.clone();
 
       if (this._target.quaternion) {
         if (!this._target.quaternion.equals(lRotation)) this._target.quaternion = lRotation.clone();
       } else {
         const lRotationEuler = lRotation.toEulerAngles().scaleInPlace(180 / Math.PI);
-        if (!this._target.rotation.equals(lRotationEuler)) this._target.rotation = lRotationEuler.clone();
+        this._target.rotation = lRotationEuler.clone();
       }
 
       (this._target as any).performUpdate(); // immediately process a pending update
@@ -270,7 +271,7 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
       }
     }
 
-    if (changed.has('scale')) {
+    if (changed.has('scale') && this.evaluated.scale) {
       if (this._posGiz) {
         this._posGiz.xGizmo.scaleRatio = this.evaluated.scale.x;
         this._posGiz.yGizmo.scaleRatio = this.evaluated.scale.y;

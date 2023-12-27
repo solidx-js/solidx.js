@@ -4,7 +4,7 @@ import { html } from 'lit';
 
 export class XRWorldAxis extends PrimitiveBase {
   @Decorator.property('Number', 'size', 100)
-  size = 100;
+  size: number | null = null;
 
   connected(): void {
     super.connected();
@@ -16,6 +16,7 @@ export class XRWorldAxis extends PrimitiveBase {
 
   render() {
     const { size } = this.evaluated;
+    if (!size) return;
 
     return html`
       <xr-node id="${this.id}-root">

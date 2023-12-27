@@ -7,13 +7,13 @@ import { TickController } from '../controller';
 
 export class XRRay extends XRSceneScopeElement<Ray> {
   @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position = Vector3.Zero();
+  position: Vector3 | null = null;
 
   @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation = Vector3.Zero();
+  rotation: Vector3 | null = null;
 
   @Decorator.property('Number', 'length', 1)
-  length = 1;
+  length: number | null = null;
 
   constructor() {
     super();
@@ -22,19 +22,19 @@ export class XRRay extends XRSceneScopeElement<Ray> {
   }
 
   private _onTick = () => {
-    if (!this.entity) return;
+    if (!this.entity || !this.evaluated.rotation || !this.evaluated.position || !this.evaluated.length) return;
 
     const rotQ = TmpVectors.Quaternion[0];
     Quaternion.FromEulerAnglesToRef(
-      (this.rotation.x / 180) * Math.PI,
-      (this.rotation.y / 180) * Math.PI,
-      (this.rotation.z / 180) * Math.PI,
+      (this.evaluated.rotation.x / 180) * Math.PI,
+      (this.evaluated.rotation.y / 180) * Math.PI,
+      (this.evaluated.rotation.z / 180) * Math.PI,
       rotQ
     );
 
-    this.entity.origin.copyFrom(this.position);
+    this.entity.origin.copyFrom(this.evaluated.position);
     Vector3.RightHandedForwardReadOnly.rotateByQuaternionToRef(rotQ, this.entity.direction);
-    this.entity.length = this.length;
+    this.entity.length = this.evaluated.length;
 
     const parent = ElementUtil.closestTransformNodeLike(this);
     if (parent) {
@@ -47,7 +47,7 @@ export class XRRay extends XRSceneScopeElement<Ray> {
   connected(): void {
     super.connected();
 
-    this.entity = new Ray(Vector3.Zero(), Vector3.Forward(), this.length);
+    this.entity = new Ray(Vector3.Zero(), Vector3.Forward(), 1);
     this._onTick();
 
     this.pick(); // 默认 init 时执行一次

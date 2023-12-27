@@ -15,7 +15,7 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> implements IGeomet
   static requiredAttrs: string[] = ['id', 'type'];
 
   @Decorator.property('String', 'type', 'box')
-  type = 'box';
+  type: string | null = null;
 
   @Decorator.property('Number', 'size', null)
   size: number | null = null;
@@ -115,9 +115,9 @@ export class XRGeometry extends XRSceneScopeElement<Geometry> implements IGeomet
     super.willUpdate(changed);
 
     if (!this.entity) return;
-    if (!GEO_DEFS[this.evaluated.type]) return;
 
     const data = { ...this.evaluated };
+    if (!data.type || !GEO_DEFS[data.type]) return;
 
     if (changed.has('type') || GEO_DEFS[data.type].props.some(p => changed.has(p))) {
       const vert = GEO_DEFS[data.type].factory(data);

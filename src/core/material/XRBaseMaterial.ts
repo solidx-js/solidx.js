@@ -4,24 +4,24 @@ import { IMaterialControllerHostType } from '../controller';
 import { Material } from '@babylonjs/core/Materials/material';
 
 export class XRBaseMaterial<T extends Material> extends XRSceneScopeElement<T> implements IMaterialControllerHostType {
-  @Decorator.property('Boolean', 'backface-culling', false)
-  backFaceCulling = false;
+  @Decorator.property('Boolean', 'backface-culling', null)
+  backFaceCulling: boolean | null = null;
 
-  @Decorator.property('Number', 'alpha', 1)
-  alpha = 1;
+  @Decorator.property('Number', 'alpha', null)
+  alpha: number | null = null;
 
-  @Decorator.property('Number', 'side-orientation', 1)
-  sideOrientation = 1;
+  @Decorator.property('Number', 'side-orientation', null)
+  sideOrientation: number | null = null;
 
-  @Decorator.property('Boolean', 'wireframe', false)
-  wireframe = false;
+  @Decorator.property('Boolean', 'wireframe', null)
+  wireframe: boolean | null = null;
 
   @Decorator.property('Number', 'alpha-mode', 2)
-  alphaMode = 2;
+  alphaMode: number | null = null;
 
-  @Decorator.property('Boolean', 'disable-depth-write', false)
-  disableDepthWrite = false;
+  @Decorator.property('Boolean', 'disable-depth-write', null)
+  disableDepthWrite: boolean | null = null;
 
-  @Decorator.property('Number', 'z-offset', 0)
-  zOffset = 0;
+  @Decorator.property('Number', 'z-offset', null)
+  zOffset: number | null = null;
 }

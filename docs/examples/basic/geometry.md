@@ -9,8 +9,8 @@
   <xr-camera id="cam1" radius="6" beta="75"></xr-camera>
   <style>
     .box {
-      --geometry: 'type: box';
-      --material: 'albedo-color: #ffc069';
+      ---geometry: 'type: box';
+      ---material: 'albedo-color: #ffc069';
     }
   </style>
   <xr-mesh class="box" position="-2 0 0" scale="0.5 2 0.5"></xr-mesh>
@@ -30,8 +30,8 @@
   <xr-camera id="cam1" radius="6" beta="75"></xr-camera>
   <style>
     .sphere {
-      --geometry: 'type: sphere';
-      --material: 'albedo-color: #ffc069';
+      ---geometry: 'type: sphere';
+      ---material: 'albedo-color: #ffc069';
     }
   </style>
   <xr-mesh class="sphere" position="-2 0 0" scale="0.5 2 0.5"></xr-mesh>

@@ -8,10 +8,10 @@
 
   <style>
     .box {
-      --geometry: 'type: box';
+      ---geometry: 'type: box';
     }
     .box[mouse-over] {
-      --material: 'albedo-color: #ff0000';
+      ---material: 'albedo-color: #ff0000';
     }
   </style>
 

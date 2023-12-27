@@ -3,17 +3,17 @@ import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Decorator } from '../Decorator';
 
 export class XRPipelineSSAO2 extends XRSceneScopeElement<SSAO2RenderingPipeline> {
-  @Decorator.property('Number', 'samples', 32)
-  samples = 32;
+  @Decorator.property('Number', 'samples', null)
+  samples: number | null = null;
 
-  @Decorator.property('Number', 'radius', 5)
-  radius = 1;
+  @Decorator.property('Number', 'radius', null)
+  radius: number | null = null;
 
-  @Decorator.property('Number', 'total-strength', 1)
-  totalStrength = 1;
+  @Decorator.property('Number', 'total-strength', null)
+  totalStrength: number | null = null;
 
-  @Decorator.property('Number', 'max-z', 100)
-  maxZ = 100;
+  @Decorator.property('Number', 'max-z', null)
+  maxZ: number | null = null;
 
   connected(): void {
     super.connected();
@@ -28,10 +28,10 @@ export class XRPipelineSSAO2 extends XRSceneScopeElement<SSAO2RenderingPipeline>
 
     if (!this.entity) return;
 
-    if (changed.has('samples')) this.entity.samples = this.evaluated.samples;
-    if (changed.has('radius')) this.entity.radius = this.evaluated.radius;
-    if (changed.has('totalStrength')) this.entity.totalStrength = this.evaluated.totalStrength;
-    if (changed.has('maxZ')) this.entity.maxZ = this.evaluated.maxZ;
+    if (changed.has('samples') && this.evaluated.samples) this.entity.samples = this.evaluated.samples;
+    if (changed.has('radius') && this.evaluated.radius) this.entity.radius = this.evaluated.radius;
+    if (changed.has('totalStrength') && this.evaluated.totalStrength) this.entity.totalStrength = this.evaluated.totalStrength;
+    if (changed.has('maxZ') && this.evaluated.maxZ) this.entity.maxZ = this.evaluated.maxZ;
   }
 
   disconnected(): void {

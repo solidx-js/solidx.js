@@ -3,9 +3,9 @@ import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 
 export type ITransformNodeLikeImpl = {
   entity: TransformNode | null;
-  position: Vector3;
-  rotation: Vector3;
+  position: Vector3 | null;
+  rotation: Vector3 | null;
   quaternion: Quaternion | null;
-  scale: Vector3;
-  layer: number;
+  scale: Vector3 | null;
+  layer: number | null;
 };

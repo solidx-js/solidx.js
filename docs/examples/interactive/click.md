@@ -8,11 +8,11 @@
 
   <style>
     .box {
-      --geometry: 'type: box';
+      ---geometry: 'type: box';
     }
     .active {
-      --material: 'albedo-color: #ff0000';
-      --inspect: 'auto';
+      ---material: 'albedo-color: #ff0000';
+      ---inspect: 'auto';
     }
   </style>
 

@@ -9,22 +9,22 @@ export class XRGridMaterial extends XRBaseMaterial<GridMaterial> implements IMat
   static requiredAttrs: string[] = ['id'];
 
   @Decorator.property('Color3', 'main-color', Color3.White())
-  mainColor: Color3 = Color3.White();
+  mainColor: Color3 | null = null;
 
   @Decorator.property('Color3', 'line-color', Color3.Black())
-  lineColor: Color3 = Color3.Black();
+  lineColor: Color3 | null = null;
 
   @Decorator.property('Number', 'grid-ratio', 1)
-  gridRatio: number = 1;
+  gridRatio: number | null = null;
 
   @Decorator.property('Number', 'major-unit-frequency', 10)
-  majorUnitFrequency: number = 10;
+  majorUnitFrequency: number | null = null;
 
   @Decorator.property('Number', 'minor-unit-visible', 0.5)
-  minorUnitVisibility: number = 0.5;
+  minorUnitVisibility: number | null = null;
 
   @Decorator.property('Number', 'opacity', 0.99)
-  opacity: number = 0.99; // In transparent mode (opacity < 1.0), the empty area will always be at an opacity level of 0.08
+  opacity: number | null = null; // In transparent mode (opacity < 1.0), the empty area will always be at an opacity level of 0.08
 
   constructor() {
     super();
@@ -42,12 +42,24 @@ export class XRGridMaterial extends XRBaseMaterial<GridMaterial> implements IMat
 
     if (!this.entity) return;
 
-    if (changed.has('mainColor')) this.entity.mainColor.copyFrom(this.mainColor);
-    if (changed.has('lineColor')) this.entity.lineColor.copyFrom(this.lineColor);
-    if (changed.has('gridRatio')) this.entity.gridRatio = this.gridRatio;
-    if (changed.has('majorUnitFrequency')) this.entity.majorUnitFrequency = this.majorUnitFrequency;
-    if (changed.has('minorUnitVisibility')) this.entity.minorUnitVisibility = this.minorUnitVisibility;
-    if (changed.has('opacity')) this.entity.opacity = this.opacity;
+    if (changed.has('mainColor') && this.evaluated.mainColor !== null) {
+      this.entity.mainColor.copyFrom(this.evaluated.mainColor);
+    }
+    if (changed.has('lineColor') && this.evaluated.lineColor !== null) {
+      this.entity.lineColor.copyFrom(this.evaluated.lineColor);
+    }
+    if (changed.has('gridRatio') && this.evaluated.gridRatio !== null) {
+      this.entity.gridRatio = this.evaluated.gridRatio;
+    }
+    if (changed.has('majorUnitFrequency') && this.evaluated.majorUnitFrequency !== null) {
+      this.entity.majorUnitFrequency = this.evaluated.majorUnitFrequency;
+    }
+    if (changed.has('minorUnitVisibility') && this.evaluated.minorUnitVisibility !== null) {
+      this.entity.minorUnitVisibility = this.evaluated.minorUnitVisibility;
+    }
+    if (changed.has('opacity') && this.evaluated.opacity !== null) {
+      this.entity.opacity = this.evaluated.opacity;
+    }
   }
 
   disconnected(): void {

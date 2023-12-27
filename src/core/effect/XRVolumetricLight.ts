@@ -14,17 +14,17 @@ export class XRVolumetricLight extends XRSceneScopeElement<VolumetricLightScatte
   @Decorator.property('String', 'mesh', null)
   mesh: string | null = null;
 
-  @Decorator.property('Number', 'exposure', 0.3)
-  exposure = 0.3;
+  @Decorator.property('Number', 'exposure', null)
+  exposure: number | null = null;
 
-  @Decorator.property('Number', 'decay', 0.96815)
-  decay: number = 0.96815;
+  @Decorator.property('Number', 'decay', null)
+  decay: number | null = null;
 
-  @Decorator.property('Number', 'weight', 0.58767)
-  weight: number = 0.58767;
+  @Decorator.property('Number', 'weight', null)
+  weight: number | null = null;
 
-  @Decorator.property('Number', 'density', 0.926)
-  density: number = 0.926;
+  @Decorator.property('Number', 'density', null)
+  density: number | null = null;
 
   @state()
   _camera: (HTMLElement & { entity: Camera | null }) | null = null;
@@ -53,6 +53,7 @@ export class XRVolumetricLight extends XRSceneScopeElement<VolumetricLightScatte
       undefined,
       this.scene
     );
+    this.entity.mesh.setEnabled(false); // 隐藏内部自动创建的 mesh, 不用这个 mesh
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -82,10 +83,10 @@ export class XRVolumetricLight extends XRSceneScopeElement<VolumetricLightScatte
       this.entity.mesh = this._mesh?.entity;
     }
 
-    if (changed.has('exposure')) this.entity.exposure = this.exposure;
-    if (changed.has('decay')) this.entity.decay = this.decay;
-    if (changed.has('weight')) this.entity.weight = this.weight;
-    if (changed.has('density')) this.entity.density = this.density;
+    if (changed.has('exposure') && this.evaluated.exposure) this.entity.exposure = this.evaluated.exposure;
+    if (changed.has('decay') && this.evaluated.decay) this.entity.decay = this.evaluated.decay;
+    if (changed.has('weight') && this.evaluated.weight) this.entity.weight = this.evaluated.weight;
+    if (changed.has('density') && this.evaluated.density) this.entity.density = this.evaluated.density;
   }
 
   disconnected(): void {

@@ -15,23 +15,23 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeL
   @Decorator.property('String', 'material', null)
   material: string | null = null;
 
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position: Vector3 = Vector3.Zero();
+  @Decorator.property('Vector3', 'position', null)
+  position: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation: Vector3 = Vector3.Zero();
+  @Decorator.property('Vector3', 'rotation', null)
+  rotation: Vector3 | null = null;
 
   @Decorator.property('Quaternion', 'quaternion', null)
   quaternion: Quaternion | null = null;
 
-  @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale: Vector3 = Vector3.One();
+  @Decorator.property('Vector3', 'scale', null)
+  scale: Vector3 | null = null;
 
-  @Decorator.property('Boolean', 'disable-pointer-event', false)
-  disablePointerEvent: boolean = false;
+  @Decorator.property('Boolean', 'disable-pointer-event', null)
+  disablePointerEvent: boolean | null = null;
 
-  @Decorator.property('Number', 'layer', 0)
-  layer: number = 0;
+  @Decorator.property('Number', 'layer', null)
+  layer: number | null = null;
 
   @state()
   _geometry: (HTMLElement & IGeometryImpl) | null = null;

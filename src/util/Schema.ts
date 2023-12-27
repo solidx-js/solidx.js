@@ -141,6 +141,20 @@ export const Schema = {
     else if (type === 'TransitionList') return a === b;
     else return false;
   },
+
+  toCssLiteral<T extends IDataType>(type: T, data: IDataTypeMap[T]): string {
+    if (type === 'Boolean') return data ? 'true' : ''; // Boolean 类型的 CSS 属性，如果为 false，不写入
+
+    let str = this.stringify(type, data);
+    if (type === 'String' || type === 'Object') str = `"${str}"`;
+
+    return str;
+  },
+
+  fromCssLiteral<T extends IDataType>(type: T, literal: string): IDataTypeMap[T] | null {
+    if (literal === '') return null; // css 值为空，表示没有这个属性，返回 null
+    return this.parse(type, literal.replace(/^['"]/, '').replace(/['"]$/, ''));
+  },
 };
 
 function _ns(s: string) {

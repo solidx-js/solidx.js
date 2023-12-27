@@ -7,29 +7,29 @@ import { ITextureImpl } from '../impl';
 export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements ITextureImpl {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Boolean', 'has-alpha', false)
-  hasAlpha: boolean = false;
+  @Decorator.property('Boolean', 'has-alpha', null)
+  hasAlpha: boolean | null = null;
 
-  @Decorator.property('Number', 'level', 1)
-  level: number = 1;
+  @Decorator.property('Number', 'level', null)
+  level: number | null = null;
 
-  @Decorator.property('Number', 'coordinates-index', 0)
-  coordinatesIndex: number = 0;
+  @Decorator.property('Number', 'coordinates-index', null)
+  coordinatesIndex: number | null = null;
 
-  @Decorator.property('Number', 'coordinates-mode', 0)
-  coordinatesMode: number = 0;
+  @Decorator.property('Number', 'coordinates-mode', null)
+  coordinatesMode: number | null = null;
 
-  @Decorator.property('Number', 'wrap-u', 0)
-  wrapU: number = 0;
+  @Decorator.property('Number', 'wrap-u', null)
+  wrapU: number | null = null;
 
-  @Decorator.property('Number', 'wrap-v', 0)
-  wrapV: number = 0;
+  @Decorator.property('Number', 'wrap-v', null)
+  wrapV: number | null = null;
 
-  @Decorator.property('String', 'url', '')
-  url: string = '';
+  @Decorator.property('String', 'url', null)
+  url: string | null = null;
 
-  @Decorator.property('Number', 'rotation-y', 0)
-  rotationY: number = 0;
+  @Decorator.property('Number', 'rotation-y', null)
+  rotationY: number | null = null;
 
   @Decorator.property('Boolean', 'extension', null)
   extension: string | null = null;
@@ -56,7 +56,7 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements I
       this.entity.updateURL(url, this.evaluated.extension || undefined);
     }
 
-    if (changed.has('rotationY')) this.entity.rotationY = this.evaluated.rotationY;
+    if (changed.has('rotationY')) this.entity.rotationY = this.evaluated.rotationY || 0;
   }
 
   disconnected(): void {

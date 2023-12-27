@@ -1,8 +1,8 @@
 import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
-import { EntityInspectController, EventDispatchController, NodeStateController, TickController, TweenController } from './controller';
+import { EntityInspectController, EventDispatchController, NodeStateController, TickController } from './controller';
 import { Decorator } from './Decorator';
-import { ElementUtil, IDataTypeMap, Schema, parseDurationString, randomID } from '../util';
+import { ElementUtil, Schema, randomID } from '../util';
 import { state } from 'lit/decorators.js';
 import { PickStringKey } from '../type';
 
@@ -24,21 +24,10 @@ export class XRElement<T = any> extends LitElement {
   @Decorator.property('Object', 'inspect', null)
   inspect: Record<string, string> | null = null;
 
-  @Decorator.property('Boolean', 'disabled', false)
-  disabled = false;
-
-  @Decorator.property('TransitionList', 'transition', null)
-  transition: IDataTypeMap['TransitionList'] | null = null;
-
-  @Decorator.property('String', 'class', null)
-  class: string | null = null;
-
-  @Decorator.property('Boolean', 'mouse-over', false)
-  mouseOver = false;
+  @Decorator.property('Boolean', 'disabled', null)
+  disabled: boolean | null = null;
 
   private _styles: CSSStyleDeclaration | null = null;
-  private _tweenCtrl: TweenController;
-  private _tweenLerpData: { [key: string]: any } = {}; // 过渡期间的插值数据
   private _styleRefData: Record<string, { raw: string; data: any }> = {}; // class 引入数据
 
   private _disposes: (() => void)[] = [];
@@ -47,9 +36,7 @@ export class XRElement<T = any> extends LitElement {
   readonly evaluated = new Proxy<PickStringKey<this>>({} as any, {
     get: (_stash, _p) => {
       const p = _p as string;
-
-      // 顺序: 过渡 -> class ref -> 本身的属性
-      return this._tweenLerpData[p] ?? this._styleRefData[p]?.data ?? (this as any)[p];
+      return this._styleRefData[p]?.data ?? null;
     },
     set(_stash, p) {
       throw new Error(`Can't set property "${p as any}" of evaluatedProps`);
@@ -63,7 +50,7 @@ export class XRElement<T = any> extends LitElement {
       if (this._Cls.elementProperties.has(key)) return { enumerable: true, configurable: true }; // 令 Object.keys() 可以枚举到
       return undefined;
     },
-  }); // 过渡期间的插值数据
+  });
 
   /** @internal */
   readonly changed = new Map<string, any>();
@@ -77,15 +64,8 @@ export class XRElement<T = any> extends LitElement {
     new EntityInspectController(this);
 
     new TickController(this, () => {
-      this.reloadAttrFromComputedStyles();
+      this.checkComputedStyles();
     });
-
-    this._tweenCtrl = new TweenController(
-      this as any,
-      this._tweenLerpData,
-      p => this.requestUpdate(p, undefined, { hasChanged: () => true } as any), // 强制标记为 changed
-      () => this.requestUpdate()
-    );
   }
 
   /** @internal */
@@ -101,63 +81,52 @@ export class XRElement<T = any> extends LitElement {
     return this;
   }
 
-  private _setStyleRefData(data: Map<string, string>) {
-    // 收集所有 key
-    const _allKeys = TmpObject.set1 as Set<string>;
-    _allKeys.clear();
+  checkComputedStyles() {
+    if (!this._styles) return;
 
-    for (const key of Object.keys(this._styleRefData)) _allKeys.add(key);
-    for (const key of data.keys()) _allKeys.add(key);
+    for (const [property] of this._Cls.elementProperties) {
+      if (typeof property !== 'string') continue; // 只支持 string 类型
 
-    for (const key of _allKeys) {
-      const _oldData = this._styleRefData[key];
-      const _newDataStr = data.get(key);
+      const oldValue = (this.evaluated as any)[property];
+      const isChanged = this.reloadAttrFromComputedStyles(property);
 
-      // 移除旧的
-      if (typeof _oldData !== 'undefined' && typeof _newDataStr === 'undefined') {
-        delete this._styleRefData[key];
-        this.requestUpdate(key, _oldData.data, { hasChanged: () => true } as any); // 强制标记为 changed
-      }
-
-      // 添加新的 or 替换旧的
-      if (typeof _newDataStr !== 'undefined') {
-        if (_oldData && _oldData.raw === _newDataStr) continue; // 值没有变化
-
-        const _def = this._Cls.elementProperties.get(key);
-        if (!_def) continue; // 不支持的属性
-
-        const _newData = this.convertPropertyValue(key, _newDataStr);
-        if (_oldData && Schema.isEqual(_def.dType, _oldData?.data, _newData)) continue; // 值没有变化(第二次判断)
-
-        this._styleRefData[key] = { raw: _newDataStr, data: _newData };
-        this.requestUpdate(key, _oldData, { hasChanged: () => true } as any); // 强制标记为 changed
+      if (isChanged) {
+        this.requestUpdate(`__computed_styles_${property}`, oldValue, { hasChanged: () => true } as any); // 强制标记为 changed
       }
     }
   }
 
-  // 从 style 中读取属性
-  reloadAttrFromComputedStyles() {
+  reloadAttrFromComputedStyles(property: string) {
     if (!this._styles) return;
 
-    const data: Map<string, string> = TmpObject.map1; // 使用临时对象, 用于减轻 GC 压力
-    data.clear();
+    const def = this._Cls.elementProperties.get(property);
+    if (!def || def.state) return;
 
-    for (const [key, def] of this._Cls.elementProperties) {
-      if (typeof key !== 'string') continue; // 只支持 string 类型
+    const _cssProp = def.attribute ?? property;
+    const _css = this._styles.getPropertyValue('---' + _cssProp).trim();
 
-      const _propName = def.attribute ?? key;
-      let value = this._styles.getPropertyValue('---' + _propName).trim();
+    // 和缓存字符串对比，值没有变化，跳过
+    if (this._styleRefData[property]?.raw === _css) return;
 
-      // 去掉前后的引号
-      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) value = value.slice(1, -1);
-      if (!value) continue; // 没有值
+    const newData = Schema.fromCssLiteral(def.dType, _css);
 
-      data.set(key, value);
+    // 删除
+    if (newData === null && this._styleRefData[property]) {
+      delete this._styleRefData[property];
+      return true;
     }
 
-    if (data.size === 0) return;
+    // 新增
+    if (newData !== null && !this._styleRefData[property]) {
+      this._styleRefData[property] = { raw: _css, data: newData };
+      return true;
+    }
 
-    this._setStyleRefData(data);
+    // 更新
+    if (newData !== null && this._styleRefData[property] && !Schema.isEqual(def.dType, this._styleRefData[property].data, newData)) {
+      this._styleRefData[property] = { raw: _css, data: newData };
+      return true;
+    }
   }
 
   convertPropertyValue(key: string, value: string) {
@@ -190,7 +159,7 @@ export class XRElement<T = any> extends LitElement {
     }
 
     this._styles = getComputedStyle(this);
-    this.reloadAttrFromComputedStyles();
+    this.checkComputedStyles();
 
     this.connected();
   }
@@ -198,16 +167,35 @@ export class XRElement<T = any> extends LitElement {
   protected willUpdate(changed: Map<string, any>): void {
     super.willUpdate(changed);
 
+    for (const [property, _old] of Array.from(changed.entries())) {
+      if (property.startsWith('__computed_styles_')) {
+        // 转换脏标记
+        changed.delete(property);
+        changed.set(property.replace(/^__computed_styles_/, ''), _old);
+      } else {
+        // 写入 inline style, 并且更新 evaluated
+        this._syncPropertyToStyle(property);
+      }
+    }
+
     // 把 changed 复制到 this.changed
     this.changed.clear();
-
     for (const [key, value] of changed) this.changed.set(key, value);
 
-    // 触发补间
-    for (const [property, oldValue] of changed) {
-      if (!this._Cls.elementProperties.has(property)) continue; // 不支持的属性
-      this._tweenCtrl.triggerChange(property, (this as any)[property], oldValue);
-    }
+    // console.log('@@@', '111 ->', this.displayText);
+  }
+
+  private _syncPropertyToStyle(property: string) {
+    const _def = this._Cls.elementProperties.get(property);
+    if (!_def || _def.state) return; // 不支持的属性
+
+    const _p = '---' + (_def.attribute || property);
+    const _v = (this as any)[property] === null ? '' : Schema.toCssLiteral(_def.dType, (this as any)[property]);
+
+    if (_v === '') this.style.removeProperty(_p);
+    else this.style.setProperty(_p, _v);
+
+    this.reloadAttrFromComputedStyles(property);
   }
 
   protected shouldUpdate(changed: Map<string, any>): boolean {
@@ -223,7 +211,6 @@ export class XRElement<T = any> extends LitElement {
     this.logger.debug('remove');
 
     this._styles = null;
-    this._tweenLerpData = {};
 
     for (const dispose of this._disposes) dispose();
     this._disposes = [];

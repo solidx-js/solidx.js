@@ -9,23 +9,26 @@ import { ElementUtil } from '../../util';
 export class XRHemisphericLight extends XRSceneScopeElement<HemisphericLight> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position = Vector3.Zero();
+  @Decorator.property('Vector3', 'position', null)
+  position: Vector3 | null = null;
 
-  @Decorator.property('Color3', 'diffuse', new Color3(1, 1, 1))
-  diffuse = new Color3(1, 1, 1);
+  @Decorator.property('Color3', 'diffuse', null)
+  diffuse: Color3 | null = null;
 
-  @Decorator.property('Color3', 'specular', new Color3(1, 1, 1))
-  specular = new Color3(1, 1, 1);
+  @Decorator.property('Color3', 'specular', null)
+  specular: Color3 | null = null;
 
-  @Decorator.property('Number', 'intensity', 1)
-  intensity = 1;
+  @Decorator.property('Number', 'intensity', null)
+  intensity: number | null = null;
 
-  @Decorator.property('Boolean', 'shadowEnabled', false)
-  shadowEnabled = false;
+  @Decorator.property('Boolean', 'shadowEnabled', null)
+  shadowEnabled: boolean | null = null;
 
-  @Decorator.property('Vector2', 'rotation', new Vector2(40, 30))
-  rotation = new Vector2(40, 30);
+  @Decorator.property('Number', 'alpha', 0)
+  alpha: number | null = null;
+
+  @Decorator.property('Number', 'beta', 0)
+  beta: number | null = null;
 
   constructor() {
     super();
@@ -44,11 +47,13 @@ export class XRHemisphericLight extends XRSceneScopeElement<HemisphericLight> {
     if (!this.entity) return;
 
     // rotation
-    const alpha = this.rotation.x * (Math.PI / 180);
-    const beta = this.rotation.y * (Math.PI / 180);
-    this.entity.direction.x = Math.sin(beta) * Math.cos(alpha);
-    this.entity.direction.y = Math.cos(beta);
-    this.entity.direction.z = Math.sin(beta) * Math.sin(alpha);
+    if (typeof this.evaluated.alpha === 'number' && typeof this.evaluated.beta === 'number') {
+      const alpha = this.evaluated.alpha * (Math.PI / 180);
+      const beta = this.evaluated.alpha * (Math.PI / 180);
+      this.entity.direction.x = Math.sin(beta) * Math.cos(alpha);
+      this.entity.direction.y = Math.cos(beta);
+      this.entity.direction.z = Math.sin(beta) * Math.sin(alpha);
+    }
   }
 
   disconnected(): void {

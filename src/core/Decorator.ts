@@ -16,7 +16,6 @@ export const Decorator = {
     return property({
       dType,
       initValue: typedClone(initValue),
-      reflect: true,
       attribute,
       converter: {
         fromAttribute: (value: string | null) => {

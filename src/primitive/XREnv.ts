@@ -7,14 +7,14 @@ export class XREnv extends PrimitiveBase {
   static defaultSkyBoxTexture = new URL('../assets/Skybox_2.0-256.dds', import.meta.url).href;
   static defaultGroundTexture = new URL('../assets/Ground_2.0-256.png', import.meta.url).href;
 
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position = Vector3.Zero();
+  @Decorator.property('Vector3', 'position', null)
+  position: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation = Vector3.Zero();
+  @Decorator.property('Vector3', 'rotation', null)
+  rotation: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale = Vector3.One();
+  @Decorator.property('Vector3', 'scale', null)
+  scale: Vector3 | null = null;
 
   connected(): void {
     super.connected();
@@ -72,7 +72,14 @@ export class XREnv extends PrimitiveBase {
         backface-culling
         albedo-texture="url: ${XREnv.defaultGroundTexture}; has-alpha: true"
       ></xr-material>
-      <xr-mesh disable-pointer-event id="env-ground" geometry="type: plane" material="#env-ground" scale="5 5 5" rotation="90 0 0"></xr-mesh>
+      <xr-mesh
+        disable-pointer-event
+        id="env-ground"
+        geometry="type: plane"
+        material="#env-ground"
+        scale="5 5 5"
+        rotation="90 0 0"
+      ></xr-mesh>
     `;
   }
 

@@ -21,13 +21,11 @@ import { ITransformNodeLikeImpl } from '../impl';
  * 贴花
  */
 export class XRDecal extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
-  /** 贴花投影体的中心 */
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position: Vector3 = Vector3.Zero();
+  @Decorator.property('Vector3', 'position', null)
+  position: Vector3 | null = null;
 
-  /** 贴花投影方向 */
-  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation: Vector3 = Vector3.Zero();
+  @Decorator.property('Vector3', 'rotation', null)
+  rotation: Vector3 | null = null;
 
   @Decorator.property('Quaternion', 'quaternion', null)
   quaternion: Quaternion | null = null;
@@ -39,23 +37,23 @@ export class XRDecal extends XRSceneScopeElement<TransformNode> implements ITran
    * - y: height
    * - z: depth
    */
-  @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale: Vector3 = Vector3.One();
+  @Decorator.property('Vector3', 'scale', null)
+  scale: Vector3 | null = null;
 
-  @Decorator.property('Number', 'layer', 0)
-  layer: number = 0;
+  @Decorator.property('Number', 'layer', null)
+  layer: number | null = null;
 
   @Decorator.property('String', 'img', null)
   img: string | null = null;
 
-  @Decorator.property('Number', 'img-level', 1)
-  imgLevel = 1;
+  @Decorator.property('Number', 'img-level', null)
+  imgLevel: number | null = null;
 
-  @Decorator.property('Boolean', 'use-ray', false)
-  useRay = false;
+  @Decorator.property('Boolean', 'use-ray', null)
+  useRay: boolean | null = null;
 
   @Decorator.property('String', 'ray-scope', 'scene')
-  rayScope: 'scene' | 'parent' = 'scene';
+  rayScope: 'scene' | 'parent' | null = 'scene';
 
   private _lastTargetMesh: Mesh | null = null; // 上一次贴花的目标对象
   private _decal: Mesh | null = null;
@@ -109,20 +107,20 @@ export class XRDecal extends XRSceneScopeElement<TransformNode> implements ITran
       this._lastTargetMesh = null;
     }
 
-    const position = this.evaluated.position.clone();
+    const position = this.evaluated.position?.clone() || Vector3.Zero();
 
     const _quat =
       this.evaluated.quaternion ||
       Quaternion.FromEulerAnglesToRef(
-        (this.evaluated.rotation.x * Math.PI) / 180,
-        (this.evaluated.rotation.y * Math.PI) / 180,
-        (this.evaluated.rotation.z * Math.PI) / 180,
+        ((this.evaluated.rotation?.x || 0) * Math.PI) / 180,
+        ((this.evaluated.rotation?.y || 0) * Math.PI) / 180,
+        ((this.evaluated.rotation?.z || 0) * Math.PI) / 180,
         TmpVectors.Quaternion[0]
       );
 
     const direction = Vector3.Forward().applyRotationQuaternion(_quat).normalize();
 
-    const size = this.evaluated.scale.clone();
+    const size = this.evaluated.scale?.clone() || Vector3.One();
     const angle = _quat.toEulerAnglesToRef(TmpVectors.Vector3[0]).z;
 
     const parent = ElementUtil.closestTransformNodeLike(this);
@@ -199,7 +197,7 @@ export class XRDecal extends XRSceneScopeElement<TransformNode> implements ITran
     // _texture
     if (this._texture) {
       if (changed.has('img')) this._texture.updateURL(this.evaluated.img || '');
-      this._texture.level = this.evaluated.imgLevel;
+      this._texture.level = this.evaluated.imgLevel || 1;
     }
   }
 

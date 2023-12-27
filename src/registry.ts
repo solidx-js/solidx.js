@@ -1,6 +1,5 @@
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import {
-  XRKeyFrames,
   XRElement,
   XRGeometry,
   XRMaterial,
@@ -27,6 +26,7 @@ import { customElement } from 'lit/decorators.js';
 import { CTMFileLoader } from './loader';
 import { XRArrow, XREllipse, XREnv, XRGround, XRScreenProjector, XRWorldAxis } from './primitive';
 import { DefaultBizLogger } from './BizLogger';
+import { Schema } from './util';
 // import { XROrtho } from './tooth';
 
 export class ElementRegistry {
@@ -46,6 +46,74 @@ export class ElementRegistry {
   keys() {
     return Object.keys(this._elements);
   }
+
+  doRegisterToGlobal() {
+    const styleData: Record<string, string[]> = {};
+
+    const _cssProps = new Map<
+      string,
+      {
+        // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Types
+        syntax?: string;
+        initialValue?: string;
+      }
+    >();
+
+    for (const name of this.keys()) {
+      DefaultBizLogger.info('register element: %s', name);
+
+      const Ele = this.get(name)!;
+
+      // 注册到 customElements
+      customElement(name)(Ele as any);
+
+      const _styleContents: string[] = [];
+
+      // 记录 CSS 自定义属性
+      for (const [key, def] of Ele.elementProperties) {
+        if (typeof key !== 'string' || def.state) continue;
+        const propName = typeof def.attribute === 'string' ? def.attribute : key;
+
+        let syntax: string | undefined;
+        let initialValue: string | undefined;
+
+        if (def.dType === 'Color3' || def.dType === 'Color4') {
+          syntax = '<color>';
+          initialValue = '#ffffff';
+        }
+        //
+        else if (def.dType === 'Number' || def.dType === 'Vector2' || def.dType === 'Vector3' || def.dType === 'Vector4') {
+          syntax = '<number>+';
+          initialValue = '0';
+        }
+
+        _cssProps.set(propName, {});
+
+        if (def.initValue) {
+          _styleContents.push(`---${propName}: ${Schema.toCssLiteral(def.dType, def.initValue)}`);
+        }
+      }
+
+      styleData[name] = _styleContents;
+    }
+
+    console.log('@@@', 'styleData ->', styleData);
+
+    const styEle = document.createElement('style');
+    styEle.dataset.for = 'xr';
+    styEle.textContent = Object.entries(styleData).reduce((prev, [name, contents]) => {
+      return prev + `${name} {\n${contents.join(';\n')}\n}\n`;
+    }, '');
+    document.head.appendChild(styEle);
+
+    // 注册到 CSS 自定义属性
+    // 用 --- 开头，禁用继承
+    for (const [_n, _def] of _cssProps) {
+      const _prop = `---${_n}`;
+      DefaultBizLogger.info('register css property: %s, syntax=%s, initial=%s', _prop, _def.syntax || '*', _def.initialValue || '');
+      CSS.registerProperty({ name: _prop, ..._def, inherits: false });
+    }
+  }
 }
 
 // loaders
@@ -57,7 +125,6 @@ ElementRegistry.Instance.register('xr-geometry', XRGeometry as any);
 ElementRegistry.Instance.register('xr-material', XRMaterial as any);
 ElementRegistry.Instance.register('xr-mesh', XRMesh as any);
 ElementRegistry.Instance.register('xr-node', XRNode as any);
-ElementRegistry.Instance.register('xr-keyframes', XRKeyFrames as any);
 ElementRegistry.Instance.register('xr-camera', XRCamera as any);
 ElementRegistry.Instance.register('xr-directional-light', XRDirectionalLight as any);
 ElementRegistry.Instance.register('xr-hemispheric-light', XRHemisphericLight as any);
@@ -85,30 +152,4 @@ ElementRegistry.Instance.register('xr-ellipse', XREllipse as any);
 // biz test
 // ElementRegistry.Instance.register('xr-ortho', XROrtho as any);
 
-// 开始注册 elements
-// =======================
-const _cssProps = new Set<string>();
-
-for (const name of ElementRegistry.Instance.keys()) {
-  DefaultBizLogger.info('register element: %s', name);
-
-  const Ele = ElementRegistry.Instance.get(name)!;
-
-  // 注册到 customElements
-  customElement(name)(Ele as any);
-
-  // 记录 CSS 自定义属性
-  for (const [key, def] of Ele.elementProperties) {
-    if (typeof key !== 'string' || def.state) continue;
-    const propName = typeof def.attribute === 'string' ? def.attribute : key;
-    _cssProps.add(propName);
-  }
-}
-
-// 注册到 CSS 自定义属性
-// 用 --- 开头，禁用继承
-for (const _n of _cssProps) {
-  const _prop = `---${_n}`;
-  DefaultBizLogger.info('register css property: %s', _prop);
-  CSS.registerProperty({ name: _prop, inherits: false });
-}
+ElementRegistry.Instance.doRegisterToGlobal();

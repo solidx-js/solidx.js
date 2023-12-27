@@ -2,25 +2,24 @@ import { html } from 'lit';
 import { PrimitiveBase } from './PrimitiveBase';
 import { Decorator } from '../core';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { Color3 } from '@babylonjs/core/Maths/math';
 
 export class XRArrow extends PrimitiveBase {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Number', 'thickness', 1)
-  thickness = 1;
+  @Decorator.property('Number', 'thickness', null)
+  thickness: number | null = null;
 
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position = Vector3.Zero();
+  @Decorator.property('Vector3', 'position', null)
+  position: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation = Vector3.Zero();
+  @Decorator.property('Vector3', 'rotation', null)
+  rotation: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale = Vector3.One();
+  @Decorator.property('Vector3', 'scale', null)
+  scale: Vector3 | null = null;
 
-  @Decorator.property('Color3', 'color', Color3.Red())
-  color = Color3.Red();
+  @Decorator.property('Color3', 'color', null)
+  color: Vector3 | null = null;
 
   connected(): void {
     super.connected();
@@ -31,9 +30,9 @@ export class XRArrow extends PrimitiveBase {
   }
 
   render() {
-    const thickness = this.thickness;
+    const thickness = this.evaluated.thickness || 1;
 
-    const material = html`<xr-material id="${this.id}-material" .albedoColor=${this.color} unlit></xr-material> `;
+    const material = html`<xr-material id="${this.id}-material" .albedoColor=${this.evaluated.color} unlit></xr-material> `;
 
     const arrow = html`
       <xr-mesh

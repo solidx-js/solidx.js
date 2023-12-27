@@ -7,20 +7,20 @@ import { ElementUtil, randomID } from '../../util';
 import { ITransformNodeLikeImpl } from '../impl';
 
 export class XRNode extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position = Vector3.Zero();
+  @Decorator.property('Vector3', 'position', null)
+  position: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
-  rotation = Vector3.Zero();
+  @Decorator.property('Vector3', 'rotation', null)
+  rotation: Vector3 | null = null;
 
   @Decorator.property('Quaternion', 'quaternion', null)
   quaternion: Quaternion | null = null;
 
-  @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale = Vector3.One();
+  @Decorator.property('Vector3', 'scale', null)
+  scale: Vector3 | null = null;
 
-  @Decorator.property('Number', 'layer', 0)
-  layer = 0;
+  @Decorator.property('Number', 'layer', null)
+  layer: number | null = null;
 
   constructor() {
     super();

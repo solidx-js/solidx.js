@@ -5,26 +5,26 @@ import { html } from 'lit';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 
 export class XREllipse extends PrimitiveBase implements ITransformNodeLikeImpl {
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position = Vector3.Zero();
+  @Decorator.property('Vector3', 'position', null)
+  position: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'rotation', new Vector3(0, 0, 0))
-  rotation = new Vector3(0, 0, 0);
+  @Decorator.property('Vector3', 'rotation', null)
+  rotation: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'scale', Vector3.One())
-  scale = Vector3.One();
+  @Decorator.property('Vector3', 'scale', null)
+  scale: Vector3 | null = null;
 
-  @Decorator.property('Number', 'layer', 0)
-  layer = 0;
+  @Decorator.property('Number', 'layer', null)
+  layer: number | null = null;
 
   @Decorator.property('Quaternion', 'quaternion', null)
   quaternion: Quaternion | null = null;
 
   @Decorator.property('Number', 'radius-x', 1)
-  radiusX: number = 1;
+  radiusX: number | null = null;
 
   @Decorator.property('Number', 'radius-y', 1)
-  radiusY: number = 1;
+  radiusY: number | null = null;
 
   @Decorator.property('Color3', 'color', null)
   color: Color3 | null = null;
@@ -39,6 +39,7 @@ export class XREllipse extends PrimitiveBase implements ITransformNodeLikeImpl {
 
   render() {
     const { position, rotation, scale, layer, quaternion, radiusX: a, radiusY: b, color } = this.evaluated;
+    if (!a || !b) return;
 
     const points: [number, number, number][] = [];
 

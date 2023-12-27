@@ -6,10 +6,10 @@ import { Light } from '@babylonjs/core/Lights/light';
 export class LightController implements ReactiveController {
   constructor(
     private host: XRElement<Light> & {
-      diffuse: Color3;
-      specular: Color3;
-      intensity: number;
-      shadowEnabled: boolean;
+      diffuse: Color3 | null;
+      specular: Color3 | null;
+      intensity: number | null;
+      shadowEnabled: boolean | null;
     }
   ) {
     this.host.addController(this);

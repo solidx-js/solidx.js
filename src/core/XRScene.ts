@@ -1,6 +1,6 @@
 import { Scene } from '@babylonjs/core/scene';
 import { XRElement } from './XRElement';
-import { query, state } from 'lit/decorators.js';
+import { state } from 'lit/decorators.js';
 import { provide } from '@lit/context';
 import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
@@ -40,47 +40,29 @@ export class XRScene extends XRElement {
   scene: Scene = null as any;
 
   @Decorator.property('Color4', 'background', new Color4(1, 1, 1, 0))
-  background: Color4 = new Color4(1, 1, 1, 0);
+  background: Color4 | null = null;
 
-  @Decorator.property('Number', 'width', 600)
-  width: number = 600;
+  @Decorator.property('String', 'env-url', null)
+  envUrl: string | null = null;
 
-  @Decorator.property('Number', 'height', 400)
-  height: number = 400;
+  @Decorator.property('Number', 'env-rotation-y', null)
+  envRotationY: number | null = null;
 
-  @Decorator.property('String', 'env-url', XRScene.defaultEnvMap)
-  envUrl: string = XRScene.defaultEnvMap;
-
-  @Decorator.property('Number', 'env-rotation-y', 0)
-  envRotationY = 0;
-
-  @Decorator.property('Number', 'env-intensity', 1)
-  envIntensity = 1;
+  @Decorator.property('Number', 'env-intensity', null)
+  envIntensity: number | null = null;
 
   @Decorator.property('Number', 'contrast', 1.2)
-  contrast = 1.2;
+  contrast: number | null = null;
 
   @Decorator.property('Number', 'exposure', 1.2)
-  exposure = 1.2;
+  exposure: number | null = null;
 
-  @Decorator.property('Boolean', 'auto-resize', false)
-  autoResize = false;
-
-  @query('.xr-canvas-wrapper')
-  private containerEle!: HTMLDivElement;
+  private _container: HTMLDivElement | null = null;
 
   private _doRender = () => {
     if (!this.scene.activeCamera) return;
     this.scene.render();
   };
-
-  private reCalcContainerSize() {
-    const rect = this.getBoundingClientRect();
-    if (rect.width && rect.height) {
-      this.width = rect.width;
-      this.height = rect.height;
-    }
-  }
 
   connected(): void {
     super.connected();
@@ -90,10 +72,20 @@ export class XRScene extends XRElement {
     this.style.width = '100%';
     this.style.height = '100%';
 
+    // create container
+    this._container = document.createElement('div');
+    this._container.id = this.ID;
+    this._container.classList.add('xr-canvas-container');
+    this._container.style.width = '100%';
+    this._container.style.height = '100%';
+    this.appendChild(this._container);
+
+    // create canvas
     const _canvas = document.createElement('canvas');
     _canvas.style.width = '100%';
     _canvas.style.height = '100%';
     _canvas.style.outline = 'none';
+    this._container.appendChild(_canvas);
 
     this.engine = XRScene.createEngine(_canvas);
     this.logger.info('Engine %s created', this.ID);
@@ -112,7 +104,6 @@ export class XRScene extends XRElement {
 
     this.scene.defaultMaterial = defaultMaterial;
 
-    if (this.autoResize) this.reCalcContainerSize();
     this.engine.runRenderLoop(this._doRender);
 
     // 放到最后
@@ -120,8 +111,13 @@ export class XRScene extends XRElement {
   }
 
   protected firstUpdated(): void {
-    this.containerEle.appendChild(this.engine.getRenderingCanvas()!);
-    if (this.autoResize) this.reCalcContainerSize();
+    if (!this._container) return;
+
+    const hostBounds = this.getBoundingClientRect();
+    this._container.style.width = `${hostBounds.width}px`;
+    this._container.style.height = `${hostBounds.height}px`;
+
+    this.engine.resize();
 
     if (this.inspect) {
       const m = import('@babylonjs/inspector');
@@ -144,23 +140,27 @@ export class XRScene extends XRElement {
     super.willUpdate(changed);
 
     if (changed.has('contrast')) {
-      this.scene.imageProcessingConfiguration.contrast = this.evaluated.contrast;
+      this.scene.imageProcessingConfiguration.contrast = this.evaluated.contrast || 1;
     }
 
     if (changed.has('exposure')) {
-      this.scene.imageProcessingConfiguration.exposure = this.evaluated.exposure;
+      this.scene.imageProcessingConfiguration.exposure = this.evaluated.exposure || 1;
     }
 
-    if (changed.has('envUrl') && this.scene.environmentTexture instanceof CubeTexture) {
+    if (changed.has('envUrl') && this.evaluated.envUrl && this.scene.environmentTexture instanceof CubeTexture) {
       this.scene.environmentTexture.updateURL(this.evaluated.envUrl);
     }
 
     if (changed.has('envRotationY') && this.scene.environmentTexture instanceof CubeTexture) {
-      this.scene.environmentTexture.rotationY = this.evaluated.envRotationY * (Math.PI / 180);
+      this.scene.environmentTexture.rotationY = (this.evaluated.envRotationY || 0) * (Math.PI / 180);
     }
 
     if (changed.has('envIntensity')) {
-      this.scene.environmentIntensity = this.evaluated.envIntensity;
+      this.scene.environmentIntensity = this.evaluated.envIntensity || 1;
+    }
+
+    if (changed.has('background') && this._container) {
+      this._container.style.background = this.evaluated.background?.toHexString() || 'transparent';
     }
   }
 
@@ -169,15 +169,5 @@ export class XRScene extends XRElement {
     this.engine.dispose();
 
     this.logger.info('Engine %s disposed', this.ID);
-  }
-
-  render() {
-    return html`
-      <div
-        id=${this.ID}
-        class="xr-canvas-wrapper"
-        style=${styleMap({ width: this.width + 'px', height: this.height + 'px', background: this.background.toHexString() })}
-      ></div>
-    `;
   }
 }

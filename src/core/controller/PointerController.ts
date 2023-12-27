@@ -27,26 +27,11 @@ export class PointerController implements ReactiveController {
       if (!ele) return;
 
       if (ev.type === PointerEventTypes.POINTERTAP) ele.click();
-      if (ev.type === PointerEventTypes.POINTERMOVE) {
-        if (ele.mouseOver) ele.emit('mousemove', 0);
-        else {
-          ele.emit('mouseenter', 0);
-
-          ele.mouseOver = true;
-          ele.emit('mouseover', 0);
-        }
-      }
-    } else {
-      const ele = this.host.querySelector<XRMesh>(`xr-mesh[mouse-over]`);
-      if (!ele) return;
-
-      ele.mouseOver = false;
-      ele.emit('mouseleave', 0);
     }
   };
 
   hostConnected() {
-    this._ptOb = this.scene.onPointerObservable.add(this._handlePointer, PointerEventTypes.POINTERTAP | PointerEventTypes.POINTERMOVE);
+    this._ptOb = this.scene.onPointerObservable.add(this._handlePointer, PointerEventTypes.POINTERTAP);
   }
 
   hostUpdate(): void {}

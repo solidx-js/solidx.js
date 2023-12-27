@@ -8,10 +8,10 @@
 <xr-scene auto-resize>
   <style>
     .red {
-      --material: 'albedo-color: #ff0000';
+      ---material: 'albedo-color: #ff0000';
     }
     .green {
-      --material: 'albedo-color: #00ff00; alpha: 0.1';
+      ---material: 'albedo-color: #00ff00; alpha: 0.1';
     }
   </style>
 

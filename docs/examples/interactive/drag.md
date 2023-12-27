@@ -6,7 +6,7 @@
 <xr-scene auto-resize>
   <style>
     .box {
-      --geometry: 'type: box';
+      ---geometry: 'type: box';
     }
   </style>
 

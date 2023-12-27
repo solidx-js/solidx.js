@@ -7,41 +7,41 @@ import { ITextureImpl } from '../impl';
 export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureImpl {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Boolean', 'has-alpha', false)
-  hasAlpha: boolean = false;
+  @Decorator.property('Boolean', 'has-alpha', null)
+  hasAlpha: boolean | null = null;
 
-  @Decorator.property('Number', 'level', 1)
-  level: number = 1;
+  @Decorator.property('Number', 'level', null)
+  level: number | null = null;
 
-  @Decorator.property('Number', 'coordinates-index', 0)
-  coordinatesIndex: number = 0;
+  @Decorator.property('Number', 'coordinates-index', null)
+  coordinatesIndex: number | null = null;
 
-  @Decorator.property('Number', 'coordinates-mode', 0)
-  coordinatesMode: number = 0;
+  @Decorator.property('Number', 'coordinates-mode', null)
+  coordinatesMode: number | null = null;
 
-  @Decorator.property('Number', 'wrap-u', 0)
-  wrapU: number = 0;
+  @Decorator.property('Number', 'wrap-u', null)
+  wrapU: number | null = null;
 
-  @Decorator.property('Number', 'wrap-v', 0)
-  wrapV: number = 0;
+  @Decorator.property('Number', 'wrap-v', null)
+  wrapV: number | null = null;
 
-  @Decorator.property('String', 'url', '')
-  url: string = '';
+  @Decorator.property('String', 'url', null)
+  url: string | null = null;
 
-  @Decorator.property('Number', 'u-offset', 0)
-  uOffset: number = 0;
+  @Decorator.property('Number', 'u-offset', null)
+  uOffset: number | null = null;
 
-  @Decorator.property('Number', 'v-offset', 0)
-  vOffset: number = 0;
+  @Decorator.property('Number', 'v-offset', null)
+  vOffset: number | null = null;
 
-  @Decorator.property('Number', 'u-scale', 1)
-  uScale: number = 1;
+  @Decorator.property('Number', 'u-scale', null)
+  uScale: number | null = null;
 
-  @Decorator.property('Number', 'v-scale', 1)
-  vScale: number = 1;
+  @Decorator.property('Number', 'v-scale', null)
+  vScale: number | null = null;
 
-  @Decorator.property('Boolean', 'invert-y', false)
-  invertY: boolean = false;
+  @Decorator.property('Boolean', 'invert-y', null)
+  invertY: boolean | null = null;
 
   constructor() {
     super();
@@ -51,7 +51,7 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureI
   connected(): void {
     super.connected();
 
-    this.entity = new Texture(null, this.scene, undefined, this.invertY);
+    this.entity = new Texture(null, this.scene, undefined, this.invertY || false);
     this.entity.name = this.id;
   }
 
@@ -61,10 +61,10 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureI
     if (!this.entity) return;
 
     if (changed.has('url')) this.entity.updateURL(this.evaluated.url || '');
-    if (changed.has('uOffset')) this.entity.uOffset = this.evaluated.uOffset;
-    if (changed.has('vOffset')) this.entity.vOffset = this.evaluated.vOffset;
-    if (changed.has('uScale')) this.entity.uScale = this.evaluated.uScale;
-    if (changed.has('vScale')) this.entity.vScale = this.evaluated.vScale;
+    if (changed.has('uOffset')) this.entity.uOffset = this.evaluated.uOffset || 0;
+    if (changed.has('vOffset')) this.entity.vOffset = this.evaluated.vOffset || 0;
+    if (changed.has('uScale')) this.entity.uScale = this.evaluated.uScale || 0;
+    if (changed.has('vScale')) this.entity.vScale = this.evaluated.vScale || 0;
   }
 
   disconnected(): void {

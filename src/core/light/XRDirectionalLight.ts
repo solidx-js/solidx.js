@@ -9,26 +9,26 @@ import { ElementUtil } from '../../util';
 export class XRDirectionalLight extends XRSceneScopeElement<DirectionalLight> {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
-  position = Vector3.Zero();
+  @Decorator.property('Vector3', 'position', null)
+  position: Vector3 | null = null;
 
-  @Decorator.property('Color3', 'diffuse', new Color3(1, 1, 1))
-  diffuse: Color3 = new Color3(1, 1, 1);
+  @Decorator.property('Color3', 'diffuse', null)
+  diffuse: Color3 | null = null;
 
-  @Decorator.property('Color3', 'specular', new Color3(1, 1, 1))
-  specular: Color3 = new Color3(1, 1, 1);
+  @Decorator.property('Color3', 'specular', null)
+  specular: Color3 | null = null;
 
-  @Decorator.property('Number', 'intensity', 1)
-  intensity: number = 1;
+  @Decorator.property('Number', 'intensity', null)
+  intensity: number | null = null;
 
-  @Decorator.property('Boolean', 'shadowEnabled', false)
-  shadowEnabled: boolean = false;
+  @Decorator.property('Boolean', 'shadowEnabled', null)
+  shadowEnabled: boolean | null = null;
 
   @Decorator.property('Number', 'alpha', 40)
-  alpha: number = 40;
+  alpha: number | null = null;
 
   @Decorator.property('Number', 'beta', 30)
-  beta: number = 30;
+  beta: number | null = null;
 
   constructor() {
     super();
@@ -48,12 +48,14 @@ export class XRDirectionalLight extends XRSceneScopeElement<DirectionalLight> {
     if (!this.entity) return;
 
     // rotation
-    const alpha = this.alpha * (Math.PI / 180);
-    const beta = this.beta * (Math.PI / 180);
-    this.entity.direction.x = Math.sin(beta) * Math.cos(alpha);
-    this.entity.direction.y = Math.cos(beta);
-    this.entity.direction.z = Math.sin(beta) * Math.sin(alpha);
-    this.entity.direction.scaleInPlace(-1); // direction 是从光源指向场景的，所以需要取反
+    if (typeof this.evaluated.alpha === 'number' && typeof this.evaluated.beta === 'number') {
+      const alpha = this.evaluated.alpha * (Math.PI / 180);
+      const beta = this.evaluated.beta * (Math.PI / 180);
+      this.entity.direction.x = Math.sin(beta) * Math.cos(alpha);
+      this.entity.direction.y = Math.cos(beta);
+      this.entity.direction.z = Math.sin(beta) * Math.sin(alpha);
+      this.entity.direction.scaleInPlace(-1); // direction 是从光源指向场景的，所以需要取反
+    }
   }
 
   disconnected(): void {
