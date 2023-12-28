@@ -9,7 +9,7 @@
   "scripts": {
     "__dev": "parcel serve --dist-dir=node_modules/.dist demo/*.html demo/assets/*.* demo/assets/**/*.*",
     "dev": "vuepress dev docs -p 10001 --clean-temp --clean-cache",
-    "build": "rm -rf dist/* && parcel build ./src/index.ts --no-cache",
+    "build": "rm -rf dist/* && parcel build ./src/index.ts --no-cache --reporter @parcel/reporter-bundle-analyzer",
     "test": "jest -i",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit && npm test",
     "release": "npm run ci && rm -rf dist/* && npm run build && release-it",
@@ -26,6 +26,7 @@
     "@babylonjs/inspector": "^6.31.0",
     "@parcel/config-default": "^2.10.3",
     "@parcel/packager-ts": "2.10.3",
+    "@parcel/reporter-bundle-analyzer": "^2.10.3",
     "@parcel/transformer-less": "2.10.3",
     "@parcel/transformer-raw": "^2.10.3",
     "@parcel/transformer-svg-react": "^2.10.3",
