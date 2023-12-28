@@ -1,1 +1,1 @@
-# bjs-frame
+# solidx.js
