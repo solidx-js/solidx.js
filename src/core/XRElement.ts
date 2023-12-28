@@ -2,15 +2,11 @@ import { DefaultBizLogger } from '../BizLogger';
 import { LitElement } from 'lit';
 import { EntityInspectController, EventDispatchController, NodeStateController, TickController } from './controller';
 import { Decorator } from './Decorator';
-import { ElementUtil, Schema, randomID } from '../util';
+import { ElementUtil, Schema, ValueWrapper, randomID } from '../util';
 import { state } from 'lit/decorators.js';
 import { PickStringKey } from '../type';
 
-// 临时对象, 用于减轻 GC 压力
-const TmpObject = {
-  map1: new Map(),
-  set1: new Set(),
-};
+const ComputedStylesFlagSym = Symbol('ComputedStylesFlagSym');
 
 export class XRElement<T = any> extends LitElement {
   static requiredAttrs: string[] = [];
@@ -27,7 +23,7 @@ export class XRElement<T = any> extends LitElement {
   @Decorator.property('Boolean', 'disabled', null)
   disabled: boolean | null = null;
 
-  private _styles: CSSStyleDeclaration | null = null;
+  private _styled: CSSStyleDeclaration | null = null;
   private _styleRefData: Record<string, { raw: string; data: any }> = {}; // class 引入数据
 
   private _disposes: (() => void)[] = [];
@@ -82,7 +78,7 @@ export class XRElement<T = any> extends LitElement {
   }
 
   checkComputedStyles() {
-    if (!this._styles) return;
+    if (!this._styled) return;
 
     for (const [property] of this._Cls.elementProperties) {
       if (typeof property !== 'string') continue; // 只支持 string 类型
@@ -91,19 +87,20 @@ export class XRElement<T = any> extends LitElement {
       const isChanged = this.reloadAttrFromComputedStyles(property);
 
       if (isChanged) {
-        this.requestUpdate(`__computed_styles_${property}`, oldValue, { hasChanged: () => true } as any); // 强制标记为 changed
+        // 用 ValueWrapper 包装一下, willUpdate 会检查这个对象
+        this.requestUpdate(property, new ValueWrapper(ComputedStylesFlagSym, oldValue), { hasChanged: () => true } as any); // 强制标记为 changed
       }
     }
   }
 
   reloadAttrFromComputedStyles(property: string) {
-    if (!this._styles) return;
+    if (!this._styled) return;
 
     const def = this._Cls.elementProperties.get(property);
     if (!def || def.state) return;
 
     const _cssProp = def.attribute ?? property;
-    const _css = this._styles.getPropertyValue('---' + _cssProp).trim();
+    const _css = this._styled.getPropertyValue('---' + _cssProp).trim();
 
     // 和缓存字符串对比，值没有变化，跳过
     if (this._styleRefData[property]?.raw === _css) return;
@@ -158,7 +155,7 @@ export class XRElement<T = any> extends LitElement {
       if (missingAttrs.length > 0) throw new Error(`[${this.tagName}] Missing required attributes: ${missingAttrs.join(', ')}`);
     }
 
-    this._styles = getComputedStyle(this);
+    this._styled = getComputedStyle(this);
     this.checkComputedStyles();
 
     this.connected();
@@ -168,12 +165,13 @@ export class XRElement<T = any> extends LitElement {
     super.willUpdate(changed);
 
     for (const [property, _old] of Array.from(changed.entries())) {
-      if (property.startsWith('__computed_styles_')) {
-        // 转换脏标记
-        changed.delete(property);
-        changed.set(property.replace(/^__computed_styles_/, ''), _old);
-      } else {
-        // 写入 inline style, 并且更新 evaluated
+      // 如果是 ValueWrapper, 说明是 computed style 触发的更新，不用同步到 inline style
+      if (_old instanceof ValueWrapper && _old.type === ComputedStylesFlagSym) {
+        changed.set(property, _old.valueOf());
+      }
+
+      // 如果不是 ValueWrapper, 说明是属性触发的更新 -> 同步到 inline style 重新计算
+      else {
         this._syncPropertyToStyle(property);
       }
     }
@@ -181,8 +179,6 @@ export class XRElement<T = any> extends LitElement {
     // 把 changed 复制到 this.changed
     this.changed.clear();
     for (const [key, value] of changed) this.changed.set(key, value);
-
-    // console.log('@@@', '111 ->', this.displayText);
   }
 
   private _syncPropertyToStyle(property: string) {
@@ -210,7 +206,7 @@ export class XRElement<T = any> extends LitElement {
 
     this.logger.debug('remove');
 
-    this._styles = null;
+    this._styled = null;
 
     for (const dispose of this._disposes) dispose();
     this._disposes = [];
