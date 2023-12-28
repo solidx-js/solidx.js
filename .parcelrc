@@ -6,6 +6,9 @@
     ],
     "*.{glb,gltf,bin}": [
       "@parcel/transformer-raw"
+    ],
+    "*.{ts,tsx}": [
+      "@parcel/transformer-typescript-tsc"
     ]
   }
 }
