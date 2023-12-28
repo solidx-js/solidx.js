@@ -4,15 +4,19 @@ import { IPostProcessImpl } from '../impl';
 import { Decorator } from '../Decorator';
 import { state } from 'lit/decorators.js';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
-import { TagRefController } from '../controller';
+import { TagListRefController, TagRefController } from '../controller';
 import { Camera } from '@babylonjs/core/Cameras/camera';
+import compact from 'lodash/compact';
 
 export class XRVolumetricLight extends XRSceneScopeElement<VolumetricLightScatteringPostProcess> implements IPostProcessImpl {
   @Decorator.property('String', 'camera', null)
   camera: string | null = null;
 
-  @Decorator.property('String', 'mesh', null)
-  mesh: string | null = null;
+  @Decorator.property('String', 'source', null)
+  source: string | null = null;
+
+  @Decorator.property('String', 'excluded', null)
+  excluded: string | null = null;
 
   @Decorator.property('Number', 'exposure', null)
   exposure: number | null = null;
@@ -30,13 +34,17 @@ export class XRVolumetricLight extends XRSceneScopeElement<VolumetricLightScatte
   _camera: (HTMLElement & { entity: Camera | null }) | null = null;
 
   @state()
-  _mesh: (HTMLElement & { entity: Mesh | null }) | null = null;
+  _source: (HTMLElement & { entity: Mesh | null }) | null = null;
+
+  @state()
+  _excluded: Array<HTMLElement & { entity: Mesh | null }> | null = null;
 
   constructor() {
     super();
 
     new TagRefController(this, 'camera', '_camera', null);
-    new TagRefController(this, 'mesh', '_mesh', null);
+    new TagRefController(this, 'source', '_source', null);
+    new TagListRefController(this, 'excluded', '_excluded');
   }
 
   connected(): void {
@@ -79,14 +87,18 @@ export class XRVolumetricLight extends XRSceneScopeElement<VolumetricLightScatte
       );
     }
 
-    if (changed.has('_mesh') && this._mesh?.entity) {
-      this.entity.mesh = this._mesh?.entity;
+    if (changed.has('_source') && this._source?.entity) {
+      this.entity.mesh = this._source?.entity;
     }
 
     if (changed.has('exposure') && this.evaluated.exposure) this.entity.exposure = this.evaluated.exposure;
     if (changed.has('decay') && this.evaluated.decay) this.entity.decay = this.evaluated.decay;
     if (changed.has('weight') && this.evaluated.weight) this.entity.weight = this.evaluated.weight;
     if (changed.has('density') && this.evaluated.density) this.entity.density = this.evaluated.density;
+
+    if (changed.has('_excluded') && this._excluded) {
+      this.entity.excludedMeshes = compact(this._excluded.map(e => e.entity));
+    }
   }
 
   disconnected(): void {

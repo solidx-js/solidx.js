@@ -21,7 +21,7 @@
   </style>
 
   <xr-camera radius="30" alpha="-35" beta="75" max-z="1000"></xr-camera>
-  <xr-volumetric-light mesh="#sun" exposure="0.1" weight="0.5" density="1.5"></xr-volumetric-light>
+  <xr-volumetric-light source="#sun" excluded="xr-ground xr-mesh" exposure="0.1" weight="0.5" density="1.5"></xr-volumetric-light>
 
   <xr-ground size="1000"></xr-ground>
 
