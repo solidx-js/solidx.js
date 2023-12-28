@@ -1,6 +1,7 @@
 {
-  "name": "bjs-frame",
+  "name": "solidx.js",
   "version": "2.0.0",
+  "description": "A New Way of 3D Programming",
   "files": [
     "dist"
   ],
