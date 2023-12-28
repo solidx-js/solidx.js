@@ -66,11 +66,11 @@
     "@babylonjs/loaders": "^6.34.1",
     "@babylonjs/materials": "^6.34.1",
     "@lit/context": "^1.1.0",
-    "@swc/helpers": "^0.5.3",
     "ah-logger": "^3.2.8",
     "chroma-js": "^2.4.2",
     "lit": "^3.1.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "tslib": "^2.6.2"
   },
   "targets": {
     "global": {
