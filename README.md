@@ -20,8 +20,28 @@
 
 #### Render box and sphere
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="Render box and sphere" src="https://codepen.io/concefly/embed/preview/VwRLbbE?default-tab=html%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/concefly/pen/VwRLbbE">
-  Render box and sphere</a> by 黄文鉴 (<a href="https://codepen.io/concefly">@concefly</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+![image](https://github.com/solidx-js/solidx.js/assets/6647656/9c42a77f-cca4-4d60-b854-abcd476e2b6d)
+
+```html
+<script src="https://unpkg.com/solidx.js@2.0.1/dist/index.js"></script>
+
+<xr-scene>
+  <xr-camera radius="6" beta="75"></xr-camera>
+  <style>
+    .box {
+      ---geometry: 'type: box';
+    }
+    .sphere {
+      ---geometry: 'type: sphere';
+    }
+    .box,
+    .sphere {
+      ---material: 'albedo-color: #ffc069';
+    }
+  </style>
+  <xr-mesh class="box" position="-2 0 0"></xr-mesh>
+  <xr-mesh class="sphere" position="2 0 0"></xr-mesh>
+</xr-scene>
+```
+
+Try in live: https://codepen.io/concefly/full/VwRLbbE
