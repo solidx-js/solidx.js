@@ -9,7 +9,7 @@ import { IMaterialImpl, ITextureImpl } from '../impl';
 export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IMaterialImpl {
   static requiredAttrs: string[] = ['id'];
 
-  @Decorator.property('Color3', 'albedo-color', null)
+  @Decorator.property('Color3', 'albedo-color', new Color3(1, 1, 1))
   albedoColor: Color3 | null = null;
 
   @Decorator.property('String', 'albedo-texture', null)

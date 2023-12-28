@@ -18,8 +18,8 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @state()
   private _container: AssetContainer | null = null;
 
-  @Decorator.property('String', 'src', '')
-  src = '';
+  @Decorator.property('String', 'src', null)
+  src: string | null = null;
 
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
@@ -30,7 +30,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @Decorator.property('Quaternion', 'quaternion', null)
   quaternion: Quaternion | null = null;
 
-  @Decorator.property('Vector3', 'scale', null)
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale: Vector3 | null = null;
 
   @Decorator.property('Boolean', 'disable-pointer-event', null)
@@ -133,7 +133,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
         if (this.autoPlay === '') {
           ags = _container.animationGroups;
         } else {
-          const _names = Schema.parse('Array', this.autoPlay) as string[];
+          const _names = Schema.fromAttr('Array', this.autoPlay) as string[];
           ags = _container.animationGroups.filter(a => _names.includes(a.name));
         }
 

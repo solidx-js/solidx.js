@@ -30,7 +30,7 @@ export class XRLine extends XRSceneScopeElement<LinesMesh> implements ITransform
   @Decorator.property('Quaternion', 'quaternion', null)
   quaternion: Quaternion | null = null;
 
-  @Decorator.property('Vector3', 'scale', null)
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale: Vector3 | null = null;
 
   private _curPointCount = 0;

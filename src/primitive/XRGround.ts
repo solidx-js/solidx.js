@@ -10,7 +10,7 @@ export class XRGround extends PrimitiveBase {
   @Decorator.property('Vector3', 'rotation', null)
   rotation: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'scale', null)
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale: Vector3 | null = null;
 
   @Decorator.property('String', 'type', 'plane')

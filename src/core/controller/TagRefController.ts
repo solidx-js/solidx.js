@@ -39,57 +39,59 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
       if (typeof selector === 'string') {
         // object 格式
         if ((selector.includes(': ') || selector === '') && this.fallbackTagName) {
-          const _inData = Schema.parse('Object', selector);
+          const _inData = Schema.fromAttr('Object', selector);
 
-          const _tagName = typeof this.fallbackTagName === 'function' ? this.fallbackTagName(_inData) : this.fallbackTagName;
-          const Cls = ElementRegistry.Instance.get(_tagName);
+          if (_inData) {
+            const _tagName = typeof this.fallbackTagName === 'function' ? this.fallbackTagName(_inData) : this.fallbackTagName;
+            const Cls = ElementRegistry.Instance.get(_tagName);
 
-          // 检查是否需要重新创建元素: tag 名字不一样
-          if (this._selfHostElement && this._selfHostElement.tagName.toLowerCase() !== _tagName.toLowerCase()) {
-            this._selfHostElement.remove();
-            this._selfHostElement = null;
-          }
-
-          // 创建内部元素
-          if (!this._selfHostElement) {
-            const _ele = new Cls();
-            this._selfHostElement = _ele;
-
-            // 设置初始属性
-            for (const [_k, _v] of Object.entries(_inData)) _ele.setAttribute(_k, _v as any);
-
-            // 添加到 host 上
-            this.host.appendChild(_ele);
-
-            if (!_ele.entity) {
-              this.host.logger.warn('TagRefController: entity is null when ref is object. tag=%s', _ele.tagName.toLowerCase());
+            // 检查是否需要重新创建元素: tag 名字不一样
+            if (this._selfHostElement && this._selfHostElement.tagName.toLowerCase() !== _tagName.toLowerCase()) {
+              this._selfHostElement.remove();
+              this._selfHostElement = null;
             }
 
-            this._setTarget(_ele as any);
-          }
+            // 创建内部元素
+            if (!this._selfHostElement) {
+              const _ele = new Cls();
+              this._selfHostElement = _ele;
 
-          // 更新属性
-          else {
-            const _toResetKeys = this._lastIncomeData ? difference(Object.keys(this._lastIncomeData), Object.keys(_inData)) : [];
+              // 设置初始属性
+              for (const [_k, _v] of Object.entries(_inData)) _ele.setAttribute(_k, _v as any);
 
-            // 重置属性(用默认值)
-            for (const _k of _toResetKeys) {
-              const _def = [...Cls.elementProperties.values()].find(v => v.attribute === _k) || Cls.elementProperties.get(_k);
-              if (!_def) continue;
+              // 添加到 host 上
+              this.host.appendChild(_ele);
 
-              const _v = _def.initValue;
-              if (_v === null) continue;
+              if (!_ele.entity) {
+                this.host.logger.warn('TagRefController: entity is null when ref is object. tag=%s', _ele.tagName.toLowerCase());
+              }
 
-              const propKey = [...Cls.elementProperties.entries()].find(([, v]) => v === _def)![0];
-
-              (this._selfHostElement as any)[propKey] = typedClone(_v as any);
+              this._setTarget(_ele as any);
             }
 
-            // 设置属性
-            for (const [_k, _v] of Object.entries(_inData)) this._selfHostElement.setAttribute(_k, _v as any);
-          }
+            // 更新属性
+            else {
+              const _toResetKeys = this._lastIncomeData ? difference(Object.keys(this._lastIncomeData), Object.keys(_inData)) : [];
 
-          this._lastIncomeData = _inData;
+              // 重置属性(用默认值)
+              for (const _k of _toResetKeys) {
+                const _def = [...Cls.elementProperties.values()].find(v => v.attribute === _k) || Cls.elementProperties.get(_k);
+                if (!_def) continue;
+
+                const _v = _def.initValue;
+                if (_v === null) continue;
+
+                const propKey = [...Cls.elementProperties.entries()].find(([, v]) => v === _def)![0];
+
+                (this._selfHostElement as any)[propKey] = typedClone(_v as any);
+              }
+
+              // 设置属性
+              for (const [_k, _v] of Object.entries(_inData)) this._selfHostElement.setAttribute(_k, _v as any);
+            }
+
+            this._lastIncomeData = _inData;
+          }
         }
 
         // string 格式

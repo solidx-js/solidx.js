@@ -11,7 +11,7 @@ export class XREllipse extends PrimitiveBase implements ITransformNodeLikeImpl {
   @Decorator.property('Vector3', 'rotation', null)
   rotation: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'scale', null)
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale: Vector3 | null = null;
 
   @Decorator.property('Number', 'layer', null)
@@ -44,7 +44,7 @@ export class XREllipse extends PrimitiveBase implements ITransformNodeLikeImpl {
     const points: [number, number, number][] = [];
 
     // 根据椭圆的参数方程计算椭圆上的点
-    for (let i = 0; i <= 360; i += 10) {
+    for (let i = 0; i <= 360; i += 2) {
       const x = a * Math.cos((i * Math.PI) / 180);
       const y = b * Math.sin((i * Math.PI) / 180);
       points.push([x, y, 0]);

@@ -10,7 +10,7 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureI
   @Decorator.property('Boolean', 'has-alpha', null)
   hasAlpha: boolean | null = null;
 
-  @Decorator.property('Number', 'level', null)
+  @Decorator.property('Number', 'level', 1)
   level: number | null = null;
 
   @Decorator.property('Number', 'coordinates-index', null)
@@ -34,10 +34,10 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureI
   @Decorator.property('Number', 'v-offset', null)
   vOffset: number | null = null;
 
-  @Decorator.property('Number', 'u-scale', null)
+  @Decorator.property('Number', 'u-scale', 1)
   uScale: number | null = null;
 
-  @Decorator.property('Number', 'v-scale', null)
+  @Decorator.property('Number', 'v-scale', 1)
   vScale: number | null = null;
 
   @Decorator.property('Boolean', 'invert-y', null)

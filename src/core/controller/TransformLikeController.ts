@@ -21,23 +21,24 @@ export class TransformLikeController implements ReactiveController {
     const quaternion = this.host.evaluated.quaternion;
     const scale = this.host.evaluated.scale;
 
-    if (position && !position.equals(entity.position)) entity.position.copyFrom(position);
+    const changed = this.host.changed;
 
-    if (rotation) {
+    if (changed.has('position') && position) entity.position.copyFrom(position);
+    if (changed.has('rotation') && rotation) {
       entity.rotation.copyFrom(rotation).scaleInPlace(Math.PI / 180);
       if (entity.rotationQuaternion) Quaternion.FromEulerVectorToRef(entity.rotation, entity.rotationQuaternion);
     }
-
-    if (quaternion) {
-      if (!entity.rotationQuaternion) entity.rotationQuaternion = quaternion.clone();
-      else entity.rotationQuaternion.copyFrom(quaternion);
-    } else {
-      entity.rotationQuaternion = null;
+    if (changed.has('quaternion')) {
+      if (quaternion) {
+        if (!entity.rotationQuaternion) entity.rotationQuaternion = quaternion.clone();
+        else entity.rotationQuaternion.copyFrom(quaternion);
+      } else {
+        entity.rotationQuaternion = null;
+      }
     }
+    if (changed.has('scale') && scale) entity.scaling.copyFrom(scale);
 
-    if (scale && !scale.equals(entity.scaling)) entity.scaling.copyFrom(scale);
-
-    if (entity && entity instanceof Mesh) {
+    if (changed.has('layer') && entity && entity instanceof Mesh) {
       entity.renderingGroupId = this.host.evaluated.layer || 0;
     }
   }

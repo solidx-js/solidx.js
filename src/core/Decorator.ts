@@ -18,15 +18,8 @@ export const Decorator = {
       initValue: typedClone(initValue),
       attribute,
       converter: {
-        fromAttribute: (value: string | null) => {
-          if (dType === 'Boolean') return value !== null;
-          return typeof value === 'string' ? Schema.parse(dType, value) : undefined;
-        },
-        toAttribute: (value: any) => {
-          if (typeof value === 'undefined' || value === null) return null;
-          if (dType === 'Boolean') return value ? '' : null;
-          return Schema.stringify(dType, value);
-        },
+        fromAttribute: (value: string | null) => Schema.fromAttr(dType, value),
+        toAttribute: (value: any) => Schema.toAttr(dType, value),
       },
       hasChanged: (value: any, oldValue: any) => !Schema.isEqual(dType, value, oldValue),
     });

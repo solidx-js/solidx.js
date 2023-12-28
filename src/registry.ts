@@ -79,7 +79,7 @@ export class ElementRegistry {
 
         if (def.dType === 'Color3' || def.dType === 'Color4') {
           syntax = '<color>';
-          initialValue = '#ffffff';
+          initialValue = '#000000';
         }
         //
         else if (def.dType === 'Number' || def.dType === 'Vector2' || def.dType === 'Vector3' || def.dType === 'Vector4') {
@@ -87,17 +87,15 @@ export class ElementRegistry {
           initialValue = '0';
         }
 
-        _cssProps.set(propName, {});
+        _cssProps.set(propName, { syntax, initialValue });
 
-        if (def.initValue) {
+        if (def.initValue !== null) {
           _styleContents.push(`---${propName}: ${Schema.toCssLiteral(def.dType, def.initValue)}`);
         }
       }
 
       styleData[name] = _styleContents;
     }
-
-    console.log('@@@', 'styleData ->', styleData);
 
     const styEle = document.createElement('style');
     styEle.dataset.for = 'xr';
@@ -110,7 +108,7 @@ export class ElementRegistry {
     // 用 --- 开头，禁用继承
     for (const [_n, _def] of _cssProps) {
       const _prop = `---${_n}`;
-      DefaultBizLogger.info('register css property: %s, syntax=%s, initial=%s', _prop, _def.syntax || '*', _def.initialValue || '');
+      DefaultBizLogger.info('register css property: %s, %s(%s)', _prop, _def.syntax || '*', _def.initialValue || '');
       CSS.registerProperty({ name: _prop, ..._def, inherits: false });
     }
   }

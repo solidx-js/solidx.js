@@ -37,7 +37,7 @@ export class XRDecal extends XRSceneScopeElement<TransformNode> implements ITran
    * - y: height
    * - z: depth
    */
-  @Decorator.property('Vector3', 'scale', null)
+  @Decorator.property('Vector3', 'scale', Vector3.One())
   scale: Vector3 | null = null;
 
   @Decorator.property('Number', 'layer', null)

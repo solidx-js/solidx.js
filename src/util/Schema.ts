@@ -1,6 +1,7 @@
 import { Color3, Color4, Matrix, Quaternion } from '@babylonjs/core/Maths/math';
 import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 import { parseDurationString } from './parseDurationString';
+import chroma from 'chroma-js';
 
 export type IDataType =
   | 'Number'
@@ -34,17 +35,19 @@ export type IDataTypeMap = {
 };
 
 export const Schema = {
-  parse<T extends IDataType>(type: T, data: string): IDataTypeMap[T] {
+  fromAttr<T extends IDataType>(type: T, data: string | null): IDataTypeMap[T] | null {
+    if (data === null) return null;
+
     if (type === 'Number') return (Number(data) || 0) as any;
     else if (type === 'String') return String(data) as any;
-    else if (type === 'Boolean') return (typeof data !== 'undefined') as any;
+    else if (type === 'Boolean') return true as any;
     else if (type === 'Array') return data.split(' ').map(v => v.trim()) as any;
     else if (type === 'Vector2') return Vector2.FromArray(_ns(data)) as any;
     else if (type === 'Vector3') return Vector3.FromArray(_ns(data)) as any;
     else if (type === 'Vector4') return Vector4.FromArray(_ns(data)) as any;
     else if (type === 'Quaternion') return Quaternion.FromArray(_ns(data)) as any;
-    else if (type === 'Color3') return Color3.FromHexString(data) as any;
-    else if (type === 'Color4') return Color4.FromHexString(data) as any;
+    else if (type === 'Color3') return Color3.FromHexString(chroma(data).hex()) as any;
+    else if (type === 'Color4') return Color4.FromHexString(chroma(data).hex()) as any;
     else if (type === 'Matrix') return Matrix.FromArray(_ns(data)) as any;
     else if (type === 'Object') {
       const obj: any = {};
@@ -85,10 +88,12 @@ export const Schema = {
     }
   },
 
-  stringify<T extends IDataType>(type: T, data: IDataTypeMap[T]): string {
+  toAttr<T extends IDataType>(type: T, data: IDataTypeMap[T] | null): string | null {
+    if (data === null) return null;
+
     if (type === 'Number') return String(data);
     else if (type === 'String') return String(data);
-    else if (type === 'Boolean') return String(data);
+    else if (type === 'Boolean') return '';
     else if (type === 'Array') return (data as any[]).join(' ');
     else if (type === 'Vector2') return (data as Vector2).asArray().join(' ');
     else if (type === 'Vector3') return (data as Vector3).asArray().join(' ');
@@ -145,15 +150,16 @@ export const Schema = {
   toCssLiteral<T extends IDataType>(type: T, data: IDataTypeMap[T]): string {
     if (type === 'Boolean') return data ? 'true' : ''; // Boolean 类型的 CSS 属性，如果为 false，不写入
 
-    let str = this.stringify(type, data);
-    if (type === 'String' || type === 'Object') str = `"${str}"`;
+    const str = this.toAttr(type, data);
+    if (str === null) return '';
 
+    if (type === 'String' || type === 'Object') return `"${str}"`;
     return str;
   },
 
   fromCssLiteral<T extends IDataType>(type: T, literal: string): IDataTypeMap[T] | null {
     if (literal === '') return null; // css 值为空，表示没有这个属性，返回 null
-    return this.parse(type, literal.replace(/^['"]/, '').replace(/['"]$/, ''));
+    return this.fromAttr(type, literal.replace(/^['"]/, '').replace(/['"]$/, ''));
   },
 };
 
