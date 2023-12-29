@@ -1,11 +1,12 @@
 <template>
-  <div :id="containerId" ref="container" style="background: #f0f0f0"></div>
+  <div :id="containerId" ref="container" :style="{ background: '#f0f0f0', height: height }"></div>
 </template>
 
 <script>
 export default {
   props: {
     base64Html: { type: String, required: true },
+    height: { type: String, default: '300px' },
   },
 
   data() {
@@ -35,7 +36,9 @@ export default {
       const root = this.$refs.container;
       root.innerHTML = '';
 
-      const decodedHtml = atob(this.base64Html);
+      let decodedHtml = atob(this.base64Html);
+      decodedHtml = decodedHtml.replace(/__VUEPRESS_BASE__/g, __VUEPRESS_BASE__);
+
       const parser = new DOMParser();
       const doc = parser.parseFromString(decodedHtml, 'text/html');
 

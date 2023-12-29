@@ -48,7 +48,7 @@ export const framework = defineUserConfig({
 
           return `
 <p class="demo-block">
-  <HtmlLive base64Html="${Buffer.from(innerHTML).toString('base64')}" />
+  <HtmlLive base64Html="${Buffer.from(innerHTML).toString('base64')}" height="${liveHeight}" />
   <div class="source">
           `;
         }

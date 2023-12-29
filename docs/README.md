@@ -59,10 +59,10 @@
 
   <xr-ground size="1000"></xr-ground>
 
-  <xr-texture id="earth-tex" url="/1k_earth_daymap.jpg"></xr-texture>
-  <xr-texture id="sun-tex" url="/1k_sun.jpg"></xr-texture>
-  <xr-texture id="mercury-tex" url="/1k_mercury.jpg"></xr-texture>
-  <xr-texture id="venus-tex" url="/1k_venus_surface.jpg"></xr-texture>
+  <xr-texture id="earth-tex" url="__VUEPRESS_BASE__1k_earth_daymap.jpg"></xr-texture>
+  <xr-texture id="sun-tex" url="__VUEPRESS_BASE__1k_sun.jpg"></xr-texture>
+  <xr-texture id="mercury-tex" url="__VUEPRESS_BASE__1k_mercury.jpg"></xr-texture>
+  <xr-texture id="venus-tex" url="__VUEPRESS_BASE__1k_venus_surface.jpg"></xr-texture>
 
   <xr-mesh id="sun" geometry="type: sphere" material="albedo-texture: #sun-tex; unlit: true" scale="-8 8 8"></xr-mesh>
   <xr-point-light position="0 0 0" intensity="1000"></xr-point-light>
