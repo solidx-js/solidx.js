@@ -32,7 +32,6 @@
 
 - [alpha](XRBaseMaterial.md#alpha)
 - [alphaMode](XRBaseMaterial.md#alphamode)
-- [animation](XRBaseMaterial.md#animation)
 - [backFaceCulling](XRBaseMaterial.md#backfaceculling)
 - [disableDepthWrite](XRBaseMaterial.md#disabledepthwrite)
 - [disabled](XRBaseMaterial.md#disabled)
@@ -44,14 +43,20 @@
 - [renderOptions](XRBaseMaterial.md#renderoptions)
 - [scene](XRBaseMaterial.md#scene)
 - [sideOrientation](XRBaseMaterial.md#sideorientation)
-- [transition](XRBaseMaterial.md#transition)
 - [wireframe](XRBaseMaterial.md#wireframe)
 - [zOffset](XRBaseMaterial.md#zoffset)
 - [\_$litElement$](XRBaseMaterial.md#_$litelement$)
 - [requiredAttrs](XRBaseMaterial.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRBaseMaterial.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRBaseMaterial.md#checkcomputedstyles)
+- [convertPropertyValue](XRBaseMaterial.md#convertpropertyvalue)
+- [reloadAttrFromComputedStyles](XRBaseMaterial.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRBaseMaterial.md#toattributeobject)
 
 ## Other
@@ -78,7 +83,7 @@ ___
 
 ### alpha
 
-• **alpha**: `number` = `1`
+• **alpha**: ``null`` \| `number` = `null`
 
 #### Implementation of
 
@@ -88,7 +93,7 @@ ___
 
 ### alphaMode
 
-• **alphaMode**: `number` = `2`
+• **alphaMode**: ``null`` \| `number` = `null`
 
 #### Implementation of
 
@@ -96,23 +101,9 @@ IMaterialControllerHostType.alphaMode
 
 ___
 
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Implementation of
-
-IMaterialControllerHostType.animation
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
-
-___
-
 ### backFaceCulling
 
-• **backFaceCulling**: `boolean` = `false`
+• **backFaceCulling**: ``null`` \| `boolean` = `null`
 
 #### Implementation of
 
@@ -122,7 +113,7 @@ ___
 
 ### disableDepthWrite
 
-• **disableDepthWrite**: `boolean` = `false`
+• **disableDepthWrite**: ``null`` \| `boolean` = `null`
 
 #### Implementation of
 
@@ -132,7 +123,7 @@ ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Implementation of
 
@@ -174,7 +165,7 @@ ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Implementation of
 
@@ -231,7 +222,7 @@ ___
 
 ### sideOrientation
 
-• **sideOrientation**: `number` = `1`
+• **sideOrientation**: ``null`` \| `number` = `null`
 
 #### Implementation of
 
@@ -239,23 +230,9 @@ IMaterialControllerHostType.sideOrientation
 
 ___
 
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Implementation of
-
-IMaterialControllerHostType.transition
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
-
-___
-
 ### wireframe
 
-• **wireframe**: `boolean` = `false`
+• **wireframe**: ``null`` \| `boolean` = `null`
 
 #### Implementation of
 
@@ -265,7 +242,7 @@ ___
 
 ### zOffset
 
-• **zOffset**: `number` = `0`
+• **zOffset**: ``null`` \| `number` = `null`
 
 #### Implementation of
 
@@ -290,6 +267,91 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[requiredAttrs](XRSceneScopeElement.md#requiredattrs)
+
+___
+
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Implementation of
+
+IMaterialControllerHostType.displayText
+
+#### Inherited from
+
+XRSceneScopeElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+IMaterialControllerHostType.checkComputedStyles
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+
+___
+
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Implementation of
+
+IMaterialControllerHostType.convertPropertyValue
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Implementation of
+
+IMaterialControllerHostType.reloadAttrFromComputedStyles
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 
 ___
 

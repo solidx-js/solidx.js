@@ -13,6 +13,7 @@ export const framework = defineUserConfig({
   templateDev: resolve(__dirname, './template.html'),
   templateBuild: resolve(__dirname, './template.html'),
   public: resolve(__dirname, '../public'),
+  dest: resolve(__dirname, '../../website'),
   plugins: [
     backToTopPlugin(),
     searchPlugin(),

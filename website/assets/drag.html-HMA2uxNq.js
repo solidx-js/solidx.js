@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-55f1612b","path":"/examples/interactive/drag.html","title":"拖拽变换","lang":"zh-CN","frontmatter":{},"headers":[],"git":{},"filePathRelative":"examples/interactive/drag.md"}');export{e as data};

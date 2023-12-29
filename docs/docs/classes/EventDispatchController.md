@@ -10,10 +10,6 @@
 
 - [constructor](EventDispatchController.md#constructor)
 
-### Properties
-
-- [BuiltinEventList](EventDispatchController.md#builtineventlist)
-
 ### Methods
 
 - [hostConnected](EventDispatchController.md#hostconnected)
@@ -34,12 +30,6 @@
 #### Returns
 
 [`EventDispatchController`](EventDispatchController.md)
-
-## Properties
-
-### BuiltinEventList
-
-▪ `Static` **BuiltinEventList**: `Set`\<`string`\> = `BuiltinEventList`
 
 ## Methods
 

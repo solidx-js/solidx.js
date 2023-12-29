@@ -12,6 +12,7 @@
 
 ### Methods
 
+- [hostDisconnected](TransformLikeController.md#hostdisconnected)
 - [hostUpdate](TransformLikeController.md#hostupdate)
 
 ## Constructors
@@ -24,13 +25,27 @@
 
 | Name | Type |
 | :------ | :------ |
-| `host` | [`XRElement`](XRElement.md)\<`any`\> & \{ `position?`: [`Vector3`](Vector3.md) ; `rotation?`: [`Vector3`](Vector3.md) ; `rotationQuaternion?`: [`Quaternion`](Quaternion.md) ; `scale?`: [`Vector3`](Vector3.md)  } |
+| `host` | [`XRElement`](XRElement.md)\<`TransformNode`\> & [`ITransformNodeLikeImpl`](../README.md#itransformnodelikeimpl) |
 
 #### Returns
 
 [`TransformLikeController`](TransformLikeController.md)
 
 ## Methods
+
+### hostDisconnected
+
+▸ **hostDisconnected**(): `void`
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+ReactiveController.hostDisconnected
+
+___
 
 ### hostUpdate
 

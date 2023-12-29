@@ -19,13 +19,15 @@
 
 ### constructor
 
-• **new AttributeObserverController**(`host`): [`AttributeObserverController`](AttributeObserverController.md)
+• **new AttributeObserverController**(`host`, `_onChange?`, `_skipRequestUpdate?`): [`AttributeObserverController`](AttributeObserverController.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `host` | [`XRElement`](XRElement.md)\<`any`\> |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `host` | [`XRElement`](XRElement.md)\<`any`\> | `undefined` |
+| `_onChange?` | (`name`: `string`, `oldValue`: ``null`` \| `string`) => `void` | `undefined` |
+| `_skipRequestUpdate` | `boolean` | `false` |
 
 #### Returns
 

@@ -7,3 +7,5 @@ declare module '*.vue' {
 declare module 'vuepress-plugin-auto-catalog/client' {
   export const defineAutoCatalogGetter;
 }
+
+declare const __VUEPRESS_SSR__: boolean;

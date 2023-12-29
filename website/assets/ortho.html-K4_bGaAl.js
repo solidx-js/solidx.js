@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-9e7de662","path":"/examples/basic/ortho.html","title":"XR ortho","lang":"zh-CN","frontmatter":{},"headers":[],"git":{},"filePathRelative":"examples/basic/ortho.md"}');export{e as data};

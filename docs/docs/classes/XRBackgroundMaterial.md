@@ -6,6 +6,10 @@
 
   ↳ **`XRBackgroundMaterial`**
 
+## Implements
+
+- [`IMaterialImpl`](../README.md#imaterialimpl)
+
 ## Table of contents
 
 ### Constructors
@@ -17,7 +21,6 @@
 - [\_reflectionTexture](XRBackgroundMaterial.md#_reflectiontexture)
 - [alpha](XRBackgroundMaterial.md#alpha)
 - [alphaMode](XRBackgroundMaterial.md#alphamode)
-- [animation](XRBackgroundMaterial.md#animation)
 - [backFaceCulling](XRBackgroundMaterial.md#backfaceculling)
 - [disableDepthWrite](XRBackgroundMaterial.md#disabledepthwrite)
 - [disabled](XRBackgroundMaterial.md#disabled)
@@ -32,17 +35,23 @@
 - [renderOptions](XRBackgroundMaterial.md#renderoptions)
 - [scene](XRBackgroundMaterial.md#scene)
 - [sideOrientation](XRBackgroundMaterial.md#sideorientation)
-- [transition](XRBackgroundMaterial.md#transition)
 - [useRGBColor](XRBackgroundMaterial.md#usergbcolor)
 - [wireframe](XRBackgroundMaterial.md#wireframe)
 - [zOffset](XRBackgroundMaterial.md#zoffset)
 - [\_$litElement$](XRBackgroundMaterial.md#_$litelement$)
 - [requiredAttrs](XRBackgroundMaterial.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRBackgroundMaterial.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRBackgroundMaterial.md#checkcomputedstyles)
 - [connected](XRBackgroundMaterial.md#connected)
+- [convertPropertyValue](XRBackgroundMaterial.md#convertpropertyvalue)
 - [disconnected](XRBackgroundMaterial.md#disconnected)
+- [reloadAttrFromComputedStyles](XRBackgroundMaterial.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRBackgroundMaterial.md#toattributeobject)
 
 ## Other
@@ -63,13 +72,17 @@ ___
 
 ### \_reflectionTexture
 
-• **\_reflectionTexture**: ``null`` \| `CubeTexture` = `null`
+• **\_reflectionTexture**: ``null`` \| `HTMLElement` & [`ITextureImpl`](../README.md#itextureimpl) = `null`
 
 ___
 
 ### alpha
 
-• **alpha**: `number` = `1`
+• **alpha**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.alpha
 
 #### Inherited from
 
@@ -79,7 +92,11 @@ ___
 
 ### alphaMode
 
-• **alphaMode**: `number` = `2`
+• **alphaMode**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.alphaMode
 
 #### Inherited from
 
@@ -87,19 +104,13 @@ ___
 
 ___
 
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRBaseMaterial](XRBaseMaterial.md).[animation](XRBaseMaterial.md#animation)
-
-___
-
 ### backFaceCulling
 
-• **backFaceCulling**: `boolean` = `false`
+• **backFaceCulling**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialImpl.backFaceCulling
 
 #### Inherited from
 
@@ -109,7 +120,11 @@ ___
 
 ### disableDepthWrite
 
-• **disableDepthWrite**: `boolean` = `false`
+• **disableDepthWrite**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialImpl.disableDepthWrite
 
 #### Inherited from
 
@@ -119,7 +134,7 @@ ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -129,13 +144,17 @@ ___
 
 ### enableNoise
 
-• **enableNoise**: `boolean` = `false`
+• **enableNoise**: ``null`` \| `boolean` = `null`
 
 ___
 
 ### entity
 
 • **entity**: ``null`` \| `BackgroundMaterial` = `null`
+
+#### Implementation of
+
+IMaterialImpl.entity
 
 #### Inherited from
 
@@ -155,7 +174,7 @@ ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -190,7 +209,7 @@ ___
 
 ### primaryColor
 
-• **primaryColor**: [`Color3`](Color3.md)
+• **primaryColor**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
@@ -212,7 +231,11 @@ ___
 
 ### sideOrientation
 
-• **sideOrientation**: `number` = `1`
+• **sideOrientation**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.sideOrientation
 
 #### Inherited from
 
@@ -220,25 +243,19 @@ ___
 
 ___
 
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRBaseMaterial](XRBaseMaterial.md).[transition](XRBaseMaterial.md#transition)
-
-___
-
 ### useRGBColor
 
-• **useRGBColor**: `boolean` = `false`
+• **useRGBColor**: ``null`` \| `boolean` = `null`
 
 ___
 
 ### wireframe
 
-• **wireframe**: `boolean` = `false`
+• **wireframe**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialImpl.wireframe
 
 #### Inherited from
 
@@ -248,7 +265,11 @@ ___
 
 ### zOffset
 
-• **zOffset**: `number` = `0`
+• **zOffset**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.zOffset
 
 #### Inherited from
 
@@ -276,6 +297,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRBaseMaterial.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[checkComputedStyles](XRBaseMaterial.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -290,6 +339,27 @@ XRBaseMaterial.connected
 
 ___
 
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[convertPropertyValue](XRBaseMaterial.md#convertpropertyvalue)
+
+___
+
 ### disconnected
 
 ▸ **disconnected**(): `void`
@@ -301,6 +371,26 @@ ___
 #### Overrides
 
 XRBaseMaterial.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[reloadAttrFromComputedStyles](XRBaseMaterial.md#reloadattrfromcomputedstyles)
 
 ___
 

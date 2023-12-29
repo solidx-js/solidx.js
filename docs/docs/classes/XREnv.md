@@ -2,7 +2,7 @@
 
 ## Hierarchy
 
-- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`any`\>
+- [`PrimitiveBase`](PrimitiveBase.md)
 
   ↳ **`XREnv`**
 
@@ -14,7 +14,6 @@
 
 ### Properties
 
-- [animation](XREnv.md#animation)
 - [disabled](XREnv.md#disabled)
 - [entity](XREnv.md#entity)
 - [evaluated](XREnv.md#evaluated)
@@ -26,16 +25,22 @@
 - [rotation](XREnv.md#rotation)
 - [scale](XREnv.md#scale)
 - [scene](XREnv.md#scene)
-- [transition](XREnv.md#transition)
 - [\_$litElement$](XREnv.md#_$litelement$)
 - [defaultGroundTexture](XREnv.md#defaultgroundtexture)
 - [defaultSkyBoxTexture](XREnv.md#defaultskyboxtexture)
 - [requiredAttrs](XREnv.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XREnv.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XREnv.md#checkcomputedstyles)
 - [connected](XREnv.md#connected)
+- [convertPropertyValue](XREnv.md#convertpropertyvalue)
 - [disconnected](XREnv.md#disconnected)
+- [reloadAttrFromComputedStyles](XREnv.md#reloadattrfromcomputedstyles)
 - [render](XREnv.md#render)
 - [toAttributeObject](XREnv.md#toattributeobject)
 
@@ -51,37 +56,27 @@
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
-
-___
-
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
+[PrimitiveBase](PrimitiveBase.md).[constructor](PrimitiveBase.md#constructor)
 
 ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[disabled](XRSceneScopeElement.md#disabled)
+[PrimitiveBase](PrimitiveBase.md).[disabled](PrimitiveBase.md#disabled)
 
 ___
 
 ### entity
 
-• **entity**: `any` = `null`
+• **entity**: ``null``
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[entity](XRSceneScopeElement.md#entity)
+[PrimitiveBase](PrimitiveBase.md).[entity](PrimitiveBase.md#entity)
 
 ___
 
@@ -91,17 +86,17 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[evaluated](XRSceneScopeElement.md#evaluated)
+[PrimitiveBase](PrimitiveBase.md).[evaluated](PrimitiveBase.md#evaluated)
 
 ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[inspect](XRSceneScopeElement.md#inspect)
+[PrimitiveBase](PrimitiveBase.md).[inspect](PrimitiveBase.md#inspect)
 
 ___
 
@@ -111,7 +106,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[logger](XRSceneScopeElement.md#logger)
+[PrimitiveBase](PrimitiveBase.md).[logger](PrimitiveBase.md#logger)
 
 ___
 
@@ -126,25 +121,25 @@ at the time the input device's primary action is triggered.
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[onbeforexrselect](XRSceneScopeElement.md#onbeforexrselect)
+[PrimitiveBase](PrimitiveBase.md).[onbeforexrselect](PrimitiveBase.md#onbeforexrselect)
 
 ___
 
 ### position
 
-• **position**: [`Vector3`](Vector3.md)
+• **position**: ``null`` \| [`Vector3`](Vector3.md) = `null`
 
 ___
 
 ### rotation
 
-• **rotation**: [`Vector3`](Vector3.md)
+• **rotation**: ``null`` \| [`Vector3`](Vector3.md) = `null`
 
 ___
 
 ### scale
 
-• **scale**: [`Vector3`](Vector3.md)
+• **scale**: ``null`` \| [`Vector3`](Vector3.md) = `null`
 
 ___
 
@@ -154,17 +149,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[scene](XRSceneScopeElement.md#scene)
-
-___
-
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
+[PrimitiveBase](PrimitiveBase.md).[scene](PrimitiveBase.md#scene)
 
 ___
 
@@ -174,7 +159,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[_$litElement$](XRSceneScopeElement.md#_$litelement$)
+[PrimitiveBase](PrimitiveBase.md).[_$litElement$](PrimitiveBase.md#_$litelement$)
 
 ___
 
@@ -196,7 +181,35 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[requiredAttrs](XRSceneScopeElement.md#requiredattrs)
+[PrimitiveBase](PrimitiveBase.md).[requiredAttrs](PrimitiveBase.md#requiredattrs)
+
+___
+
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+PrimitiveBase.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[PrimitiveBase](PrimitiveBase.md).[checkComputedStyles](PrimitiveBase.md#checkcomputedstyles)
 
 ___
 
@@ -210,7 +223,28 @@ ___
 
 #### Overrides
 
-XRSceneScopeElement.connected
+PrimitiveBase.connected
+
+___
+
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[PrimitiveBase](PrimitiveBase.md).[convertPropertyValue](PrimitiveBase.md#convertpropertyvalue)
 
 ___
 
@@ -224,7 +258,27 @@ ___
 
 #### Overrides
 
-XRSceneScopeElement.disconnected
+PrimitiveBase.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[PrimitiveBase](PrimitiveBase.md).[reloadAttrFromComputedStyles](PrimitiveBase.md#reloadattrfromcomputedstyles)
 
 ___
 
@@ -238,7 +292,7 @@ ___
 
 #### Overrides
 
-XRSceneScopeElement.render
+PrimitiveBase.render
 
 ___
 
@@ -252,7 +306,7 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
+[PrimitiveBase](PrimitiveBase.md).[toAttributeObject](PrimitiveBase.md#toattributeobject)
 
 ## rendering
 
@@ -262,4 +316,4 @@ ___
 
 #### Inherited from
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[renderOptions](XRSceneScopeElement.md#renderoptions)
+[PrimitiveBase](PrimitiveBase.md).[renderOptions](PrimitiveBase.md#renderoptions)

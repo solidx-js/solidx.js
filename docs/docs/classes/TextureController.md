@@ -24,7 +24,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `host` | [`XRElement`](XRElement.md)\<`BaseTexture`\> & \{ `coordinatesIndex?`: `number` ; `coordinatesMode?`: `number` ; `hasAlpha?`: `boolean` ; `level?`: `number` ; `wrapU?`: `number` ; `wrapV?`: `number`  } |
+| `host` | [`XRElement`](XRElement.md)\<``null`` \| `BaseTexture`\> & [`ITextureImpl`](../README.md#itextureimpl) |
 
 #### Returns
 

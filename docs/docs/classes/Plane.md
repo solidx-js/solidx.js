@@ -28,6 +28,7 @@ Represents a plane by the equation ax + by + cz + d = 0
 - [FromArray](Plane.md#fromarray)
 - [FromPoints](Plane.md#frompoints)
 - [FromPositionAndNormal](Plane.md#frompositionandnormal)
+- [FromPositionAndNormalToRef](Plane.md#frompositionandnormaltoref)
 - [SignedDistanceToPlaneFromPositionAndNormal](Plane.md#signeddistancetoplanefrompositionandnormal)
 
 ## Constructors
@@ -297,7 +298,34 @@ Creates a plane from an origin point and a normal
 [`Plane`](Plane.md)
 
 a new Plane the normal vector to this plane at the given origin point.
-Note : the vector "normal" is updated because normalized.
+
+___
+
+### FromPositionAndNormalToRef
+
+▸ **FromPositionAndNormalToRef**\<`T`\>(`origin`, `normal`, `result`): `T`
+
+Updates the given Plane "result" from an origin point and a normal.
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`Plane`](Plane.md) |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `origin` | `DeepImmutableObject`\<[`Vector3`](Vector3.md)\> | origin of the plane to be constructed |
+| `normal` | `DeepImmutableObject`\<[`Vector3`](Vector3.md)\> | the normalized normals of the plane to be constructed |
+| `result` | `T` | defines the Plane where to store the result |
+
+#### Returns
+
+`T`
+
+result input
 
 ___
 

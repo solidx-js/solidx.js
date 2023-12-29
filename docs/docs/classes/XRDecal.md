@@ -4,9 +4,13 @@
 
 ## Hierarchy
 
-- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`Mesh`\>
+- [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`TransformNode`\>
 
   ↳ **`XRDecal`**
+
+## Implements
+
+- [`ITransformNodeLikeImpl`](../README.md#itransformnodelikeimpl)
 
 ## Table of contents
 
@@ -16,31 +20,38 @@
 
 ### Properties
 
-- [angle](XRDecal.md#angle)
-- [animation](XRDecal.md#animation)
-- [direction](XRDecal.md#direction)
 - [disabled](XRDecal.md#disabled)
 - [entity](XRDecal.md#entity)
 - [evaluated](XRDecal.md#evaluated)
 - [img](XRDecal.md#img)
 - [imgLevel](XRDecal.md#imglevel)
 - [inspect](XRDecal.md#inspect)
+- [layer](XRDecal.md#layer)
 - [logger](XRDecal.md#logger)
 - [onbeforexrselect](XRDecal.md#onbeforexrselect)
-- [origin](XRDecal.md#origin)
+- [position](XRDecal.md#position)
+- [quaternion](XRDecal.md#quaternion)
+- [rayScope](XRDecal.md#rayscope)
 - [renderOptions](XRDecal.md#renderoptions)
+- [rotation](XRDecal.md#rotation)
+- [scale](XRDecal.md#scale)
 - [scene](XRDecal.md#scene)
-- [size](XRDecal.md#size)
-- [transition](XRDecal.md#transition)
 - [useRay](XRDecal.md#useray)
 - [\_$litElement$](XRDecal.md#_$litelement$)
 - [requiredAttrs](XRDecal.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRDecal.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRDecal.md#checkcomputedstyles)
 - [connected](XRDecal.md#connected)
+- [convertPropertyValue](XRDecal.md#convertpropertyvalue)
 - [disconnected](XRDecal.md#disconnected)
 - [reload](XRDecal.md#reload)
+- [reloadAttrFromComputedStyles](XRDecal.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRDecal.md#toattributeobject)
 
 ## Other
@@ -53,41 +64,15 @@
 
 [`XRDecal`](XRDecal.md)
 
-#### Inherited from
+#### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
 
 ___
 
-### angle
-
-• **angle**: `number` = `0`
-
-贴花投影角度
-
-___
-
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
-
-___
-
-### direction
-
-• **direction**: [`Vector3`](Vector3.md)
-
-贴花投影方向
-
-___
-
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -97,7 +82,11 @@ ___
 
 ### entity
 
-• **entity**: ``null`` \| `Mesh` = `null`
+• **entity**: ``null`` \| `TransformNode` = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.entity
 
 #### Inherited from
 
@@ -117,23 +106,33 @@ ___
 
 ### img
 
-• `Optional` **img**: `string`
+• **img**: ``null`` \| `string` = `null`
 
 ___
 
 ### imgLevel
 
-• **imgLevel**: `number` = `1`
+• **imgLevel**: ``null`` \| `number` = `null`
 
 ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[inspect](XRSceneScopeElement.md#inspect)
+
+___
+
+### layer
+
+• **layer**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.layer
 
 ___
 
@@ -162,11 +161,55 @@ at the time the input device's primary action is triggered.
 
 ___
 
-### origin
+### position
 
-• **origin**: [`Vector3`](Vector3.md)
+• **position**: ``null`` \| [`Vector3`](Vector3.md) = `null`
 
-贴花投影体的中心
+#### Implementation of
+
+ITransformNodeLikeImpl.position
+
+___
+
+### quaternion
+
+• **quaternion**: ``null`` \| [`Quaternion`](Quaternion.md) = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.quaternion
+
+___
+
+### rayScope
+
+• **rayScope**: ``null`` \| ``"scene"`` \| ``"parent"`` = `'scene'`
+
+___
+
+### rotation
+
+• **rotation**: ``null`` \| [`Vector3`](Vector3.md) = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.rotation
+
+___
+
+### scale
+
+• **scale**: ``null`` \| [`Vector3`](Vector3.md) = `null`
+
+贴花尺寸
+
+- x: width
+- y: height
+- z: depth
+
+#### Implementation of
+
+ITransformNodeLikeImpl.scale
 
 ___
 
@@ -180,31 +223,9 @@ ___
 
 ___
 
-### size
-
-• **size**: [`Vector3`](Vector3.md)
-
-贴花尺寸
-
-- x: width
-- y: height
-- z: depth
-
-___
-
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
-
-___
-
 ### useRay
 
-• `Optional` **useRay**: `boolean`
+• **useRay**: ``null`` \| `boolean` = `null`
 
 ___
 
@@ -228,6 +249,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRSceneScopeElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -239,6 +288,27 @@ ___
 #### Overrides
 
 XRSceneScopeElement.connected
+
+___
+
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
 
 ___
 
@@ -263,6 +333,26 @@ ___
 #### Returns
 
 `void`
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 
 ___
 

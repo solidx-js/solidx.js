@@ -20,19 +20,13 @@
 
   ↳↳ [`XRPointLight`](XRPointLight.md)
 
-  ↳↳ [`XRBaseMaterial`](XRBaseMaterial.md)
+  ↳↳ [`XRPipelineSSAO2`](XRPipelineSSAO2.md)
 
-  ↳↳ [`XRDecal`](XRDecal.md)
-
-  ↳↳ [`XRKeyFrames`](XRKeyFrames.md)
-
-  ↳↳ [`XRRay`](XRRay.md)
-
-  ↳↳ [`XRCubeTexture`](XRCubeTexture.md)
-
-  ↳↳ [`XRTexture`](XRTexture.md)
+  ↳↳ [`XRVolumetricLight`](XRVolumetricLight.md)
 
   ↳↳ [`XRGeometry`](XRGeometry.md)
+
+  ↳↳ [`XRLine`](XRLine.md)
 
   ↳↳ [`XRMesh`](XRMesh.md)
 
@@ -40,9 +34,19 @@
 
   ↳↳ [`XRNode`](XRNode.md)
 
-  ↳↳ [`XREnv`](XREnv.md)
+  ↳↳ [`XRDecal`](XRDecal.md)
 
-  ↳↳ [`XRGround`](XRGround.md)
+  ↳↳ [`XRDragger`](XRDragger.md)
+
+  ↳↳ [`XRRay`](XRRay.md)
+
+  ↳↳ [`XRCubeTexture`](XRCubeTexture.md)
+
+  ↳↳ [`XRTexture`](XRTexture.md)
+
+  ↳↳ [`XRBaseMaterial`](XRBaseMaterial.md)
+
+  ↳↳ [`PrimitiveBase`](PrimitiveBase.md)
 
 ## Table of contents
 
@@ -52,7 +56,6 @@
 
 ### Properties
 
-- [animation](XRSceneScopeElement.md#animation)
 - [disabled](XRSceneScopeElement.md#disabled)
 - [entity](XRSceneScopeElement.md#entity)
 - [evaluated](XRSceneScopeElement.md#evaluated)
@@ -61,12 +64,18 @@
 - [onbeforexrselect](XRSceneScopeElement.md#onbeforexrselect)
 - [renderOptions](XRSceneScopeElement.md#renderoptions)
 - [scene](XRSceneScopeElement.md#scene)
-- [transition](XRSceneScopeElement.md#transition)
 - [\_$litElement$](XRSceneScopeElement.md#_$litelement$)
 - [requiredAttrs](XRSceneScopeElement.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRSceneScopeElement.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+- [convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
+- [reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRSceneScopeElement.md#toattributeobject)
 
 ## Other
@@ -91,19 +100,9 @@
 
 ___
 
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRElement](XRElement.md).[animation](XRElement.md#animation)
-
-___
-
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -133,7 +132,7 @@ ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -172,16 +171,6 @@ ___
 
 ___
 
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRElement](XRElement.md).[transition](XRElement.md#transition)
-
-___
-
 ### \_$litElement$
 
 ▪ `Static` **\_$litElement$**: `boolean`
@@ -199,6 +188,75 @@ ___
 #### Inherited from
 
 [XRElement](XRElement.md).[requiredAttrs](XRElement.md#requiredattrs)
+
+___
+
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRElement](XRElement.md).[checkComputedStyles](XRElement.md#checkcomputedstyles)
+
+___
+
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRElement](XRElement.md).[convertPropertyValue](XRElement.md#convertpropertyvalue)
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRElement](XRElement.md).[reloadAttrFromComputedStyles](XRElement.md#reloadattrfromcomputedstyles)
 
 ___
 

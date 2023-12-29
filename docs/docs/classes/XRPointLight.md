@@ -14,7 +14,6 @@
 
 ### Properties
 
-- [animation](XRPointLight.md#animation)
 - [diffuse](XRPointLight.md#diffuse)
 - [disabled](XRPointLight.md#disabled)
 - [entity](XRPointLight.md#entity)
@@ -28,14 +27,20 @@
 - [scene](XRPointLight.md#scene)
 - [shadowEnabled](XRPointLight.md#shadowenabled)
 - [specular](XRPointLight.md#specular)
-- [transition](XRPointLight.md#transition)
 - [\_$litElement$](XRPointLight.md#_$litelement$)
 - [requiredAttrs](XRPointLight.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRPointLight.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRPointLight.md#checkcomputedstyles)
 - [connected](XRPointLight.md#connected)
+- [convertPropertyValue](XRPointLight.md#convertpropertyvalue)
 - [disconnected](XRPointLight.md#disconnected)
+- [reloadAttrFromComputedStyles](XRPointLight.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRPointLight.md#toattributeobject)
 
 ## Other
@@ -54,25 +59,15 @@
 
 ___
 
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
-
-___
-
 ### diffuse
 
-• **diffuse**: [`Color3`](Color3.md)
+• **diffuse**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -102,7 +97,7 @@ ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -112,7 +107,7 @@ ___
 
 ### intensity
 
-• **intensity**: `number` = `1`
+• **intensity**: ``null`` \| `number` = `null`
 
 ___
 
@@ -143,7 +138,7 @@ ___
 
 ### position
 
-• **position**: [`Vector3`](Vector3.md)
+• **position**: ``null`` \| [`Vector3`](Vector3.md) = `null`
 
 ___
 
@@ -159,23 +154,13 @@ ___
 
 ### shadowEnabled
 
-• **shadowEnabled**: `boolean` = `false`
+• **shadowEnabled**: ``null`` \| `boolean` = `null`
 
 ___
 
 ### specular
 
-• **specular**: [`Color3`](Color3.md)
-
-___
-
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
+• **specular**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
@@ -199,6 +184,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRSceneScopeElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -213,6 +226,27 @@ XRSceneScopeElement.connected
 
 ___
 
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
+
+___
+
 ### disconnected
 
 ▸ **disconnected**(): `void`
@@ -224,6 +258,26 @@ ___
 #### Overrides
 
 XRSceneScopeElement.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 
 ___
 

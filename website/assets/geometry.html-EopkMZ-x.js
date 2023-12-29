@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-6d7f678e","path":"/examples/basic/geometry.html","title":"几何","lang":"zh-CN","frontmatter":{},"headers":[{"level":2,"title":"立方体","slug":"立方体","link":"#立方体","children":[]},{"level":2,"title":"球体","slug":"球体","link":"#球体","children":[]}],"git":{},"filePathRelative":"examples/basic/geometry.md"}');export{e as data};

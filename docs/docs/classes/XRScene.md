@@ -15,34 +15,37 @@
 ### Properties
 
 - [ID](XRScene.md#id)
-- [\_environmentTexture](XRScene.md#_environmenttexture)
-- [animation](XRScene.md#animation)
-- [autoResize](XRScene.md#autoresize)
+- [background](XRScene.md#background)
 - [contrast](XRScene.md#contrast)
 - [disabled](XRScene.md#disabled)
 - [engine](XRScene.md#engine)
 - [entity](XRScene.md#entity)
-- [environmentTexture](XRScene.md#environmenttexture)
+- [envIntensity](XRScene.md#envintensity)
+- [envRotationY](XRScene.md#envrotationy)
+- [envUrl](XRScene.md#envurl)
 - [evaluated](XRScene.md#evaluated)
 - [exposure](XRScene.md#exposure)
-- [height](XRScene.md#height)
 - [inspect](XRScene.md#inspect)
 - [logger](XRScene.md#logger)
 - [onbeforexrselect](XRScene.md#onbeforexrselect)
+- [querier](XRScene.md#querier)
 - [renderOptions](XRScene.md#renderoptions)
 - [scene](XRScene.md#scene)
-- [ssao](XRScene.md#ssao)
-- [transition](XRScene.md#transition)
-- [width](XRScene.md#width)
 - [\_$litElement$](XRScene.md#_$litelement$)
 - [defaultEnvMap](XRScene.md#defaultenvmap)
 - [requiredAttrs](XRScene.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRScene.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRScene.md#checkcomputedstyles)
 - [connected](XRScene.md#connected)
+- [convertPropertyValue](XRScene.md#convertpropertyvalue)
 - [disconnected](XRScene.md#disconnected)
-- [render](XRScene.md#render)
+- [reloadAttrFromComputedStyles](XRScene.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRScene.md#toattributeobject)
 - [createEngine](XRScene.md#createengine)
 
@@ -56,7 +59,7 @@
 
 [`XRScene`](XRScene.md)
 
-#### Overrides
+#### Inherited from
 
 [XRElement](XRElement.md).[constructor](XRElement.md#constructor)
 
@@ -68,37 +71,21 @@ ___
 
 ___
 
-### \_environmentTexture
+### background
 
-• **\_environmentTexture**: ``null`` \| `CubeTexture` = `null`
-
-___
-
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRElement](XRElement.md).[animation](XRElement.md#animation)
-
-___
-
-### autoResize
-
-• `Optional` **autoResize**: `boolean`
+• **background**: ``null`` \| [`Color4`](Color4.md) = `null`
 
 ___
 
 ### contrast
 
-• **contrast**: `number` = `1.6`
+• **contrast**: ``null`` \| `number` = `null`
 
 ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -122,9 +109,21 @@ ___
 
 ___
 
-### environmentTexture
+### envIntensity
 
-• **environmentTexture**: `string`
+• **envIntensity**: ``null`` \| `number` = `null`
+
+___
+
+### envRotationY
+
+• **envRotationY**: ``null`` \| `number` = `null`
+
+___
+
+### envUrl
+
+• **envUrl**: ``null`` \| `string` = `null`
 
 ___
 
@@ -140,19 +139,13 @@ ___
 
 ### exposure
 
-• **exposure**: `number` = `1.2`
-
-___
-
-### height
-
-• **height**: `number` = `400`
+• **exposure**: ``null`` \| `number` = `null`
 
 ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -185,31 +178,15 @@ at the time the input device's primary action is triggered.
 
 ___
 
+### querier
+
+• `Readonly` **querier**: [`EntityQueryController`](EntityQueryController.md)
+
+___
+
 ### scene
 
 • **scene**: `Scene`
-
-___
-
-### ssao
-
-• `Optional` **ssao**: `any`
-
-___
-
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRElement](XRElement.md).[transition](XRElement.md#transition)
-
-___
-
-### width
-
-• **width**: `number` = `600`
 
 ___
 
@@ -239,6 +216,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRElement](XRElement.md).[checkComputedStyles](XRElement.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -250,6 +255,27 @@ ___
 #### Overrides
 
 XRElement.connected
+
+___
+
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRElement](XRElement.md).[convertPropertyValue](XRElement.md#convertpropertyvalue)
 
 ___
 
@@ -267,17 +293,23 @@ XRElement.disconnected
 
 ___
 
-### render
+### reloadAttrFromComputedStyles
 
-▸ **render**(): `TemplateResult`\<``1``\>
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
 
 #### Returns
 
-`TemplateResult`\<``1``\>
+`undefined` \| ``true``
 
-#### Overrides
+#### Inherited from
 
-XRElement.render
+[XRElement](XRElement.md).[reloadAttrFromComputedStyles](XRElement.md#reloadattrfromcomputedstyles)
 
 ___
 

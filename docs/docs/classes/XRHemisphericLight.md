@@ -14,7 +14,8 @@
 
 ### Properties
 
-- [animation](XRHemisphericLight.md#animation)
+- [alpha](XRHemisphericLight.md#alpha)
+- [beta](XRHemisphericLight.md#beta)
 - [diffuse](XRHemisphericLight.md#diffuse)
 - [disabled](XRHemisphericLight.md#disabled)
 - [entity](XRHemisphericLight.md#entity)
@@ -25,18 +26,23 @@
 - [onbeforexrselect](XRHemisphericLight.md#onbeforexrselect)
 - [position](XRHemisphericLight.md#position)
 - [renderOptions](XRHemisphericLight.md#renderoptions)
-- [rotation](XRHemisphericLight.md#rotation)
 - [scene](XRHemisphericLight.md#scene)
 - [shadowEnabled](XRHemisphericLight.md#shadowenabled)
 - [specular](XRHemisphericLight.md#specular)
-- [transition](XRHemisphericLight.md#transition)
 - [\_$litElement$](XRHemisphericLight.md#_$litelement$)
 - [requiredAttrs](XRHemisphericLight.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRHemisphericLight.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRHemisphericLight.md#checkcomputedstyles)
 - [connected](XRHemisphericLight.md#connected)
+- [convertPropertyValue](XRHemisphericLight.md#convertpropertyvalue)
 - [disconnected](XRHemisphericLight.md#disconnected)
+- [reloadAttrFromComputedStyles](XRHemisphericLight.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRHemisphericLight.md#toattributeobject)
 
 ## Other
@@ -55,25 +61,27 @@
 
 ___
 
-### animation
+### alpha
 
-• **animation**: `IAniItem`[] = `[]`
+• **alpha**: ``null`` \| `number` = `null`
 
-#### Inherited from
+___
 
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
+### beta
+
+• **beta**: ``null`` \| `number` = `null`
 
 ___
 
 ### diffuse
 
-• **diffuse**: [`Color3`](Color3.md)
+• **diffuse**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -103,7 +111,7 @@ ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -113,7 +121,7 @@ ___
 
 ### intensity
 
-• **intensity**: `number` = `1`
+• **intensity**: ``null`` \| `number` = `null`
 
 ___
 
@@ -144,13 +152,7 @@ ___
 
 ### position
 
-• **position**: [`Vector3`](Vector3.md)
-
-___
-
-### rotation
-
-• **rotation**: [`Vector2`](Vector2.md)
+• **position**: ``null`` \| [`Vector3`](Vector3.md) = `null`
 
 ___
 
@@ -166,23 +168,13 @@ ___
 
 ### shadowEnabled
 
-• **shadowEnabled**: `boolean` = `false`
+• **shadowEnabled**: ``null`` \| `boolean` = `null`
 
 ___
 
 ### specular
 
-• **specular**: [`Color3`](Color3.md)
-
-___
-
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
+• **specular**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
@@ -206,6 +198,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRSceneScopeElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -220,6 +240,27 @@ XRSceneScopeElement.connected
 
 ___
 
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
+
+___
+
 ### disconnected
 
 ▸ **disconnected**(): `void`
@@ -231,6 +272,26 @@ ___
 #### Overrides
 
 XRSceneScopeElement.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 
 ___
 

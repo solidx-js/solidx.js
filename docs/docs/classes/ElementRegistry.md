@@ -12,6 +12,7 @@
 
 ### Methods
 
+- [doRegisterToGlobal](ElementRegistry.md#doregistertoglobal)
 - [get](ElementRegistry.md#get)
 - [keys](ElementRegistry.md#keys)
 - [register](ElementRegistry.md#register)
@@ -33,6 +34,16 @@
 ▪ `Static` **Instance**: [`ElementRegistry`](ElementRegistry.md)
 
 ## Methods
+
+### doRegisterToGlobal
+
+▸ **doRegisterToGlobal**(): `void`
+
+#### Returns
+
+`void`
+
+___
 
 ### get
 

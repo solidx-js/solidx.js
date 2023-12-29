@@ -6,6 +6,10 @@
 
   ↳ **`XRMaterial`**
 
+## Implements
+
+- [`IMaterialImpl`](../README.md#imaterialimpl)
+
 ## Table of contents
 
 ### Constructors
@@ -19,7 +23,6 @@
 - [albedoTexture](XRMaterial.md#albedotexture)
 - [alpha](XRMaterial.md#alpha)
 - [alphaMode](XRMaterial.md#alphamode)
-- [animation](XRMaterial.md#animation)
 - [backFaceCulling](XRMaterial.md#backfaceculling)
 - [disableDepthWrite](XRMaterial.md#disabledepthwrite)
 - [disabled](XRMaterial.md#disabled)
@@ -34,17 +37,23 @@
 - [roughness](XRMaterial.md#roughness)
 - [scene](XRMaterial.md#scene)
 - [sideOrientation](XRMaterial.md#sideorientation)
-- [transition](XRMaterial.md#transition)
 - [unlit](XRMaterial.md#unlit)
 - [wireframe](XRMaterial.md#wireframe)
 - [zOffset](XRMaterial.md#zoffset)
 - [\_$litElement$](XRMaterial.md#_$litelement$)
 - [requiredAttrs](XRMaterial.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRMaterial.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRMaterial.md#checkcomputedstyles)
 - [connected](XRMaterial.md#connected)
+- [convertPropertyValue](XRMaterial.md#convertpropertyvalue)
 - [disconnected](XRMaterial.md#disconnected)
+- [reloadAttrFromComputedStyles](XRMaterial.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRMaterial.md#toattributeobject)
 
 ## Other
@@ -65,13 +74,13 @@ ___
 
 ### \_albedoTexture
 
-• **\_albedoTexture**: ``null`` \| `Texture` = `null`
+• **\_albedoTexture**: ``null`` \| `HTMLElement` & [`ITextureImpl`](../README.md#itextureimpl) = `null`
 
 ___
 
 ### albedoColor
 
-• **albedoColor**: [`Color3`](Color3.md)
+• **albedoColor**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
@@ -83,7 +92,11 @@ ___
 
 ### alpha
 
-• **alpha**: `number` = `1`
+• **alpha**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.alpha
 
 #### Inherited from
 
@@ -93,7 +106,11 @@ ___
 
 ### alphaMode
 
-• **alphaMode**: `number` = `2`
+• **alphaMode**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.alphaMode
 
 #### Inherited from
 
@@ -101,19 +118,13 @@ ___
 
 ___
 
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRBaseMaterial](XRBaseMaterial.md).[animation](XRBaseMaterial.md#animation)
-
-___
-
 ### backFaceCulling
 
-• **backFaceCulling**: `boolean` = `false`
+• **backFaceCulling**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialImpl.backFaceCulling
 
 #### Inherited from
 
@@ -123,7 +134,11 @@ ___
 
 ### disableDepthWrite
 
-• **disableDepthWrite**: `boolean` = `false`
+• **disableDepthWrite**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialImpl.disableDepthWrite
 
 #### Inherited from
 
@@ -133,7 +148,7 @@ ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -143,13 +158,17 @@ ___
 
 ### emissiveColor
 
-• **emissiveColor**: [`Color3`](Color3.md)
+• **emissiveColor**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
 ### entity
 
 • **entity**: ``null`` \| `PBRMaterial` = `null`
+
+#### Implementation of
+
+IMaterialImpl.entity
 
 #### Inherited from
 
@@ -169,7 +188,7 @@ ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -189,7 +208,7 @@ ___
 
 ### metallic
 
-• **metallic**: `number` = `0.2`
+• **metallic**: ``null`` \| `number` = `null`
 
 ___
 
@@ -210,7 +229,7 @@ ___
 
 ### roughness
 
-• **roughness**: `number` = `0.8`
+• **roughness**: ``null`` \| `number` = `null`
 
 ___
 
@@ -226,7 +245,11 @@ ___
 
 ### sideOrientation
 
-• **sideOrientation**: `number` = `1`
+• **sideOrientation**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.sideOrientation
 
 #### Inherited from
 
@@ -234,25 +257,19 @@ ___
 
 ___
 
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRBaseMaterial](XRBaseMaterial.md).[transition](XRBaseMaterial.md#transition)
-
-___
-
 ### unlit
 
-• **unlit**: `boolean` = `false`
+• **unlit**: ``null`` \| `boolean` = `null`
 
 ___
 
 ### wireframe
 
-• **wireframe**: `boolean` = `false`
+• **wireframe**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialImpl.wireframe
 
 #### Inherited from
 
@@ -262,7 +279,11 @@ ___
 
 ### zOffset
 
-• **zOffset**: `number` = `0`
+• **zOffset**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.zOffset
 
 #### Inherited from
 
@@ -290,6 +311,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRBaseMaterial.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[checkComputedStyles](XRBaseMaterial.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -304,6 +353,27 @@ XRBaseMaterial.connected
 
 ___
 
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[convertPropertyValue](XRBaseMaterial.md#convertpropertyvalue)
+
+___
+
 ### disconnected
 
 ▸ **disconnected**(): `void`
@@ -315,6 +385,26 @@ ___
 #### Overrides
 
 XRBaseMaterial.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[reloadAttrFromComputedStyles](XRBaseMaterial.md#reloadattrfromcomputedstyles)
 
 ___
 

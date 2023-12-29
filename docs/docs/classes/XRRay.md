@@ -14,7 +14,6 @@
 
 ### Properties
 
-- [animation](XRRay.md#animation)
 - [disabled](XRRay.md#disabled)
 - [entity](XRRay.md#entity)
 - [evaluated](XRRay.md#evaluated)
@@ -26,15 +25,21 @@
 - [renderOptions](XRRay.md#renderoptions)
 - [rotation](XRRay.md#rotation)
 - [scene](XRRay.md#scene)
-- [transition](XRRay.md#transition)
 - [\_$litElement$](XRRay.md#_$litelement$)
 - [requiredAttrs](XRRay.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRRay.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRRay.md#checkcomputedstyles)
 - [connected](XRRay.md#connected)
+- [convertPropertyValue](XRRay.md#convertpropertyvalue)
 - [disconnected](XRRay.md#disconnected)
 - [pick](XRRay.md#pick)
+- [reloadAttrFromComputedStyles](XRRay.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRRay.md#toattributeobject)
 
 ## Other
@@ -53,19 +58,9 @@
 
 ___
 
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
-
-___
-
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -95,7 +90,7 @@ ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -105,7 +100,7 @@ ___
 
 ### length
 
-• **length**: `number` = `1`
+• **length**: ``null`` \| `number` = `null`
 
 ___
 
@@ -136,13 +131,13 @@ ___
 
 ### position
 
-• **position**: [`Vector3`](Vector3.md)
+• **position**: ``null`` \| [`Vector3`](Vector3.md) = `null`
 
 ___
 
 ### rotation
 
-• **rotation**: [`Vector3`](Vector3.md)
+• **rotation**: ``null`` \| [`Vector3`](Vector3.md) = `null`
 
 ___
 
@@ -153,16 +148,6 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[scene](XRSceneScopeElement.md#scene)
-
-___
-
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
 
 ___
 
@@ -186,6 +171,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRSceneScopeElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -197,6 +210,27 @@ ___
 #### Overrides
 
 XRSceneScopeElement.connected
+
+___
+
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
 
 ___
 
@@ -223,6 +257,26 @@ ___
 #### Returns
 
 `void`
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 
 ___
 

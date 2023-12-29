@@ -6,6 +6,10 @@
 
   ↳ **`XRTexture`**
 
+## Implements
+
+- [`ITextureImpl`](../README.md#itextureimpl)
+
 ## Table of contents
 
 ### Constructors
@@ -14,7 +18,6 @@
 
 ### Properties
 
-- [animation](XRTexture.md#animation)
 - [coordinatesIndex](XRTexture.md#coordinatesindex)
 - [coordinatesMode](XRTexture.md#coordinatesmode)
 - [disabled](XRTexture.md#disabled)
@@ -22,12 +25,12 @@
 - [evaluated](XRTexture.md#evaluated)
 - [hasAlpha](XRTexture.md#hasalpha)
 - [inspect](XRTexture.md#inspect)
+- [invertY](XRTexture.md#inverty)
 - [level](XRTexture.md#level)
 - [logger](XRTexture.md#logger)
 - [onbeforexrselect](XRTexture.md#onbeforexrselect)
 - [renderOptions](XRTexture.md#renderoptions)
 - [scene](XRTexture.md#scene)
-- [transition](XRTexture.md#transition)
 - [uOffset](XRTexture.md#uoffset)
 - [uScale](XRTexture.md#uscale)
 - [url](XRTexture.md#url)
@@ -38,10 +41,17 @@
 - [\_$litElement$](XRTexture.md#_$litelement$)
 - [requiredAttrs](XRTexture.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRTexture.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRTexture.md#checkcomputedstyles)
 - [connected](XRTexture.md#connected)
+- [convertPropertyValue](XRTexture.md#convertpropertyvalue)
 - [disconnected](XRTexture.md#disconnected)
+- [reloadAttrFromComputedStyles](XRTexture.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRTexture.md#toattributeobject)
 
 ## Other
@@ -60,31 +70,29 @@
 
 ___
 
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
-
-___
-
 ### coordinatesIndex
 
-• **coordinatesIndex**: `number` = `0`
+• **coordinatesIndex**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+ITextureImpl.coordinatesIndex
 
 ___
 
 ### coordinatesMode
 
-• **coordinatesMode**: `number` = `0`
+• **coordinatesMode**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+ITextureImpl.coordinatesMode
 
 ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -95,6 +103,10 @@ ___
 ### entity
 
 • **entity**: ``null`` \| `Texture` = `null`
+
+#### Implementation of
+
+ITextureImpl.entity
 
 #### Inherited from
 
@@ -114,13 +126,17 @@ ___
 
 ### hasAlpha
 
-• **hasAlpha**: `boolean` = `false`
+• **hasAlpha**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+ITextureImpl.hasAlpha
 
 ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -128,9 +144,19 @@ ___
 
 ___
 
+### invertY
+
+• **invertY**: ``null`` \| `boolean` = `null`
+
+___
+
 ### level
 
-• **level**: `number` = `1`
+• **level**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+ITextureImpl.level
 
 ___
 
@@ -169,55 +195,53 @@ ___
 
 ___
 
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
-
-___
-
 ### uOffset
 
-• **uOffset**: `number` = `0`
+• **uOffset**: ``null`` \| `number` = `null`
 
 ___
 
 ### uScale
 
-• **uScale**: `number` = `1`
+• **uScale**: ``null`` \| `number` = `null`
 
 ___
 
 ### url
 
-• **url**: `string` = `''`
+• **url**: ``null`` \| `string` = `null`
 
 ___
 
 ### vOffset
 
-• **vOffset**: `number` = `0`
+• **vOffset**: ``null`` \| `number` = `null`
 
 ___
 
 ### vScale
 
-• **vScale**: `number` = `1`
+• **vScale**: ``null`` \| `number` = `null`
 
 ___
 
 ### wrapU
 
-• **wrapU**: `number` = `0`
+• **wrapU**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+ITextureImpl.wrapU
 
 ___
 
 ### wrapV
 
-• **wrapV**: `number` = `0`
+• **wrapV**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+ITextureImpl.wrapV
 
 ___
 
@@ -241,6 +265,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRSceneScopeElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -255,6 +307,27 @@ XRSceneScopeElement.connected
 
 ___
 
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
+
+___
+
 ### disconnected
 
 ▸ **disconnected**(): `void`
@@ -266,6 +339,26 @@ ___
 #### Overrides
 
 XRSceneScopeElement.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 
 ___
 

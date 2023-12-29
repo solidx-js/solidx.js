@@ -15,7 +15,6 @@
 ### Properties
 
 - [alpha](XRDirectionalLight.md#alpha)
-- [animation](XRDirectionalLight.md#animation)
 - [beta](XRDirectionalLight.md#beta)
 - [diffuse](XRDirectionalLight.md#diffuse)
 - [disabled](XRDirectionalLight.md#disabled)
@@ -30,14 +29,20 @@
 - [scene](XRDirectionalLight.md#scene)
 - [shadowEnabled](XRDirectionalLight.md#shadowenabled)
 - [specular](XRDirectionalLight.md#specular)
-- [transition](XRDirectionalLight.md#transition)
 - [\_$litElement$](XRDirectionalLight.md#_$litelement$)
 - [requiredAttrs](XRDirectionalLight.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRDirectionalLight.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRDirectionalLight.md#checkcomputedstyles)
 - [connected](XRDirectionalLight.md#connected)
+- [convertPropertyValue](XRDirectionalLight.md#convertpropertyvalue)
 - [disconnected](XRDirectionalLight.md#disconnected)
+- [reloadAttrFromComputedStyles](XRDirectionalLight.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRDirectionalLight.md#toattributeobject)
 
 ## Other
@@ -58,35 +63,25 @@ ___
 
 ### alpha
 
-• **alpha**: `number` = `40`
-
-___
-
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
+• **alpha**: ``null`` \| `number` = `null`
 
 ___
 
 ### beta
 
-• **beta**: `number` = `30`
+• **beta**: ``null`` \| `number` = `null`
 
 ___
 
 ### diffuse
 
-• **diffuse**: [`Color3`](Color3.md)
+• **diffuse**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -116,7 +111,7 @@ ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -126,7 +121,7 @@ ___
 
 ### intensity
 
-• **intensity**: `number` = `1`
+• **intensity**: ``null`` \| `number` = `null`
 
 ___
 
@@ -157,7 +152,7 @@ ___
 
 ### position
 
-• **position**: [`Vector3`](Vector3.md)
+• **position**: ``null`` \| [`Vector3`](Vector3.md) = `null`
 
 ___
 
@@ -173,23 +168,13 @@ ___
 
 ### shadowEnabled
 
-• **shadowEnabled**: `boolean` = `false`
+• **shadowEnabled**: ``null`` \| `boolean` = `null`
 
 ___
 
 ### specular
 
-• **specular**: [`Color3`](Color3.md)
-
-___
-
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
+• **specular**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
@@ -213,6 +198,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRSceneScopeElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -227,6 +240,27 @@ XRSceneScopeElement.connected
 
 ___
 
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
+
+___
+
 ### disconnected
 
 ▸ **disconnected**(): `void`
@@ -238,6 +272,26 @@ ___
 #### Overrides
 
 XRSceneScopeElement.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 
 ___
 

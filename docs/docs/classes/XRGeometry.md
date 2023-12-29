@@ -6,6 +6,10 @@
 
   ↳ **`XRGeometry`**
 
+## Implements
+
+- [`IGeometryImpl`](../README.md#igeometryimpl)
+
 ## Table of contents
 
 ### Constructors
@@ -14,20 +18,24 @@
 
 ### Properties
 
-- [animation](XRGeometry.md#animation)
 - [arc](XRGeometry.md#arc)
 - [backUVs](XRGeometry.md#backuvs)
 - [bottomBaseAt](XRGeometry.md#bottombaseat)
+- [cap](XRGeometry.md#cap)
 - [dedupTopBottomIndices](XRGeometry.md#deduptopbottomindices)
 - [depth](XRGeometry.md#depth)
 - [diameter](XRGeometry.md#diameter)
+- [diameterBottom](XRGeometry.md#diameterbottom)
+- [diameterTop](XRGeometry.md#diametertop)
 - [diameterX](XRGeometry.md#diameterx)
 - [diameterY](XRGeometry.md#diametery)
 - [diameterZ](XRGeometry.md#diameterz)
 - [disabled](XRGeometry.md#disabled)
+- [enclose](XRGeometry.md#enclose)
 - [entity](XRGeometry.md#entity)
 - [evaluated](XRGeometry.md#evaluated)
 - [frontUVs](XRGeometry.md#frontuvs)
+- [hasRings](XRGeometry.md#hasrings)
 - [height](XRGeometry.md#height)
 - [inspect](XRGeometry.md#inspect)
 - [logger](XRGeometry.md#logger)
@@ -38,18 +46,27 @@
 - [sideOrientation](XRGeometry.md#sideorientation)
 - [size](XRGeometry.md#size)
 - [slice](XRGeometry.md#slice)
+- [subdivisions](XRGeometry.md#subdivisions)
+- [tessellation](XRGeometry.md#tessellation)
+- [thickness](XRGeometry.md#thickness)
 - [topBaseAt](XRGeometry.md#topbaseat)
-- [transition](XRGeometry.md#transition)
 - [type](XRGeometry.md#type)
 - [width](XRGeometry.md#width)
 - [wrap](XRGeometry.md#wrap)
 - [\_$litElement$](XRGeometry.md#_$litelement$)
 - [requiredAttrs](XRGeometry.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRGeometry.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRGeometry.md#checkcomputedstyles)
 - [connected](XRGeometry.md#connected)
+- [convertPropertyValue](XRGeometry.md#convertpropertyvalue)
 - [disconnected](XRGeometry.md#disconnected)
+- [reloadAttrFromComputedStyles](XRGeometry.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRGeometry.md#toattributeobject)
 
 ## Other
@@ -68,73 +85,81 @@
 
 ___
 
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
-
-___
-
 ### arc
 
-• `Optional` **arc**: `number`
+• **arc**: ``null`` \| `number` = `null`
 
 ___
 
 ### backUVs
 
-• `Optional` **backUVs**: [`Vector4`](Vector4.md)
+• **backUVs**: ``null`` \| [`Vector4`](Vector4.md) = `null`
 
 ___
 
 ### bottomBaseAt
 
-• `Optional` **bottomBaseAt**: `number`
+• **bottomBaseAt**: ``null`` \| `number` = `null`
+
+___
+
+### cap
+
+• **cap**: ``null`` \| `number` = `null`
 
 ___
 
 ### dedupTopBottomIndices
 
-• `Optional` **dedupTopBottomIndices**: `boolean`
+• **dedupTopBottomIndices**: ``null`` \| `boolean` = `null`
 
 ___
 
 ### depth
 
-• `Optional` **depth**: `number`
+• **depth**: ``null`` \| `number` = `null`
 
 ___
 
 ### diameter
 
-• `Optional` **diameter**: `number`
+• **diameter**: ``null`` \| `number` = `null`
+
+___
+
+### diameterBottom
+
+• **diameterBottom**: ``null`` \| `number` = `null`
+
+___
+
+### diameterTop
+
+• **diameterTop**: ``null`` \| `number` = `null`
 
 ___
 
 ### diameterX
 
-• `Optional` **diameterX**: `number`
+• **diameterX**: ``null`` \| `number` = `null`
 
 ___
 
 ### diameterY
 
-• `Optional` **diameterY**: `number`
+• **diameterY**: ``null`` \| `number` = `null`
 
 ___
 
 ### diameterZ
 
-• `Optional` **diameterZ**: `number`
+• **diameterZ**: ``null`` \| `number` = `null`
 
 ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -142,9 +167,19 @@ ___
 
 ___
 
+### enclose
+
+• **enclose**: ``null`` \| `boolean` = `null`
+
+___
+
 ### entity
 
 • **entity**: ``null`` \| `Geometry` = `null`
+
+#### Implementation of
+
+IGeometryImpl.entity
 
 #### Inherited from
 
@@ -164,19 +199,25 @@ ___
 
 ### frontUVs
 
-• `Optional` **frontUVs**: [`Vector4`](Vector4.md)
+• **frontUVs**: ``null`` \| [`Vector4`](Vector4.md) = `null`
+
+___
+
+### hasRings
+
+• **hasRings**: ``null`` \| `boolean` = `null`
 
 ___
 
 ### height
 
-• `Optional` **height**: `number`
+• **height**: ``null`` \| `number` = `null`
 
 ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -221,59 +262,67 @@ ___
 
 ### segments
 
-• `Optional` **segments**: `number`
+• **segments**: ``null`` \| `number` = `null`
 
 ___
 
 ### sideOrientation
 
-• `Optional` **sideOrientation**: `number`
+• **sideOrientation**: ``null`` \| `number` = `null`
 
 ___
 
 ### size
 
-• `Optional` **size**: `number`
+• **size**: ``null`` \| `number` = `null`
 
 ___
 
 ### slice
 
-• `Optional` **slice**: `number`
+• **slice**: ``null`` \| `number` = `null`
+
+___
+
+### subdivisions
+
+• **subdivisions**: ``null`` \| `number` = `null`
+
+___
+
+### tessellation
+
+• **tessellation**: ``null`` \| `number` = `null`
+
+___
+
+### thickness
+
+• **thickness**: ``null`` \| `number` = `null`
 
 ___
 
 ### topBaseAt
 
-• `Optional` **topBaseAt**: `number`
-
-___
-
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
+• **topBaseAt**: ``null`` \| `number` = `null`
 
 ___
 
 ### type
 
-• **type**: `string` = `'box'`
+• **type**: ``null`` \| `string` = `null`
 
 ___
 
 ### width
 
-• `Optional` **width**: `number`
+• **width**: ``null`` \| `number` = `null`
 
 ___
 
 ### wrap
 
-• `Optional` **wrap**: `boolean`
+• **wrap**: ``null`` \| `boolean` = `null`
 
 ___
 
@@ -297,6 +346,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRSceneScopeElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -311,6 +388,27 @@ XRSceneScopeElement.connected
 
 ___
 
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
+
+___
+
 ### disconnected
 
 ▸ **disconnected**(): `void`
@@ -322,6 +420,26 @@ ___
 #### Overrides
 
 XRSceneScopeElement.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 
 ___
 

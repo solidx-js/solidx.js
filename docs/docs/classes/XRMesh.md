@@ -6,6 +6,10 @@
 
   ↳ **`XRMesh`**
 
+## Implements
+
+- [`ITransformNodeLikeImpl`](../README.md#itransformnodelikeimpl)
+
 ## Table of contents
 
 ### Constructors
@@ -15,31 +19,37 @@
 ### Properties
 
 - [\_geometry](XRMesh.md#_geometry)
-- [\_gridMaterial](XRMesh.md#_gridmaterial)
 - [\_material](XRMesh.md#_material)
-- [animation](XRMesh.md#animation)
+- [disablePointerEvent](XRMesh.md#disablepointerevent)
 - [disabled](XRMesh.md#disabled)
 - [entity](XRMesh.md#entity)
 - [evaluated](XRMesh.md#evaluated)
 - [geometry](XRMesh.md#geometry)
-- [gridMaterial](XRMesh.md#gridmaterial)
 - [inspect](XRMesh.md#inspect)
+- [layer](XRMesh.md#layer)
 - [logger](XRMesh.md#logger)
 - [material](XRMesh.md#material)
 - [onbeforexrselect](XRMesh.md#onbeforexrselect)
 - [position](XRMesh.md#position)
+- [quaternion](XRMesh.md#quaternion)
 - [renderOptions](XRMesh.md#renderoptions)
 - [rotation](XRMesh.md#rotation)
 - [scale](XRMesh.md#scale)
 - [scene](XRMesh.md#scene)
-- [transition](XRMesh.md#transition)
 - [\_$litElement$](XRMesh.md#_$litelement$)
 - [requiredAttrs](XRMesh.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRMesh.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRMesh.md#checkcomputedstyles)
 - [connected](XRMesh.md#connected)
+- [convertPropertyValue](XRMesh.md#convertpropertyvalue)
 - [disconnected](XRMesh.md#disconnected)
+- [reloadAttrFromComputedStyles](XRMesh.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRMesh.md#toattributeobject)
 
 ## Other
@@ -60,35 +70,25 @@ ___
 
 ### \_geometry
 
-• **\_geometry**: ``null`` \| `Geometry` = `null`
-
-___
-
-### \_gridMaterial
-
-• **\_gridMaterial**: ``null`` \| `GridMaterial` = `null`
+• **\_geometry**: ``null`` \| `HTMLElement` & [`IGeometryImpl`](../README.md#igeometryimpl) = `null`
 
 ___
 
 ### \_material
 
-• **\_material**: ``null`` \| `Material` = `null`
+• **\_material**: ``null`` \| `HTMLElement` & [`IMaterialImpl`](../README.md#imaterialimpl) = `null`
 
 ___
 
-### animation
+### disablePointerEvent
 
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
+• **disablePointerEvent**: ``null`` \| `boolean` = `null`
 
 ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -99,6 +99,10 @@ ___
 ### entity
 
 • **entity**: ``null`` \| `Mesh` = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.entity
 
 #### Inherited from
 
@@ -122,19 +126,23 @@ ___
 
 ___
 
-### gridMaterial
-
-• **gridMaterial**: ``null`` \| `string` = `null`
-
-___
-
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[inspect](XRSceneScopeElement.md#inspect)
+
+___
+
+### layer
+
+• **layer**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.layer
 
 ___
 
@@ -171,19 +179,41 @@ ___
 
 ### position
 
-• **position**: [`Vector3`](Vector3.md)
+• **position**: ``null`` \| [`Vector3`](Vector3.md) = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.position
+
+___
+
+### quaternion
+
+• **quaternion**: ``null`` \| [`Quaternion`](Quaternion.md) = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.quaternion
 
 ___
 
 ### rotation
 
-• **rotation**: [`Vector3`](Vector3.md)
+• **rotation**: ``null`` \| [`Vector3`](Vector3.md) = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.rotation
 
 ___
 
 ### scale
 
-• **scale**: [`Vector3`](Vector3.md)
+• **scale**: ``null`` \| [`Vector3`](Vector3.md) = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.scale
 
 ___
 
@@ -194,16 +224,6 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[scene](XRSceneScopeElement.md#scene)
-
-___
-
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
 
 ___
 
@@ -227,6 +247,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRSceneScopeElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -241,6 +289,27 @@ XRSceneScopeElement.connected
 
 ___
 
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
+
+___
+
 ### disconnected
 
 ▸ **disconnected**(): `void`
@@ -252,6 +321,26 @@ ___
 #### Overrides
 
 XRSceneScopeElement.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 
 ___
 

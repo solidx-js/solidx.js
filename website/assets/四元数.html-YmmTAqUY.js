@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-bee4e196","path":"/wiki/%E5%9B%9B%E5%85%83%E6%95%B0.html","title":"四元数","lang":"zh-CN","frontmatter":{},"headers":[],"git":{},"filePathRelative":"wiki/四元数.md"}');export{e as data};

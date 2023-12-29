@@ -15,14 +15,11 @@
 ### Properties
 
 - [alpha](XRCamera.md#alpha)
-- [animation](XRCamera.md#animation)
 - [beta](XRCamera.md#beta)
 - [disabled](XRCamera.md#disabled)
 - [entity](XRCamera.md#entity)
 - [evaluated](XRCamera.md#evaluated)
 - [inspect](XRCamera.md#inspect)
-- [lockTarget](XRCamera.md#locktarget)
-- [lockToCenter](XRCamera.md#locktocenter)
 - [logger](XRCamera.md#logger)
 - [maxZ](XRCamera.md#maxz)
 - [minZ](XRCamera.md#minz)
@@ -31,14 +28,20 @@
 - [renderOptions](XRCamera.md#renderoptions)
 - [scene](XRCamera.md#scene)
 - [target](XRCamera.md#target)
-- [transition](XRCamera.md#transition)
 - [\_$litElement$](XRCamera.md#_$litelement$)
 - [requiredAttrs](XRCamera.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRCamera.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRCamera.md#checkcomputedstyles)
 - [connected](XRCamera.md#connected)
+- [convertPropertyValue](XRCamera.md#convertpropertyvalue)
 - [disconnected](XRCamera.md#disconnected)
+- [reloadAttrFromComputedStyles](XRCamera.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRCamera.md#toattributeobject)
 
 ## Other
@@ -51,7 +54,7 @@
 
 [`XRCamera`](XRCamera.md)
 
-#### Overrides
+#### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
 
@@ -59,29 +62,19 @@ ___
 
 ### alpha
 
-• **alpha**: `number` = `-90`
-
-___
-
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[animation](XRSceneScopeElement.md#animation)
+• **alpha**: ``null`` \| `number` = `null`
 
 ___
 
 ### beta
 
-• **beta**: `number` = `90`
+• **beta**: ``null`` \| `number` = `null`
 
 ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -111,23 +104,11 @@ ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[inspect](XRSceneScopeElement.md#inspect)
-
-___
-
-### lockTarget
-
-• `Optional` **lockTarget**: `string`
-
-___
-
-### lockToCenter
-
-• **lockToCenter**: `boolean` = `false`
 
 ___
 
@@ -143,13 +124,13 @@ ___
 
 ### maxZ
 
-• **maxZ**: `number` = `100`
+• **maxZ**: ``null`` \| `number` = `null`
 
 ___
 
 ### minZ
 
-• **minZ**: `number` = `0.1`
+• **minZ**: ``null`` \| `number` = `null`
 
 ___
 
@@ -170,7 +151,7 @@ ___
 
 ### radius
 
-• **radius**: `number` = `10`
+• **radius**: ``null`` \| `number` = `null`
 
 ___
 
@@ -186,17 +167,7 @@ ___
 
 ### target
 
-• **target**: [`Vector3`](Vector3.md)
-
-___
-
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRSceneScopeElement](XRSceneScopeElement.md).[transition](XRSceneScopeElement.md#transition)
+• **target**: ``null`` \| [`Vector3`](Vector3.md) = `null`
 
 ___
 
@@ -220,6 +191,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRSceneScopeElement.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[checkComputedStyles](XRSceneScopeElement.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -234,6 +233,27 @@ XRSceneScopeElement.connected
 
 ___
 
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[convertPropertyValue](XRSceneScopeElement.md#convertpropertyvalue)
+
+___
+
 ### disconnected
 
 ▸ **disconnected**(): `void`
@@ -245,6 +265,26 @@ ___
 #### Overrides
 
 XRSceneScopeElement.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
 
 ___
 

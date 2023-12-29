@@ -6,6 +6,10 @@
 
   ↳ **`XRGridMaterial`**
 
+## Implements
+
+- [`IMaterialImpl`](../README.md#imaterialimpl)
+
 ## Table of contents
 
 ### Constructors
@@ -16,7 +20,6 @@
 
 - [alpha](XRGridMaterial.md#alpha)
 - [alphaMode](XRGridMaterial.md#alphamode)
-- [animation](XRGridMaterial.md#animation)
 - [backFaceCulling](XRGridMaterial.md#backfaceculling)
 - [disableDepthWrite](XRGridMaterial.md#disabledepthwrite)
 - [disabled](XRGridMaterial.md#disabled)
@@ -34,16 +37,22 @@
 - [renderOptions](XRGridMaterial.md#renderoptions)
 - [scene](XRGridMaterial.md#scene)
 - [sideOrientation](XRGridMaterial.md#sideorientation)
-- [transition](XRGridMaterial.md#transition)
 - [wireframe](XRGridMaterial.md#wireframe)
 - [zOffset](XRGridMaterial.md#zoffset)
 - [\_$litElement$](XRGridMaterial.md#_$litelement$)
 - [requiredAttrs](XRGridMaterial.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRGridMaterial.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRGridMaterial.md#checkcomputedstyles)
 - [connected](XRGridMaterial.md#connected)
+- [convertPropertyValue](XRGridMaterial.md#convertpropertyvalue)
 - [disconnected](XRGridMaterial.md#disconnected)
+- [reloadAttrFromComputedStyles](XRGridMaterial.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRGridMaterial.md#toattributeobject)
 
 ## Other
@@ -64,7 +73,11 @@ ___
 
 ### alpha
 
-• **alpha**: `number` = `1`
+• **alpha**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.alpha
 
 #### Inherited from
 
@@ -74,7 +87,11 @@ ___
 
 ### alphaMode
 
-• **alphaMode**: `number` = `2`
+• **alphaMode**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.alphaMode
 
 #### Inherited from
 
@@ -82,19 +99,13 @@ ___
 
 ___
 
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-#### Inherited from
-
-[XRBaseMaterial](XRBaseMaterial.md).[animation](XRBaseMaterial.md#animation)
-
-___
-
 ### backFaceCulling
 
-• **backFaceCulling**: `boolean` = `false`
+• **backFaceCulling**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialImpl.backFaceCulling
 
 #### Inherited from
 
@@ -104,7 +115,11 @@ ___
 
 ### disableDepthWrite
 
-• **disableDepthWrite**: `boolean` = `false`
+• **disableDepthWrite**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialImpl.disableDepthWrite
 
 #### Inherited from
 
@@ -114,7 +129,7 @@ ___
 
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 #### Inherited from
 
@@ -125,6 +140,10 @@ ___
 ### entity
 
 • **entity**: ``null`` \| `GridMaterial` = `null`
+
+#### Implementation of
+
+IMaterialImpl.entity
 
 #### Inherited from
 
@@ -144,13 +163,13 @@ ___
 
 ### gridRatio
 
-• **gridRatio**: `number` = `1`
+• **gridRatio**: ``null`` \| `number` = `null`
 
 ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 #### Inherited from
 
@@ -160,7 +179,7 @@ ___
 
 ### lineColor
 
-• **lineColor**: [`Color3`](Color3.md)
+• **lineColor**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
@@ -176,19 +195,19 @@ ___
 
 ### mainColor
 
-• **mainColor**: [`Color3`](Color3.md)
+• **mainColor**: ``null`` \| [`Color3`](Color3.md) = `null`
 
 ___
 
 ### majorUnitFrequency
 
-• **majorUnitFrequency**: `number` = `10`
+• **majorUnitFrequency**: ``null`` \| `number` = `null`
 
 ___
 
 ### minorUnitVisibility
 
-• **minorUnitVisibility**: `number` = `0.5`
+• **minorUnitVisibility**: ``null`` \| `number` = `null`
 
 ___
 
@@ -209,7 +228,7 @@ ___
 
 ### opacity
 
-• **opacity**: `number` = `0.99`
+• **opacity**: ``null`` \| `number` = `null`
 
 ___
 
@@ -225,7 +244,11 @@ ___
 
 ### sideOrientation
 
-• **sideOrientation**: `number` = `1`
+• **sideOrientation**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.sideOrientation
 
 #### Inherited from
 
@@ -233,19 +256,13 @@ ___
 
 ___
 
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-#### Inherited from
-
-[XRBaseMaterial](XRBaseMaterial.md).[transition](XRBaseMaterial.md#transition)
-
-___
-
 ### wireframe
 
-• **wireframe**: `boolean` = `false`
+• **wireframe**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialImpl.wireframe
 
 #### Inherited from
 
@@ -255,7 +272,11 @@ ___
 
 ### zOffset
 
-• **zOffset**: `number` = `0`
+• **zOffset**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IMaterialImpl.zOffset
 
 #### Inherited from
 
@@ -283,6 +304,34 @@ ___
 
 ___
 
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+#### Inherited from
+
+XRBaseMaterial.displayText
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[checkComputedStyles](XRBaseMaterial.md#checkcomputedstyles)
+
+___
+
 ### connected
 
 ▸ **connected**(): `void`
@@ -297,6 +346,27 @@ XRBaseMaterial.connected
 
 ___
 
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[convertPropertyValue](XRBaseMaterial.md#convertpropertyvalue)
+
+___
+
 ### disconnected
 
 ▸ **disconnected**(): `void`
@@ -308,6 +378,26 @@ ___
 #### Overrides
 
 XRBaseMaterial.disconnected
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[reloadAttrFromComputedStyles](XRBaseMaterial.md#reloadattrfromcomputedstyles)
 
 ___
 

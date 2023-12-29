@@ -23,7 +23,6 @@
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.5",
     "@babel/preset-typescript": "^7.23.3",
-    "@babylonjs/inspector": "^6.31.0",
     "@parcel/config-default": "^2.10.3",
     "@parcel/packager-ts": "2.10.3",
     "@parcel/reporter-bundle-analyzer": "^2.10.3",
@@ -62,7 +61,6 @@
   },
   "dependencies": {
     "@babylonjs/core": "^6.34.1",
-    "@babylonjs/inspector": "^6.34.1",
     "@babylonjs/loaders": "^6.34.1",
     "@babylonjs/materials": "^6.34.1",
     "@lit/context": "^1.1.0",

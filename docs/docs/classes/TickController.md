@@ -25,7 +25,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `host` | [`XRSceneScopeElement`](XRSceneScopeElement.md)\<`any`\> |
+| `host` | [`XRElement`](XRElement.md)\<`any`\> & \{ `scene?`: `Scene`  } |
 | `_onTick` | (`deltaTime`: `number`) => `any` |
 
 #### Returns

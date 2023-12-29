@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-7051ccf8","path":"/examples/basic/styled.html","title":"样式选择器","lang":"zh-CN","frontmatter":{},"headers":[{"level":2,"title":"class 切换","slug":"class-切换","link":"#class-切换","children":[]}],"git":{},"filePathRelative":"examples/basic/styled.md"}');export{e as data};

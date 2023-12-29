@@ -118,18 +118,6 @@ export class XRScene extends XRElement {
     this._container.style.height = `${hostBounds.height}px`;
 
     this.engine.resize();
-
-    if (this.inspect) {
-      const m = import('@babylonjs/inspector');
-
-      if ((m as any).then) {
-        m.then(() => {
-          this.scene.debugLayer.show();
-        });
-      } else {
-        this.scene.debugLayer.show();
-      }
-    }
   }
 
   protected updated(_changed: Map<string, any>): void {

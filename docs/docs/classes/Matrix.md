@@ -328,7 +328,7 @@ ___
 
 ▸ **asArray**(): `DeepImmutable`\<`number`[] \| `Float32Array`\>
 
-Returns the matrix as a Float32Array or Array<number>
+Returns the matrix as a Float32Array or `Array<number>`
 Example Playground - https://playground.babylonjs.com/#AV9X17#114
 
 #### Returns
@@ -398,7 +398,7 @@ ___
 
 ### decompose
 
-▸ **decompose**(`scale?`, `rotation?`, `translation?`, `preserveScalingNode?`): `boolean`
+▸ **decompose**(`scale?`, `rotation?`, `translation?`, `preserveScalingNode?`, `useAbsoluteScaling?`): `boolean`
 
 Decomposes the current Matrix into a translation, rotation and scaling components
 Example Playground - https://playground.babylonjs.com/#AV9X17#12
@@ -411,6 +411,7 @@ Example Playground - https://playground.babylonjs.com/#AV9X17#12
 | `rotation?` | [`Quaternion`](Quaternion.md) | defines the rotation quaternion given as a reference to update |
 | `translation?` | [`Vector3`](Vector3.md) | defines the translation vector3 given as a reference to update |
 | `preserveScalingNode?` | `TransformNode` | Use scaling sign coming from this node. Otherwise scaling sign might change. |
+| `useAbsoluteScaling?` | `boolean` | Use scaling sign coming from this absoluteScaling when true or scaling otherwise. |
 
 #### Returns
 
@@ -1008,7 +1009,7 @@ ___
 
 ▸ **toArray**(): `DeepImmutable`\<`number`[] \| `Float32Array`\>
 
-Returns the matrix as a Float32Array or Array<number>
+Returns the matrix as a Float32Array or `Array<number>`
 Example Playground - https://playground.babylonjs.com/#AV9X17#49
 
 #### Returns

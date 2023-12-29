@@ -13,8 +13,6 @@
 ### Accessors
 
 - [scene](EntityInspectController.md#scene)
-- [uLayer](EntityInspectController.md#ulayer)
-- [uLayerScene](EntityInspectController.md#ulayerscene)
 
 ### Methods
 
@@ -31,7 +29,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `host` | [`XRElement`](XRElement.md)\<`any`\> & \{ `scene`: `Scene`  } |
+| `host` | [`XRElement`](XRElement.md)\<`any`\> & \{ `scene?`: `Scene`  } |
 
 #### Returns
 
@@ -41,31 +39,11 @@
 
 ### scene
 
-• `get` **scene**(): `Scene`
+• `get` **scene**(): `undefined` \| `Scene`
 
 #### Returns
 
-`Scene`
-
-___
-
-### uLayer
-
-• `get` **uLayer**(): `UtilityLayerRenderer`
-
-#### Returns
-
-`UtilityLayerRenderer`
-
-___
-
-### uLayerScene
-
-• `get` **uLayerScene**(): `Scene`
-
-#### Returns
-
-`Scene`
+`undefined` \| `Scene`
 
 ## Methods
 

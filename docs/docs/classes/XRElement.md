@@ -24,7 +24,6 @@
 
 ### Properties
 
-- [animation](XRElement.md#animation)
 - [disabled](XRElement.md#disabled)
 - [entity](XRElement.md#entity)
 - [evaluated](XRElement.md#evaluated)
@@ -32,12 +31,18 @@
 - [logger](XRElement.md#logger)
 - [onbeforexrselect](XRElement.md#onbeforexrselect)
 - [renderOptions](XRElement.md#renderoptions)
-- [transition](XRElement.md#transition)
 - [\_$litElement$](XRElement.md#_$litelement$)
 - [requiredAttrs](XRElement.md#requiredattrs)
 
+### Accessors
+
+- [displayText](XRElement.md#displaytext)
+
 ### Methods
 
+- [checkComputedStyles](XRElement.md#checkcomputedstyles)
+- [convertPropertyValue](XRElement.md#convertpropertyvalue)
+- [reloadAttrFromComputedStyles](XRElement.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRElement.md#toattributeobject)
 
 ## Other
@@ -62,15 +67,9 @@ LitElement.constructor
 
 ___
 
-### animation
-
-• **animation**: `IAniItem`[] = `[]`
-
-___
-
 ### disabled
 
-• `Optional` **disabled**: `boolean`
+• **disabled**: ``null`` \| `boolean` = `null`
 
 ___
 
@@ -88,7 +87,7 @@ ___
 
 ### inspect
 
-• `Optional` **inspect**: `Record`\<`string`, `string`\>
+• **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
 
 ___
 
@@ -113,12 +112,6 @@ LitElement.onbeforexrselect
 
 ___
 
-### transition
-
-• **transition**: \{ `delay`: `number` ; `duration`: `number` ; `property`: `string` ; `timingFunction`: `string`  }[] = `[]`
-
-___
-
 ### \_$litElement$
 
 ▪ `Static` **\_$litElement$**: `boolean`
@@ -132,6 +125,59 @@ ___
 ### requiredAttrs
 
 ▪ `Static` **requiredAttrs**: `string`[] = `[]`
+
+___
+
+### displayText
+
+• `get` **displayText**(): `string`
+
+#### Returns
+
+`string`
+
+___
+
+### checkComputedStyles
+
+▸ **checkComputedStyles**(): `void`
+
+#### Returns
+
+`void`
+
+___
+
+### convertPropertyValue
+
+▸ **convertPropertyValue**(`key`, `value`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` |
+| `value` | `string` |
+
+#### Returns
+
+`any`
+
+___
+
+### reloadAttrFromComputedStyles
+
+▸ **reloadAttrFromComputedStyles**(`property`): `undefined` \| ``true``
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `property` | `string` |
+
+#### Returns
+
+`undefined` \| ``true``
 
 ___
 
