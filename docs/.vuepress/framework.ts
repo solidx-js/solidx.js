@@ -14,6 +14,7 @@ export const framework = defineUserConfig({
   templateBuild: resolve(__dirname, './template.html'),
   public: resolve(__dirname, '../public'),
   dest: resolve(__dirname, '../../website'),
+  base: '/solidx.js/', // 这是发布到 github pages 的配置
   plugins: [
     backToTopPlugin(),
     searchPlugin(),

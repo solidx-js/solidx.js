@@ -3,6 +3,7 @@ import { defaultTheme } from '@vuepress/theme-default';
 import { framework } from './framework';
 import * as glob from 'glob';
 import { resolve } from 'path';
+import pkg from '../../package.json';
 
 function list(pattern: string) {
   return glob
@@ -15,8 +16,8 @@ export default defineUserConfig({
   ...framework,
 
   lang: 'zh-CN',
-  title: 'BJS-Frame',
-  description: 'BJS-Frame',
+  title: pkg.name,
+  description: pkg.description,
 
   theme: defaultTheme({
     navbar: [
