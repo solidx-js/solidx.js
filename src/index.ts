@@ -15,4 +15,3 @@ export * from './registry';
 export * from './core';
 export * from './primitive';
 export * from './util';
-// export * from './tooth';
