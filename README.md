@@ -12,6 +12,7 @@
 
 <p align="center">
   <img src="https://github.com/solidx-js/solidx.js/actions/workflows/ci.yml/badge.svg" alt="CI" />
+  <img src="https://github.com/solidx-js/solidx.js/actions/workflows/website.yml/badge.svg" alt="website.yml" />
   <img src="https://img.shields.io/npm/dw/solidx.js" alt="npm" />
   <img src="https://img.shields.io/npm/v/solidx.js" alt="npm" />
 </p>
