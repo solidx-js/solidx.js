@@ -17,6 +17,30 @@
   <img src="https://img.shields.io/npm/v/solidx.js" alt="npm" />
 </p>
 
+### Core Features
+
+- **Declarative**: No need to learn a new language, just use HTML and CSS.
+- **Fast**: Powered by [babylon.js](https://www.babylonjs.com/) and [lit](https://lit.dev/).
+- **Lightweight**: Code splitting, tree shaking, and lazy loading are all supported.
+- **Extensible**: Create your own components and use them in your scenes.
+
+### Getting Started
+
+- [website](https://solidx-js.github.io/solidx.js/)
+- [playground](https://solidx-js.github.io/solidx.js/playground/)
+
+Use npm:
+
+```bash
+npm install solidx.js
+```
+
+Or use CDN:
+
+```html
+<script src="https://unpkg.com/solidx.js/dist/index.js"></script>
+```
+
 ### Examples
 
 #### Render box and sphere
@@ -24,7 +48,7 @@
 ![image](https://github.com/solidx-js/solidx.js/assets/6647656/9c42a77f-cca4-4d60-b854-abcd476e2b6d)
 
 ```html
-<script src="https://unpkg.com/solidx.js@2.0.1/dist/index.js"></script>
+<script src="https://unpkg.com/solidx.js/dist/index.js"></script>
 
 <xr-scene>
   <xr-camera radius="6" beta="75"></xr-camera>
