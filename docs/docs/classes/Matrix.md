@@ -328,7 +328,7 @@ ___
 
 ▸ **asArray**(): `DeepImmutable`\<`number`[] \| `Float32Array`\>
 
-Returns the matrix as a Float32Array or `Array<number>`
+Returns the matrix as a Float32Array or number[]
 Example Playground - https://playground.babylonjs.com/#AV9X17#114
 
 #### Returns
@@ -1009,7 +1009,7 @@ ___
 
 ▸ **toArray**(): `DeepImmutable`\<`number`[] \| `Float32Array`\>
 
-Returns the matrix as a Float32Array or `Array<number>`
+Returns the matrix as a Float32Array or number[]
 Example Playground - https://playground.babylonjs.com/#AV9X17#49
 
 #### Returns

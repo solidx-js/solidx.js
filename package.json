@@ -12,8 +12,8 @@
     "build": "rm -rf dist/* && parcel build ./src/index.ts --no-cache --reporter @parcel/reporter-bundle-analyzer",
     "test": "jest -i",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit && npm test",
-    "release": "npm run ci && rm -rf dist/* && npm run build && npm run docs:build && release-it",
-    "docs:build": "vuepress build docs",
+    "release": "npm run ci && rm -rf dist/* && npm run build && release-it",
+    "docs:build": "npm run tsdoc && bash patch-md.sh && vuepress build docs",
     "tsdoc": "rm -rf docs/docs && typedoc"
   },
   "publishConfig": {

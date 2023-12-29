@@ -1,1 +1,0 @@
-const a=JSON.parse('{"key":"v-1a1a99c2","path":"/components/basic/xr-camera.html","title":"xr-camera 相机","lang":"zh-CN","frontmatter":{},"headers":[{"level":2,"title":"API","slug":"api","link":"#api","children":[]}],"git":{},"filePathRelative":"components/basic/xr-camera.md"}');export{a as data};

@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-4f80277a","path":"/components/basic/xr-mesh.html","title":"xr-mesh 网格","lang":"zh-CN","frontmatter":{},"headers":[{"level":2,"title":"API","slug":"api","link":"#api","children":[]}],"git":{},"filePathRelative":"components/basic/xr-mesh.md"}');export{e as data};

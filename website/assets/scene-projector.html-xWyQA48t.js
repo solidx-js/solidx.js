@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-2368f3a8","path":"/examples/basic/scene-projector.html","title":"屏幕投影","lang":"zh-CN","frontmatter":{},"headers":[],"git":{},"filePathRelative":"examples/basic/scene-projector.md"}');export{e as data};

@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-1b6d5d1f","path":"/components/basic/xr-scene.html","title":"xr-scene 场景","lang":"zh-CN","frontmatter":{},"headers":[{"level":2,"title":"API","slug":"api","link":"#api","children":[]}],"git":{},"filePathRelative":"components/basic/xr-scene.md"}');export{e as data};
