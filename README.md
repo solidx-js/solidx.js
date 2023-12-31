@@ -26,8 +26,7 @@
 
 ### Getting Started
 
-- [website](https://solidx-js.github.io/solidx.js/)
-- [playground](https://solidx-js.github.io/solidx.js/playground/)
+#### Install
 
 Use npm:
 
@@ -41,32 +40,42 @@ Or use CDN:
 <script src="https://unpkg.com/solidx.js/dist/index.js"></script>
 ```
 
-### Examples
+#### Usage
 
-#### Render box and sphere
-
-![image](https://github.com/solidx-js/solidx.js/assets/6647656/9c42a77f-cca4-4d60-b854-abcd476e2b6d)
+Render a simple box with inline attributes:
 
 ```html
-<script src="https://unpkg.com/solidx.js/dist/index.js"></script>
+<body>
+  <xr-scene>
+    <xr-camera radius="6" beta="75"></xr-camera>
+    <xr-mesh geometry="type: box" material="albedo-color: #ffc069"></xr-mesh>
+  </xr-scene>
+</body>
+```
 
-<xr-scene>
-  <xr-camera radius="6" beta="75"></xr-camera>
+also you can use CSS to style your mesh:
+
+```html
+<body>
   <style>
+    .camera {
+      ---radius: 6;
+      ---beta: 75;
+    }
     .box {
       ---geometry: 'type: box';
-    }
-    .sphere {
-      ---geometry: 'type: sphere';
-    }
-    .box,
-    .sphere {
       ---material: 'albedo-color: #ffc069';
     }
   </style>
-  <xr-mesh class="box" position="-2 0 0"></xr-mesh>
-  <xr-mesh class="sphere" position="2 0 0"></xr-mesh>
-</xr-scene>
+
+  <xr-scene>
+    <xr-camera class="camera"></xr-camera>
+    <xr-mesh class="box"></xr-mesh>
+  </xr-scene>
+</body>
 ```
 
-Try in live: https://codepen.io/concefly/full/VwRLbbE
+NOTE:
+
+- Inline attributes have higher priority than CSS variables.
+- To distinguish from normal CSS variables, we use `---` instead of `--`."
