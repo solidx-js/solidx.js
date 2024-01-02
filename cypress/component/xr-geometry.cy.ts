@@ -15,7 +15,7 @@ describe('xr-geometry', () => {
         </xr-scene>
       `);
 
-      cy.wait(1000);
+      cy.wait(800);
       cy.get('xr-scene').matchImageSnapshot();
     });
   });
