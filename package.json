@@ -14,7 +14,9 @@
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit && npm test",
     "release": "npm run ci && rm -rf dist/* && npm run build && release-it",
     "docs:build": "npm run tsdoc && bash patch-md.sh && vuepress build docs",
-    "tsdoc": "rm -rf docs/docs && typedoc"
+    "tsdoc": "rm -rf docs/docs && typedoc",
+    "cypress:open": "cypress open --component --browser chrome -C cypress/cypress.config.ts",
+    "cypress:run": "cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,6 +44,9 @@
     "@vuepress/plugin-container": "2.0.0-rc.0",
     "@vuepress/plugin-search": "2.0.0-rc.0",
     "@vuepress/theme-default": "2.0.0-rc.0",
+    "cypress": "^13.6.2",
+    "cypress-ct-lit": "^0.4.0",
+    "cypress-image-snapshot": "^4.0.1",
     "glob": "^10.3.10",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
@@ -55,6 +60,7 @@
     "typedoc": "^0.25.4",
     "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "^5.3.2",
+    "vite": "^5.0.10",
     "vue": "^3.3.9",
     "vuepress": "2.0.0-rc.0",
     "vuepress-plugin-auto-catalog": "2.0.0-rc.4"
