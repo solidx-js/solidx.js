@@ -2,16 +2,16 @@ name: ci
 
 on:
   push:
-    branches: [ main, feat/*, fix/*]
+    branches: [main, feat/*, fix/*]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   ci:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 20 ]
+        node-version: [20]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -22,3 +22,19 @@ jobs:
         run: npm install --force
       - name: Run ci
         run: npm run ci
+
+  e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+      - uses: actions/checkout@v4
+
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          install-command: npm install --force
+          command: npm run ci:e2e
