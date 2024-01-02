@@ -12,4 +12,7 @@ export default defineConfig({
       input: 'src/index.ts',
     },
   },
+  optimizeDeps: {
+    exclude: ['cypress/**'],
+  },
 });

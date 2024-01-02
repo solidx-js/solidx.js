@@ -35,7 +35,4 @@ jobs:
         run: npm install --force
 
       - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          install: false
-          command: npm run ci:e2e
+        run: npm run ci:e2e
