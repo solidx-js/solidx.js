@@ -6,7 +6,7 @@ export default defineConfig({
   component: {
     devServer: {
       framework: 'cypress-ct-lit' as any,
-      bundler: 'vite',
+      bundler: 'webpack',
     },
     setupNodeEvents(on, config) {
       addMatchImageSnapshotPlugin(on, config);

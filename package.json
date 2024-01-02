@@ -16,7 +16,7 @@
     "docs:build": "npm run tsdoc && bash patch-md.sh && vuepress build docs",
     "tsdoc": "rm -rf docs/docs && typedoc",
     "cypress:open": "cypress open --component --browser chrome -C cypress/cypress.config.ts",
-    "cypress:run": "rm -rf node_modules/.vite && cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless"
+    "cypress:run": "cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,6 +43,7 @@
     "@vuepress/plugin-container": "2.0.0-rc.0",
     "@vuepress/plugin-search": "2.0.0-rc.0",
     "@vuepress/theme-default": "2.0.0-rc.0",
+    "clean-webpack-plugin": "^4.0.0",
     "cypress": "^13.6.2",
     "cypress-ct-lit": "^0.4.0",
     "cypress-image-snapshot": "^4.0.1",
@@ -54,13 +55,15 @@
     "process": "^0.11.10",
     "release-it": "^17.0.0",
     "serve-static": "^1.15.0",
+    "ts-loader": "^9.5.1",
     "typedoc": "^0.25.4",
     "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "^5.3.2",
     "vite": "^5.0.10",
     "vue": "^3.3.9",
     "vuepress": "2.0.0-rc.0",
-    "vuepress-plugin-auto-catalog": "2.0.0-rc.4"
+    "vuepress-plugin-auto-catalog": "2.0.0-rc.4",
+    "webpack": "^5.89.0"
   },
   "dependencies": {
     "@babylonjs/core": "^6.34.1",
