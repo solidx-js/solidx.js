@@ -11,12 +11,11 @@
     "dev": "vuepress dev docs -p 10001 --clean-temp --clean-cache",
     "build": "rm -rf dist/* && parcel build ./src/index.ts --no-cache --reporter @parcel/reporter-bundle-analyzer",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
-    "ci:e2e": "npm run cypress:run",
+    "ci:e2e": "cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless",
     "release": "npm run ci && rm -rf dist/* && npm run build && release-it",
     "docs:build": "npm run tsdoc && bash patch-md.sh && vuepress build docs",
     "tsdoc": "rm -rf docs/docs && typedoc",
-    "cypress:open": "cypress open --component --browser chrome -C cypress/cypress.config.ts",
-    "cypress:run": "cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless"
+    "cypress:open": "cypress open --component --browser chrome -C cypress/cypress.config.ts"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

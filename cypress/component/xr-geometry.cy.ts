@@ -15,7 +15,11 @@ describe('xr-geometry', () => {
         </xr-scene>
       `);
 
-      cy.wait(800);
+      // 等待 xr-scene 的 load 事件
+      cy.get('xr-scene').then($element => {
+        return new Cypress.Promise(resolve => $element.on('load', resolve));
+      });
+
       cy.get('xr-scene').matchImageSnapshot();
     });
   });

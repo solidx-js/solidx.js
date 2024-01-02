@@ -17,6 +17,7 @@ declare module 'lit' {
   }
 }
 
+// 扩展 HTMLElementEventMap
 declare global {
   interface HTMLElementEventMap {
     pick: any;

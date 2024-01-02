@@ -58,7 +58,7 @@ export class ElementRegistry {
     >();
 
     for (const name of this.keys()) {
-      DefaultBizLogger.info('register element: %s', name);
+      DefaultBizLogger.debug('register element: %s', name);
 
       const Ele = this.get(name)!;
 
@@ -111,7 +111,7 @@ export class ElementRegistry {
     // 用 --- 开头，禁用继承
     for (const [_n, _def] of _cssProps) {
       const _prop = `---${_n}`;
-      DefaultBizLogger.info('register css property: %s, %s(%s)', _prop, _def.syntax || '*', _def.initialValue || '');
+      DefaultBizLogger.debug('register css property: %s, %s(%s)', _prop, _def.syntax || '*', _def.initialValue || '');
       CSS.registerProperty({ name: _prop, ..._def, inherits: false });
     }
   }

@@ -2,6 +2,7 @@ import { defineConfig } from 'cypress';
 import { addMatchImageSnapshotPlugin } from 'cypress-image-snapshot/plugin';
 
 export default defineConfig({
+  projectId: 'iegcwx',
   e2e: {},
   component: {
     devServer: {

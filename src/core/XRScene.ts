@@ -113,6 +113,12 @@ export class XRScene extends XRElement {
 
     this.engine.runRenderLoop(this._doRender);
 
+    // ready 事件
+    this.scene.onReadyObservable.add(() => {
+      this.logger.info('Scene %s ready', this.ID);
+      this.emit('load', {});
+    });
+
     // 放到最后
     new PointerController(this);
   }
