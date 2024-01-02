@@ -18,7 +18,6 @@
 
 ### Properties
 
-- [\_geometry](XRMesh.md#_geometry)
 - [\_material](XRMesh.md#_material)
 - [disablePointerEvent](XRMesh.md#disablepointerevent)
 - [disabled](XRMesh.md#disabled)
@@ -65,12 +64,6 @@
 #### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
-
-___
-
-### \_geometry
-
-• **\_geometry**: ``null`` \| `HTMLElement` & [`IGeometryImpl`](../README.md#igeometryimpl) = `null`
 
 ___
 
@@ -122,7 +115,7 @@ ___
 
 ### geometry
 
-• **geometry**: ``null`` \| `string` = `null`
+• **geometry**: ``null`` \| `Record`\<`string`, [`IDataType`](../README.md#idatatype)\> = `null`
 
 ___
 

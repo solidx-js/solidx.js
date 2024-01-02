@@ -39,7 +39,6 @@
 - [XRElement](classes/XRElement.md)
 - [XREllipse](classes/XREllipse.md)
 - [XREnv](classes/XREnv.md)
-- [XRGeometry](classes/XRGeometry.md)
 - [XRGridMaterial](classes/XRGridMaterial.md)
 - [XRGround](classes/XRGround.md)
 - [XRHemisphericLight](classes/XRHemisphericLight.md)
@@ -63,7 +62,6 @@
 - [IConstraintImpl](README.md#iconstraintimpl)
 - [IDataType](README.md#idatatype)
 - [IDataTypeMap](README.md#idatatypemap)
-- [IGeometryImpl](README.md#igeometryimpl)
 - [IMaterialControllerHostType](README.md#imaterialcontrollerhosttype)
 - [IMaterialImpl](README.md#imaterialimpl)
 - [IModifierImpl](README.md#imodifierimpl)
@@ -80,7 +78,6 @@
 - [LerpFns](README.md#lerpfns)
 - [MathUtil](README.md#mathutil)
 - [Schema](README.md#schema)
-- [TypeGuard](README.md#typeguard)
 
 ### Functions
 
@@ -132,18 +129,6 @@ ___
 | `Vector2` | [`Vector2`](classes/Vector2.md) |
 | `Vector3` | [`Vector3`](classes/Vector3.md) |
 | `Vector4` | [`Vector4`](classes/Vector4.md) |
-
-___
-
-### IGeometryImpl
-
-Ƭ **IGeometryImpl**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `entity` | `Geometry` \| ``null`` |
 
 ___
 
@@ -314,20 +299,6 @@ ___
 | `isEqual` | \<T\>(`type`: `T`, `a`: `undefined` \| ``null`` \| [`IDataTypeMap`](README.md#idatatypemap)[`T`], `b`: `undefined` \| ``null`` \| [`IDataTypeMap`](README.md#idatatypemap)[`T`]) => `boolean` |
 | `toAttr` | \<T\>(`type`: `T`, `data`: ``null`` \| [`IDataTypeMap`](README.md#idatatypemap)[`T`]) => ``null`` \| `string` |
 | `toCssLiteral` | \<T\>(`type`: `T`, `data`: [`IDataTypeMap`](README.md#idatatypemap)[`T`]) => `string` |
-
-___
-
-### TypeGuard
-
-• `Const` **TypeGuard**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `isGeometryImpl` | (`obj`: `any`) => obj is IGeometryImpl |
-| `isTextureImpl` | (`obj`: `any`) => obj is ITextureImpl |
-| `isTransformNodeLikeImpl` | (`obj`: `any`) => obj is ITransformNodeLikeImpl |
 
 ## Functions
 

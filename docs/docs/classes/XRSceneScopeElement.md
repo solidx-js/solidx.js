@@ -24,8 +24,6 @@
 
   ↳↳ [`XRVolumetricLight`](XRVolumetricLight.md)
 
-  ↳↳ [`XRGeometry`](XRGeometry.md)
-
   ↳↳ [`XRLine`](XRLine.md)
 
   ↳↳ [`XRMesh`](XRMesh.md)

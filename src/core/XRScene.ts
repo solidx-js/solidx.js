@@ -29,7 +29,7 @@ export class XRScene extends XRElement {
     return engine;
   }
 
-  static defaultEnvMap = new URL('../assets/EnvMap_3.0-256.env', import.meta.url).href;
+  static defaultEnvMap = 'https://unpkg.com/solidx-assets/texture/EnvMap_3.0-256.env';
 
   readonly ID = randomID();
   readonly querier = new EntityQueryController(this);
