@@ -13,6 +13,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ['cypress/**'],
+    exclude: ['@babylonjs/core'],
   },
 });
