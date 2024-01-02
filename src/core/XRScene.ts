@@ -16,6 +16,7 @@ import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 export class XRScene extends XRElement {
   static createEngine(canvas: HTMLCanvasElement) {
     const engine = new Engine(canvas, true, { stencil: true, antialias: true, adaptToDeviceRatio: true, doNotHandleContextLost: true });
+    engine.setHardwareScalingLevel(1 / window.devicePixelRatio);
 
     // 禁用内置 loading
     engine.loadingScreen = {
@@ -57,6 +58,9 @@ export class XRScene extends XRElement {
   @Decorator.property('Number', 'exposure', 1.2)
   exposure: number | null = null;
 
+  @Decorator.property('Number', 'hardware-scaling-level', null)
+  hardwareScalingLevel: number | null = null;
+
   private _container: HTMLDivElement | null = null;
 
   private _doRender = () => {
@@ -69,8 +73,6 @@ export class XRScene extends XRElement {
 
     this.style.display = 'block';
     this.style.position = 'relative';
-    this.style.width = '100%';
-    this.style.height = '100%';
 
     // create container
     this._container = document.createElement('div');
@@ -82,6 +84,7 @@ export class XRScene extends XRElement {
 
     // create canvas
     const _canvas = document.createElement('canvas');
+    _canvas.style.display = 'block';
     _canvas.style.width = '100%';
     _canvas.style.height = '100%';
     _canvas.style.outline = 'none';
@@ -89,6 +92,10 @@ export class XRScene extends XRElement {
 
     this.engine = XRScene.createEngine(_canvas);
     this.logger.info('Engine %s created', this.ID);
+
+    if (this.hardwareScalingLevel !== null) {
+      this.engine.setHardwareScalingLevel(this.hardwareScalingLevel);
+    }
 
     this.scene = new Scene(this.engine);
     this.scene.autoClear = true;
@@ -108,20 +115,6 @@ export class XRScene extends XRElement {
 
     // 放到最后
     new PointerController(this);
-  }
-
-  protected firstUpdated(): void {
-    if (!this._container) return;
-
-    const hostBounds = this.getBoundingClientRect();
-    this._container.style.width = `${hostBounds.width}px`;
-    this._container.style.height = `${hostBounds.height}px`;
-
-    this.engine.resize();
-  }
-
-  protected updated(_changed: Map<string, any>): void {
-    if (_changed.has('width') || _changed.has('height')) this.engine.resize();
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -149,6 +142,10 @@ export class XRScene extends XRElement {
 
     if (changed.has('background') && this._container) {
       this._container.style.background = this.evaluated.background?.toHexString() || 'transparent';
+    }
+
+    if (changed.has('hardwareScalingLevel') && this.evaluated.hardwareScalingLevel !== null && this.evaluated.hardwareScalingLevel > 0) {
+      this.engine.setHardwareScalingLevel(this.evaluated.hardwareScalingLevel);
     }
   }
 

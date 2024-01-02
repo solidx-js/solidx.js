@@ -1,7 +1,6 @@
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import {
   XRElement,
-  XRGeometry,
   XRMaterial,
   XRMesh,
   XRScene,
@@ -68,6 +67,11 @@ export class ElementRegistry {
 
       const _styleContents: string[] = [];
 
+      if (name === 'xr-scene') {
+        // xr-scene 自动填充父元素
+        _styleContents.push('width: 100%', 'height: 100%');
+      }
+
       // 记录 CSS 自定义属性
       for (const [key, def] of Ele.elementProperties) {
         if (typeof key !== 'string' || def.state) continue;
@@ -118,7 +122,6 @@ SceneLoader.RegisterPlugin(new CTMFileLoader());
 
 // core
 ElementRegistry.Instance.register('xr-scene', XRScene as any);
-ElementRegistry.Instance.register('xr-geometry', XRGeometry as any);
 ElementRegistry.Instance.register('xr-material', XRMaterial as any);
 ElementRegistry.Instance.register('xr-mesh', XRMesh as any);
 ElementRegistry.Instance.register('xr-node', XRNode as any);

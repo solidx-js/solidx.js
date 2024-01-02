@@ -89,8 +89,8 @@ export class XRDecal extends XRSceneScopeElement<TransformNode> implements ITran
 
     this._sceneEle = this.closest('xr-scene');
     if (this._sceneEle) {
-      // FIXME: xr-mesh 应用 geometry 会触发 loadeddata 事件, 贴花要重新加载
-      this._sceneEle.addEventListener('loadeddata', this._handleSceneElementLoaded);
+      // FIXME: xr-mesh 应用 geometry 会触发 load 事件, 贴花要重新加载
+      this._sceneEle.addEventListener('load', this._handleSceneElementLoaded);
     }
   }
 
@@ -279,7 +279,7 @@ export class XRDecal extends XRSceneScopeElement<TransformNode> implements ITran
     this._lastTargetMesh = null;
 
     if (this._sceneEle) {
-      this._sceneEle.removeEventListener('loadeddata', this._handleSceneElementLoaded);
+      this._sceneEle.removeEventListener('load', this._handleSceneElementLoaded);
       this._sceneEle = null;
     }
   }

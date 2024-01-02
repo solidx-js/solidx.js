@@ -147,7 +147,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       this.requestUpdate('disabled');
       this.performUpdate();
 
-      this.emit('loadeddata', { container: _container });
+      this.emit('load', { container: _container });
     });
   }
 
