@@ -31,10 +31,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
+      - name: Install dependencies
+        uses: cypress-io/github-action@v6
+        with:
+          # just perform install
+          runTests: false
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          install-command: npm install --force
+          install: false
           command: npm run ci:e2e
