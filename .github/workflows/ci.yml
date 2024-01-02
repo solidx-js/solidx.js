@@ -32,10 +32,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        uses: cypress-io/github-action@v6
-        with:
-          # just perform install
-          runTests: false
+        run: npm install --force
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
