@@ -2,16 +2,16 @@ name: ci
 
 on:
   push:
-    branches: [ main ]
+    branches: [main, feat/*, fix/*]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   ci:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 14.x ]
+        node-version: [20]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -19,6 +19,23 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
       - name: Run ci
-        run: npm ci
+        run: npm run ci
+
+  e2e:
+    runs-on: ubuntu-latest
+    env:
+      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install --force
+
+      - name: Cypress run
+        run: npm run ci:e2e

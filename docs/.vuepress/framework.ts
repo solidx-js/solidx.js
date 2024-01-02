@@ -1,15 +1,13 @@
-import { viteBundler } from '@vuepress/bundler-vite';
 import { defineUserConfig } from 'vuepress';
 import { containerPlugin } from '@vuepress/plugin-container';
 import { backToTopPlugin } from '@vuepress/plugin-back-to-top';
 import { searchPlugin } from '@vuepress/plugin-search';
 import { autoCatalogPlugin } from 'vuepress-plugin-auto-catalog';
 import { resolve } from 'path';
+import { webpackBundler } from '@vuepress/bundler-webpack';
 
 export const framework = defineUserConfig({
-  bundler: viteBundler({
-    viteOptions: {},
-  }),
+  bundler: webpackBundler(),
   templateDev: resolve(__dirname, './template.html'),
   templateBuild: resolve(__dirname, './template.html'),
   public: resolve(__dirname, '../public'),

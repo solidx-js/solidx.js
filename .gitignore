@@ -132,3 +132,4 @@ dist
 .DS_Store
 parcel-bundle-reports
 website
+__diff_output__

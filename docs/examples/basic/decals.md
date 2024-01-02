@@ -11,7 +11,7 @@
   <xr-mesh id="box1" inspect="axes: true; scale: 0.5" geometry="type: box" material="">
     <xr-decal
       id="decal-1"
-      img="/assets/decal.png"
+      img="__VUEPRESS_BASE__assets/decal.png"
       img-level="2"
       position="0 0 -0.5"
       rotation="0 0 0"
@@ -48,7 +48,7 @@
 
   <xr-decal
     id="decal-1"
-    img="/assets/decal.png"
+    img="__VUEPRESS_BASE__assets/decal.png"
     img-level="2"
     position="1 0 0"
     scale="0.8 0.8 1.3"
@@ -89,7 +89,7 @@
   <xr-mesh id="box1" geometry="type: box" material="alpha: 0.3">
     <xr-decal
       id="decal-1"
-      img="/assets/decal.png"
+      img="__VUEPRESS_BASE__assets/decal.png"
       img-level="2"
       position="0 0 -0.5"
       rotation="0 0 0"

@@ -1,7 +1,6 @@
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import {
   XRElement,
-  XRGeometry,
   XRMaterial,
   XRMesh,
   XRScene,
@@ -59,7 +58,7 @@ export class ElementRegistry {
     >();
 
     for (const name of this.keys()) {
-      DefaultBizLogger.info('register element: %s', name);
+      DefaultBizLogger.debug('register element: %s', name);
 
       const Ele = this.get(name)!;
 
@@ -67,6 +66,11 @@ export class ElementRegistry {
       customElement(name)(Ele as any);
 
       const _styleContents: string[] = [];
+
+      if (name === 'xr-scene') {
+        // xr-scene 自动填充父元素
+        _styleContents.push('width: 100%', 'height: 100%');
+      }
 
       // 记录 CSS 自定义属性
       for (const [key, def] of Ele.elementProperties) {
@@ -107,7 +111,7 @@ export class ElementRegistry {
     // 用 --- 开头，禁用继承
     for (const [_n, _def] of _cssProps) {
       const _prop = `---${_n}`;
-      DefaultBizLogger.info('register css property: %s, %s(%s)', _prop, _def.syntax || '*', _def.initialValue || '');
+      DefaultBizLogger.debug('register css property: %s, %s(%s)', _prop, _def.syntax || '*', _def.initialValue || '');
       CSS.registerProperty({ name: _prop, ..._def, inherits: false });
     }
   }
@@ -118,7 +122,6 @@ SceneLoader.RegisterPlugin(new CTMFileLoader());
 
 // core
 ElementRegistry.Instance.register('xr-scene', XRScene as any);
-ElementRegistry.Instance.register('xr-geometry', XRGeometry as any);
 ElementRegistry.Instance.register('xr-material', XRMaterial as any);
 ElementRegistry.Instance.register('xr-mesh', XRMesh as any);
 ElementRegistry.Instance.register('xr-node', XRNode as any);

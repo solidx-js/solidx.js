@@ -1,16 +1,24 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
-import { ElementUtil } from '../../util';
+import { ElementUtil, IDataType, Schema } from '../../util';
 import { TagRefController, TransformLikeController } from '../controller';
 import { Decorator } from '../Decorator';
 import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { state } from 'lit/decorators.js';
 import { ITransformNodeLikeImpl } from '../impl';
-import { IGeometryImpl, IMaterialImpl } from '../impl';
+import { IMaterialImpl } from '../impl';
+import { CreateBoxVertexData } from '@babylonjs/core/Meshes/Builders/boxBuilder';
+import { CreateSphereVertexData } from '@babylonjs/core/Meshes/Builders/sphereBuilder';
+import { CreateDiscVertexData } from '@babylonjs/core/Meshes/Builders/discBuilder';
+import { CreateCylinderVertexData } from '@babylonjs/core/Meshes/Builders/cylinderBuilder';
+import { CreatePlaneVertexData } from '@babylonjs/core/Meshes/Builders/planeBuilder';
+import { CreateTorusVertexData } from '@babylonjs/core/Meshes/Builders/torusBuilder';
+import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
+import camelCase from 'lodash/camelCase';
 
 export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeLikeImpl {
-  @Decorator.property('String', 'geometry', null)
-  geometry: string | null = null;
+  @Decorator.property('Object', 'geometry', null)
+  geometry: Record<string, IDataType> | null = null;
 
   @Decorator.property('String', 'material', null)
   material: string | null = null;
@@ -34,17 +42,12 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeL
   layer: number | null = null;
 
   @state()
-  _geometry: (HTMLElement & IGeometryImpl) | null = null;
-
-  @state()
   _material: (HTMLElement & IMaterialImpl) | null = null;
 
   constructor() {
     super();
 
     new TransformLikeController(this);
-
-    new TagRefController(this, 'geometry', '_geometry', 'xr-geometry');
     new TagRefController(this, 'material', '_material', d => d.el || 'xr-material');
   }
 
@@ -65,9 +68,11 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeL
 
     if (!this.entity) return;
 
-    if (changed.has('_geometry') && this._geometry && this._geometry.entity) {
-      this._geometry.entity.applyToMesh(this.entity);
-      this.emit('loadeddata', {});
+    if (changed.has('geometry') && this.evaluated.geometry) {
+      const _vertexData = getVertexDataFromGeometryArg(this.evaluated.geometry, true);
+      if (_vertexData) {
+        _vertexData.applyToMesh(this.entity);
+      }
     }
 
     if (changed.has('_material')) {
@@ -79,3 +84,109 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeL
     }
   }
 }
+
+function getVertexDataFromGeometryArg(arg: Record<string, IDataType>, useCamelCase = false): VertexData | null {
+  if (!arg.type) return null;
+
+  const geoDef = GEO_DEFS[arg.type];
+  if (!geoDef) return null;
+
+  const _vertArgs: any = {};
+
+  for (let [_key, _value] of Object.entries(arg)) {
+    if (_key === 'type') continue; // type is not a prop
+
+    if (useCamelCase) _key = camelCase(_key);
+
+    const _dType = geoDef.props[_key];
+    if (!_dType) continue; // unknown prop
+
+    const _data = Schema.fromAttr(_dType, _value);
+    if (_data === null) continue; // invalid prop
+
+    _vertArgs[_key] = _data;
+  }
+
+  return geoDef.factory(_vertArgs);
+}
+
+const GEO_DEFS: Record<string, { props: Record<string, IDataType>; factory: (data: any) => VertexData }> = {
+  box: {
+    props: {
+      size: 'Number',
+      width: 'Number',
+      height: 'Number',
+      depth: 'Number',
+      sideOrientation: 'Number',
+      frontUVs: 'Vector4',
+      backUVs: 'Vector4',
+      wrap: 'Boolean',
+      topBaseAt: 'Number',
+      bottomBaseAt: 'Number',
+    },
+    factory: CreateBoxVertexData,
+  },
+  sphere: {
+    props: {
+      diameter: 'Number',
+      diameterX: 'Number',
+      diameterY: 'Number',
+      diameterZ: 'Number',
+      arc: 'Number',
+      slice: 'Number',
+      sideOrientation: 'Number',
+      frontUVs: 'Vector4',
+      backUVs: 'Vector4',
+      dedupTopBottomIndices: 'Boolean',
+    },
+    factory: CreateSphereVertexData,
+  },
+  disc: {
+    props: {
+      radius: 'Number',
+      tessellation: 'Number',
+      sideOrientation: 'Number',
+      frontUVs: 'Vector4',
+      backUVs: 'Vector4',
+    },
+    factory: CreateDiscVertexData,
+  },
+  cylinder: {
+    props: {
+      height: 'Number',
+      diameterTop: 'Number',
+      diameterBottom: 'Number',
+      tessellation: 'Number',
+      subdivisions: 'Number',
+      hasRings: 'Boolean',
+      enclose: 'Boolean',
+      cap: 'Number',
+      sideOrientation: 'Number',
+      frontUVs: 'Vector4',
+      backUVs: 'Vector4',
+    },
+    factory: CreateCylinderVertexData,
+  },
+  plane: {
+    props: {
+      size: 'Number',
+      width: 'Number',
+      height: 'Number',
+      sideOrientation: 'Number',
+      frontUVs: 'Vector4',
+      backUVs: 'Vector4',
+    },
+    factory: CreatePlaneVertexData,
+  },
+  torus: {
+    props: {
+      diameter: 'Number',
+      thickness: 'Number',
+      tessellation: 'Number',
+      sideOrientation: 'Number',
+      frontUVs: 'Vector4',
+      backUVs: 'Vector4',
+    },
+    factory: CreateTorusVertexData,
+  },
+};

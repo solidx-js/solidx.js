@@ -25,6 +25,7 @@
 - [envUrl](XRScene.md#envurl)
 - [evaluated](XRScene.md#evaluated)
 - [exposure](XRScene.md#exposure)
+- [hardwareScalingLevel](XRScene.md#hardwarescalinglevel)
 - [inspect](XRScene.md#inspect)
 - [logger](XRScene.md#logger)
 - [onbeforexrselect](XRScene.md#onbeforexrselect)
@@ -143,6 +144,12 @@ ___
 
 ___
 
+### hardwareScalingLevel
+
+• **hardwareScalingLevel**: ``null`` \| `number` = `null`
+
+___
+
 ### inspect
 
 • **inspect**: ``null`` \| `Record`\<`string`, `string`\> = `null`
@@ -202,7 +209,7 @@ ___
 
 ### defaultEnvMap
 
-▪ `Static` **defaultEnvMap**: `string`
+▪ `Static` **defaultEnvMap**: `string` = `'https://unpkg.com/solidx-assets/texture/EnvMap_3.0-256.env'`
 
 ___
 
