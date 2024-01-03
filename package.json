@@ -9,10 +9,10 @@
   "types": "dist/esm/index.d.ts",
   "scripts": {
     "dev": "vuepress dev docs -p 10001 --clean-temp --clean-cache",
-    "build": "rm -rf dist/* && parcel build ./src/index.ts --no-cache --reporter @parcel/reporter-bundle-analyzer",
+    "build": "rm -rf dist/* && webpack build --progress --env production && tsc -p tsconfig.build.json",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
     "ci:e2e": "cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless",
-    "release": "npm run ci && rm -rf dist/* && npm run build && release-it",
+    "release": "npm run ci && npm run ci:e2e && rm -rf dist/* && npm run build && release-it",
     "docs:build": "npm run tsdoc && bash patch-md.sh && vuepress build docs",
     "tsdoc": "rm -rf docs/docs && typedoc",
     "cypress:open": "cypress open --component --browser chrome -C cypress/cypress.config.ts"
@@ -21,17 +21,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.3",
-    "@babel/preset-env": "^7.23.5",
-    "@babel/preset-typescript": "^7.23.3",
-    "@parcel/config-default": "^2.10.3",
-    "@parcel/packager-ts": "2.10.3",
-    "@parcel/reporter-bundle-analyzer": "^2.10.3",
-    "@parcel/transformer-less": "2.10.3",
-    "@parcel/transformer-raw": "^2.10.3",
-    "@parcel/transformer-svg-react": "^2.10.3",
-    "@parcel/transformer-typescript-tsc": "^2.10.3",
-    "@parcel/transformer-typescript-types": "2.10.3",
     "@types/chroma-js": "^2.4.3",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.0",
@@ -41,13 +30,11 @@
     "@vuepress/plugin-container": "2.0.0-rc.0",
     "@vuepress/plugin-search": "2.0.0-rc.0",
     "@vuepress/theme-default": "2.0.0-rc.0",
-    "clean-webpack-plugin": "^4.0.0",
     "cypress": "^13.6.2",
     "cypress-ct-lit": "^0.4.0",
     "cypress-image-snapshot": "^4.0.1",
     "glob": "^10.3.10",
     "lodash": "^4.17.21",
-    "parcel": "^2.10.3",
     "path-browserify": "^1.0.1",
     "prettier": "^3.1.0",
     "process": "^0.11.10",
@@ -61,7 +48,9 @@
     "vue": "^3.3.9",
     "vuepress": "2.0.0-rc.0",
     "vuepress-plugin-auto-catalog": "2.0.0-rc.4",
-    "webpack": "^5.89.0"
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-merge": "^5.10.0"
   },
   "dependencies": {
     "@babylonjs/core": "^6.34.1",
@@ -78,5 +67,6 @@
     "global": {
       "outputFormat": "global"
     }
-  }
+  },
+  "sideEffects": false
 }

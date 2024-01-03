@@ -1,18 +1,38 @@
+const pkg = require('./package.json');
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const { merge } = require('webpack-merge');
 
-module.exports = {
-  entry: './src/index.ts',
+const VERSION = pkg.version;
+
+const commonConfigBase = {
+  entry: { index: './src/index.ts' },
+  mode: 'production',
+  plugins: [
+    new webpack.DefinePlugin({
+      VERSION: JSON.stringify(VERSION),
+    }),
+  ],
   output: {
-    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [new CleanWebpackPlugin()],
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              onlyCompileBundledFiles: true,
+              transpileOnly: true,
+              configFile: 'tsconfig.build.json',
+              compilerOptions: {
+                declaration: false,
+              },
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
     ],
@@ -20,4 +40,34 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
+  optimization: {
+    splitChunks: { chunks: 'async' },
+  },
+};
+
+const commonConfig = [
+  // umd
+  merge(commonConfigBase, {
+    output: {
+      filename: '[name].js',
+      library: 'SOLIDX',
+      libraryTarget: 'umd',
+      globalObject: 'this',
+    },
+  }),
+
+  // umd max
+  merge(commonConfigBase, {
+    output: {
+      filename: '[name].max.js',
+      library: 'SOLIDX',
+      libraryTarget: 'umd',
+      globalObject: 'this',
+    },
+    optimization: { minimize: false },
+  }),
+];
+
+module.exports = env => {
+  return commonConfig;
 };
