@@ -8,9 +8,7 @@ import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
 import { EntityQueryController, PointerController } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
-import { html } from 'lit';
 import { randomID } from '../util';
-import { styleMap } from 'lit/directives/style-map.js';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 
 export class XRScene extends XRElement {
@@ -62,6 +60,7 @@ export class XRScene extends XRElement {
   hardwareScalingLevel: number | null = null;
 
   private _container: HTMLDivElement | null = null;
+  private _rob: ResizeObserver | null = null;
 
   private _doRender = () => {
     if (!this.scene.activeCamera) return;
@@ -84,6 +83,7 @@ export class XRScene extends XRElement {
 
     // create canvas
     const _canvas = document.createElement('canvas');
+    _canvas.classList.add('xr-canvas');
     _canvas.style.display = 'block';
     _canvas.style.width = '100%';
     _canvas.style.height = '100%';
@@ -121,7 +121,16 @@ export class XRScene extends XRElement {
 
     // 放到最后
     new PointerController(this);
+
+    window.addEventListener('resize', this.resize);
+
+    this._rob = new ResizeObserver(this.resize);
+    this._rob.observe(this._container);
   }
+
+  resize = () => {
+    this.engine.resize();
+  };
 
   protected willUpdate(changed: Map<string, any>): void {
     super.willUpdate(changed);
@@ -158,6 +167,10 @@ export class XRScene extends XRElement {
   disconnected(): void {
     super.disconnected();
     this.engine.dispose();
+
+    window.removeEventListener('resize', this.resize);
+    this._rob?.disconnect();
+    this._rob = null;
 
     this.logger.info('Engine %s disposed', this.ID);
   }

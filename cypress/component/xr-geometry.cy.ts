@@ -6,10 +6,8 @@ describe('xr-geometry', () => {
 
   geoTypes.forEach(type => {
     it(type, () => {
-      cy.bootstrap();
-
       cy.mount(html`
-        <xr-scene>
+        <xr-scene style="width: 256px; height: 256px;">
           <xr-camera radius="3"></xr-camera>
           <xr-mesh geometry="type: ${type}" rotation="0 45 0"></xr-mesh>
         </xr-scene>
