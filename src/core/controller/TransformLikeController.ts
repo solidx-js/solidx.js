@@ -8,7 +8,7 @@ import { ITransformNodeLikeImpl } from '../impl';
 export class TransformLikeController implements ReactiveController {
   private _matrixChangeOb: any;
 
-  constructor(private host: XRElement<TransformNode> & ITransformNodeLikeImpl) {
+  constructor(private host: XRElement<TransformNode> & Omit<ITransformNodeLikeImpl, 'entityDelegated'>) {
     this.host.addController(this);
   }
 

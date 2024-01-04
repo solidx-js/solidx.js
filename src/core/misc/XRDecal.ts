@@ -20,7 +20,7 @@ import { ITransformNodeLikeImpl } from '../impl';
 /**
  * 贴花
  */
-export class XRDecal extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
+export class XRDecal extends XRSceneScopeElement<TransformNode> implements Omit<ITransformNodeLikeImpl, 'entityDelegated'> {
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
 

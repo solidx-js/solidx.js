@@ -4,7 +4,7 @@ import { PrimitiveBase } from './PrimitiveBase';
 import { html } from 'lit';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 
-export class XREllipse extends PrimitiveBase implements ITransformNodeLikeImpl {
+export class XREllipse extends PrimitiveBase implements Omit<ITransformNodeLikeImpl, 'entityDelegated'> {
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
 

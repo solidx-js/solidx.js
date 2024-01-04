@@ -8,7 +8,7 @@ import { ElementUtil } from '../../util';
 import { TransformLikeController } from '../controller';
 import { ITransformNodeLikeImpl } from '../impl';
 
-export class XRLine extends XRSceneScopeElement<LinesMesh> implements ITransformNodeLikeImpl {
+export class XRLine extends XRSceneScopeElement<LinesMesh> implements Omit<ITransformNodeLikeImpl, 'entityDelegated'> {
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
 
