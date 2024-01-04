@@ -35,4 +35,8 @@ export const ElementUtil = {
     if (ele.id) return `${tagName}#${ele.id}`;
     return tagName;
   },
+
+  normalizeID(id: string) {
+    return id.replace(/[\s(){}:.]/g, '_');
+  },
 };

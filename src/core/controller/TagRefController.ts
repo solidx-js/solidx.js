@@ -94,7 +94,7 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
           }
         }
 
-        // string 格式
+        // 普通 string 格式
         else {
           if (this._ab) this._ab.abort();
           this._ab = new AbortController();

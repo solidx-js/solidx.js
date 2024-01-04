@@ -5,9 +5,42 @@ import { MaterialController, TagRefController } from '../controller';
 import { state } from 'lit/decorators.js';
 import { XRBaseMaterial } from './XRBaseMaterial';
 import { IMaterialImpl, ITextureImpl } from '../impl';
+import { Tags } from '@babylonjs/core/Misc/tags';
+import { ElementUtil } from '../../util';
 
-export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IMaterialImpl {
+export type IXRMaterialProps = IMaterialImpl & {
+  albedoColor: Color3 | null;
+  albedoTexture: string | null;
+  metallic: number | null;
+  roughness: number | null;
+  emissiveColor: Color3 | null;
+  unlit: boolean | null;
+};
+
+export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMaterialProps {
   static requiredAttrs: string[] = ['id'];
+
+  static getPropsFrom(mat: PBRMaterial) {
+    const props: IXRMaterialProps = {
+      entity: mat,
+      entityDelegated: null,
+      alpha: mat.alpha,
+      alphaMode: mat.transparencyMode,
+      backFaceCulling: mat.backFaceCulling,
+      disableDepthWrite: mat.disableDepthWrite,
+      sideOrientation: mat.sideOrientation,
+      wireframe: mat.wireframe,
+      zOffset: mat.zOffset,
+      albedoColor: mat.albedoColor,
+      albedoTexture: mat._albedoTexture ? '#' + ElementUtil.normalizeID(mat._albedoTexture.name) : null,
+      metallic: mat.metallic,
+      roughness: mat.roughness,
+      emissiveColor: mat.emissiveColor,
+      unlit: mat.unlit,
+    };
+
+    return props;
+  }
 
   @Decorator.property('Color3', 'albedo-color', new Color3(1, 1, 1))
   albedoColor: Color3 | null = null;
@@ -40,8 +73,11 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IMaterial
   connected(): void {
     super.connected();
 
-    this.entity = new PBRMaterial(this.id, this.scene);
-    this.entity.useAlphaFromAlbedoTexture = true;
+    if (!this.entityDelegated) {
+      this.entity = new PBRMaterial(this.id, this.scene);
+      this.entity.useAlphaFromAlbedoTexture = true;
+      Tags.AddTagsTo(this.entity, 'self-created');
+    }
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -49,19 +85,24 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IMaterial
 
     if (!this.entity) return;
 
-    if (changed.has('albedoColor') && this.evaluated.albedoColor !== null) this.entity.albedoColor.copyFrom(this.evaluated.albedoColor);
-    if (changed.has('metallic')) this.entity.metallic = this.evaluated.metallic;
-    if (changed.has('roughness')) this.entity.roughness = this.evaluated.roughness;
-    if (changed.has('emissiveColor') && this.evaluated.emissiveColor !== null)
-      this.entity.emissiveColor.copyFrom(this.evaluated.emissiveColor);
-    if (changed.has('unlit') && this.evaluated.unlit !== null) this.entity.unlit = this.evaluated.unlit;
+    const { albedoColor, metallic, roughness, emissiveColor, unlit, _albedoTexture } = this.evaluated;
 
-    if (changed.has('_albedoTexture')) this.entity.albedoTexture = this._albedoTexture?.entity || null;
+    if (changed.has('albedoColor') && albedoColor !== null) this.entity.albedoColor.copyFrom(albedoColor);
+    if (changed.has('metallic') && metallic !== null) this.entity.metallic = metallic;
+    if (changed.has('roughness') && roughness !== null) this.entity.roughness = roughness;
+    if (changed.has('emissiveColor') && emissiveColor !== null) this.entity.emissiveColor.copyFrom(emissiveColor);
+    if (changed.has('unlit') && unlit !== null) this.entity.unlit = unlit;
+
+    if (changed.has('_albedoTexture'))
+      this.entity.albedoTexture = _albedoTexture?.entity || (this.entityDelegated ? this.entity.albedoTexture : null);
   }
 
   disconnected(): void {
     super.disconnected();
-    this.entity?.dispose();
-    this.entity = null;
+
+    if (this.entity) {
+      if (Tags.MatchesQuery(this.entity, 'self-created')) this.entity.dispose();
+      this.entity = null;
+    }
   }
 }

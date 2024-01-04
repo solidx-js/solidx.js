@@ -8,4 +8,5 @@ export type ITransformNodeLikeImpl = {
   quaternion: Quaternion | null;
   scale: Vector3 | null;
   layer: number | null;
+  entityDelegated: boolean | null;
 };

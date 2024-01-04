@@ -15,8 +15,30 @@ import { CreatePlaneVertexData } from '@babylonjs/core/Meshes/Builders/planeBuil
 import { CreateTorusVertexData } from '@babylonjs/core/Meshes/Builders/torusBuilder';
 import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
 import camelCase from 'lodash/camelCase';
+import { Tags } from '@babylonjs/core/Misc/tags';
 
-export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeLikeImpl {
+export type IXRMeshProps = ITransformNodeLikeImpl & {
+  geometry: Record<string, IDataType> | null;
+  material: string | null;
+};
+
+export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
+  static getPropsFrom(mesh: Mesh) {
+    const props: IXRMeshProps = {
+      entity: mesh,
+      position: mesh.position,
+      rotation: mesh.rotation,
+      quaternion: mesh.rotationQuaternion || null,
+      scale: mesh.scaling,
+      layer: mesh.renderingGroupId,
+      entityDelegated: null,
+      geometry: null,
+      material: mesh.material ? '#' + ElementUtil.normalizeID(mesh.material.name) : null,
+    };
+
+    return props;
+  }
+
   @Decorator.property('Object', 'geometry', null)
   geometry: Record<string, IDataType> | null = null;
 
@@ -41,6 +63,9 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeL
   @Decorator.property('Number', 'layer', null)
   layer: number | null = null;
 
+  @Decorator.property('Boolean', 'entity-delegated', null)
+  entityDelegated: boolean | null = null;
+
   @state()
   _material: (HTMLElement & IMaterialImpl) | null = null;
 
@@ -54,13 +79,19 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeL
   connected(): void {
     super.connected();
 
-    this.entity = new Mesh(this.id, this.scene, ElementUtil.closestTransformNodeLike(this));
+    if (!this.entityDelegated) {
+      this.entity = new Mesh(this.id, this.scene, ElementUtil.closestTransformNodeLike(this));
+      Tags.AddTagsTo(this.entity, 'self-created');
+    }
   }
 
   disconnected(): void {
     super.disconnected();
-    this.entity?.dispose();
-    this.entity = null;
+
+    if (this.entity) {
+      if (Tags.MatchesQuery(this.entity, 'self-created')) this.entity.dispose();
+      this.entity = null;
+    }
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -76,7 +107,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements ITransformNodeL
     }
 
     if (changed.has('_material')) {
-      this.entity.material = this._material?.entity || this.scene.defaultMaterial;
+      this.entity.material = this._material?.entity || (this.entityDelegated ? this.entity.material : this.scene.defaultMaterial);
     }
 
     if (changed.has('disablePointerEvent')) {

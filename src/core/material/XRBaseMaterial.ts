@@ -24,4 +24,7 @@ export class XRBaseMaterial<T extends Material> extends XRSceneScopeElement<T> i
 
   @Decorator.property('Number', 'z-offset', null)
   zOffset: number | null = null;
+
+  @Decorator.property('Boolean', 'entity-delegated', null)
+  entityDelegated: boolean | null = null;
 }

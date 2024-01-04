@@ -67,6 +67,5 @@
     "global": {
       "outputFormat": "global"
     }
-  },
-  "sideEffects": false
+  }
 }

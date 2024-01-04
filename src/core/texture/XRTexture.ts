@@ -3,9 +3,40 @@ import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Decorator } from '../Decorator';
 import { TextureController } from '../controller';
 import { ITextureImpl } from '../impl';
+import { Tags } from '@babylonjs/core/Misc/tags';
 
-export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureImpl {
+export type IXRTextureProps = ITextureImpl & {
+  url: string | null;
+  uOffset: number | null;
+  vOffset: number | null;
+  uScale: number | null;
+  vScale: number | null;
+  invertY: boolean | null;
+};
+
+export class XRTexture extends XRSceneScopeElement<Texture> implements IXRTextureProps {
   static requiredAttrs: string[] = ['id'];
+
+  static getPropsFrom(tex: Texture) {
+    const props: IXRTextureProps = {
+      entity: tex,
+      hasAlpha: tex.hasAlpha,
+      level: tex.level,
+      coordinatesIndex: tex.coordinatesIndex,
+      coordinatesMode: tex.coordinatesMode,
+      wrapU: tex.wrapU,
+      wrapV: tex.wrapV,
+      url: tex.url ? (tex.url.startsWith('http') ? tex.url : null) : null,
+      uOffset: tex.uOffset,
+      vOffset: tex.vOffset,
+      uScale: tex.uScale,
+      vScale: tex.vScale,
+      invertY: tex.invertY,
+      entityDelegated: null,
+    };
+
+    return props;
+  }
 
   @Decorator.property('Boolean', 'has-alpha', null)
   hasAlpha: boolean | null = null;
@@ -43,6 +74,9 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureI
   @Decorator.property('Boolean', 'invert-y', null)
   invertY: boolean | null = null;
 
+  @Decorator.property('Boolean', 'entity-delegated', null)
+  entityDelegated: boolean | null = null;
+
   constructor() {
     super();
     new TextureController(this);
@@ -51,8 +85,12 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureI
   connected(): void {
     super.connected();
 
-    this.entity = new Texture(null, this.scene, undefined, this.invertY || false);
-    this.entity.name = this.id;
+    if (!this.entityDelegated) {
+      this.entity = new Texture(null, this.scene, undefined, this.invertY || false);
+      this.entity.name = this.id;
+
+      Tags.AddTagsTo(this.entity, 'self-created');
+    }
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -70,7 +108,9 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements ITextureI
   disconnected(): void {
     super.disconnected();
 
-    this.entity?.dispose();
-    this.entity = null;
+    if (this.entity) {
+      if (Tags.MatchesQuery(this.entity, 'self-created')) this.entity.dispose();
+      this.entity = null;
+    }
   }
 }

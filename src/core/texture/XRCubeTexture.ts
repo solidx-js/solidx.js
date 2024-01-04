@@ -3,6 +3,7 @@ import { Decorator } from '../Decorator';
 import { TextureController } from '../controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { ITextureImpl } from '../impl';
+import { Tags } from '@babylonjs/core/Misc/tags';
 
 export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements ITextureImpl {
   static requiredAttrs: string[] = ['id'];
@@ -34,6 +35,9 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements I
   @Decorator.property('Boolean', 'extension', null)
   extension: string | null = null;
 
+  @Decorator.property('Boolean', 'entity-delegated', null)
+  entityDelegated: boolean | null = null;
+
   constructor() {
     super();
     new TextureController(this);
@@ -42,8 +46,12 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements I
   connected(): void {
     super.connected();
 
-    this.entity = new CubeTexture('', this.scene);
-    this.entity.name = this.id;
+    if (!this.entityDelegated) {
+      this.entity = new CubeTexture('', this.scene);
+      this.entity.name = this.id;
+
+      Tags.AddTagsTo(this.entity, 'self-created');
+    }
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -56,13 +64,15 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements I
       this.entity.updateURL(url, this.evaluated.extension || undefined);
     }
 
-    if (changed.has('rotationY')) this.entity.rotationY = this.evaluated.rotationY || 0;
+    if (changed.has('rotationY')) this.entity.rotationY = this.evaluated.rotationY || (this.entityDelegated ? this.entity.rotationY : 0);
   }
 
   disconnected(): void {
     super.disconnected();
 
-    this.entity?.dispose();
-    this.entity = null;
+    if (this.entity) {
+      if (Tags.MatchesQuery(this.entity, 'self-created')) this.entity.dispose();
+      this.entity = null;
+    }
   }
 }

@@ -12,6 +12,14 @@ import { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { ITransformNodeLikeImpl } from '../impl';
 import { IMaterialImpl } from '../impl';
+import { TemplateResult, html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
+import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
+import { Texture } from '@babylonjs/core/Materials/Textures/texture';
+import { XRMaterial } from '../material';
+import { XRTexture } from '../texture';
+import { XRMesh } from './XRMesh';
+import { XRNode } from './XRNode';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
   @provide({ context: Context.AssetContainer })
@@ -66,6 +74,12 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @state()
   _material: (HTMLElement & IMaterialImpl) | null = null;
 
+  @state()
+  _internalStyleData: Record<string, Record<string, string | null>> = {};
+
+  // FIXME: 这个是为了满足 ITransformNodeLikeImpl 的接口，并没有实际作用
+  entityDelegated: boolean | null = null;
+
   constructor() {
     super();
 
@@ -93,6 +107,9 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       this._container.dispose();
       this._container = null;
     }
+
+    this._material = null;
+    this._internalStyleData = {};
   }
 
   private async reloadModel() {
@@ -142,15 +159,50 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
         }
       }
 
-      // 立刻刷新
       this.requestUpdate('_material');
       this.requestUpdate('disabled');
+      this._buildInternalStyleData();
+
+      // 立刻刷新
       this.performUpdate();
 
       this.scene.onReadyObservable.addOnce(() => {
         this.emit('load', { container: _container });
       });
     });
+  }
+
+  private _buildInternalStyleData() {
+    if (!this._container) return;
+
+    const _data: Record<string, Record<string, string | null>> = {};
+
+    const _build = <_T extends { name: string }>(list: _T[], Ele: any) => {
+      for (const item of list) {
+        const _selector = `xr-model#${this.id} #${ElementUtil.normalizeID(item.name)}`;
+        _data[_selector] = {};
+
+        for (const [_p, _v] of Object.entries(Ele.getPropsFrom(item))) {
+          if (_v === null || _p === 'entity') continue;
+
+          const { dType, attribute } = Ele.getPropertyOptions(_p);
+          const _css = Schema.toCssLiteral(dType, _v as any);
+          if (!_css) continue;
+
+          _data[_selector][`---${attribute || _p}`] = _css;
+        }
+      }
+    };
+
+    _build(this._container.materials, XRMaterial);
+    _build(this._container.textures, XRTexture);
+    _build(this._container.meshes, XRMesh);
+    _build(
+      this._container.transformNodes.filter(n => n !== this.entity),
+      XRNode
+    );
+
+    this._internalStyleData = _data;
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -169,5 +221,84 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
         m.material = this._material.entity;
       }
     }
+  }
+
+  private _renderInternalStyle() {
+    let textContent = '';
+
+    for (const [selector, props] of Object.entries(this._internalStyleData)) {
+      textContent += `${selector} {\n`;
+      for (const [key, value] of Object.entries(props)) {
+        if (value === null) continue;
+        textContent += `  ${key}: ${value};\n`;
+      }
+      textContent += '}\n';
+    }
+
+    return html`
+      <style>
+        ${textContent}
+      </style>
+    `;
+  }
+
+  private _renderNode(node: TransformNode): TemplateResult<any> {
+    const children = repeat<TransformNode>(
+      node.getChildren(undefined, true),
+      n => n.uniqueId,
+      n => this._renderNode(n)
+    );
+
+    const id = ElementUtil.normalizeID(node.name);
+
+    if (node instanceof Mesh) {
+      return html` <xr-mesh entity-delegated id=${id} name=${node.name} .entity=${node}> ${children} </xr-mesh> `;
+    }
+
+    return html` <xr-node entity-delegated id=${id} name=${node.name} .entity=${node}> ${children} </xr-node> `;
+  }
+
+  private _renderMaterials() {
+    if (!this._container) return null;
+
+    return repeat(
+      this._container.materials,
+      m => m.name,
+      m => {
+        if (m instanceof PBRMaterial) {
+          return html` <xr-material entity-delegated id=${ElementUtil.normalizeID(m.name)} name=${m.name} .entity=${m}> </xr-material> `;
+        }
+        return null;
+      }
+    );
+  }
+
+  private _renderTextures() {
+    if (!this._container) return null;
+
+    return repeat(
+      this._container.textures,
+      t => t.name,
+      t => {
+        if (t instanceof Texture) {
+          return html` <xr-texture entity-delegated id=${ElementUtil.normalizeID(t.name)} name=${t.name} .entity=${t}> </xr-texture> `;
+        }
+        return null;
+      }
+    );
+  }
+
+  render() {
+    if (!this.entity) return null;
+
+    return html`
+      ${this._renderInternalStyle()}
+      ${repeat<TransformNode>(
+        this.entity.getChildren(undefined, true),
+        n => n.uniqueId,
+        n => this._renderNode(n)
+      )}
+      ${this._renderMaterials()} ${this._renderTextures()}
+    `;
   }
 }

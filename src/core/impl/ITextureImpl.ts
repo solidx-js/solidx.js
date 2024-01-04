@@ -8,4 +8,5 @@ export type ITextureImpl = {
   coordinatesMode: number | null;
   wrapU: number | null;
   wrapV: number | null;
+  entityDelegated: boolean | null;
 };

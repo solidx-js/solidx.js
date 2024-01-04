@@ -9,4 +9,5 @@ export type IMaterialImpl = {
   disableDepthWrite: boolean | null;
   zOffset: number | null;
   sideOrientation: number | null;
+  entityDelegated: boolean | null;
 };

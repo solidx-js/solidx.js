@@ -6,7 +6,29 @@ import { TransformLikeController } from '../controller';
 import { ElementUtil, randomID } from '../../util';
 import { ITransformNodeLikeImpl } from '../impl';
 
-export class XRNode extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
+export type IXRNodeProps = ITransformNodeLikeImpl & {
+  position: Vector3 | null;
+  rotation: Vector3 | null;
+  quaternion: Quaternion | null;
+  scale: Vector3 | null;
+  layer: number | null;
+};
+
+export class XRNode extends XRSceneScopeElement<TransformNode> implements IXRNodeProps {
+  static getPropsFrom(node: TransformNode) {
+    const props: IXRNodeProps = {
+      entity: node,
+      position: node.position,
+      rotation: node.rotation,
+      quaternion: node.rotationQuaternion || null,
+      scale: node.scaling,
+      layer: null,
+      entityDelegated: null,
+    };
+
+    return props;
+  }
+
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
 
@@ -21,6 +43,9 @@ export class XRNode extends XRSceneScopeElement<TransformNode> implements ITrans
 
   @Decorator.property('Number', 'layer', null)
   layer: number | null = null;
+
+  @Decorator.property('Boolean', 'entity-delegated', null)
+  entityDelegated: boolean | null = null;
 
   constructor() {
     super();
