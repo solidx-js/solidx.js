@@ -1,5 +1,6 @@
 import { defineConfig } from 'cypress';
 import { addMatchImageSnapshotPlugin } from 'cypress-image-snapshot/plugin';
+import { resolve } from 'path';
 
 const webpackConfig = {
   resolve: {
@@ -17,7 +18,18 @@ const webpackConfig = {
           },
         ],
       },
+      {
+        test: /\.(env|dds|png|jpg|zip|glb|gltf)$/i,
+        type: 'asset/resource',
+      },
     ],
+  },
+  devServer: {
+    allowedHosts: 'all',
+    client: { progress: true, overlay: false },
+    static: {
+      directory: resolve(__dirname, 'fixtures'),
+    },
   },
 };
 
