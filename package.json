@@ -3,13 +3,15 @@
   "version": "2.0.3",
   "description": "A New Way of 3D Programming",
   "files": [
-    "dist"
+    "dist",
+    "assets"
   ],
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
     "dev": "vuepress dev docs -p 10001 --clean-temp --clean-cache",
     "build": "rm -rf dist/* && webpack build --progress --env production && tsc -p tsconfig.build.json",
+    "dev:umd-server": "webpack server --progress --env umd-server",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
     "ci:e2e": "cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless",
     "release": "npm run ci && npm run ci:e2e && rm -rf dist/* && npm run build && release-it",
@@ -41,6 +43,7 @@
     "release-it": "^17.0.0",
     "sass-loader": "^13.3.3",
     "serve-static": "^1.15.0",
+    "solidx-assets": "^1.0.1",
     "ts-loader": "^9.5.1",
     "typedoc": "^0.25.4",
     "typedoc-plugin-markdown": "^3.17.1",

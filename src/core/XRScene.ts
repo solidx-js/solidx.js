@@ -27,7 +27,7 @@ export class XRScene extends XRElement {
     return engine;
   }
 
-  static defaultEnvMap = 'https://unpkg.com/solidx-assets/texture/EnvMap_3.0-256.env';
+  static defaultEnvMap = DEFAULT_ENV_MAP;
 
   readonly ID = randomID();
   readonly querier = new EntityQueryController(this);

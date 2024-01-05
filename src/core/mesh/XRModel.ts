@@ -80,6 +80,10 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   // FIXME: 这个是为了满足 ITransformNodeLikeImpl 的接口，并没有实际作用
   entityDelegated: boolean | null = null;
 
+  get container() {
+    return this._container;
+  }
+
   constructor() {
     super();
 

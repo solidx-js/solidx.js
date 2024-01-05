@@ -4,8 +4,8 @@ import { Vector3 } from '@babylonjs/core/Maths/math';
 import { PrimitiveBase } from './PrimitiveBase';
 
 export class XREnv extends PrimitiveBase {
-  static defaultSkyBoxTexture = 'https://unpkg.com/solidx-assets/texture/Skybox_2.0-256.dds';
-  static defaultGroundTexture = 'https://unpkg.com/solidx-assets/texture/Ground_2.0-256.png';
+  static defaultSkyBoxTexture = DEFAULT_SKY_TEXTURE;
+  static defaultGroundTexture = DEFAULT_GROUND_TEXTURE;
 
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
