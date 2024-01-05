@@ -68,6 +68,10 @@
 - [IPostProcessImpl](README.md#ipostprocessimpl)
 - [ITextureImpl](README.md#itextureimpl)
 - [ITransformNodeLikeImpl](README.md#itransformnodelikeimpl)
+- [IXRMaterialProps](README.md#ixrmaterialprops)
+- [IXRMeshProps](README.md#ixrmeshprops)
+- [IXRNodeProps](README.md#ixrnodeprops)
+- [IXRTextureProps](README.md#ixrtextureprops)
 
 ### Variables
 
@@ -151,6 +155,7 @@ ___
 | `backFaceCulling` | `boolean` \| ``null`` |
 | `disableDepthWrite` | `boolean` \| ``null`` |
 | `entity` | `Material` \| ``null`` |
+| `entityDelegated` | `boolean` \| ``null`` |
 | `sideOrientation` | `number` \| ``null`` |
 | `wireframe` | `boolean` \| ``null`` |
 | `zOffset` | `number` \| ``null`` |
@@ -194,6 +199,7 @@ ___
 | `coordinatesIndex` | `number` \| ``null`` |
 | `coordinatesMode` | `number` \| ``null`` |
 | `entity` | `BaseTexture` \| ``null`` |
+| `entityDelegated` | `boolean` \| ``null`` |
 | `hasAlpha` | `boolean` \| ``null`` |
 | `level` | `number` \| ``null`` |
 | `wrapU` | `number` \| ``null`` |
@@ -210,11 +216,36 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `entity` | `TransformNode` \| ``null`` |
+| `entityDelegated` | `boolean` \| ``null`` |
 | `layer` | `number` \| ``null`` |
 | `position` | [`Vector3`](classes/Vector3.md) \| ``null`` |
 | `quaternion` | [`Quaternion`](classes/Quaternion.md) \| ``null`` |
 | `rotation` | [`Vector3`](classes/Vector3.md) \| ``null`` |
 | `scale` | [`Vector3`](classes/Vector3.md) \| ``null`` |
+
+___
+
+### IXRMaterialProps
+
+Ƭ **IXRMaterialProps**: [`IMaterialImpl`](README.md#imaterialimpl) & \{ `albedoColor`: [`Color3`](classes/Color3.md) \| ``null`` ; `albedoTexture`: `string` \| ``null`` ; `emissiveColor`: [`Color3`](classes/Color3.md) \| ``null`` ; `metallic`: `number` \| ``null`` ; `roughness`: `number` \| ``null`` ; `unlit`: `boolean` \| ``null``  }
+
+___
+
+### IXRMeshProps
+
+Ƭ **IXRMeshProps**: [`ITransformNodeLikeImpl`](README.md#itransformnodelikeimpl) & \{ `geometry`: `Record`\<`string`, [`IDataType`](README.md#idatatype)\> \| ``null`` ; `material`: `string` \| ``null``  }
+
+___
+
+### IXRNodeProps
+
+Ƭ **IXRNodeProps**: [`ITransformNodeLikeImpl`](README.md#itransformnodelikeimpl) & \{ `layer`: `number` \| ``null`` ; `position`: [`Vector3`](classes/Vector3.md) \| ``null`` ; `quaternion`: [`Quaternion`](classes/Quaternion.md) \| ``null`` ; `rotation`: [`Vector3`](classes/Vector3.md) \| ``null`` ; `scale`: [`Vector3`](classes/Vector3.md) \| ``null``  }
+
+___
+
+### IXRTextureProps
+
+Ƭ **IXRTextureProps**: [`ITextureImpl`](README.md#itextureimpl) & \{ `invertY`: `boolean` \| ``null`` ; `uOffset`: `number` \| ``null`` ; `uScale`: `number` \| ``null`` ; `url`: `string` \| ``null`` ; `vOffset`: `number` \| ``null`` ; `vScale`: `number` \| ``null``  }
 
 ## Variables
 
@@ -264,6 +295,7 @@ ___
 | `closestTransformNodeLike` | (`ele`: `HTMLElement`) => ``null`` \| `TransformNode` |
 | `displayText` | (`ele`: `HTMLElement`) => `string` |
 | `toAttributeObject` | \<T\>(`ele`: `T`) => `T` |
+| `normalizeID` | (`id`: `string`) => `string` |
 
 ___
 

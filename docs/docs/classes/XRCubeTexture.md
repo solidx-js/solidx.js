@@ -22,6 +22,7 @@
 - [coordinatesMode](XRCubeTexture.md#coordinatesmode)
 - [disabled](XRCubeTexture.md#disabled)
 - [entity](XRCubeTexture.md#entity)
+- [entityDelegated](XRCubeTexture.md#entitydelegated)
 - [evaluated](XRCubeTexture.md#evaluated)
 - [extension](XRCubeTexture.md#extension)
 - [hasAlpha](XRCubeTexture.md#hasalpha)
@@ -108,6 +109,16 @@ ITextureImpl.entity
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[entity](XRSceneScopeElement.md#entity)
+
+___
+
+### entityDelegated
+
+• **entityDelegated**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+ITextureImpl.entityDelegated
 
 ___
 

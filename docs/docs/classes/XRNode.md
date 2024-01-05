@@ -8,7 +8,7 @@
 
 ## Implements
 
-- [`ITransformNodeLikeImpl`](../README.md#itransformnodelikeimpl)
+- [`IXRNodeProps`](../README.md#ixrnodeprops)
 
 ## Table of contents
 
@@ -20,6 +20,7 @@
 
 - [disabled](XRNode.md#disabled)
 - [entity](XRNode.md#entity)
+- [entityDelegated](XRNode.md#entitydelegated)
 - [evaluated](XRNode.md#evaluated)
 - [inspect](XRNode.md#inspect)
 - [layer](XRNode.md#layer)
@@ -46,6 +47,7 @@
 - [disconnected](XRNode.md#disconnected)
 - [reloadAttrFromComputedStyles](XRNode.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRNode.md#toattributeobject)
+- [getPropsFrom](XRNode.md#getpropsfrom)
 
 ## Other
 
@@ -79,11 +81,21 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.entity
+IXRNodeProps.entity
 
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[entity](XRSceneScopeElement.md#entity)
+
+___
+
+### entityDelegated
+
+• **entityDelegated**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IXRNodeProps.entityDelegated
 
 ___
 
@@ -113,7 +125,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.layer
+IXRNodeProps.layer
 
 ___
 
@@ -148,7 +160,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.position
+IXRNodeProps.position
 
 ___
 
@@ -158,7 +170,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.quaternion
+IXRNodeProps.quaternion
 
 ___
 
@@ -168,7 +180,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.rotation
+IXRNodeProps.rotation
 
 ___
 
@@ -178,7 +190,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.scale
+IXRNodeProps.scale
 
 ___
 
@@ -320,6 +332,22 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
+
+___
+
+### getPropsFrom
+
+▸ **getPropsFrom**(`node`): [`IXRNodeProps`](../README.md#ixrnodeprops)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `node` | `TransformNode` |
+
+#### Returns
+
+[`IXRNodeProps`](../README.md#ixrnodeprops)
 
 ## rendering
 

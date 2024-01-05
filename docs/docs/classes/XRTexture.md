@@ -8,7 +8,7 @@
 
 ## Implements
 
-- [`ITextureImpl`](../README.md#itextureimpl)
+- [`IXRTextureProps`](../README.md#ixrtextureprops)
 
 ## Table of contents
 
@@ -22,6 +22,7 @@
 - [coordinatesMode](XRTexture.md#coordinatesmode)
 - [disabled](XRTexture.md#disabled)
 - [entity](XRTexture.md#entity)
+- [entityDelegated](XRTexture.md#entitydelegated)
 - [evaluated](XRTexture.md#evaluated)
 - [hasAlpha](XRTexture.md#hasalpha)
 - [inspect](XRTexture.md#inspect)
@@ -53,6 +54,7 @@
 - [disconnected](XRTexture.md#disconnected)
 - [reloadAttrFromComputedStyles](XRTexture.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRTexture.md#toattributeobject)
+- [getPropsFrom](XRTexture.md#getpropsfrom)
 
 ## Other
 
@@ -76,7 +78,7 @@ ___
 
 #### Implementation of
 
-ITextureImpl.coordinatesIndex
+IXRTextureProps.coordinatesIndex
 
 ___
 
@@ -86,7 +88,7 @@ ___
 
 #### Implementation of
 
-ITextureImpl.coordinatesMode
+IXRTextureProps.coordinatesMode
 
 ___
 
@@ -106,11 +108,21 @@ ___
 
 #### Implementation of
 
-ITextureImpl.entity
+IXRTextureProps.entity
 
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[entity](XRSceneScopeElement.md#entity)
+
+___
+
+### entityDelegated
+
+• **entityDelegated**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IXRTextureProps.entityDelegated
 
 ___
 
@@ -130,7 +142,7 @@ ___
 
 #### Implementation of
 
-ITextureImpl.hasAlpha
+IXRTextureProps.hasAlpha
 
 ___
 
@@ -148,6 +160,10 @@ ___
 
 • **invertY**: ``null`` \| `boolean` = `null`
 
+#### Implementation of
+
+IXRTextureProps.invertY
+
 ___
 
 ### level
@@ -156,7 +172,7 @@ ___
 
 #### Implementation of
 
-ITextureImpl.level
+IXRTextureProps.level
 
 ___
 
@@ -199,11 +215,19 @@ ___
 
 • **uOffset**: ``null`` \| `number` = `null`
 
+#### Implementation of
+
+IXRTextureProps.uOffset
+
 ___
 
 ### uScale
 
 • **uScale**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IXRTextureProps.uScale
 
 ___
 
@@ -211,17 +235,29 @@ ___
 
 • **url**: ``null`` \| `string` = `null`
 
+#### Implementation of
+
+IXRTextureProps.url
+
 ___
 
 ### vOffset
 
 • **vOffset**: ``null`` \| `number` = `null`
 
+#### Implementation of
+
+IXRTextureProps.vOffset
+
 ___
 
 ### vScale
 
 • **vScale**: ``null`` \| `number` = `null`
+
+#### Implementation of
+
+IXRTextureProps.vScale
 
 ___
 
@@ -231,7 +267,7 @@ ___
 
 #### Implementation of
 
-ITextureImpl.wrapU
+IXRTextureProps.wrapU
 
 ___
 
@@ -241,7 +277,7 @@ ___
 
 #### Implementation of
 
-ITextureImpl.wrapV
+IXRTextureProps.wrapV
 
 ___
 
@@ -373,6 +409,22 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
+
+___
+
+### getPropsFrom
+
+▸ **getPropsFrom**(`tex`): [`IXRTextureProps`](../README.md#ixrtextureprops)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `tex` | `Texture` |
+
+#### Returns
+
+[`IXRTextureProps`](../README.md#ixrtextureprops)
 
 ## rendering
 

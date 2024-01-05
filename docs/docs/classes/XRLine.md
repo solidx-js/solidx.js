@@ -8,7 +8,7 @@
 
 ## Implements
 
-- [`ITransformNodeLikeImpl`](../README.md#itransformnodelikeimpl)
+- `Omit`\<[`ITransformNodeLikeImpl`](../README.md#itransformnodelikeimpl), ``"entityDelegated"``\>
 
 ## Table of contents
 
@@ -94,7 +94,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.entity
+Omit.entity
 
 #### Inherited from
 
@@ -128,7 +128,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.layer
+Omit.layer
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.position
+Omit.position
 
 ___
 
@@ -179,7 +179,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.quaternion
+Omit.quaternion
 
 ___
 
@@ -189,7 +189,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.rotation
+Omit.rotation
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.scale
+Omit.scale
 
 ___
 

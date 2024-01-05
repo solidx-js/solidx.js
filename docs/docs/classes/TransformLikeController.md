@@ -25,7 +25,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `host` | [`XRElement`](XRElement.md)\<`TransformNode`\> & [`ITransformNodeLikeImpl`](../README.md#itransformnodelikeimpl) |
+| `host` | [`XRElement`](XRElement.md)\<`TransformNode`\> & `Omit`\<[`ITransformNodeLikeImpl`](../README.md#itransformnodelikeimpl), ``"entityDelegated"``\> |
 
 #### Returns
 

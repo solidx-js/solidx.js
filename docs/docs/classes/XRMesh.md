@@ -8,7 +8,7 @@
 
 ## Implements
 
-- [`ITransformNodeLikeImpl`](../README.md#itransformnodelikeimpl)
+- [`IXRMeshProps`](../README.md#ixrmeshprops)
 
 ## Table of contents
 
@@ -22,6 +22,7 @@
 - [disablePointerEvent](XRMesh.md#disablepointerevent)
 - [disabled](XRMesh.md#disabled)
 - [entity](XRMesh.md#entity)
+- [entityDelegated](XRMesh.md#entitydelegated)
 - [evaluated](XRMesh.md#evaluated)
 - [geometry](XRMesh.md#geometry)
 - [inspect](XRMesh.md#inspect)
@@ -50,6 +51,7 @@
 - [disconnected](XRMesh.md#disconnected)
 - [reloadAttrFromComputedStyles](XRMesh.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRMesh.md#toattributeobject)
+- [getPropsFrom](XRMesh.md#getpropsfrom)
 
 ## Other
 
@@ -95,11 +97,21 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.entity
+IXRMeshProps.entity
 
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[entity](XRSceneScopeElement.md#entity)
+
+___
+
+### entityDelegated
+
+• **entityDelegated**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IXRMeshProps.entityDelegated
 
 ___
 
@@ -116,6 +128,10 @@ ___
 ### geometry
 
 • **geometry**: ``null`` \| `Record`\<`string`, [`IDataType`](../README.md#idatatype)\> = `null`
+
+#### Implementation of
+
+IXRMeshProps.geometry
 
 ___
 
@@ -135,7 +151,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.layer
+IXRMeshProps.layer
 
 ___
 
@@ -152,6 +168,10 @@ ___
 ### material
 
 • **material**: ``null`` \| `string` = `null`
+
+#### Implementation of
+
+IXRMeshProps.material
 
 ___
 
@@ -176,7 +196,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.position
+IXRMeshProps.position
 
 ___
 
@@ -186,7 +206,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.quaternion
+IXRMeshProps.quaternion
 
 ___
 
@@ -196,7 +216,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.rotation
+IXRMeshProps.rotation
 
 ___
 
@@ -206,7 +226,7 @@ ___
 
 #### Implementation of
 
-ITransformNodeLikeImpl.scale
+IXRMeshProps.scale
 
 ___
 
@@ -348,6 +368,22 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[toAttributeObject](XRSceneScopeElement.md#toattributeobject)
+
+___
+
+### getPropsFrom
+
+▸ **getPropsFrom**(`mesh`): [`IXRMeshProps`](../README.md#ixrmeshprops)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mesh` | `Mesh` |
+
+#### Returns
+
+[`IXRMeshProps`](../README.md#ixrmeshprops)
 
 ## rendering
 

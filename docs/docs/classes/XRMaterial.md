@@ -8,7 +8,7 @@
 
 ## Implements
 
-- [`IMaterialImpl`](../README.md#imaterialimpl)
+- [`IXRMaterialProps`](../README.md#ixrmaterialprops)
 
 ## Table of contents
 
@@ -28,6 +28,7 @@
 - [disabled](XRMaterial.md#disabled)
 - [emissiveColor](XRMaterial.md#emissivecolor)
 - [entity](XRMaterial.md#entity)
+- [entityDelegated](XRMaterial.md#entitydelegated)
 - [evaluated](XRMaterial.md#evaluated)
 - [inspect](XRMaterial.md#inspect)
 - [logger](XRMaterial.md#logger)
@@ -55,6 +56,7 @@
 - [disconnected](XRMaterial.md#disconnected)
 - [reloadAttrFromComputedStyles](XRMaterial.md#reloadattrfromcomputedstyles)
 - [toAttributeObject](XRMaterial.md#toattributeobject)
+- [getPropsFrom](XRMaterial.md#getpropsfrom)
 
 ## Other
 
@@ -82,11 +84,19 @@ ___
 
 • **albedoColor**: ``null`` \| [`Color3`](Color3.md) = `null`
 
+#### Implementation of
+
+IXRMaterialProps.albedoColor
+
 ___
 
 ### albedoTexture
 
 • **albedoTexture**: ``null`` \| `string` = `null`
+
+#### Implementation of
+
+IXRMaterialProps.albedoTexture
 
 ___
 
@@ -96,7 +106,7 @@ ___
 
 #### Implementation of
 
-IMaterialImpl.alpha
+IXRMaterialProps.alpha
 
 #### Inherited from
 
@@ -110,7 +120,7 @@ ___
 
 #### Implementation of
 
-IMaterialImpl.alphaMode
+IXRMaterialProps.alphaMode
 
 #### Inherited from
 
@@ -124,7 +134,7 @@ ___
 
 #### Implementation of
 
-IMaterialImpl.backFaceCulling
+IXRMaterialProps.backFaceCulling
 
 #### Inherited from
 
@@ -138,7 +148,7 @@ ___
 
 #### Implementation of
 
-IMaterialImpl.disableDepthWrite
+IXRMaterialProps.disableDepthWrite
 
 #### Inherited from
 
@@ -160,6 +170,10 @@ ___
 
 • **emissiveColor**: ``null`` \| [`Color3`](Color3.md) = `null`
 
+#### Implementation of
+
+IXRMaterialProps.emissiveColor
+
 ___
 
 ### entity
@@ -168,11 +182,25 @@ ___
 
 #### Implementation of
 
-IMaterialImpl.entity
+IXRMaterialProps.entity
 
 #### Inherited from
 
 [XRBaseMaterial](XRBaseMaterial.md).[entity](XRBaseMaterial.md#entity)
+
+___
+
+### entityDelegated
+
+• **entityDelegated**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IXRMaterialProps.entityDelegated
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[entityDelegated](XRBaseMaterial.md#entitydelegated)
 
 ___
 
@@ -210,6 +238,10 @@ ___
 
 • **metallic**: ``null`` \| `number` = `null`
 
+#### Implementation of
+
+IXRMaterialProps.metallic
+
 ___
 
 ### onbeforexrselect
@@ -231,6 +263,10 @@ ___
 
 • **roughness**: ``null`` \| `number` = `null`
 
+#### Implementation of
+
+IXRMaterialProps.roughness
+
 ___
 
 ### scene
@@ -249,7 +285,7 @@ ___
 
 #### Implementation of
 
-IMaterialImpl.sideOrientation
+IXRMaterialProps.sideOrientation
 
 #### Inherited from
 
@@ -261,6 +297,10 @@ ___
 
 • **unlit**: ``null`` \| `boolean` = `null`
 
+#### Implementation of
+
+IXRMaterialProps.unlit
+
 ___
 
 ### wireframe
@@ -269,7 +309,7 @@ ___
 
 #### Implementation of
 
-IMaterialImpl.wireframe
+IXRMaterialProps.wireframe
 
 #### Inherited from
 
@@ -283,7 +323,7 @@ ___
 
 #### Implementation of
 
-IMaterialImpl.zOffset
+IXRMaterialProps.zOffset
 
 #### Inherited from
 
@@ -419,6 +459,22 @@ ___
 #### Inherited from
 
 [XRBaseMaterial](XRBaseMaterial.md).[toAttributeObject](XRBaseMaterial.md#toattributeobject)
+
+___
+
+### getPropsFrom
+
+▸ **getPropsFrom**(`mat`): [`IXRMaterialProps`](../README.md#ixrmaterialprops)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mat` | `PBRMaterial` |
+
+#### Returns
+
+[`IXRMaterialProps`](../README.md#ixrmaterialprops)
 
 ## rendering
 

@@ -24,6 +24,7 @@
 - [disableDepthWrite](XRGridMaterial.md#disabledepthwrite)
 - [disabled](XRGridMaterial.md#disabled)
 - [entity](XRGridMaterial.md#entity)
+- [entityDelegated](XRGridMaterial.md#entitydelegated)
 - [evaluated](XRGridMaterial.md#evaluated)
 - [gridRatio](XRGridMaterial.md#gridratio)
 - [inspect](XRGridMaterial.md#inspect)
@@ -148,6 +149,20 @@ IMaterialImpl.entity
 #### Inherited from
 
 [XRBaseMaterial](XRBaseMaterial.md).[entity](XRBaseMaterial.md#entity)
+
+___
+
+### entityDelegated
+
+• **entityDelegated**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialImpl.entityDelegated
+
+#### Inherited from
+
+[XRBaseMaterial](XRBaseMaterial.md).[entityDelegated](XRBaseMaterial.md#entitydelegated)
 
 ___
 

@@ -47,6 +47,7 @@
 - [convertPropertyValue](XRScene.md#convertpropertyvalue)
 - [disconnected](XRScene.md#disconnected)
 - [reloadAttrFromComputedStyles](XRScene.md#reloadattrfromcomputedstyles)
+- [resize](XRScene.md#resize)
 - [toAttributeObject](XRScene.md#toattributeobject)
 - [createEngine](XRScene.md#createengine)
 
@@ -209,7 +210,7 @@ ___
 
 ### defaultEnvMap
 
-▪ `Static` **defaultEnvMap**: `string` = `'https://unpkg.com/solidx-assets/texture/EnvMap_3.0-256.env'`
+▪ `Static` **defaultEnvMap**: `string` = `DEFAULT_ENV_MAP`
 
 ___
 
@@ -317,6 +318,16 @@ ___
 #### Inherited from
 
 [XRElement](XRElement.md).[reloadAttrFromComputedStyles](XRElement.md#reloadattrfromcomputedstyles)
+
+___
+
+### resize
+
+▸ **resize**(): `void`
+
+#### Returns
+
+`void`
 
 ___
 

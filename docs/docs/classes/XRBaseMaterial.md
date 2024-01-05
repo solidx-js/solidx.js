@@ -36,6 +36,7 @@
 - [disableDepthWrite](XRBaseMaterial.md#disabledepthwrite)
 - [disabled](XRBaseMaterial.md#disabled)
 - [entity](XRBaseMaterial.md#entity)
+- [entityDelegated](XRBaseMaterial.md#entitydelegated)
 - [evaluated](XRBaseMaterial.md#evaluated)
 - [inspect](XRBaseMaterial.md#inspect)
 - [logger](XRBaseMaterial.md#logger)
@@ -146,6 +147,16 @@ IMaterialControllerHostType.entity
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[entity](XRSceneScopeElement.md#entity)
+
+___
+
+### entityDelegated
+
+• **entityDelegated**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+IMaterialControllerHostType.entityDelegated
 
 ___
 

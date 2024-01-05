@@ -165,13 +165,13 @@ ___
 
 ### defaultGroundTexture
 
-▪ `Static` **defaultGroundTexture**: `string` = `'https://unpkg.com/solidx-assets/texture/Ground_2.0-256.png'`
+▪ `Static` **defaultGroundTexture**: `string` = `DEFAULT_GROUND_TEXTURE`
 
 ___
 
 ### defaultSkyBoxTexture
 
-▪ `Static` **defaultSkyBoxTexture**: `string` = `'https://unpkg.com/solidx-assets/texture/Skybox_2.0-256.dds'`
+▪ `Static` **defaultSkyBoxTexture**: `string` = `DEFAULT_SKY_TEXTURE`
 
 ___
 

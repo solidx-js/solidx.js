@@ -18,11 +18,13 @@
 
 ### Properties
 
+- [\_internalStyleData](XRModel.md#_internalstyledata)
 - [\_material](XRModel.md#_material)
 - [autoPlay](XRModel.md#autoplay)
 - [disablePointerEvent](XRModel.md#disablepointerevent)
 - [disabled](XRModel.md#disabled)
 - [entity](XRModel.md#entity)
+- [entityDelegated](XRModel.md#entitydelegated)
 - [evaluated](XRModel.md#evaluated)
 - [extension](XRModel.md#extension)
 - [flatShading](XRModel.md#flatshading)
@@ -46,6 +48,7 @@
 
 ### Accessors
 
+- [container](XRModel.md#container)
 - [displayText](XRModel.md#displaytext)
 
 ### Methods
@@ -55,6 +58,7 @@
 - [convertPropertyValue](XRModel.md#convertpropertyvalue)
 - [disconnected](XRModel.md#disconnected)
 - [reloadAttrFromComputedStyles](XRModel.md#reloadattrfromcomputedstyles)
+- [render](XRModel.md#render)
 - [toAttributeObject](XRModel.md#toattributeobject)
 
 ## Other
@@ -70,6 +74,12 @@
 #### Overrides
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[constructor](XRSceneScopeElement.md#constructor)
+
+___
+
+### \_internalStyleData
+
+• **\_internalStyleData**: `Record`\<`string`, `Record`\<`string`, ``null`` \| `string`\>\> = `{}`
 
 ___
 
@@ -112,6 +122,16 @@ ITransformNodeLikeImpl.entity
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[entity](XRSceneScopeElement.md#entity)
+
+___
+
+### entityDelegated
+
+• **entityDelegated**: ``null`` \| `boolean` = `null`
+
+#### Implementation of
+
+ITransformNodeLikeImpl.entityDelegated
 
 ___
 
@@ -284,6 +304,16 @@ ___
 
 ___
 
+### container
+
+• `get` **container**(): ``null`` \| `AssetContainer`
+
+#### Returns
+
+``null`` \| `AssetContainer`
+
+___
+
 ### displayText
 
 • `get` **displayText**(): `string`
@@ -378,6 +408,20 @@ ___
 #### Inherited from
 
 [XRSceneScopeElement](XRSceneScopeElement.md).[reloadAttrFromComputedStyles](XRSceneScopeElement.md#reloadattrfromcomputedstyles)
+
+___
+
+### render
+
+▸ **render**(): ``null`` \| `TemplateResult`\<``1``\>
+
+#### Returns
+
+``null`` \| `TemplateResult`\<``1``\>
+
+#### Overrides
+
+XRSceneScopeElement.render
 
 ___
 
