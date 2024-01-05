@@ -13,7 +13,8 @@
     "lib": ["DOM", "ES2017"],
     "skipLibCheck": true,
     "importHelpers": true,
-    "types": ["cypress", "node"]
+    "types": ["cypress", "node"],
+    "allowJs": true
   },
-  "include": ["src", "demo", "__test__", "docs/.vuepress", "cypress"]
+  "include": ["src", "cypress"]
 }

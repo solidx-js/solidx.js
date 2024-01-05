@@ -1,7 +1,6 @@
 import { defineConfig } from 'cypress';
 import { addMatchImageSnapshotPlugin } from 'cypress-image-snapshot/plugin';
-
-const { e2eConfig } = require('../webpack.config');
+import { e2eConfig } from '../webpack.config.js';
 
 export default defineConfig({
   projectId: 'iegcwx',

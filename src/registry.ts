@@ -22,7 +22,6 @@ import {
   XRVolumetricLight,
 } from './core';
 import { customElement } from 'lit/decorators.js';
-import { CTMFileLoader } from './loader';
 import { XRArrow, XREllipse, XREnv, XRGround, XRScreenProjector, XRWorldAxis } from './primitive';
 import { DefaultBizLogger } from './BizLogger';
 import { Schema } from './util';
@@ -116,9 +115,6 @@ export class ElementRegistry {
     }
   }
 }
-
-// loaders
-SceneLoader.RegisterPlugin(new CTMFileLoader());
 
 // core
 ElementRegistry.Instance.register('xr-scene', XRScene as any);

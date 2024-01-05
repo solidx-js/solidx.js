@@ -20,7 +20,7 @@
 ### Core Features
 
 - **Declarative**: No need to learn a new language, just use HTML and CSS.
-- **Fast**: Powered by [babylon.js](https://www.babylonjs.com/) and [lit](https://lit.dev/).
+- **Performance**: Powered by [babylon.js](https://www.babylonjs.com/) and [lit](https://lit.dev/).
 - **Lightweight**: Code splitting, tree shaking, and lazy loading are all supported.
 - **Extensible**: Create your own components and use them in your scenes.
 
