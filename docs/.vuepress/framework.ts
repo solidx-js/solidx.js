@@ -5,9 +5,17 @@ import { searchPlugin } from '@vuepress/plugin-search';
 import { autoCatalogPlugin } from 'vuepress-plugin-auto-catalog';
 import { resolve } from 'path';
 import { webpackBundler } from '@vuepress/bundler-webpack';
+import * as wb from '../../webpack.config.mjs';
+import webpack from 'webpack';
 
 export const framework = defineUserConfig({
-  bundler: webpackBundler(),
+  bundler: webpackBundler({
+    configureWebpack: () => {
+      return {
+        plugins: [new webpack.DefinePlugin(wb.DEFINED_ENV)],
+      };
+    },
+  }),
   templateDev: resolve(__dirname, './template.html'),
   templateBuild: resolve(__dirname, './template.html'),
   public: resolve(__dirname, '../public'),

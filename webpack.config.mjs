@@ -1,17 +1,22 @@
-const pkg = require('./package.json');
-const Path = require('path');
-const webpack = require('webpack');
-const { merge } = require('webpack-merge');
-const assetsData = require('./assets.json');
+import pkg from './package.json' assert { type: 'json' };
+import Path from 'path';
+import webpack from 'webpack';
+import { merge } from 'webpack-merge';
+import assetsData from './assets.json' assert { type: 'json' };
+import { fileURLToPath } from 'url';
+
+// __dirname is not defined in ES module scope
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = Path.dirname(__filename);
 
 const VERSION = pkg.version;
-const DEFINED_ENV = { VERSION: JSON.stringify(VERSION) };
+export const DEFINED_ENV = { VERSION: JSON.stringify(VERSION) };
 
 Object.keys(assetsData).forEach(key => {
   DEFINED_ENV[key] = JSON.stringify(assetsData[key]);
 });
 
-const commonConfigBase = {
+export const commonConfigBase = {
   entry: { index: './src/index.ts' },
   mode: 'production',
   plugins: [new webpack.DefinePlugin(DEFINED_ENV)],
@@ -47,28 +52,7 @@ const commonConfigBase = {
   },
 };
 
-const e2eConfig = {
-  resolve: {
-    extensions: ['.ts', '.js', '.json'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        exclude: [/node_modules/],
-        use: [
-          {
-            loader: 'ts-loader',
-            options: { transpileOnly: true },
-          },
-        ],
-      },
-      {
-        test: /\.(env|dds|png|jpg|zip|glb|gltf)$/i,
-        type: 'asset/resource',
-      },
-    ],
-  },
+export const localAssetsConfig = {
   plugins: [
     new webpack.DefinePlugin({
       ...DEFINED_ENV,
@@ -78,8 +62,6 @@ const e2eConfig = {
     }),
   ],
   devServer: {
-    allowedHosts: 'all',
-    client: { progress: true, overlay: false },
     static: [
       { directory: Path.resolve(__dirname, 'cypress/fixtures') },
       { directory: Path.resolve(__dirname, 'node_modules/solidx-assets'), publicPath: '/~/solidx-assets' },
@@ -87,7 +69,38 @@ const e2eConfig = {
   },
 };
 
-module.exports = function (env) {
+export const e2eConfig = merge(
+  {
+    resolve: {
+      extensions: ['.ts', '.js', '.json'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          exclude: [/node_modules/],
+          use: [
+            {
+              loader: 'ts-loader',
+              options: { transpileOnly: true },
+            },
+          ],
+        },
+        {
+          test: /\.(env|dds|png|jpg|zip|glb|gltf)$/i,
+          type: 'asset/resource',
+        },
+      ],
+    },
+    devServer: {
+      allowedHosts: 'all',
+      client: { progress: true, overlay: false },
+    },
+  },
+  localAssetsConfig
+);
+
+export default function (env) {
   if (env['umd-server']) {
     return merge(commonConfigBase, {
       mode: 'development',
@@ -131,7 +144,4 @@ module.exports = function (env) {
       optimization: { minimize: false },
     }),
   ];
-};
-
-module.exports.DEFINED_ENV = DEFINED_ENV;
-module.exports.e2eConfig = e2eConfig;
+}
