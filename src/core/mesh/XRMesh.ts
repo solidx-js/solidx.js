@@ -33,7 +33,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
       layer: mesh.renderingGroupId,
       entityDelegated: null,
       geometry: null,
-      material: mesh.material ? '#' + ElementUtil.normalizeID(mesh.material.name) : null,
+      material: mesh.material ? `xr-material#${ElementUtil.normalizeID(mesh.material.name)}` : null,
     };
 
     return props;

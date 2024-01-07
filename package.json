@@ -37,9 +37,9 @@
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
-    "@babylonjs/core": "^6.34.1",
-    "@babylonjs/loaders": "^6.34.1",
-    "@babylonjs/materials": "^6.34.1",
+    "@babylonjs/core": "^6.37.1",
+    "@babylonjs/loaders": "^6.37.1",
+    "@babylonjs/materials": "^6.37.1",
     "@lit/context": "^1.1.0",
     "ah-logger": "^3.2.8",
     "chroma-js": "^2.4.2",

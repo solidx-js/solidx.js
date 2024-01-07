@@ -1,16 +1,20 @@
 import { html } from 'lit';
 import _ from 'lodash';
 import '../../src';
-import { XRMaterial, XRModel } from '../../src';
+import { XRModel } from '../../src';
 
 describe('xr-model', () => {
-  const srcList = ['/DamagedHelmet.glb', '/DamagedHelmet/DamagedHelmet.gltf'];
+  const srcList = [
+    { src: '/DamagedHelmet.glb', radius: 5 },
+    { src: '/DamagedHelmet/DamagedHelmet.gltf', radius: 5 },
+    { src: '/GlassHurricaneCandleHolder.glb', radius: 1 },
+  ];
 
-  for (const src of srcList) {
+  for (const { src, radius } of srcList) {
     it(src, () => {
       cy.mount(html`
         <xr-scene style="width: 256px; height: 256px;">
-          <xr-camera radius="5"></xr-camera>
+          <xr-camera radius="${radius}"></xr-camera>
           <xr-model src="${src}"></xr-model>
         </xr-scene>
       `);

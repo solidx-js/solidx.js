@@ -32,7 +32,7 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
       wireframe: mat.wireframe,
       zOffset: mat.zOffset,
       albedoColor: mat.albedoColor,
-      albedoTexture: mat._albedoTexture ? '#' + ElementUtil.normalizeID(mat._albedoTexture.name) : null,
+      albedoTexture: mat._albedoTexture ? `xr-texture#${ElementUtil.normalizeID(mat._albedoTexture.name)}` : null,
       metallic: mat.metallic,
       roughness: mat.roughness,
       emissiveColor: mat.emissiveColor,

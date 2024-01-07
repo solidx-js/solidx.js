@@ -71,6 +71,9 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @Decorator.property('Boolean', 'preload', null)
   preload: boolean | null = null;
 
+  @Decorator.property('Boolean', 'disable-virtual-node', null)
+  disableVirtualNode: boolean | null = null;
+
   @state()
   _material: (HTMLElement & IMaterialImpl) | null = null;
 
@@ -181,9 +184,11 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
 
     const _data: Record<string, Record<string, string | null>> = {};
 
-    const _build = <_T extends { name: string }>(list: _T[], Ele: any) => {
+    const _build = (list: any[], Ele: any) => {
       for (const item of list) {
-        const _selector = `xr-model#${this.id} #${ElementUtil.normalizeID(item.name)}`;
+        const _uid: string = item.uniqueId + '';
+
+        const _selector = `xr-model#${this.id} #${ElementUtil.normalizeID(item.name)}[uniqueId="${_uid}"]`;
         _data[_selector] = {};
 
         for (const [_p, _v] of Object.entries(Ele.getPropsFrom(item))) {
@@ -254,12 +259,13 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
     );
 
     const id = ElementUtil.normalizeID(node.name);
+    const uid = node.uniqueId;
 
     if (node instanceof Mesh) {
-      return html` <xr-mesh entity-delegated id=${id} name=${node.name} .entity=${node}> ${children} </xr-mesh> `;
+      return html` <xr-mesh entity-delegated id=${id} uniqueId=${uid} name=${node.name} .entity=${node}> ${children} </xr-mesh> `;
     }
 
-    return html` <xr-node entity-delegated id=${id} name=${node.name} .entity=${node}> ${children} </xr-node> `;
+    return html` <xr-node entity-delegated id=${id} uniqueId=${uid} name=${node.name} .entity=${node}> ${children} </xr-node> `;
   }
 
   private _renderMaterials() {
@@ -270,7 +276,10 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       m => m.name,
       m => {
         if (m instanceof PBRMaterial) {
-          return html` <xr-material entity-delegated id=${ElementUtil.normalizeID(m.name)} name=${m.name} .entity=${m}> </xr-material> `;
+          const uid = m.uniqueId;
+          return html`
+            <xr-material entity-delegated id=${ElementUtil.normalizeID(m.name)} uniqueId=${uid} name=${m.name} .entity=${m}> </xr-material>
+          `;
         }
         return null;
       }
@@ -285,7 +294,10 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       t => t.name,
       t => {
         if (t instanceof Texture) {
-          return html` <xr-texture entity-delegated id=${ElementUtil.normalizeID(t.name)} name=${t.name} .entity=${t}> </xr-texture> `;
+          const uid = t.uniqueId;
+          return html`
+            <xr-texture entity-delegated id=${ElementUtil.normalizeID(t.name)} uniqueId=${uid} name=${t.name} .entity=${t}> </xr-texture>
+          `;
         }
         return null;
       }
@@ -293,7 +305,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   }
 
   render() {
-    if (!this.entity) return null;
+    if (!this.entity || this.disableVirtualNode) return null;
 
     return html`
       ${this._renderInternalStyle()}
