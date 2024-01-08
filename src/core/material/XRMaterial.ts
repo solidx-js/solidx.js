@@ -18,8 +18,6 @@ export type IXRMaterialProps = IMaterialImpl & {
 };
 
 export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMaterialProps {
-  static requiredAttrs: string[] = ['id'];
-
   static getPropsFrom(mat: PBRMaterial) {
     const props: IXRMaterialProps = {
       entity: mat,
@@ -32,7 +30,7 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
       wireframe: mat.wireframe,
       zOffset: mat.zOffset,
       albedoColor: mat.albedoColor,
-      albedoTexture: mat._albedoTexture ? `xr-texture#${ElementUtil.normalizeID(mat._albedoTexture.name)}` : null,
+      albedoTexture: mat._albedoTexture ? `[entity-id="${mat._albedoTexture.ID}"]` : null,
       metallic: mat.metallic,
       roughness: mat.roughness,
       emissiveColor: mat.emissiveColor,

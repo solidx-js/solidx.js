@@ -7,8 +7,6 @@ import { XRBaseMaterial } from './XRBaseMaterial';
 import { IMaterialImpl, ITextureImpl } from '../impl';
 
 export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> implements IMaterialImpl {
-  static requiredAttrs: string[] = ['id'];
-
   @Decorator.property('Boolean', 'use-rgb-color', null)
   useRGBColor: boolean | null = null;
 

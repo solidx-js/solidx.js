@@ -6,8 +6,6 @@ import { Color3, Vector3 } from '@babylonjs/core/Maths/math';
 import { ElementUtil } from '../../util';
 
 export class XRPointLight extends XRSceneScopeElement<PointLight> {
-  static requiredAttrs: string[] = ['id'];
-
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
 

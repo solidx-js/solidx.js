@@ -14,5 +14,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       addMatchImageSnapshotPlugin(on, config);
     },
+    experimentalSingleTabRunMode: true,
   },
 });

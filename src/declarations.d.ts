@@ -9,6 +9,24 @@ declare module '@babylonjs/core/scene' {
   }
 }
 
+declare module '@babylonjs/core/node' {
+  interface Node {
+    get ID(): string;
+  }
+}
+
+declare module '@babylonjs/core/Materials/material' {
+  interface Material {
+    get ID(): string;
+  }
+}
+
+declare module '@babylonjs/core/Materials/Textures/baseTexture' {
+  interface BaseTexture {
+    get ID(): string;
+  }
+}
+
 declare module 'lit' {
   // 扩展 lit 的 property 装饰器
   export interface PropertyDeclaration {

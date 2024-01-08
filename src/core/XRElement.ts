@@ -9,8 +9,6 @@ import { PickStringKey } from '../type';
 const ComputedStylesFlagSym = Symbol('ComputedStylesFlagSym');
 
 export class XRElement<T = any> extends LitElement {
-  static requiredAttrs: string[] = [];
-
   readonly logger = DefaultBizLogger.extend(this.tagName.toLowerCase());
 
   @state()
@@ -149,12 +147,6 @@ export class XRElement<T = any> extends LitElement {
 
     if (!this.id) this.id = '_' + randomID(); // 默认 id
 
-    // 检查必须的属性
-    if (this._Cls.requiredAttrs.length > 0) {
-      const missingAttrs = this._Cls.requiredAttrs.filter(attr => this.getAttribute(attr) === null);
-      if (missingAttrs.length > 0) throw new Error(`[${this.tagName}] Missing required attributes: ${missingAttrs.join(', ')}`);
-    }
-
     this._styled = getComputedStyle(this);
     this.checkComputedStyles();
 
@@ -179,6 +171,20 @@ export class XRElement<T = any> extends LitElement {
     // 把 changed 复制到 this.changed
     this.changed.clear();
     for (const [key, value] of changed) this.changed.set(key, value);
+
+    // 设置 entity reflect attribute
+    if (changed.has('entity')) {
+      if (this.entity) {
+        if ((this.entity as any).ID) this.setAttribute('entity-id', (this.entity as any).ID);
+        else this.removeAttribute('entity-id');
+
+        if ((this.entity as any).getClassName) this.setAttribute('entity-class', (this.entity as any).getClassName());
+        else this.removeAttribute('entity-class');
+      } else {
+        this.removeAttribute('entity-id');
+        this.removeAttribute('entity-class');
+      }
+    }
   }
 
   private _syncPropertyToStyle(property: string) {

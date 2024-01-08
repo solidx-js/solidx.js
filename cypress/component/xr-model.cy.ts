@@ -48,20 +48,36 @@ describe('xr-model', () => {
       const container = _model.container!;
 
       for (const mat of container.materials) {
-        cy.get(`xr-model xr-material[name="${mat.name}"]`).should('exist').and('have.attr', 'entity-delegated');
+        cy.get(`xr-model xr-material[name="${mat.name}"]`)
+          .should('exist')
+          .should('have.attr', 'entity-id', mat.ID)
+          .should('have.attr', 'entity-class', mat.getClassName())
+          .should('have.attr', 'entity-delegated');
       }
 
       for (const tex of container.textures) {
-        cy.get(`xr-model xr-texture[name="${tex.name}"]`).should('exist').and('have.attr', 'entity-delegated');
+        cy.get(`xr-model xr-texture[name="${tex.name}"]`)
+          .should('exist')
+          .should('have.attr', 'entity-id', tex.ID)
+          .should('have.attr', 'entity-class', tex.getClassName())
+          .should('have.attr', 'entity-delegated');
       }
 
       for (const mesh of container.meshes) {
-        cy.get(`xr-model xr-mesh[name="${mesh.name}"]`).should('exist').and('have.attr', 'entity-delegated');
+        cy.get(`xr-model xr-mesh[name="${mesh.name}"]`)
+          .should('exist')
+          .should('have.attr', 'entity-id', mesh.ID)
+          .should('have.attr', 'entity-class', mesh.getClassName())
+          .should('have.attr', 'entity-delegated');
       }
 
       for (const node of container.transformNodes) {
         if (node === _model.entity) continue;
-        cy.get(`xr-model xr-node[name="${node.name}"]`).should('exist').and('have.attr', 'entity-delegated');
+        cy.get(`xr-model xr-node[name="${node.name}"]`)
+          .should('exist')
+          .should('have.attr', 'entity-id', node.ID)
+          .should('have.attr', 'entity-class', node.getClassName())
+          .should('have.attr', 'entity-delegated');
       }
     });
   });

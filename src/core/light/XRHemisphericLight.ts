@@ -7,8 +7,6 @@ import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { ElementUtil } from '../../util';
 
 export class XRHemisphericLight extends XRSceneScopeElement<HemisphericLight> {
-  static requiredAttrs: string[] = ['id'];
-
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
 

@@ -6,8 +6,6 @@ import { ITextureImpl } from '../impl';
 import { Tags } from '@babylonjs/core/Misc/tags';
 
 export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements ITextureImpl {
-  static requiredAttrs: string[] = ['id'];
-
   @Decorator.property('Boolean', 'has-alpha', null)
   hasAlpha: boolean | null = null;
 

@@ -186,9 +186,9 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
 
     const _build = (list: any[], Ele: any) => {
       for (const item of list) {
-        const _uid: string = item.uniqueId + '';
+        const ID: string = item.ID;
 
-        const _selector = `xr-model#${this.id} #${ElementUtil.normalizeID(item.name)}[uniqueId="${_uid}"]`;
+        const _selector = `xr-model#${this.id} [entity-id="${ID}"]`;
         _data[_selector] = {};
 
         for (const [_p, _v] of Object.entries(Ele.getPropsFrom(item))) {
@@ -258,14 +258,11 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       n => this._renderNode(n)
     );
 
-    const id = ElementUtil.normalizeID(node.name);
-    const uid = node.uniqueId;
-
     if (node instanceof Mesh) {
-      return html` <xr-mesh entity-delegated id=${id} uniqueId=${uid} name=${node.name} .entity=${node}> ${children} </xr-mesh> `;
+      return html` <xr-mesh entity-delegated name=${node.name} .entity=${node}> ${children} </xr-mesh> `;
     }
 
-    return html` <xr-node entity-delegated id=${id} uniqueId=${uid} name=${node.name} .entity=${node}> ${children} </xr-node> `;
+    return html` <xr-node entity-delegated name=${node.name} .entity=${node}> ${children} </xr-node> `;
   }
 
   private _renderMaterials() {
@@ -276,10 +273,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       m => m.name,
       m => {
         if (m instanceof PBRMaterial) {
-          const uid = m.uniqueId;
-          return html`
-            <xr-material entity-delegated id=${ElementUtil.normalizeID(m.name)} uniqueId=${uid} name=${m.name} .entity=${m}> </xr-material>
-          `;
+          return html` <xr-material entity-delegated name=${m.name} .entity=${m}> </xr-material> `;
         }
         return null;
       }
@@ -294,10 +288,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       t => t.name,
       t => {
         if (t instanceof Texture) {
-          const uid = t.uniqueId;
-          return html`
-            <xr-texture entity-delegated id=${ElementUtil.normalizeID(t.name)} uniqueId=${uid} name=${t.name} .entity=${t}> </xr-texture>
-          `;
+          return html` <xr-texture entity-delegated name=${t.name} .entity=${t}> </xr-texture> `;
         }
         return null;
       }

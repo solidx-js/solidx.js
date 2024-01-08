@@ -15,8 +15,6 @@ export type IXRTextureProps = ITextureImpl & {
 };
 
 export class XRTexture extends XRSceneScopeElement<Texture> implements IXRTextureProps {
-  static requiredAttrs: string[] = ['id'];
-
   static getPropsFrom(tex: Texture) {
     const props: IXRTextureProps = {
       entity: tex,

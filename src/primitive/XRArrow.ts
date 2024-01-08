@@ -4,8 +4,6 @@ import { Decorator } from '../core';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
 export class XRArrow extends PrimitiveBase {
-  static requiredAttrs: string[] = ['id'];
-
   @Decorator.property('Number', 'thickness', null)
   thickness: number | null = null;
 

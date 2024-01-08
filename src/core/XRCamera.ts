@@ -4,8 +4,6 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { XRSceneScopeElement } from './XRSceneScopeElement';
 
 export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
-  static requiredAttrs: string[] = ['id'];
-
   @Decorator.property('Number', 'alpha', -90)
   alpha: number | null = null;
 

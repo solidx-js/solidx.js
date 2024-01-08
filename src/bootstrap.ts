@@ -6,6 +6,10 @@ import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders/glTF';
 import { UtilityLayerRenderer } from '@babylonjs/core/Rendering/utilityLayerRenderer';
 import { Gizmo } from '@babylonjs/core/Gizmos/gizmo';
+import { randomID } from './util';
+import { Material } from '@babylonjs/core/Materials/material';
+import { BaseTexture } from '@babylonjs/core/Materials/Textures/baseTexture';
+import { Node } from '@babylonjs/core/node';
 
 Gizmo.PreserveScaling = true;
 Gizmo.UseAbsoluteScaling = false;
@@ -80,3 +84,16 @@ Object.defineProperty(Scene.prototype, 'defaultUtilityLayerWithEvents', {
     return this._defaultUtilityLayerWithEvents;
   },
 });
+
+function patchID(Cls: any) {
+  Object.defineProperty(Cls.prototype, 'ID', {
+    get: function () {
+      if (!this._ID) this._ID = randomID();
+      return this._ID;
+    },
+  });
+}
+
+patchID(Node);
+patchID(Material);
+patchID(BaseTexture);
