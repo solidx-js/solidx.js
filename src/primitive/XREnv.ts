@@ -2,10 +2,11 @@ import { html } from 'lit';
 import { Decorator } from '../core';
 import { Vector3 } from '@babylonjs/core/Maths/math';
 import { PrimitiveBase } from './PrimitiveBase';
+import { AssetsURLs } from '../AssetsURLs';
 
 export class XREnv extends PrimitiveBase {
-  static defaultSkyBoxTexture = DEFAULT_SKY_TEXTURE;
-  static defaultGroundTexture = DEFAULT_GROUND_TEXTURE;
+  static defaultSkyBoxTexture = AssetsURLs.DEFAULT_SKY_TEXTURE;
+  static defaultGroundTexture = AssetsURLs.DEFAULT_GROUND_TEXTURE;
 
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;

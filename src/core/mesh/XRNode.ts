@@ -6,13 +6,7 @@ import { TransformLikeController } from '../controller';
 import { ElementUtil, randomID } from '../../util';
 import { ITransformNodeLikeImpl } from '../impl';
 
-export type IXRNodeProps = ITransformNodeLikeImpl & {
-  position: Vector3 | null;
-  rotation: Vector3 | null;
-  quaternion: Quaternion | null;
-  scale: Vector3 | null;
-  layer: number | null;
-};
+export type IXRNodeProps = ITransformNodeLikeImpl & {};
 
 export class XRNode extends XRSceneScopeElement<TransformNode> implements IXRNodeProps {
   static getPropsFrom(node: TransformNode) {

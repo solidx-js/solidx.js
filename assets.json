@@ -1,5 +1,0 @@
-{
-  "DEFAULT_ENV_MAP": "https://unpkg.com/solidx-assets/texture/EnvMap_3.0-256.env",
-  "DEFAULT_SKY_TEXTURE": "https://unpkg.com/solidx-assets/texture/Skybox_2.0-256.dds",
-  "DEFAULT_GROUND_TEXTURE": "https://unpkg.com/solidx-assets/texture/Ground_2.0-256.png"
-}

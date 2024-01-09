@@ -1,29 +1,21 @@
 import { PointLight } from '@babylonjs/core/Lights/pointLight';
-import { XRSceneScopeElement } from '../XRSceneScopeElement';
-import { LightController } from '../controller';
 import { Decorator } from '../Decorator';
 import { Color3, Vector3 } from '@babylonjs/core/Maths/math';
 import { ElementUtil } from '../../util';
+import { XRBaseLight } from './XRBaseLight';
 
-export class XRPointLight extends XRSceneScopeElement<PointLight> {
+export class XRPointLight extends XRBaseLight<PointLight> {
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
 
   @Decorator.property('Color3', 'diffuse', null)
   diffuse: Color3 | null = null;
 
-  @Decorator.property('Color3', 'specular', null)
-  specular: Color3 | null = null;
-
   @Decorator.property('Number', 'intensity', null)
   intensity: number | null = null;
 
-  @Decorator.property('Boolean', 'shadowEnabled', null)
-  shadowEnabled: boolean | null = null;
-
   constructor() {
     super();
-    new LightController(this);
   }
 
   connected(): void {

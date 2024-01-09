@@ -37,10 +37,6 @@ declare module 'lit' {
 
 // 扩展 HTMLElementEventMap
 declare global {
-  declare const DEFAULT_ENV_MAP: string;
-  declare const DEFAULT_SKY_TEXTURE: string;
-  declare const DEFAULT_GROUND_TEXTURE: string;
-
   interface HTMLElementEventMap {
     pick: any;
   }

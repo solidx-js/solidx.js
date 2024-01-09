@@ -20,6 +20,7 @@ import { XRMaterial } from '../material';
 import { XRTexture } from '../texture';
 import { XRMesh } from './XRMesh';
 import { XRNode } from './XRNode';
+import { Compatibility } from '../../Compatibility';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
   @provide({ context: Context.AssetContainer })
@@ -80,6 +81,9 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @state()
   _internalStyleData: Record<string, Record<string, string | null>> = {};
 
+  @state()
+  _loading: boolean = false;
+
   // FIXME: 这个是为了满足 ITransformNodeLikeImpl 的接口，并没有实际作用
   entityDelegated: boolean | null = null;
 
@@ -125,9 +129,13 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       this._container = null;
     }
 
-    if (!this.src || (this.disabled && !this.preload) || this.scene.isDisposed) return;
+    const { src, disabled, preload, extension, originTransform, flatShading, autoPlay, loop } = this.evaluated;
+    if (!src || (disabled && !preload) || this.scene.isDisposed) return;
 
-    this.scene.loadModel(this.src, this.extension || undefined).then(_container => {
+    if (this._loading) return; // 防止重复加载
+    this._loading = true;
+
+    this.scene.loadModel(src, extension || undefined).then(_container => {
       if (!this.entity) return;
 
       _container.addAllToScene();
@@ -143,26 +151,26 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       for (const mesh of _container.meshes) {
         if (mesh instanceof Mesh) {
           // 原点转换
-          if (this.originTransform) mesh.bakeTransformIntoVertices(Matrix.Invert(this.originTransform));
+          if (originTransform) mesh.bakeTransformIntoVertices(Matrix.Invert(originTransform as any));
 
           // 处理 flat-shading
-          if (this.flatShading) mesh.convertToFlatShadedMesh();
+          if (flatShading) mesh.convertToFlatShadedMesh();
         }
       }
 
       // 处理 auto-play
-      if (this.autoPlay !== null) {
+      if (autoPlay !== null) {
         let ags: AnimationGroup[] = [];
 
-        if (this.autoPlay === '') {
+        if (autoPlay === '') {
           ags = _container.animationGroups;
         } else {
-          const _names = Schema.fromAttr('Array', this.autoPlay) as string[];
+          const _names = Schema.fromAttr('Array', autoPlay) as string[];
           ags = _container.animationGroups.filter(a => _names.includes(a.name));
         }
 
         for (const ag of ags) {
-          ag.play(!!this.loop);
+          ag.play(!!loop);
         }
       }
 
@@ -174,13 +182,14 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       this.performUpdate();
 
       this.scene.onReadyObservable.addOnce(() => {
+        this._loading = false;
         this.emit('load', { container: _container });
       });
     });
   }
 
   private _buildInternalStyleData() {
-    if (!this._container) return;
+    if (!this._container || Compatibility.disableCssProperty) return;
 
     const _data: Record<string, Record<string, string | null>> = {};
 
@@ -221,7 +230,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
 
     if (changed.has('disabled') && this._container) {
       for (const item of [...this._container.meshes, ...this._container.transformNodes]) {
-        item.setEnabled(!this.disabled);
+        item.setEnabled(!this.evaluated.disabled);
       }
     }
 
@@ -296,7 +305,8 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   }
 
   render() {
-    if (!this.entity || this.disableVirtualNode) return null;
+    // 不支持 CssProperty 的浏览器不渲染
+    if (!this.entity || this.evaluated.disableVirtualNode || Compatibility.disableCssProperty) return null;
 
     return html`
       ${this._renderInternalStyle()}

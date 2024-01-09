@@ -1,9 +1,15 @@
 import { html } from 'lit';
 import _ from 'lodash';
 import '../../src';
-import { XRModel } from '../../src';
+import { XRModel, Compatibility } from '../../src';
+
+const CompatibilityStash = JSON.parse(JSON.stringify(Compatibility));
 
 describe('xr-model', () => {
+  afterEach(() => {
+    Object.assign(Compatibility, CompatibilityStash);
+  });
+
   const srcList = [
     { src: '/DamagedHelmet.glb', radius: 5 },
     { src: '/DamagedHelmet/DamagedHelmet.gltf', radius: 5 },
@@ -80,5 +86,23 @@ describe('xr-model', () => {
           .should('have.attr', 'entity-delegated');
       }
     });
+  });
+
+  it('disableCssProperty', () => {
+    Compatibility.disableCssProperty = true;
+
+    cy.mount(html`
+      <xr-scene style="width: 256px; height: 256px;">
+        <xr-camera radius="4" target="0 1 0" alpha="90" beta="75"></xr-camera>
+        <xr-model src="/DamagedHelmet.glb" rotation="0 -40 0" position="0 1 0"></xr-model>
+      </xr-scene>
+    `);
+
+    // 等待 xr-model 的 load 事件
+    cy.get('xr-model').then($element => {
+      return new Cypress.Promise(resolve => $element.on('load', resolve));
+    });
+
+    cy.get('xr-scene').matchImageSnapshot();
   });
 });

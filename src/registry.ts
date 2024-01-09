@@ -1,4 +1,3 @@
-import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import {
   XRElement,
   XRMaterial,
@@ -25,6 +24,7 @@ import { customElement } from 'lit/decorators.js';
 import { XRArrow, XREllipse, XREnv, XRGround, XRScreenProjector, XRWorldAxis } from './primitive';
 import { DefaultBizLogger } from './BizLogger';
 import { Schema } from './util';
+import { Compatibility } from './Compatibility';
 
 export class ElementRegistry {
   static Instance = new ElementRegistry();
@@ -45,58 +45,60 @@ export class ElementRegistry {
   }
 
   doRegisterToGlobal() {
-    const styleData: Record<string, string[]> = {};
-
-    const _cssProps = new Map<
-      string,
-      {
-        // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Types
-        syntax?: string;
-        initialValue?: string;
-      }
-    >();
-
+    // register customElements
     for (const name of this.keys()) {
       DefaultBizLogger.debug('register element: %s', name);
-
       const Ele = this.get(name)!;
-
-      // 注册到 customElements
       customElement(name)(Ele as any);
+    }
 
-      const _styleContents: string[] = [];
+    const styleData: Record<string, string[]> = {
+      ['xr-scene']: ['width: 100%', 'height: 100%', 'display: block'],
+    };
 
-      if (name === 'xr-scene') {
-        // xr-scene 自动填充父元素
-        _styleContents.push('width: 100%', 'height: 100%');
-      }
+    // register CSS
+    if (!Compatibility.disableCssProperty) {
+      // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Types
+      const _cssProps = new Map<string, { syntax?: string; initialValue?: string }>();
 
       // 记录 CSS 自定义属性
-      for (const [key, def] of Ele.elementProperties) {
-        if (typeof key !== 'string' || def.state) continue;
-        const propName = typeof def.attribute === 'string' ? def.attribute : key;
+      for (const name of this.keys()) {
+        const Ele = this.get(name)!;
+        const _styleContents: string[] = [];
 
-        let syntax: string | undefined;
-        let initialValue: string | undefined;
+        for (const [key, def] of Ele.elementProperties) {
+          if (typeof key !== 'string' || def.state) continue;
+          const propName = typeof def.attribute === 'string' ? def.attribute : key;
 
-        if (def.dType === 'Color3' || def.dType === 'Color4') {
-          syntax = '<color>';
-          initialValue = '#000000';
+          let syntax: string | undefined;
+          let initialValue: string | undefined;
+
+          if (def.dType === 'Color3' || def.dType === 'Color4') {
+            syntax = '<color>';
+            initialValue = '#000000';
+          }
+          //
+          else if (def.dType === 'Number' || def.dType === 'Vector2' || def.dType === 'Vector3' || def.dType === 'Vector4') {
+            syntax = '<number>+';
+            initialValue = '0';
+          }
+
+          _cssProps.set(propName, { syntax, initialValue });
+
+          if (def.initValue !== null) {
+            _styleContents.push(`---${propName}: ${Schema.toCssLiteral(def.dType, def.initValue)}`);
+          }
         }
-        //
-        else if (def.dType === 'Number' || def.dType === 'Vector2' || def.dType === 'Vector3' || def.dType === 'Vector4') {
-          syntax = '<number>+';
-          initialValue = '0';
-        }
 
-        _cssProps.set(propName, { syntax, initialValue });
-
-        if (def.initValue !== null) {
-          _styleContents.push(`---${propName}: ${Schema.toCssLiteral(def.dType, def.initValue)}`);
-        }
+        styleData[name] = _styleContents;
       }
 
-      styleData[name] = _styleContents;
+      // 注册到 CSS 自定义属性, 用 --- 开头，禁用继承
+      for (const [_n, _def] of _cssProps) {
+        const _prop = `---${_n}`;
+        DefaultBizLogger.debug('register css property: %s, %s(%s)', _prop, _def.syntax || '*', _def.initialValue || '');
+        CSS.registerProperty({ name: _prop, ..._def, inherits: false });
+      }
     }
 
     const styEle = document.createElement('style');
@@ -105,14 +107,6 @@ export class ElementRegistry {
       return prev + `${name} {\n${contents.join(';\n')}\n}\n`;
     }, '');
     document.head.appendChild(styEle);
-
-    // 注册到 CSS 自定义属性
-    // 用 --- 开头，禁用继承
-    for (const [_n, _def] of _cssProps) {
-      const _prop = `---${_n}`;
-      DefaultBizLogger.debug('register css property: %s, %s(%s)', _prop, _def.syntax || '*', _def.initialValue || '');
-      CSS.registerProperty({ name: _prop, ..._def, inherits: false });
-    }
   }
 }
 

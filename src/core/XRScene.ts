@@ -10,6 +10,7 @@ import { EntityQueryController, PointerController } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { randomID } from '../util';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
+import { AssetsURLs } from '../AssetsURLs';
 
 export class XRScene extends XRElement {
   static createEngine(canvas: HTMLCanvasElement) {
@@ -27,7 +28,7 @@ export class XRScene extends XRElement {
     return engine;
   }
 
-  static defaultEnvMap = DEFAULT_ENV_MAP;
+  static defaultEnvMap = AssetsURLs.DEFAULT_ENV_MAP;
 
   readonly ID = randomID();
   readonly querier = new EntityQueryController(this);
@@ -108,6 +109,7 @@ export class XRScene extends XRElement {
     const defaultMaterial = new PBRMaterial('default', this.scene);
     defaultMaterial.metallic = 0.2;
     defaultMaterial.roughness = 0.8;
+    defaultMaterial.backFaceCulling = false;
 
     this.scene.defaultMaterial = defaultMaterial;
 
@@ -161,6 +163,16 @@ export class XRScene extends XRElement {
 
     if (changed.has('hardwareScalingLevel') && this.evaluated.hardwareScalingLevel !== null && this.evaluated.hardwareScalingLevel > 0) {
       this.engine.setHardwareScalingLevel(this.evaluated.hardwareScalingLevel);
+    }
+  }
+
+  protected firstUpdated(changed: Map<string, any>): void {
+    super.firstUpdated(changed);
+
+    if (this.evaluated.inspect) {
+      import('@babylonjs/inspector').then(() => {
+        this.scene.debugLayer.show();
+      });
     }
   }
 

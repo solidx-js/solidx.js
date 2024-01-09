@@ -1,6 +1,5 @@
 import { Color3, Color4, Matrix, Quaternion } from '@babylonjs/core/Maths/math';
 import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
-import { parseDurationString } from './parseDurationString';
 import chroma from 'chroma-js';
 
 export type IDataType =
@@ -15,8 +14,7 @@ export type IDataType =
   | 'Object'
   | 'Color3'
   | 'Color4'
-  | 'Matrix'
-  | 'TransitionList';
+  | 'Matrix';
 
 export type IDataTypeMap = {
   Number: number;
@@ -31,7 +29,6 @@ export type IDataTypeMap = {
   Color3: Color3;
   Color4: Color4;
   Matrix: Matrix;
-  TransitionList: { property: string; duration: number; timingFunction: string; delay: number }[];
 };
 
 export const Schema = {
@@ -68,19 +65,6 @@ export const Schema = {
 
       return obj as any;
     }
-    // TransitionList
-    else if (type === 'TransitionList') {
-      const list: { property: string; duration: number; timingFunction: string; delay: number }[] = [];
-
-      const parts = data.split(',').map(v => v.trim());
-
-      for (const part of parts) {
-        const [property, duration = '0s', timingFunction = '', delay = '0s'] = part.split(/\s+/g);
-        list.push({ property, duration: parseDurationString(duration), timingFunction, delay: parseFloat(delay) });
-      }
-
-      return list as any;
-    }
 
     // throw
     else {
@@ -111,16 +95,6 @@ export const Schema = {
 
       return list.join(';');
     }
-    // TransitionList
-    else if (type === 'TransitionList') {
-      const list: string[] = [];
-
-      for (const item of data as { property: string; duration: number; timingFunction: string; delay: number }[]) {
-        list.push(`${item.property} ${item.duration}s ${item.timingFunction} ${item.delay}s`);
-      }
-
-      return list.join(',');
-    }
 
     // throw
     else {
@@ -143,7 +117,6 @@ export const Schema = {
     else if (type === 'Color4') return (a as Color4).equals(b as Color4);
     else if (type === 'Matrix') return (a as Matrix).equals(b as Matrix);
     else if (type === 'Object') return a === b;
-    else if (type === 'TransitionList') return a === b;
     else return false;
   },
 

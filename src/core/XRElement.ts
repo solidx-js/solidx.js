@@ -5,6 +5,7 @@ import { Decorator } from './Decorator';
 import { ElementUtil, Schema, ValueWrapper, randomID } from '../util';
 import { state } from 'lit/decorators.js';
 import { PickStringKey } from '../type';
+import { Compatibility } from '../Compatibility';
 
 const ComputedStylesFlagSym = Symbol('ComputedStylesFlagSym');
 
@@ -30,6 +31,10 @@ export class XRElement<T = any> extends LitElement {
   readonly evaluated = new Proxy<PickStringKey<this>>({} as any, {
     get: (_stash, _p) => {
       const p = _p as string;
+
+      // 兼容没有 CSS.registerProperty 的浏览器
+      if (Compatibility.disableCssProperty) return (this as any)[p];
+
       return this._styleRefData[p]?.data ?? null;
     },
     set(_stash, p) {
@@ -147,8 +152,15 @@ export class XRElement<T = any> extends LitElement {
 
     if (!this.id) this.id = '_' + randomID(); // 默认 id
 
-    this._styled = getComputedStyle(this);
-    this.checkComputedStyles();
+    // 没有 CSS.registerProperty 的情况下，要手动设置一下默认值
+    if (Compatibility.disableCssProperty) {
+      for (const [key, def] of this._Cls.elementProperties) {
+        if (!def.state && (this as any)[key] === null && def.initValue !== null) (this as any)[key] = def.initValue;
+      }
+    } else {
+      this._styled = getComputedStyle(this);
+      this.checkComputedStyles();
+    }
 
     this.connected();
   }
@@ -188,6 +200,8 @@ export class XRElement<T = any> extends LitElement {
   }
 
   private _syncPropertyToStyle(property: string) {
+    if (!this._styled) return;
+
     const _def = this._Cls.elementProperties.get(property);
     if (!_def || _def.state) return; // 不支持的属性
 

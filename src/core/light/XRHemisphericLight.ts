@@ -1,26 +1,19 @@
 import { Decorator } from '../Decorator';
 import { HemisphericLight } from '@babylonjs/core/Lights/hemisphericLight';
-import { Vector2, Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { XRSceneScopeElement } from '../XRSceneScopeElement';
-import { LightController } from '../controller';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { ElementUtil } from '../../util';
+import { XRBaseLight } from './XRBaseLight';
 
-export class XRHemisphericLight extends XRSceneScopeElement<HemisphericLight> {
+export class XRHemisphericLight extends XRBaseLight<HemisphericLight> {
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
 
   @Decorator.property('Color3', 'diffuse', null)
   diffuse: Color3 | null = null;
 
-  @Decorator.property('Color3', 'specular', null)
-  specular: Color3 | null = null;
-
   @Decorator.property('Number', 'intensity', null)
   intensity: number | null = null;
-
-  @Decorator.property('Boolean', 'shadowEnabled', null)
-  shadowEnabled: boolean | null = null;
 
   @Decorator.property('Number', 'alpha', 0)
   alpha: number | null = null;
@@ -30,7 +23,6 @@ export class XRHemisphericLight extends XRSceneScopeElement<HemisphericLight> {
 
   constructor() {
     super();
-    new LightController(this);
   }
 
   connected(): void {

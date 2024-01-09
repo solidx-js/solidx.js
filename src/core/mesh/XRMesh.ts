@@ -81,6 +81,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
 
     if (!this.entityDelegated) {
       this.entity = new Mesh(this.id, this.scene, ElementUtil.closestTransformNodeLike(this));
+      this.entity.receiveShadows = true;
       Tags.AddTagsTo(this.entity, 'self-created');
     }
   }
