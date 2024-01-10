@@ -1,6 +1,7 @@
 import { Color3, Color4, Matrix, Quaternion } from '@babylonjs/core/Maths/math';
 import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 import chroma from 'chroma-js';
+import camelCase from 'lodash/camelCase';
 
 export type IDataType =
   | 'Number'
@@ -133,6 +134,20 @@ export const Schema = {
   fromCssLiteral<T extends IDataType>(type: T, literal: string): IDataTypeMap[T] | null {
     if (literal === '') return null; // css 值为空，表示没有这个属性，返回 null
     return this.fromAttr(type, literal.replace(/^['"]/, '').replace(/['"]$/, ''));
+  },
+
+  fromCssLiteralSchema(schema: Record<string, IDataType>, data: Record<string, string>): any {
+    const obj: any = {};
+
+    for (const key of Object.keys(data)) {
+      const _dType = schema[key as keyof typeof schema];
+      if (!_dType) continue;
+
+      const camelCaseKey = camelCase(key);
+      obj[camelCaseKey] = this.fromCssLiteral(_dType, data[key]);
+    }
+
+    return obj;
   },
 };
 

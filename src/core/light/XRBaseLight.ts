@@ -8,7 +8,6 @@ import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { PointLight } from '@babylonjs/core/Lights/pointLight';
-import { DirectionalLightFrustumViewer } from '@babylonjs/core/Debug/directionalLightFrustumViewer';
 
 export class XRBaseLight<T extends Light> extends XRSceneScopeElement<T> {
   @Decorator.property('Color3', 'diffuse', null)
@@ -19,6 +18,15 @@ export class XRBaseLight<T extends Light> extends XRSceneScopeElement<T> {
 
   @Decorator.property('String', 'shadow-caster', null)
   shadowCaster: string | null = null;
+
+  @Decorator.property('Number', 'shadow-caster-filtering-quality', 1)
+  shadowCasterFilteringQuality: number | null = null;
+
+  @Decorator.property('Number', 'shadow-caster-bias', 0.01)
+  shadowCasterBias: number | null = null;
+
+  @Decorator.property('Number', 'shadow-caster-normal-bias', 0.01)
+  shadowCasterNormalBias: number | null = null;
 
   @state()
   _shadowCaster: Array<HTMLElement & { entity: Mesh | null }> | null = null;
@@ -35,7 +43,7 @@ export class XRBaseLight<T extends Light> extends XRSceneScopeElement<T> {
     if (!this.entity) return;
 
     const entity = this.entity;
-    const { diffuse, intensity } = this.evaluated;
+    const { diffuse, intensity, shadowCasterFilteringQuality, shadowCasterBias, shadowCasterNormalBias } = this.evaluated;
 
     if (changed.has('diffuse') && diffuse) entity.diffuse.copyFrom(diffuse);
     if (changed.has('intensity') && typeof intensity === 'number') entity.intensity = intensity;
@@ -50,18 +58,33 @@ export class XRBaseLight<T extends Light> extends XRSceneScopeElement<T> {
         const renderList = this._shadowCaster.map(d => d.entity).filter(d => d) as Mesh[];
         _sg.getShadowMap()!.renderList = renderList;
 
-        _sg.usePercentageCloserFiltering = true;
-        _sg.filteringQuality = ShadowGenerator.QUALITY_MEDIUM;
-        _sg.transparencyShadow = true;
-
-        // const v = new DirectionalLightFrustumViewer(entity as any, this.scene.activeCamera!);
-        // v.show();
-        // v.update();
+        this._reloadShadowGeneratorArgs();
       } else {
         entity.shadowEnabled = false;
         entity.getShadowGenerator()?.dispose();
       }
     }
+
+    if (changed.has('shadowCasterFilteringQuality') || changed.has('shadowCasterBias') || changed.has('shadowCasterNormalBias')) {
+      this._reloadShadowGeneratorArgs();
+    }
+  }
+
+  private _reloadShadowGeneratorArgs(): void {
+    const entity = this.entity;
+    if (!(entity instanceof DirectionalLight || entity instanceof PointLight)) return;
+
+    const sg = entity.getShadowGenerator() as ShadowGenerator;
+    if (!sg) return;
+
+    // 默认使用 PCF
+    sg.usePercentageCloserFiltering = true;
+
+    const { shadowCasterFilteringQuality, shadowCasterBias, shadowCasterNormalBias } = this.evaluated;
+
+    if (shadowCasterFilteringQuality !== null) sg.filteringQuality = shadowCasterFilteringQuality;
+    if (shadowCasterBias !== null) sg.bias = shadowCasterBias;
+    if (shadowCasterNormalBias !== null) sg.normalBias = shadowCasterNormalBias;
   }
 
   disconnected(): void {
