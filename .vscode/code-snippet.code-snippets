@@ -2,11 +2,9 @@
   "export XRElement": {
     "prefix": "ele",
     "body": [
-      "import { XRSceneScopeElement } from './XRSceneScopeElement';",
+      "import { XRSceneScopeElement } from '../XRSceneScopeElement';",
       "",
       "export class ${TM_FILENAME_BASE} extends XRSceneScopeElement<$1> {",
-      "  static requiredAttrs: string[] = ['id'];",
-      "",
       "  connected(): void {",
       "    super.connected();",
       "  }",

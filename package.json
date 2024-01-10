@@ -3,7 +3,8 @@
   "version": "2.3.0",
   "description": "A New Way of 3D Programming",
   "files": [
-    "dist"
+    "dist",
+    "assets"
   ],
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",

@@ -19,6 +19,7 @@ import {
   XRDragger,
   XRPipelineSSAO2,
   XRVolumetricLight,
+  XRLoading,
 } from './core';
 import { customElement } from 'lit/decorators.js';
 import { XRArrow, XREllipse, XREnv, XRGround, XRScreenProjector, XRWorldAxis } from './primitive';
@@ -52,9 +53,7 @@ export class ElementRegistry {
       customElement(name)(Ele as any);
     }
 
-    const styleData: Record<string, string[]> = {
-      ['xr-scene']: ['width: 100%', 'height: 100%', 'display: block'],
-    };
+    const styleData: Record<string, string[]> = {};
 
     // register CSS
     if (!Compatibility.disableCssProperty) {
@@ -96,16 +95,15 @@ export class ElementRegistry {
 
       // 注册到 CSS 自定义属性, 用 --- 开头，禁用继承
       for (const [_n, _def] of _cssProps) {
-        const _prop = `---${_n}`;
-        DefaultBizLogger.debug('register css property: %s, %s(%s)', _prop, _def.syntax || '*', _def.initialValue || '');
-        CSS.registerProperty({ name: _prop, ..._def, inherits: false });
+        if (!_def.syntax || !_def.initialValue) continue;
+        styleData[`@property ---${_n}`] = [`syntax: "${_def.syntax}"`, `inherits: false`, `initial-value: ${_def.initialValue}`];
       }
     }
 
     const styEle = document.createElement('style');
     styEle.dataset.for = 'xr';
     styEle.textContent = Object.entries(styleData).reduce((prev, [name, contents]) => {
-      return prev + `${name} {\n${contents.join(';\n')}\n}\n`;
+      return prev + `${name} {\n${contents.map(c => '  ' + c).join(';\n')}\n}\n`;
     }, '');
     document.head.appendChild(styEle);
   }
@@ -131,6 +129,7 @@ ElementRegistry.Instance.register('xr-line', XRLine as any);
 ElementRegistry.Instance.register('xr-dragger', XRDragger as any);
 ElementRegistry.Instance.register('xr-pipeline-ssao2', XRPipelineSSAO2 as any);
 ElementRegistry.Instance.register('xr-volumetric-light', XRVolumetricLight as any);
+ElementRegistry.Instance.register('xr-loading', XRLoading as any);
 
 // primitives
 ElementRegistry.Instance.register('xr-env', XREnv as any);

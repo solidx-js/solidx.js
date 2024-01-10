@@ -71,15 +71,10 @@ export class XRScene extends XRElement {
   connected(): void {
     super.connected();
 
-    this.style.display = 'block';
-    this.style.position = 'relative';
-
     // create container
     this._container = document.createElement('div');
     this._container.id = this.ID;
     this._container.classList.add('xr-canvas-container');
-    this._container.style.width = '100%';
-    this._container.style.height = '100%';
     this.appendChild(this._container);
 
     // create canvas

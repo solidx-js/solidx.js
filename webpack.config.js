@@ -70,7 +70,7 @@ const localServerConfig = {
   devServer: {
     allowedHosts: 'all',
     client: { progress: true, overlay: false },
-    static: [{ directory: Path.resolve(__dirname, 'cypress/fixtures') }],
+    static: [{ directory: Path.resolve(__dirname, 'cypress/fixtures') }, { directory: Path.resolve(__dirname, 'assets') }],
   },
 };
 
