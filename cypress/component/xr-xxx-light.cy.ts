@@ -80,7 +80,7 @@ describe('xr-xxx-light', () => {
     cy.get('xr-scene').matchImageSnapshot();
   });
 
-  it.only('directional-shadow', () => {
+  it.only('shadow cast', () => {
     cy.mount(html`
       <style>
         xr-directional-light {

@@ -90,7 +90,8 @@ export class ElementRegistry {
           }
         }
 
-        styleData[name] = _styleContents;
+        if (!styleData[name]) styleData[name] = [];
+        styleData[name].push(..._styleContents);
       }
 
       // 注册到 CSS 自定义属性, 用 --- 开头，禁用继承
