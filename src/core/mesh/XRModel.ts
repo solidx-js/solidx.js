@@ -82,7 +82,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   _internalStyleData: Record<string, Record<string, string | null>> = {};
 
   @state()
-  _loading: boolean = false;
+  _loadingURL: string | null = null;
 
   // FIXME: 这个是为了满足 ITransformNodeLikeImpl 的接口，并没有实际作用
   entityDelegated: boolean | null = null;
@@ -124,18 +124,18 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   }
 
   private async reloadModel() {
-    if (this._container) {
-      this._container.dispose();
-      this._container = null;
-    }
-
     const { src, disabled, preload, extension, originTransform, flatShading, autoPlay, loop } = this.evaluated;
     if (!src || (disabled && !preload) || this.scene.isDisposed) return;
 
-    if (this._loading) return; // 防止重复加载
-    this._loading = true;
+    if (this._loadingURL) return; // 防止重复加载
+    this._loadingURL = src;
 
     this.scene.loadModel(src, extension || undefined).then(_container => {
+      if (this._container) {
+        this._container.dispose();
+        this._container = null;
+      }
+
       if (!this.entity) return;
 
       _container.addAllToScene();
@@ -182,7 +182,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       this.performUpdate();
 
       this.scene.onReadyObservable.addOnce(() => {
-        this._loading = false;
+        this._loadingURL = null;
         this.emit('load', { container: _container });
       });
     });

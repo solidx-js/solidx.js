@@ -1,20 +1,10 @@
 import { Decorator } from '../Decorator';
 import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { Color3 } from '@babylonjs/core/Maths/math';
 import { ElementUtil } from '../../util';
 import { XRBaseLight } from './XRBaseLight';
 
 export class XRDirectionalLight extends XRBaseLight<DirectionalLight> {
-  @Decorator.property('Vector3', 'position', null)
-  position: Vector3 | null = null;
-
-  @Decorator.property('Color3', 'diffuse', null)
-  diffuse: Color3 | null = null;
-
-  @Decorator.property('Number', 'intensity', null)
-  intensity: number | null = null;
-
   @Decorator.property('Number', 'alpha', 40)
   alpha: number | null = null;
 
