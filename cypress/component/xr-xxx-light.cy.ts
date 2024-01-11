@@ -58,16 +58,13 @@ describe('xr-xxx-light', () => {
       <style>
         xr-hemispheric-light {
           ---diffuse: red;
-        }
-        xr-hemispheric-light:nth-of-type(2) {
-          ---diffuse: green;
+          ---ground-color: green;
         }
       </style>
 
       <xr-scene env-intensity="0.05" background="#000" style="width: 256px; height: 256px;">
         <xr-camera radius="2"></xr-camera>
-        <xr-hemispheric-light intensity="2" alpha="0"></xr-hemispheric-light>
-        <xr-hemispheric-light intensity="2" alpha="180"></xr-hemispheric-light>
+        <xr-hemispheric-light intensity="2" alpha="-45" beta="45"></xr-hemispheric-light>
         <xr-mesh geometry="type: sphere"></xr-mesh>
       </xr-scene>
     `);

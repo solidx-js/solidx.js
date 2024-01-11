@@ -10,10 +10,10 @@ import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { PointLight } from '@babylonjs/core/Lights/pointLight';
 
 export class XRBaseLight<T extends Light> extends XRSceneScopeElement<T> {
-  @Decorator.property('Color3', 'diffuse', null)
+  @Decorator.property('Color3', 'diffuse', Color3.White())
   diffuse: Color3 | null = null;
 
-  @Decorator.property('Number', 'intensity', null)
+  @Decorator.property('Number', 'intensity', 1)
   intensity: number | null = null;
 
   @Decorator.property('String', 'shadow-caster', null)
@@ -43,7 +43,7 @@ export class XRBaseLight<T extends Light> extends XRSceneScopeElement<T> {
     if (!this.entity) return;
 
     const entity = this.entity;
-    const { diffuse, intensity, shadowCasterFilteringQuality, shadowCasterBias, shadowCasterNormalBias } = this.evaluated;
+    const { diffuse, intensity } = this.evaluated;
 
     if (changed.has('diffuse') && diffuse) entity.diffuse.copyFrom(diffuse);
     if (changed.has('intensity') && typeof intensity === 'number') entity.intensity = intensity;

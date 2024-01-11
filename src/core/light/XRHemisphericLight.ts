@@ -1,29 +1,19 @@
 import { Decorator } from '../Decorator';
 import { HemisphericLight } from '@babylonjs/core/Lights/hemisphericLight';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
-import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { ElementUtil } from '../../util';
 import { XRBaseLight } from './XRBaseLight';
+import { Color3 } from '@babylonjs/core/Maths/math';
 
 export class XRHemisphericLight extends XRBaseLight<HemisphericLight> {
-  @Decorator.property('Vector3', 'position', null)
-  position: Vector3 | null = null;
-
-  @Decorator.property('Color3', 'diffuse', null)
-  diffuse: Color3 | null = null;
-
-  @Decorator.property('Number', 'intensity', null)
-  intensity: number | null = null;
-
   @Decorator.property('Number', 'alpha', 0)
   alpha: number | null = null;
 
   @Decorator.property('Number', 'beta', 0)
   beta: number | null = null;
 
-  constructor() {
-    super();
-  }
+  @Decorator.property('Color3', 'ground-color', null)
+  groundColor: Color3 | null = null;
 
   connected(): void {
     super.connected();
@@ -39,10 +29,14 @@ export class XRHemisphericLight extends XRBaseLight<HemisphericLight> {
     // rotation
     if (typeof this.evaluated.alpha === 'number' && typeof this.evaluated.beta === 'number') {
       const alpha = this.evaluated.alpha * (Math.PI / 180);
-      const beta = this.evaluated.alpha * (Math.PI / 180);
+      const beta = this.evaluated.beta * (Math.PI / 180);
       this.entity.direction.x = Math.sin(beta) * Math.cos(alpha);
       this.entity.direction.y = Math.cos(beta);
       this.entity.direction.z = Math.sin(beta) * Math.sin(alpha);
+    }
+
+    if (changed.has('groundColor') && this.evaluated.groundColor) {
+      this.entity.groundColor.copyFrom(this.evaluated.groundColor);
     }
   }
 
