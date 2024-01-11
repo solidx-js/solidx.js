@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-  A New Way of 3D Programming, just with HTML and CSS.
+  A New Way of 3D Programming, using only HTML and CSS.
 </p>
 
 <p align="center">
@@ -24,23 +24,23 @@
 
 ![image](https://github.com/solidx-js/solidx.js/assets/6647656/92193fb9-4343-4137-b95a-ce0e9a86088b)
 
-- **Declarative**: No need to learn a new language, just use HTML and CSS.
+- **Declarative**: No need to learn a new language, simply use HTML and CSS.
 - **Performance**: Powered by [babylon.js](https://www.babylonjs.com/) and [lit](https://lit.dev/).
-- **Lightweight**: Code splitting, tree shaking, and lazy loading are all supported.
-- **Extensible**: Create your own components and use them in your scenes.
+- **Lightweight**: Code splitting, tree shaking, and lazy loading supported.
+- **Extensible**: Create your own components for your scenes.
 
 
 ## Getting Started
 
 ### Install
 
-Use npm:
+With npm:
 
 ```bash
 npm install solidx.js --save
 ```
 
-Or via CDN:
+Or with CDN:
 
 ```html
 <link rel="stylesheet" href="https://registry.npmmirror.com/solidx.js/2.3.1/files/assets/preset.css" />
