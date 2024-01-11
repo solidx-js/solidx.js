@@ -60,6 +60,9 @@ export class XRScene extends XRElement {
   @Decorator.property('Number', 'hardware-scaling-level', null)
   hardwareScalingLevel: number | null = null;
 
+  @Decorator.property('Number', 'render-delay', null)
+  renderDelay: number | null = null;
+
   private _container: HTMLDivElement | null = null;
   private _rob: ResizeObserver | null = null;
 
@@ -108,7 +111,17 @@ export class XRScene extends XRElement {
 
     this.scene.defaultMaterial = defaultMaterial;
 
-    this.engine.runRenderLoop(this._doRender);
+    // 判断是否需要延迟渲染
+    if (this.evaluated.renderDelay) {
+      const _delay = this.evaluated.renderDelay;
+
+      setTimeout(() => {
+        this.engine.runRenderLoop(this._doRender);
+        this.logger.info('Scene %s render delay %s ms', this.ID, _delay);
+      }, _delay);
+    } else {
+      this.engine.runRenderLoop(this._doRender);
+    }
 
     // ready 事件
     this.scene.onReadyObservable.add(() => {

@@ -80,11 +80,12 @@ export class XRElement<T = any> extends LitElement {
     return this;
   }
 
-  checkComputedStyles() {
+  checkComputedStyles(_syncProperty?: boolean) {
     if (!this._styled) return;
 
     for (const [property] of this._Cls.elementProperties) {
       if (typeof property !== 'string') continue; // 只支持 string 类型
+      if (_syncProperty) this._syncPropertyToStyle(property);
 
       const oldValue = (this.evaluated as any)[property];
       const isChanged = this.reloadAttrFromComputedStyles(property);
@@ -159,7 +160,7 @@ export class XRElement<T = any> extends LitElement {
       }
     } else {
       this._styled = getComputedStyle(this);
-      this.checkComputedStyles();
+      this.checkComputedStyles(true);
     }
 
     this.connected();
@@ -176,7 +177,7 @@ export class XRElement<T = any> extends LitElement {
 
       // 如果不是 ValueWrapper, 说明是属性触发的更新 -> 同步到 inline style 重新计算
       else {
-        this._syncPropertyToStyle(property);
+        this._syncPropertyToStyle(property, true);
       }
     }
 
@@ -199,7 +200,7 @@ export class XRElement<T = any> extends LitElement {
     }
   }
 
-  private _syncPropertyToStyle(property: string) {
+  private _syncPropertyToStyle(property: string, reload?: boolean) {
     if (!this._styled) return;
 
     const _def = this._Cls.elementProperties.get(property);
@@ -211,7 +212,9 @@ export class XRElement<T = any> extends LitElement {
     if (_v === '') this.style.removeProperty(_p);
     else this.style.setProperty(_p, _v);
 
-    this.reloadAttrFromComputedStyles(property);
+    if (reload) {
+      this.reloadAttrFromComputedStyles(property);
+    }
   }
 
   protected shouldUpdate(changed: Map<string, any>): boolean {
