@@ -86,7 +86,13 @@ module.exports = function (env) {
   // 下面是 umd 的配置
 
   const _umdConfig = {
-    output: { library: 'SOLIDX', libraryTarget: 'umd', globalObject: 'this', publicPath: 'https://unpkg.com/solidx.js/dist/' },
+    output: {
+      library: 'SOLIDX',
+      libraryTarget: 'umd',
+      globalObject: 'this',
+      // 指向公共 CDN
+      publicPath: 'https://registry.npmmirror.com/solidx.js/latest/files/dist/',
+    },
   };
 
   return [

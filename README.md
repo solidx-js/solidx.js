@@ -43,8 +43,8 @@ npm install solidx.js --save
 Or with CDN:
 
 ```html
-<link rel="stylesheet" href="https://registry.npmmirror.com/solidx.js/2.3.1/files/assets/preset.css" />
-<script src="https://registry.npmmirror.com/solidx.js/2.3.1/files/dist/index.js"></script>
+<link rel="stylesheet" href="https://registry.npmmirror.com/solidx.js/latest/files/assets/preset.css" />
+<script src="https://registry.npmmirror.com/solidx.js/latest/files/dist/index.js"></script>
 ```
 
 **NOTE**: If you are *outside of China*, please use BELOW CDN:
@@ -58,7 +58,7 @@ Render a simple box with inline attributes:
 
 ```html
 <head>
-  <link rel="stylesheet" href="https://registry.npmmirror.com/solidx.js/2.3.1/files/assets/preset.css" />
+  <link rel="stylesheet" href="https://registry.npmmirror.com/solidx.js/latest/files/assets/preset.css" />
 </head>
 
 <body>
@@ -67,7 +67,7 @@ Render a simple box with inline attributes:
     <xr-mesh geometry="type: box" material="albedo-color: #ffc069"></xr-mesh>
   </xr-scene>
 
-  <script src="https://registry.npmmirror.com/solidx.js/2.3.1/files/dist/index.js"></script>
+  <script src="https://registry.npmmirror.com/solidx.js/latest/files/dist/index.js"></script>
 </body>
 ```
 
@@ -75,7 +75,7 @@ also you can use CSS to style your mesh:
 
 ```html
 <head>
-  <link rel="stylesheet" href="https://registry.npmmirror.com/solidx.js/2.3.1/files/assets/preset.css" />
+  <link rel="stylesheet" href="https://registry.npmmirror.com/solidx.js/latest/files/assets/preset.css" />
 
   <style>
     .camera {
@@ -95,7 +95,7 @@ also you can use CSS to style your mesh:
     <xr-mesh class="box"></xr-mesh>
   </xr-scene>
 
-  <script src="https://registry.npmmirror.com/solidx.js/2.3.1/files/dist/index.js"></script>
+  <script src="https://registry.npmmirror.com/solidx.js/latest/files/dist/index.js"></script>
 </body>
 ```
 
