@@ -17,15 +17,18 @@
 </p>
 
 <p align="center" style="font-weight: bolder; font-size: 1.2em" >
-  <a href="https://solidx-js.github.io/solidx-website/docs">Docs</a>
+  <a href="https://solidx-js.github.io/solidx-website">Document</a>
 </p>
 
 ## Core Features
+
+![image](https://github.com/solidx-js/solidx.js/assets/6647656/92193fb9-4343-4137-b95a-ce0e9a86088b)
 
 - **Declarative**: No need to learn a new language, just use HTML and CSS.
 - **Performance**: Powered by [babylon.js](https://www.babylonjs.com/) and [lit](https://lit.dev/).
 - **Lightweight**: Code splitting, tree shaking, and lazy loading are all supported.
 - **Extensible**: Create your own components and use them in your scenes.
+
 
 ## Getting Started
 
