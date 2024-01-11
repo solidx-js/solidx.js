@@ -13,6 +13,13 @@ export default defineConfig({
     },
     setupNodeEvents(on, config) {
       addMatchImageSnapshotPlugin(on, config);
+
+      on('task', {
+        log(message) {
+          console.log(message);
+          return null;
+        },
+      });
     },
     indexHtmlFile: 'cypress/component/index.html',
   },
