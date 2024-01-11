@@ -91,6 +91,9 @@ function patchID(Cls: any) {
       if (!this._ID) this._ID = randomID();
       return this._ID;
     },
+    set: function () {
+      // 某些 DeepClone 会走到这里，这里不做处理, 因为要让 ID 唯一
+    },
   });
 }
 

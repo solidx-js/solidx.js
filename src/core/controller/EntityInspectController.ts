@@ -8,7 +8,6 @@ import { Ray } from '@babylonjs/core/Culling/ray';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Light } from '@babylonjs/core/Lights/light';
 import { LightGizmo } from '@babylonjs/core/Gizmos/lightGizmo';
-import { Tags } from '@babylonjs/core/Misc/tags';
 
 export class EntityInspectController implements ReactiveController {
   private _axesViewer: AxesViewer | null = null;
@@ -73,8 +72,10 @@ export class EntityInspectController implements ReactiveController {
 
       // Light
       if (entity instanceof Light) {
-        if (!this._lightGizmo) this._lightGizmo = new LightGizmo(uLayer);
-        this._lightGizmo.light = entity;
+        if (!this._lightGizmo) {
+          this._lightGizmo = new LightGizmo(uLayer);
+          this._lightGizmo.light = entity;
+        }
         this._lightGizmo.scaleRatio = scale;
       }
     }
