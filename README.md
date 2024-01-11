@@ -16,46 +16,64 @@
   <img src="https://img.shields.io/npm/v/solidx.js" alt="npm" />
 </p>
 
-### Core Features
+<p align="center" style="font-weight: bolder; font-size: 1.2em" >
+  <a href="https://solidx-js.github.io/solidx-website/docs">Docs</a>
+</p>
+
+## Core Features
 
 - **Declarative**: No need to learn a new language, just use HTML and CSS.
 - **Performance**: Powered by [babylon.js](https://www.babylonjs.com/) and [lit](https://lit.dev/).
 - **Lightweight**: Code splitting, tree shaking, and lazy loading are all supported.
 - **Extensible**: Create your own components and use them in your scenes.
 
-### Getting Started
+## Getting Started
 
-#### Install
+### Install
 
 Use npm:
 
 ```bash
-npm install solidx.js
+npm install solidx.js --save
 ```
 
-Or use CDN:
+Or via CDN:
 
 ```html
-<script src="https://unpkg.com/solidx.js/dist/index.js"></script>
+<link rel="stylesheet" href="https://registry.npmmirror.com/solidx.js/2.3.1/files/assets/preset.css" />
+<script src="https://registry.npmmirror.com/solidx.js/2.3.1/files/dist/index.js"></script>
 ```
 
-#### Usage
+**NOTE**: If you are *outside of China*, please use BELOW CDN:
+
+- https://cdn.jsdelivr.net/npm/solidx.js/assets/preset.css
+- https://cdn.jsdelivr.net/npm/solidx.js/dist/index.js
+
+### Usage
 
 Render a simple box with inline attributes:
 
 ```html
+<head>
+  <link rel="stylesheet" href="https://registry.npmmirror.com/solidx.js/2.3.1/files/assets/preset.css" />
+</head>
+
 <body>
   <xr-scene>
     <xr-camera radius="6" beta="75"></xr-camera>
     <xr-mesh geometry="type: box" material="albedo-color: #ffc069"></xr-mesh>
   </xr-scene>
+
+  <script src="https://registry.npmmirror.com/solidx.js/2.3.1/files/dist/index.js"></script>
 </body>
 ```
 
 also you can use CSS to style your mesh:
 
 ```html
-<body>
+<head>
+  <link rel="stylesheet" href="https://registry.npmmirror.com/solidx.js/2.3.1/files/assets/preset.css" />
+
   <style>
     .camera {
       ---radius: 6;
@@ -66,15 +84,57 @@ also you can use CSS to style your mesh:
       ---material: 'albedo-color: #ffc069';
     }
   </style>
+</head>
 
+<body>
   <xr-scene>
     <xr-camera class="camera"></xr-camera>
     <xr-mesh class="box"></xr-mesh>
   </xr-scene>
+
+  <script src="https://registry.npmmirror.com/solidx.js/2.3.1/files/dist/index.js"></script>
 </body>
 ```
 
 NOTE:
 
 - Inline attributes have higher priority than CSS variables.
-- To distinguish from normal CSS variables, we use `---` instead of `--`."
+- To distinguish from normal CSS variables, we use `---` instead of `--`.
+
+#### via react
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import 'solidx.js/assets/preset.css';
+import 'solidx.js';
+
+ReactDOM.render(
+  <xr-scene>
+    <xr-camera radius='6' beta='75'></xr-camera>
+    <xr-mesh geometry='type: box' material='albedo-color: #ffc069'></xr-mesh>
+  </xr-scene>,
+  document.getElementById('root')
+);
+```
+
+#### via vue
+
+```vue
+<template>
+  <xr-scene>
+    <xr-camera radius="6" beta="75"></xr-camera>
+    <xr-mesh geometry="type: box" material="albedo-color: #ffc069"></xr-mesh>
+  </xr-scene>
+</template>
+
+<script>
+import 'solidx.js/assets/preset.css';
+import 'solidx.js';
+
+export default {
+  name: 'App',
+};
+</script>
+```
