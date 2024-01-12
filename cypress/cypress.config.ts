@@ -6,6 +6,7 @@ export default defineConfig({
   projectId: 'iegcwx',
   e2e: {},
   component: {
+    screenshotsFolder: 'cypress/capture',
     devServer: {
       framework: 'cypress-ct-lit' as any,
       bundler: 'webpack',
