@@ -4,9 +4,10 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { Decorator } from '../Decorator';
 import { LinesMesh } from '@babylonjs/core/Meshes/linesMesh';
 import { Color4, Quaternion } from '@babylonjs/core/Maths/math';
-import { ElementUtil } from '../../util';
+import { ElementUtil, Schema } from '../../util';
 import { TransformLikeController } from '../controller';
 import { ITransformNodeLikeImpl } from '../impl';
+import compact from 'lodash/compact';
 
 export class XRLine extends XRSceneScopeElement<LinesMesh> implements Omit<ITransformNodeLikeImpl, 'entityDelegated'> {
   @Decorator.property('Vector3', 'position', null)
@@ -83,10 +84,7 @@ export class XRLine extends XRSceneScopeElement<LinesMesh> implements Omit<ITran
         .map(v => new Vector3(Number(v[0]), Number(v[1]), Number(v[2])));
 
       const colors = this.evaluated.colors
-        ? this.evaluated.colors
-            .split(',')
-            .map(v => v.trim())
-            .map(hex => Color4.FromHexString(hex))
+        ? compact(this.evaluated.colors.split(',').map(c => Schema.fromCssLiteral('Color4', c.trim())))
         : [];
 
       // 如果 colors 数量小于 points 数量，那么就补齐 colors 数组
