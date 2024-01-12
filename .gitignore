@@ -133,5 +133,6 @@ dist
 parcel-bundle-reports
 website
 __diff_output__
+cypress/capture
 
 demo
