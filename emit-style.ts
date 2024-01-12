@@ -6,7 +6,7 @@ const styleData: Record<string, string[]> = {};
 
 // register CSS
 // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Types
-const _cssProps = new Map<string, { syntax?: string; initialValue?: string }>();
+const _cssProps = new Map<string, { syntax: string; initialValue?: string }>();
 
 // 记录 CSS 自定义属性
 for (const name of ElementRegistry.Instance.keys()) {
@@ -17,7 +17,7 @@ for (const name of ElementRegistry.Instance.keys()) {
     if (typeof key !== 'string' || def.state) continue;
     const propName = typeof def.attribute === 'string' ? def.attribute : key;
 
-    let syntax: string | undefined;
+    let syntax: string = '*';
     let initialValue: string | undefined;
 
     if (def.dType === 'Color3' || def.dType === 'Color4') {
@@ -28,6 +28,11 @@ for (const name of ElementRegistry.Instance.keys()) {
     else if (def.dType === 'Number' || def.dType === 'Vector2' || def.dType === 'Vector3' || def.dType === 'Vector4') {
       syntax = '<number>+';
       initialValue = '0';
+    }
+
+    // 相同属性名的不可存在不同语法
+    if (_cssProps.has(propName) && _cssProps.get(propName)!.syntax !== syntax) {
+      throw new Error(`CSS property "${propName}" has different syntax: ${syntax} vs ${_cssProps.get(propName)!.syntax}: ${name}`);
     }
 
     _cssProps.set(propName, { syntax, initialValue });
@@ -41,9 +46,13 @@ for (const name of ElementRegistry.Instance.keys()) {
 }
 
 // 注册到 CSS 自定义属性, 用 --- 开头，禁用继承
+// @property 规则中 syntax 和 inherits 描述符是必需的; 如果其中任何一项缺失，整条规则都将失效并且会被忽略。
 for (const [_n, _def] of _cssProps) {
-  if (!_def.syntax || !_def.initialValue) continue;
-  styleData[`@property ---${_n}`] = [`syntax: "${_def.syntax}"`, `inherits: false`, `initial-value: ${_def.initialValue}`];
+  styleData[`@property ---${_n}`] = [
+    `syntax: "${_def.syntax}"`,
+    `inherits: false`,
+    ...(typeof _def.initialValue !== 'undefined' ? [`initial-value: ${_def.initialValue}`] : []),
+  ];
 }
 
 const extractedCssText = Object.entries(styleData).reduce((prev, [name, contents]) => {

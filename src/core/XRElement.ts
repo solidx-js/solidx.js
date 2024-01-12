@@ -32,6 +32,13 @@ export class XRElement<T = any> extends LitElement {
     get: (_stash, _p) => {
       const p = _p as string;
 
+      // 开发模式下进行检查
+      if (process.env.NODE_ENV === 'development') {
+        const _def = this._Cls.elementProperties.get(p);
+        if (!_def) throw new Error(`Property "${p}" is not defined`);
+        if (_def.state) throw new Error(`Property "${p}" is a state property, not allowed to access`);
+      }
+
       // 兼容没有 CSS.registerProperty 的浏览器
       if (Compatibility.disableCssProperty) return (this as any)[p];
 
@@ -83,8 +90,8 @@ export class XRElement<T = any> extends LitElement {
   checkComputedStyles(_syncProperty?: boolean) {
     if (!this._styled) return;
 
-    for (const [property] of this._Cls.elementProperties) {
-      if (typeof property !== 'string') continue; // 只支持 string 类型
+    for (const [property, _def] of this._Cls.elementProperties) {
+      if (typeof property !== 'string' || _def.state) continue; // 只支持 string 类型
       if (_syncProperty) this._syncPropertyToStyle(property);
 
       const oldValue = (this.evaluated as any)[property];

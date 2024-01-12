@@ -6,7 +6,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const glob = require('glob');
 
 const VERSION = pkg.version;
-const DEFINED_ENV = { VERSION: JSON.stringify(VERSION) };
+const DEFINED_ENV = {
+  VERSION: JSON.stringify(VERSION),
+  'process.env.NODE_ENV': JSON.stringify('production'),
+};
 
 const commonConfigBase = {
   entry: { index: './src/index.ts' },
@@ -39,7 +42,6 @@ const commonConfigBase = {
       },
     ],
   },
-  plugins: [new webpack.DefinePlugin(DEFINED_ENV)],
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json'],
   },
@@ -67,6 +69,7 @@ const localServerConfig = {
       },
     ],
   },
+  plugins: [new webpack.DefinePlugin({ ...DEFINED_ENV, 'process.env.NODE_ENV': JSON.stringify('development') })],
   devServer: {
     allowedHosts: 'all',
     client: { progress: true, overlay: false },
@@ -93,6 +96,7 @@ module.exports = function (env) {
             filename: '[name].js',
           },
           mode: 'development',
+          plugins: [new webpack.DefinePlugin({ ...DEFINED_ENV, 'process.env.NODE_ENV': JSON.stringify('development') })],
           devtool: false,
           target: 'node',
           optimization: { splitChunks: false },
@@ -110,6 +114,7 @@ module.exports = function (env) {
       // 指向公共 CDN
       publicPath: 'https://registry.npmmirror.com/solidx.js/latest/files/dist/',
     },
+    plugins: [new webpack.DefinePlugin(DEFINED_ENV)],
   };
 
   return [

@@ -83,7 +83,8 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
 
     if (!this.entity) return;
 
-    const { albedoColor, metallic, roughness, emissiveColor, unlit, _albedoTexture } = this.evaluated;
+    const { albedoColor, metallic, roughness, emissiveColor, unlit } = this.evaluated;
+    const _albedoTexture = this._albedoTexture;
 
     if (changed.has('albedoColor') && albedoColor !== null) this.entity.albedoColor.copyFrom(albedoColor);
     if (changed.has('metallic') && metallic !== null) this.entity.metallic = metallic;

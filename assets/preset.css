@@ -44,7 +44,7 @@ xr-camera {
   ---alpha: -90;
   ---beta: 90;
   ---radius: 10;
-  ---target: 0 0 0;
+  ---locked-target: 0 0 0;
   ---min-z: 0.1;
   ---max-z: 100;
 }
@@ -185,6 +185,16 @@ xr-world-axis {
   ---size: 100;
 }
 
+@property ---inspect {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---disabled {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---alpha {
   syntax: "<number>+";
   inherits: false;
@@ -198,6 +208,12 @@ xr-world-axis {
 }
 
 @property ---radius {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---locked-target {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
@@ -219,6 +235,11 @@ xr-world-axis {
   syntax: "<color>";
   inherits: false;
   initial-value: #000000;
+}
+
+@property ---env-url {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---env-rotation-y {
@@ -269,6 +290,11 @@ xr-world-axis {
   initial-value: 0;
 }
 
+@property ---shadow-caster {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---shadow-caster-filtering-quality {
   syntax: "<number>+";
   inherits: false;
@@ -305,6 +331,11 @@ xr-world-axis {
   initial-value: 0;
 }
 
+@property ---quaternion {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---scale {
   syntax: "<number>+";
   inherits: false;
@@ -317,10 +348,45 @@ xr-world-axis {
   initial-value: 0;
 }
 
+@property ---img {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---img-level {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
+}
+
+@property ---use-ray {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---ray-scope {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-position {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-rotation {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-scale {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---target {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---length {
@@ -329,10 +395,50 @@ xr-world-axis {
   initial-value: 0;
 }
 
+@property ---points {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---colors {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---disable-pointer-event {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---geometry {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---material {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---entity-delegated {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---backface-culling {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---side-orientation {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
+}
+
+@property ---wireframe {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---alpha-mode {
@@ -341,16 +447,36 @@ xr-world-axis {
   initial-value: 0;
 }
 
+@property ---disable-depth-write {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---z-offset {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
 }
 
+@property ---use-rgb-color {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---primary-color {
   syntax: "<color>";
   inherits: false;
   initial-value: #000000;
+}
+
+@property ---enable-noise {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---reflection-texture {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---main-color {
@@ -395,6 +521,11 @@ xr-world-axis {
   initial-value: #000000;
 }
 
+@property ---albedo-texture {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---metallic {
   syntax: "<number>+";
   inherits: false;
@@ -411,6 +542,16 @@ xr-world-axis {
   syntax: "<color>";
   inherits: false;
   initial-value: #000000;
+}
+
+@property ---unlit {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---has-alpha {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---level {
@@ -443,10 +584,20 @@ xr-world-axis {
   initial-value: 0;
 }
 
+@property ---url {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---rotation-y {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
+}
+
+@property ---extension {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---u-offset {
@@ -473,6 +624,46 @@ xr-world-axis {
   initial-value: 0;
 }
 
+@property ---invert-y {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---src {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---auto-play {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---loop {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---flat-shading {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---origin-transform {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---preload {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---disable-virtual-node {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---samples {
   syntax: "<number>+";
   inherits: false;
@@ -483,6 +674,21 @@ xr-world-axis {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
+}
+
+@property ---camera {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---source {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---excluded {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---decay {
@@ -525,6 +731,11 @@ xr-world-axis {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
+}
+
+@property ---type {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---size {

@@ -6,6 +6,7 @@ import '@babylonjs/core/Lights';
 
 import './bootstrap';
 import { ElementRegistry } from './registry';
+import { DefaultBizLogger } from './BizLogger';
 
 // 为了方便使用, 将一些常用的类导出
 export * from '@babylonjs/core/Maths';
@@ -25,5 +26,8 @@ export * from './AssetsURLs';
 
 // 注册所有元素到 customElements
 if (typeof window !== 'undefined') {
+  DefaultBizLogger.info('bootstrapping...');
+  DefaultBizLogger.info('- NODE_ENV: %s', process.env.NODE_ENV);
+
   ElementRegistry.Instance.apply();
 }

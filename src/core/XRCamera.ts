@@ -14,8 +14,8 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
   @Decorator.property('Number', 'radius', 10)
   radius: number | null = null;
 
-  @Decorator.property('Vector3', 'target', Vector3.Zero())
-  target: Vector3 | null = null;
+  @Decorator.property('Vector3', 'locked-target', Vector3.Zero())
+  lockedTarget: Vector3 | null = null;
 
   @Decorator.property('Number', 'min-z', 0.1)
   minZ: number | null = null;
@@ -39,7 +39,7 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
     if (changed.has('alpha') && this.evaluated.alpha != null) this.entity.alpha = (this.evaluated.alpha * Math.PI) / 180;
     if (changed.has('beta') && this.evaluated.beta != null) this.entity.beta = (this.evaluated.beta * Math.PI) / 180;
     if (changed.has('radius') && this.evaluated.radius != null) this.entity.radius = this.evaluated.radius;
-    if (changed.has('target')) this.entity.lockedTarget = this.evaluated.target;
+    if (changed.has('lockedTarget')) this.entity.lockedTarget = this.evaluated.lockedTarget;
     if (changed.has('minZ') && this.evaluated.minZ != null) {
       this.entity.minZ = this.evaluated.minZ;
       this.entity.lowerRadiusLimit = this.evaluated.minZ;
