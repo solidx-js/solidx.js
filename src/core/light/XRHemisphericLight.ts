@@ -4,6 +4,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { ElementUtil } from '../../util';
 import { XRBaseLight } from './XRBaseLight';
 import { Color3 } from '@babylonjs/core/Maths/math';
+import { ElementRegistry } from '../../registry';
 
 export class XRHemisphericLight extends XRBaseLight<HemisphericLight> {
   @Decorator.property('Number', 'alpha', 0)
@@ -46,3 +47,4 @@ export class XRHemisphericLight extends XRBaseLight<HemisphericLight> {
     this.entity = null;
   }
 }
+ElementRegistry.Instance.register('xr-hemispheric-light', XRHemisphericLight as any);

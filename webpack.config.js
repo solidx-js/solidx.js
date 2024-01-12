@@ -75,16 +75,33 @@ const localServerConfig = {
 };
 
 module.exports = function (env) {
-  if (env && env.local) {
-    return merge(commonConfigBase, localServerConfig, {
-      plugins: glob
-        .sync('./demo/**/*.html', { nodir: true })
-        .map(file => new HtmlWebpackPlugin({ filename: file.replace('demo/', ''), template: file })),
-    });
+  if (env) {
+    if (env.local) {
+      return merge(commonConfigBase, localServerConfig, {
+        plugins: glob
+          .sync('./demo/**/*.html', { nodir: true })
+          .map(file => new HtmlWebpackPlugin({ filename: file.replace('demo/', ''), template: file })),
+      });
+    }
+
+    if (env['emit-style']) {
+      return merge(
+        { ...commonConfigBase, entry: { 'emit-style': './emit-style.ts' } },
+        {
+          output: {
+            path: Path.resolve(__dirname, 'node_modules', '.cache'),
+            filename: '[name].js',
+          },
+          mode: 'development',
+          devtool: false,
+          target: 'node',
+          optimization: { splitChunks: false },
+        }
+      );
+    }
   }
 
   // 下面是 umd 的配置
-
   const _umdConfig = {
     output: {
       library: 'SOLIDX',

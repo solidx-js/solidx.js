@@ -21,6 +21,7 @@ import { XRTexture } from '../texture';
 import { XRMesh } from './XRMesh';
 import { XRNode } from './XRNode';
 import { Compatibility } from '../../Compatibility';
+import { ElementRegistry } from '../../registry';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
   @provide({ context: Context.AssetContainer })
@@ -319,3 +320,5 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
     `;
   }
 }
+
+ElementRegistry.Instance.register('xr-model', XRModel as any);

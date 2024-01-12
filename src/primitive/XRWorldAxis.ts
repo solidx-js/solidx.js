@@ -1,7 +1,9 @@
 import { Decorator } from '../core';
+import { registerElement } from '../registry';
 import { PrimitiveBase } from './PrimitiveBase';
 import { html } from 'lit';
 
+@registerElement('xr-world-axis')
 export class XRWorldAxis extends PrimitiveBase {
   @Decorator.property('Number', 'size', 100)
   size: number | null = null;

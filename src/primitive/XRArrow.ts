@@ -2,7 +2,9 @@ import { html } from 'lit';
 import { PrimitiveBase } from './PrimitiveBase';
 import { Decorator } from '../core';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { registerElement } from '../registry';
 
+@registerElement('xr-arrow')
 export class XRArrow extends PrimitiveBase {
   @Decorator.property('Number', 'thickness', null)
   thickness: number | null = null;

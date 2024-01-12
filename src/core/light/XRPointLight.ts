@@ -3,6 +3,7 @@ import { Decorator } from '../Decorator';
 import { Vector3 } from '@babylonjs/core/Maths/math';
 import { ElementUtil } from '../../util';
 import { XRBaseLight } from './XRBaseLight';
+import { ElementRegistry } from '../../registry';
 
 export class XRPointLight extends XRBaseLight<PointLight> {
   @Decorator.property('Vector3', 'position', null)
@@ -30,3 +31,4 @@ export class XRPointLight extends XRBaseLight<PointLight> {
     this.entity = null;
   }
 }
+ElementRegistry.Instance.register('xr-point-light', XRPointLight as any);

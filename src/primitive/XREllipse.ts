@@ -3,7 +3,9 @@ import { Decorator, ITransformNodeLikeImpl } from '../core';
 import { PrimitiveBase } from './PrimitiveBase';
 import { html } from 'lit';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
+import { registerElement } from '../registry';
 
+@registerElement('xr-ellipse')
 export class XREllipse extends PrimitiveBase implements Omit<ITransformNodeLikeImpl, 'entityDelegated'> {
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;

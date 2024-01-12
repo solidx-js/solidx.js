@@ -4,6 +4,7 @@ import { Decorator } from '../Decorator';
 import { TextureController } from '../controller';
 import { ITextureImpl } from '../impl';
 import { Tags } from '@babylonjs/core/Misc/tags';
+import { ElementRegistry } from '../../registry';
 
 export type IXRTextureProps = ITextureImpl & {
   url: string | null;
@@ -112,3 +113,5 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements IXRTextur
     }
   }
 }
+
+ElementRegistry.Instance.register('xr-texture', XRTexture as any);

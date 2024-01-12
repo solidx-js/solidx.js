@@ -22,7 +22,7 @@ export class XRElement<T = any> extends LitElement {
   @Decorator.property('Boolean', 'disabled', null)
   disabled: boolean | null = null;
 
-  private _styled: CSSStyleDeclaration | null = null;
+  protected _styled: CSSStyleDeclaration | null = null;
   private _styleRefData: Record<string, { raw: string; data: any }> = {}; // class 引入数据
 
   private _disposes: (() => void)[] = [];

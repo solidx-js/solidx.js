@@ -4,6 +4,7 @@ import { Decorator } from '../Decorator';
 import { Quaternion, TmpVectors, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { ElementUtil } from '../../util';
 import { TickController } from '../controller';
+import { ElementRegistry } from '../../registry';
 
 export class XRRay extends XRSceneScopeElement<Ray> {
   @Decorator.property('Vector3', 'position', Vector3.Zero())
@@ -68,3 +69,5 @@ export class XRRay extends XRSceneScopeElement<Ray> {
     this.entity = null;
   }
 }
+
+ElementRegistry.Instance.register('xr-ray', XRRay as any);

@@ -5,6 +5,7 @@ import '@babylonjs/core/Rendering';
 import '@babylonjs/core/Lights';
 
 import './bootstrap';
+import { ElementRegistry } from './registry';
 
 // 为了方便使用, 将一些常用的类导出
 export * from '@babylonjs/core/Maths';
@@ -21,3 +22,8 @@ export * from './core';
 export * from './primitive';
 export * from './util';
 export * from './AssetsURLs';
+
+// 注册所有元素到 customElements
+if (typeof window !== 'undefined') {
+  ElementRegistry.Instance.apply();
+}

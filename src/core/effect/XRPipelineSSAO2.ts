@@ -1,7 +1,9 @@
 import { SSAO2RenderingPipeline } from '@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/ssao2RenderingPipeline';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import { Decorator } from '../Decorator';
+import { registerElement } from '../../registry';
 
+@registerElement('xr-pipeline-ssao2')
 export class XRPipelineSSAO2 extends XRSceneScopeElement<SSAO2RenderingPipeline> {
   @Decorator.property('Number', 'samples', null)
   samples: number | null = null;

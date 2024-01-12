@@ -7,7 +7,9 @@ import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { TagListRefController, TagRefController } from '../controller';
 import { Camera } from '@babylonjs/core/Cameras/camera';
 import compact from 'lodash/compact';
+import { registerElement } from '../../registry';
 
+@registerElement('xr-volumetric-light')
 export class XRVolumetricLight extends XRSceneScopeElement<VolumetricLightScatteringPostProcess> implements IPostProcessImpl {
   @Decorator.property('String', 'camera', null)
   camera: string | null = null;

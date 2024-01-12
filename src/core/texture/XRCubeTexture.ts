@@ -4,6 +4,7 @@ import { TextureController } from '../controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { ITextureImpl } from '../impl';
 import { Tags } from '@babylonjs/core/Misc/tags';
+import { ElementRegistry } from '../../registry';
 
 export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements ITextureImpl {
   @Decorator.property('Boolean', 'has-alpha', null)
@@ -74,3 +75,5 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements I
     }
   }
 }
+
+ElementRegistry.Instance.register('xr-cube-texture', XRCubeTexture as any);

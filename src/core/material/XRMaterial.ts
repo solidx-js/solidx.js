@@ -6,7 +6,7 @@ import { state } from 'lit/decorators.js';
 import { XRBaseMaterial } from './XRBaseMaterial';
 import { IMaterialImpl, ITextureImpl } from '../impl';
 import { Tags } from '@babylonjs/core/Misc/tags';
-import { ElementUtil } from '../../util';
+import { ElementRegistry } from '../../registry';
 
 export type IXRMaterialProps = IMaterialImpl & {
   albedoColor: Color3 | null;
@@ -104,3 +104,5 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
     }
   }
 }
+
+ElementRegistry.Instance.register('xr-material', XRMaterial as any);

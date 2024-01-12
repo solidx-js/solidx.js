@@ -35,4 +35,10 @@ export const ElementUtil = {
     if (ele.id) return `${tagName}#${ele.id}`;
     return tagName;
   },
+
+  parseDuration: (duration: string): number => {
+    if (duration.endsWith('ms')) return parseFloat(duration);
+    if (duration.endsWith('s')) return parseFloat(duration) * 1000;
+    return parseFloat(duration);
+  },
 };

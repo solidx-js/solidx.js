@@ -3,6 +3,7 @@ import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { ElementUtil } from '../../util';
 import { XRBaseLight } from './XRBaseLight';
+import { ElementRegistry } from '../../registry';
 
 export class XRDirectionalLight extends XRBaseLight<DirectionalLight> {
   @Decorator.property('Number', 'alpha', 40)
@@ -48,3 +49,4 @@ export class XRDirectionalLight extends XRBaseLight<DirectionalLight> {
     this.entity = null;
   }
 }
+ElementRegistry.Instance.register('xr-directional-light', XRDirectionalLight as any);

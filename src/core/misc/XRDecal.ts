@@ -16,6 +16,7 @@ import { XRElement } from '../XRElement';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { TransformLikeController } from '../controller';
 import { ITransformNodeLikeImpl } from '../impl';
+import { ElementRegistry } from '../../registry';
 
 /**
  * 贴花
@@ -284,3 +285,5 @@ export class XRDecal extends XRSceneScopeElement<TransformNode> implements Omit<
     }
   }
 }
+
+ElementRegistry.Instance.register('xr-decal', XRDecal as any);

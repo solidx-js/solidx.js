@@ -7,7 +7,7 @@ describe('xr-loading', () => {
       <xr-scene render-delay="1000">
         <xr-camera radius="3"></xr-camera>
         <xr-mesh geometry="type: box"></xr-mesh>
-        <xr-loading style="background: #000;">
+        <xr-loading style="background: #000; transition-duration: 0;">
           <div style="width: 80px; height: 80px; background: #fff;"></div>
         </xr-loading>
       </xr-scene>

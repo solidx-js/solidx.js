@@ -5,7 +5,9 @@ import { state } from 'lit/decorators.js';
 import { BackgroundMaterial } from '@babylonjs/core/Materials/Background/backgroundMaterial';
 import { XRBaseMaterial } from './XRBaseMaterial';
 import { IMaterialImpl, ITextureImpl } from '../impl';
+import { registerElement } from '../../registry';
 
+@registerElement('xr-background-material')
 export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> implements IMaterialImpl {
   @Decorator.property('Boolean', 'use-rgb-color', null)
   useRGBColor: boolean | null = null;

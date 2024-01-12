@@ -16,6 +16,7 @@ import { CreateTorusVertexData } from '@babylonjs/core/Meshes/Builders/torusBuil
 import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
 import camelCase from 'lodash/camelCase';
 import { Tags } from '@babylonjs/core/Misc/tags';
+import { ElementRegistry } from '../../registry';
 
 export type IXRMeshProps = ITransformNodeLikeImpl & {
   geometry: Record<string, IDataType> | null;
@@ -116,6 +117,8 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
     }
   }
 }
+
+ElementRegistry.Instance.register('xr-mesh', XRMesh as any);
 
 function getVertexDataFromGeometryArg(arg: Record<string, IDataType>, useCamelCase = false): VertexData | null {
   if (!arg.type) return null;

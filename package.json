@@ -9,12 +9,13 @@
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist/* && webpack build --progress --env production && tsc -p tsconfig.build.json",
+    "build": "npm run build:css && rm -rf dist/* && webpack build --progress --env production && tsc -p tsconfig.build.json",
+    "build:css": "webpack build --progress --env emit-style && node ./node_modules/.cache/emit-style.js",
     "local": "webpack serve --progress --env local",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
-    "ci:e2e": "cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless",
+    "ci:e2e": "npm run build:css && cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless",
     "release": "npm run ci && npm run ci:e2e && rm -rf dist/* && npm run build && release-it",
-    "cypress:open": "cypress open --component --browser chrome -C cypress/cypress.config.ts"
+    "cypress:open": "npm run build:css && cypress open --component --browser chrome -C cypress/cypress.config.ts"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

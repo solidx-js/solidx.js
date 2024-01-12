@@ -5,6 +5,7 @@ import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { TransformLikeController } from '../controller';
 import { ElementUtil, randomID } from '../../util';
 import { ITransformNodeLikeImpl } from '../impl';
+import { ElementRegistry } from '../../registry';
 
 export type IXRNodeProps = ITransformNodeLikeImpl & {};
 
@@ -61,3 +62,4 @@ export class XRNode extends XRSceneScopeElement<TransformNode> implements IXRNod
     this.entity = null;
   }
 }
+ElementRegistry.Instance.register('xr-node', XRNode as any);

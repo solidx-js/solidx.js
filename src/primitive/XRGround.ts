@@ -2,7 +2,9 @@ import { html } from 'lit';
 import { Decorator } from '../core';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { PrimitiveBase } from './PrimitiveBase';
+import { registerElement } from '../registry';
 
+@registerElement('xr-ground')
 export class XRGround extends PrimitiveBase {
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;

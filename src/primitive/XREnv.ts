@@ -3,7 +3,9 @@ import { Decorator } from '../core';
 import { Vector3 } from '@babylonjs/core/Maths/math';
 import { PrimitiveBase } from './PrimitiveBase';
 import { AssetsURLs } from '../AssetsURLs';
+import { registerElement } from '../registry';
 
+@registerElement('xr-env')
 export class XREnv extends PrimitiveBase {
   static defaultSkyBoxTexture = AssetsURLs.DEFAULT_SKY_TEXTURE;
   static defaultGroundTexture = AssetsURLs.DEFAULT_GROUND_TEXTURE;

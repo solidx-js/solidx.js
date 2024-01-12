@@ -11,6 +11,7 @@ import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { randomID } from '../util';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { AssetsURLs } from '../AssetsURLs';
+import { ElementRegistry } from '../registry';
 
 export class XRScene extends XRElement {
   static createEngine(canvas: HTMLCanvasElement) {
@@ -126,6 +127,8 @@ export class XRScene extends XRElement {
     // ready 事件
     this.scene.onReadyObservable.add(() => {
       this.logger.info('Scene %s ready', this.ID);
+      this.setAttribute('ready', 'true');
+
       this.emit('load', {});
     });
 
@@ -195,3 +198,5 @@ export class XRScene extends XRElement {
     this.logger.info('Engine %s disposed', this.ID);
   }
 }
+
+ElementRegistry.Instance.register('xr-scene', XRScene as any);

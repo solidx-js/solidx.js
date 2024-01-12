@@ -4,7 +4,9 @@ import { MaterialController } from '../controller';
 import { GridMaterial } from '@babylonjs/materials/grid';
 import { XRBaseMaterial } from './XRBaseMaterial';
 import { IMaterialImpl } from '../impl';
+import { registerElement } from '../../registry';
 
+@registerElement('xr-grid-material')
 export class XRGridMaterial extends XRBaseMaterial<GridMaterial> implements IMaterialImpl {
   @Decorator.property('Color3', 'main-color', Color3.White())
   mainColor: Color3 | null = null;

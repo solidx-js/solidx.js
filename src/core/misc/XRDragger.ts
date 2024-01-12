@@ -11,6 +11,7 @@ import { RotationGizmo } from '@babylonjs/core/Gizmos/rotationGizmo';
 import { ScaleGizmo } from '@babylonjs/core/Gizmos/scaleGizmo';
 import { ITransformNodeLikeImpl } from '../impl';
 import { XRElement } from '../XRElement';
+import { registerElement } from '../../registry';
 
 type IDragStartInfo = {
   type: 'position' | 'rotation' | 'scale';
@@ -18,6 +19,7 @@ type IDragStartInfo = {
   matrix: Matrix;
 };
 
+@registerElement('xr-dragger')
 export class XRDragger extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('Vector3', 'scale', Vector3.One())
   scale: Vector3 | null = null;
