@@ -7,8 +7,8 @@ describe('xr-loading', () => {
       <xr-scene render-delay="1000">
         <xr-camera radius="3"></xr-camera>
         <xr-mesh geometry="type: box"></xr-mesh>
-        <xr-loading style="background: red;">
-          <div style="width: 80px; height: 80px; background: green;"></div>
+        <xr-loading style="background: #ff0000;">
+          <div style="width: 80px; height: 80px; background: #00ff00;"></div>
         </xr-loading>
       </xr-scene>
     `);
