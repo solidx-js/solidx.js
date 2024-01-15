@@ -20,4 +20,34 @@ describe('xr-texture', () => {
 
     cy.get('xr-scene').matchImageSnapshot();
   });
+
+  it('coordinates-mode', () => {
+    cy.mount(html`
+      <style>
+        xr-model xr-mesh[name='node_damagedHelmet_-6514'] {
+          ---material: 'metallic: 1; reflection-texture: #tex' !important;
+        }
+      </style>
+
+      <xr-scene style="width: 256px; height: 256px;">
+        <xr-camera radius="4" alpha="90" beta="75"></xr-camera>
+        <xr-texture id="tex" url="/equirectangular.jpg" invert-y></xr-texture>
+        <xr-model src="/DamagedHelmet.glb" rotation="0 -40 0"></xr-model>
+      </xr-scene>
+    `);
+
+    // 等待 xr-scene 的 load 事件
+    cy.get('xr-scene').then($element => {
+      return new Cypress.Promise(resolve => $element.on('load', resolve));
+    });
+
+    for (let i = 0; i <= 9; i++) {
+      cy.get('#tex').then($element => {
+        $element.get(0).setAttribute('coordinates-mode', i.toString());
+      });
+
+      cy.wait(100);
+      cy.get('xr-scene').matchImageSnapshot(`coordinates-mode-${i}`);
+    }
+  });
 });
