@@ -125,6 +125,10 @@ xr-material {
   ---albedo-color: #FFFFFF;
   ---metallic: 0.2;
   ---roughness: 0.8;
+  ---ambient-texture-strength: 1;
+  ---reflection-color: #FFFFFF;
+  ---micro-surface: 1;
+  ---use-alpha-from-albedo-texture: true;
 }
 
 xr-cube-texture {
@@ -544,9 +548,209 @@ xr-world-axis {
   initial-value: #000000;
 }
 
+@property ---emissive-intensity {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
 @property ---unlit {
   syntax: "*";
   inherits: false;
+}
+
+@property ---ambient-texture {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---ambient-texture-strength {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---opacity-texture {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---reflectivity-texture {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---metallic-texture {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---reflectance-texture {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---micro-surface-texture {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---bump-texture {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---lightmap-texture {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---refraction-texture {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---ambient-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
+@property ---reflectivity-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
+@property ---reflection-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
+@property ---micro-surface {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---index-of-refraction {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---alpha-cut-off {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---parallax-scale-bias {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---invert-refraction-y {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---link-refraction-with-transparency {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-lightmap-as-shadowmap {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-alpha-from-albedo-texture {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---force-alpha-test {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-specular-over-alpha {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-micro-surface-from-reflectivity-map-alpha {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-roughness-from-metallic-texture-alpha {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-roughness-from-metallic-texture-green {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-metallness-from-metallic-texture-blue {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-ambient-occlusion-from-metallic-texture-red {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-ambient-in-gray-scale {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-auto-micro-surface-from-reflectivity-map {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-radiance-over-alpha {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-object-space-normal-map {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-parallax {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---use-parallax-occlusion {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-specular-anti-aliasing {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---apply-decal-map-after-detail-map {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---metallic-f0-factor {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
 }
 
 @property ---has-alpha {

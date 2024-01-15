@@ -73,6 +73,9 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements IXRTextur
   @Decorator.property('Boolean', 'invert-y', null)
   invertY: boolean | null = null;
 
+  @Decorator.property('String', 'extension', null)
+  extension: string | null = null;
+
   @Decorator.property('Boolean', 'entity-delegated', null)
   entityDelegated: boolean | null = null;
 
@@ -97,7 +100,7 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements IXRTextur
 
     if (!this.entity) return;
 
-    if (changed.has('url')) this.entity.updateURL(this.evaluated.url || '');
+    if (changed.has('url')) this.entity.updateURL(this.evaluated.url || '', this.evaluated.extension || undefined);
     if (changed.has('uOffset')) this.entity.uOffset = this.evaluated.uOffset || 0;
     if (changed.has('vOffset')) this.entity.vOffset = this.evaluated.vOffset || 0;
     if (changed.has('uScale')) this.entity.uScale = this.evaluated.uScale || 0;

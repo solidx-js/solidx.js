@@ -31,7 +31,7 @@ export class XRCubeTexture extends XRSceneScopeElement<CubeTexture> implements I
   @Decorator.property('Number', 'rotation-y', null)
   rotationY: number | null = null;
 
-  @Decorator.property('Boolean', 'extension', null)
+  @Decorator.property('String', 'extension', null)
   extension: string | null = null;
 
   @Decorator.property('Boolean', 'entity-delegated', null)
