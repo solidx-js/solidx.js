@@ -51,18 +51,9 @@ export const Schema = {
       const obj: any = {};
       if (data === '') return obj as any;
 
-      const list = data.split(';');
-
-      for (const item of list) {
-        if (!item) continue;
-
-        // 从第一个 : 处分割成 key 和 value
-        const _index = item.indexOf(':');
-        const key = item.slice(0, _index).trim();
-        const value = item.slice(_index + 1).trim();
-
-        obj[key] = value;
-      }
+      new URLSearchParams(data).forEach((value, key) => {
+        obj[key] = value.trim();
+      });
 
       return obj as any;
     }
@@ -88,13 +79,7 @@ export const Schema = {
     else if (type === 'Color4') return (data as Color4).toHexString();
     else if (type === 'Matrix') return (data as Matrix).asArray().join(' ');
     else if (type === 'Object') {
-      const list: string[] = [];
-
-      for (const key in data) {
-        list.push(`${key}:${data[key]}`);
-      }
-
-      return list.join(';');
+      return new URLSearchParams(data as any).toString();
     }
 
     // throw

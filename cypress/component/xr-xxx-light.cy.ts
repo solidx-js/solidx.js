@@ -14,7 +14,7 @@ describe('xr-xxx-light', () => {
       <xr-scene env-intensity="0.05" background="#000" style="width: 256px; height: 256px;">
         <xr-camera radius="2"></xr-camera>
         <xr-directional-light intensity="2"></xr-directional-light>
-        <xr-mesh geometry="type: sphere"></xr-mesh>
+        <xr-mesh geometry="?type=sphere"></xr-mesh>
       </xr-scene>
     `);
 
@@ -41,7 +41,7 @@ describe('xr-xxx-light', () => {
         <xr-camera radius="2"></xr-camera>
         <xr-point-light intensity="2" position="0 2 0"></xr-point-light>
         <xr-point-light intensity="2" position="0 -2 0"></xr-point-light>
-        <xr-mesh geometry="type: sphere"></xr-mesh>
+        <xr-mesh geometry="?type=sphere"></xr-mesh>
       </xr-scene>
     `);
 
@@ -65,7 +65,7 @@ describe('xr-xxx-light', () => {
       <xr-scene env-intensity="0.05" background="#000" style="width: 256px; height: 256px;">
         <xr-camera radius="2"></xr-camera>
         <xr-hemispheric-light intensity="2" alpha="-45" beta="45"></xr-hemispheric-light>
-        <xr-mesh geometry="type: sphere"></xr-mesh>
+        <xr-mesh geometry="?type=sphere"></xr-mesh>
       </xr-scene>
     `);
 
@@ -90,8 +90,8 @@ describe('xr-xxx-light', () => {
         <xr-scene env-intensity="0.05" background="#000" style="width: 256px; height: 256px;">
           <xr-camera radius="3"></xr-camera>
           <xr-directional-light intensity="2" shadow-caster="xr-mesh"></xr-directional-light>
-          <xr-mesh geometry="type: sphere"></xr-mesh>
-          <xr-mesh geometry="type: plane; size: 10" position="0 -0.6 0" rotation="90 0 0"></xr-mesh>
+          <xr-mesh geometry="?type=sphere"></xr-mesh>
+          <xr-mesh geometry="?type=plane&size=10" position="0 -0.6 0" rotation="90 0 0"></xr-mesh>
         </xr-scene>
       `);
 

@@ -37,7 +37,7 @@ export class XRArrow extends PrimitiveBase {
     const arrow = html`
       <xr-mesh
         id="${this.id}-arrow"
-        geometry="type: cylinder; diameter-top: 0; height: 0.075; diameter-bottom: ${0.0375 * (1 + (thickness - 1) / 4)}; tessellation: 96"
+        geometry="?type=cylinder&diameter-top=0&height=0.075&diameter-bottom=${0.0375 * (1 + (thickness - 1) / 4)}&tessellation=96"
         material="${this.id}-material"
         rotation="90 0 0"
         position="0 0 0.3"
@@ -47,8 +47,7 @@ export class XRArrow extends PrimitiveBase {
     const line = html`
       <xr-mesh
         id="${this.id}-line"
-        geometry="type: cylinder; diameter-top: ${0.005 * thickness}; height: 0.275; diameter-bottom: ${0.005 *
-        thickness}; tessellation: 96"
+        geometry="?type=cylinder&diameter-top=${0.005 * thickness}&height=0.275&diameter-bottom=${0.005 * thickness}&tessellation=96"
         material="${this.id}-material"
         rotation="90 0 0"
         position="0 0 ${0.275 / 2}"

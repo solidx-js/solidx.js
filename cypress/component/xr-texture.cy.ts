@@ -7,9 +7,9 @@ describe('xr-texture', () => {
       <xr-scene style="width: 256px; height: 256px;">
         <xr-camera radius="2" alpha="-80"></xr-camera>
         <xr-texture id="tex" url="/lion.png" invert-y has-alpha></xr-texture>
-        <xr-mesh geometry="type: plane" material="albedo-texture: #tex"></xr-mesh>
+        <xr-mesh geometry="?type=plane" material="?albedo-texture=#tex"></xr-mesh>
 
-        <xr-mesh geometry="type: box" position="-0.5 0 1"></xr-mesh>
+        <xr-mesh geometry="?type=box" position="-0.5 0 1"></xr-mesh>
       </xr-scene>
     `);
 
@@ -25,7 +25,7 @@ describe('xr-texture', () => {
     cy.mount(html`
       <style>
         xr-model xr-mesh[name='node_damagedHelmet_-6514'] {
-          ---material: 'metallic: 1; reflection-texture: #tex' !important;
+          ---material: '?metallic=1&reflection-texture=#tex' !important;
         }
       </style>
 

@@ -74,7 +74,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
     super();
 
     new TransformLikeController(this);
-    new TagRefController(this, 'material', '_material', d => d.el || 'xr-material');
+    new TagRefController(this, 'material', '_material', 'xr-material');
   }
 
   connected(): void {

@@ -16,7 +16,7 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
     private host: XRElement & { [key in A]?: string | null } & { [key in B]: T | null },
     private selectorProp: A,
     private targetProp: B,
-    private fallbackTagName: string | ((data: Record<string, string>) => string) | null
+    private fallbackTagName: string | null
   ) {
     this.host.addController(this as any);
   }
@@ -38,11 +38,11 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
 
       if (typeof selector === 'string') {
         // object 格式
-        if ((selector.includes(': ') || selector === '') && this.fallbackTagName) {
+        if ((selector.startsWith('?') || selector.match(/^\w+\?/)) && this.fallbackTagName) {
           const _inData = Schema.fromAttr('Object', selector);
 
           if (_inData) {
-            const _tagName = typeof this.fallbackTagName === 'function' ? this.fallbackTagName(_inData) : this.fallbackTagName;
+            const _tagName = selector.split('?')[0]?.trim() || this.fallbackTagName;
             const Cls = ElementRegistry.Instance.get(_tagName);
 
             // 检查是否需要重新创建元素: tag 名字不一样

@@ -29,7 +29,6 @@
 - **Lightweight**: Code splitting, tree shaking, and lazy loading supported.
 - **Extensible**: Create your own components for your scenes.
 
-
 ## Getting Started
 
 ### Install
@@ -47,7 +46,7 @@ Or with CDN:
 <script src="https://registry.npmmirror.com/solidx.js/latest/files/dist/index.js"></script>
 ```
 
-**NOTE**: If you are *outside of China*, please use BELOW CDN:
+**NOTE**: If you are _outside of China_, please use BELOW CDN:
 
 - https://cdn.jsdelivr.net/npm/solidx.js/assets/preset.css
 - https://cdn.jsdelivr.net/npm/solidx.js/dist/index.js
@@ -64,7 +63,7 @@ Render a simple box with inline attributes:
 <body>
   <xr-scene>
     <xr-camera radius="6" beta="75"></xr-camera>
-    <xr-mesh geometry="type: box" material="albedo-color: #ffc069"></xr-mesh>
+    <xr-mesh geometry="?type=box" material="?albedo-color=#ffc069"></xr-mesh>
   </xr-scene>
 
   <script src="https://registry.npmmirror.com/solidx.js/latest/files/dist/index.js"></script>
@@ -83,8 +82,8 @@ also you can use CSS to style your mesh:
       ---beta: 75;
     }
     .box {
-      ---geometry: 'type: box';
-      ---material: 'albedo-color: #ffc069';
+      ---geometry: '?type=box';
+      ---material: '?albedo-color=#ffc069';
     }
   </style>
 </head>
@@ -116,7 +115,7 @@ import 'solidx.js';
 ReactDOM.render(
   <xr-scene>
     <xr-camera radius='6' beta='75'></xr-camera>
-    <xr-mesh geometry='type: box' material='albedo-color: #ffc069'></xr-mesh>
+    <xr-mesh geometry='?type=box' material='?albedo-color=#ffc069'></xr-mesh>
   </xr-scene>,
   document.getElementById('root')
 );
@@ -128,7 +127,7 @@ ReactDOM.render(
 <template>
   <xr-scene>
     <xr-camera radius="6" beta="75"></xr-camera>
-    <xr-mesh geometry="type: box" material="albedo-color: #ffc069"></xr-mesh>
+    <xr-mesh geometry="?type=box" material="?albedo-color=#ffc069"></xr-mesh>
   </xr-scene>
 </template>
 
