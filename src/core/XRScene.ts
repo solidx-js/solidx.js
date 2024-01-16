@@ -8,7 +8,7 @@ import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
 import { EntityQueryController, PointerController } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
-import { randomID } from '../util';
+import { ElementUtil, randomID } from '../util';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { AssetsURLs } from '../AssetsURLs';
 import { ElementRegistry } from '../registry';

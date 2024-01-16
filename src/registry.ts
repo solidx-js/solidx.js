@@ -36,6 +36,11 @@ export class ElementRegistry {
       if (customElements.get(key)) continue; // 已经注册过了
       customElement(key)(this.get(key)!);
     }
+
+    // 从 xr-scene 开始协调祖先
+    for (const ele of Array.from(document.querySelectorAll('xr-scene'))) {
+      (<XRElement>ele).onAncestorCoordinate();
+    }
   }
 }
 

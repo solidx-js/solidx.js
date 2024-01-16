@@ -56,6 +56,14 @@ export class XRNode extends XRSceneScopeElement<TransformNode> implements IXRNod
     this.entity.parent = ElementUtil.closestTransformNodeLike(this);
   }
 
+  onAncestorCoordinate(): void {
+    super.onAncestorCoordinate();
+
+    if (!this.entity) return;
+
+    this.entity.parent = ElementUtil.closestTransformNodeLike(this);
+  }
+
   disconnected(): void {
     super.disconnected();
     this.entity?.dispose();

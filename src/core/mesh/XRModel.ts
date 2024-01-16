@@ -107,6 +107,14 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
     this.entity.parent = ElementUtil.closestTransformNodeLike(this);
   }
 
+  onAncestorCoordinate(): void {
+    super.onAncestorCoordinate();
+
+    if (!this.entity) return;
+
+    this.entity.parent = ElementUtil.closestTransformNodeLike(this);
+  }
+
   disconnected(): void {
     super.disconnected();
 

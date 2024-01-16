@@ -147,6 +147,18 @@ export class XRElement<T = any> extends LitElement {
     this.dispatchEvent(new CustomEvent(evType, { detail, bubbles: true }));
   }
 
+  /** @override */
+  onAncestorCoordinate() {
+    // 遍历 children 的 onAncestorCoordinate 方法
+    for (let i = 0; i < this.children.length; i++) {
+      const child = this.children[i];
+
+      if (child instanceof XRElement) {
+        child.onAncestorCoordinate();
+      }
+    }
+  }
+
   /** @internal */
   connectedCallback() {
     super.connectedCallback();

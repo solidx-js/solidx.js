@@ -87,6 +87,14 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
     }
   }
 
+  onAncestorCoordinate(): void {
+    super.onAncestorCoordinate();
+
+    if (!this.entity) return;
+
+    this.entity.parent = ElementUtil.closestTransformNodeLike(this);
+  }
+
   disconnected(): void {
     super.disconnected();
 

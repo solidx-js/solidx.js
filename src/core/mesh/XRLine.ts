@@ -57,6 +57,14 @@ export class XRLine extends XRSceneScopeElement<LinesMesh> implements Omit<ITran
     this._curPointCount = 0;
   }
 
+  onAncestorCoordinate(): void {
+    super.onAncestorCoordinate();
+
+    if (!this.entity) return;
+
+    this.entity.parent = ElementUtil.closestTransformNodeLike(this);
+  }
+
   disconnected(): void {
     super.disconnected();
 
