@@ -38,7 +38,7 @@ export const Schema = {
 
     if (type === 'Number') return (Number(data) || 0) as any;
     else if (type === 'String') return String(data) as any;
-    else if (type === 'Boolean') return true as any;
+    else if (type === 'Boolean') return (parseInt(data) > 0) as any;
     else if (type === 'Array') return data.split(' ').map(v => v.trim()) as any;
     else if (type === 'Vector2') return Vector2.FromArray(_ns(data)) as any;
     else if (type === 'Vector3') return Vector3.FromArray(_ns(data)) as any;
@@ -69,7 +69,7 @@ export const Schema = {
 
     if (type === 'Number') return String(data);
     else if (type === 'String') return String(data);
-    else if (type === 'Boolean') return '';
+    else if (type === 'Boolean') return data ? '1' : '0';
     else if (type === 'Array') return (data as any[]).join(' ');
     else if (type === 'Vector2') return (data as Vector2).asArray().join(' ');
     else if (type === 'Vector3') return (data as Vector3).asArray().join(' ');
@@ -107,7 +107,7 @@ export const Schema = {
   },
 
   toCssLiteral<T extends IDataType>(type: T, data: IDataTypeMap[T]): string {
-    if (type === 'Boolean') return data ? 'true' : ''; // Boolean 类型的 CSS 属性，如果为 false，不写入
+    if (type === 'Boolean') return data ? '1' : ''; // Boolean 类型的 CSS 属性当做数字处理
 
     const str = this.toAttr(type, data);
     if (str === null) return '';

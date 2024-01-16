@@ -269,10 +269,10 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
     );
 
     if (node instanceof Mesh) {
-      return html` <xr-mesh entity-delegated name=${node.name} .entity=${node}> ${children} </xr-mesh> `;
+      return html` <xr-mesh entity-delegated="1" name=${node.name} .entity=${node}> ${children} </xr-mesh> `;
     }
 
-    return html` <xr-node entity-delegated name=${node.name} .entity=${node}> ${children} </xr-node> `;
+    return html` <xr-node entity-delegated="1" name=${node.name} .entity=${node}> ${children} </xr-node> `;
   }
 
   private _renderMaterials() {
@@ -283,7 +283,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       m => m.name,
       m => {
         if (m instanceof PBRMaterial) {
-          return html` <xr-material entity-delegated name=${m.name} .entity=${m}> </xr-material> `;
+          return html` <xr-material entity-delegated="1" name=${m.name} .entity=${m}> </xr-material> `;
         }
         return null;
       }
@@ -298,7 +298,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       t => t.name,
       t => {
         if (t instanceof Texture) {
-          return html` <xr-texture entity-delegated name=${t.name} .entity=${t}> </xr-texture> `;
+          return html` <xr-texture entity-delegated="1" name=${t.name} .entity=${t}> </xr-texture> `;
         }
         return null;
       }

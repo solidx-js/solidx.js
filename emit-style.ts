@@ -29,6 +29,11 @@ for (const name of ElementRegistry.Instance.keys()) {
       syntax = '<number>+';
       initialValue = '0';
     }
+    // boolean 转换成数字类型，方便使用
+    else if (def.dType === 'Boolean') {
+      syntax = '<number>';
+      initialValue = '0';
+    }
 
     // 相同属性名的不可存在不同语法
     if (_cssProps.has(propName) && _cssProps.get(propName)!.syntax !== syntax) {

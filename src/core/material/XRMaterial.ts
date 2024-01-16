@@ -256,13 +256,13 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
   @Decorator.property('Boolean', 'force-alpha-test', null)
   forceAlphaTest: boolean | null = null;
 
-  @Decorator.property('Boolean', 'use-specular-over-alpha', null)
+  @Decorator.property('Boolean', 'use-specular-over-alpha', true)
   useSpecularOverAlpha: boolean | null = null;
 
   @Decorator.property('Boolean', 'use-micro-surface-from-reflectivity-map-alpha', null)
   useMicroSurfaceFromReflectivityMapAlpha: boolean | null = null;
 
-  @Decorator.property('Boolean', 'use-roughness-from-metallic-texture-alpha', null)
+  @Decorator.property('Boolean', 'use-roughness-from-metallic-texture-alpha', true)
   useRoughnessFromMetallicTextureAlpha: boolean | null = null;
 
   @Decorator.property('Boolean', 'use-roughness-from-metallic-texture-green', null)
@@ -280,7 +280,7 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
   @Decorator.property('Boolean', 'use-auto-micro-surface-from-reflectivity-map', null)
   useAutoMicroSurfaceFromReflectivityMap: boolean | null = null;
 
-  @Decorator.property('Boolean', 'use-radiance-over-alpha', null)
+  @Decorator.property('Boolean', 'use-radiance-over-alpha', true)
   useRadianceOverAlpha: boolean | null = null;
 
   @Decorator.property('Boolean', 'use-object-space-normal-map', null)
