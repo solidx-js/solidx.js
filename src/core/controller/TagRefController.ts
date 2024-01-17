@@ -38,13 +38,16 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
 
       if (typeof selector === 'string') {
         // object 格式
-        if ((selector.startsWith('?') || selector.match(/^\w+\?/)) && this.fallbackTagName) {
-          const _inData = Schema.fromAttr('Object', selector);
+        if ((selector.startsWith('?') || selector.match(/^[\w-_]+\?/)) && this.fallbackTagName) {
+          let [_tagName, _query] = selector.split('?');
 
-          if (_inData) {
-            const _tagName = selector.split('?')[0]?.trim() || this.fallbackTagName;
-            const Cls = ElementRegistry.Instance.get(_tagName);
+          _tagName = _tagName.trim() || this.fallbackTagName;
+          _query = _query.trim();
 
+          const _inData = Schema.fromAttr('Object', _query);
+          const Cls = ElementRegistry.Instance.get(_tagName);
+
+          if (_inData && Cls) {
             // 检查是否需要重新创建元素: tag 名字不一样
             if (this._selfHostElement && this._selfHostElement.tagName.toLowerCase() !== _tagName.toLowerCase()) {
               this._selfHostElement.remove();
