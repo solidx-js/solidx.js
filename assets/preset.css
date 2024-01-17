@@ -130,7 +130,6 @@ xr-material {
   ---micro-surface: 1;
   ---use-alpha-from-albedo-texture: 1;
   ---use-specular-over-alpha: 1;
-  ---use-roughness-from-metallic-texture-alpha: 1;
   ---use-radiance-over-alpha: 1;
 }
 

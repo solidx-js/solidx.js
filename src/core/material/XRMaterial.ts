@@ -262,7 +262,7 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
   @Decorator.property('Boolean', 'use-micro-surface-from-reflectivity-map-alpha', null)
   useMicroSurfaceFromReflectivityMapAlpha: boolean | null = null;
 
-  @Decorator.property('Boolean', 'use-roughness-from-metallic-texture-alpha', true)
+  @Decorator.property('Boolean', 'use-roughness-from-metallic-texture-alpha', null)
   useRoughnessFromMetallicTextureAlpha: boolean | null = null;
 
   @Decorator.property('Boolean', 'use-roughness-from-metallic-texture-green', null)
