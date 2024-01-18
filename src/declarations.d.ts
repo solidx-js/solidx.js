@@ -1,6 +1,12 @@
 import type { AssetContainer, UtilityLayerRenderer, AbstractMesh } from '@babylonjs/core';
 import { IDataType, IDataTypeMap } from './util/Schema';
 
+declare module '@babylonjs/core/Engines/engine' {
+  interface Engine {
+    container: HTMLDivElement;
+  }
+}
+
 declare module '@babylonjs/core/scene' {
   interface Scene {
     loadModel(url: string, forceExt?: string): Promise<AssetContainer>;

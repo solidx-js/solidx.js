@@ -37,7 +37,6 @@ export class XRScene extends XRElement {
   engine!: Engine;
 
   @provide({ context: Context.Scene })
-  @state()
   scene: Scene = null as any;
 
   @Decorator.property('Color4', 'background', new Color4(1, 1, 1, 0))
@@ -91,6 +90,8 @@ export class XRScene extends XRElement {
     this._container.appendChild(_canvas);
 
     this.engine = XRScene.createEngine(_canvas);
+    this.engine.container = this._container;
+
     this.logger.info('Engine %s created', this.ID);
 
     if (this.hardwareScalingLevel !== null) {

@@ -24,6 +24,7 @@
     "@types/chroma-js": "^2.4.3",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.0",
+    "@types/stats.js": "^0.17.3",
     "cypress": "^13.6.2",
     "cypress-ct-lit": "^0.4.0",
     "cypress-image-snapshot": "^4.0.1",
@@ -54,6 +55,7 @@
     "lit": "^3.1.0",
     "lodash": "^4.17.21",
     "solidx-assets": "^1.0.1",
+    "stats.js": "^0.17.0",
     "tslib": "^2.6.2"
   }
 }
