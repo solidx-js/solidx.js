@@ -169,7 +169,7 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
     return props;
   }
 
-  @Decorator.property('Number', 'transparency-mode', null)
+  @Decorator.property('Number', 'transparency-mode', 2)
   transparencyMode: number | null = null;
 
   @Decorator.property('Color3', 'albedo-color', new Color3(1, 1, 1))

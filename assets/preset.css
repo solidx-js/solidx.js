@@ -127,6 +127,7 @@ xr-grid-material {
 xr-material {
   ---alpha: 1;
   ---alpha-mode: 2;
+  ---transparency-mode: 2;
   ---albedo-color: #FFFFFF;
   ---metallic: 0.2;
   ---roughness: 0.8;
