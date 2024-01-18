@@ -17,7 +17,7 @@ export class MaterialController implements ReactiveController {
 
     mat.backFaceCulling = !!this.host.evaluated.backFaceCulling;
     mat.wireframe = !!this.host.evaluated.wireframe;
-    mat.alpha = this.host.evaluated.alpha || 1;
+    mat.alpha = this.host.evaluated.alpha ?? 1;
     if (this.host.evaluated.alphaMode !== null) mat.alphaMode = this.host.evaluated.alphaMode;
     mat.disableDepthWrite = !!this.host.evaluated.disableDepthWrite;
     mat.zOffset = this.host.evaluated.zOffset || 0;

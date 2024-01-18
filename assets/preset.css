@@ -104,13 +104,17 @@ xr-line {
 
 xr-mesh {
   ---scale: 1 1 1;
+  ---edges-width: 1;
+  ---edges-color: #FF0000FF;
 }
 
 xr-background-material {
+  ---alpha: 1;
   ---alpha-mode: 2;
 }
 
 xr-grid-material {
+  ---alpha: 1;
   ---alpha-mode: 2;
   ---main-color: #FFFFFF;
   ---line-color: #000000;
@@ -121,6 +125,7 @@ xr-grid-material {
 }
 
 xr-material {
+  ---alpha: 1;
   ---alpha-mode: 2;
   ---albedo-color: #FFFFFF;
   ---metallic: 0.2;
@@ -128,9 +133,9 @@ xr-material {
   ---ambient-texture-strength: 1;
   ---reflection-color: #FFFFFF;
   ---micro-surface: 1;
-  ---use-alpha-from-albedo-texture: 1;
-  ---use-specular-over-alpha: 1;
-  ---use-radiance-over-alpha: 1;
+  ---use-alpha-from-albedo-texture: true;
+  ---use-specular-over-alpha: true;
+  ---use-radiance-over-alpha: true;
 }
 
 xr-cube-texture {
@@ -149,6 +154,10 @@ xr-node {
 
 xr-model {
   ---scale: 1 1 1;
+}
+
+xr-glow {
+  ---intensity: 1;
 }
 
 xr-pipeline-ssao2 {
@@ -197,9 +206,8 @@ xr-world-axis {
 }
 
 @property ---disabled {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---alpha {
@@ -367,9 +375,8 @@ xr-world-axis {
 }
 
 @property ---use-ray {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---ray-scope {
@@ -378,21 +385,18 @@ xr-world-axis {
 }
 
 @property ---enable-position {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---enable-rotation {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---enable-scale {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---target {
@@ -417,9 +421,8 @@ xr-world-axis {
 }
 
 @property ---disable-pointer-event {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---geometry {
@@ -433,15 +436,30 @@ xr-world-axis {
 }
 
 @property ---entity-delegated {
-  syntax: "<number>";
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-edges {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---edges-width {
+  syntax: "<number>+";
   inherits: false;
   initial-value: 0;
 }
 
-@property ---backface-culling {
-  syntax: "<number>";
+@property ---edges-color {
+  syntax: "<color>";
   inherits: false;
-  initial-value: 0;
+  initial-value: #000000;
+}
+
+@property ---backface-culling {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---side-orientation {
@@ -451,9 +469,8 @@ xr-world-axis {
 }
 
 @property ---wireframe {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---alpha-mode {
@@ -463,9 +480,8 @@ xr-world-axis {
 }
 
 @property ---disable-depth-write {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---z-offset {
@@ -475,9 +491,8 @@ xr-world-axis {
 }
 
 @property ---use-rgb-color {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---primary-color {
@@ -487,9 +502,8 @@ xr-world-axis {
 }
 
 @property ---enable-noise {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---reflection-texture {
@@ -533,6 +547,12 @@ xr-world-axis {
   initial-value: 0;
 }
 
+@property ---transparency-mode {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
 @property ---albedo-color {
   syntax: "<color>";
   inherits: false;
@@ -569,9 +589,8 @@ xr-world-axis {
 }
 
 @property ---unlit {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---ambient-texture {
@@ -668,117 +687,98 @@ xr-world-axis {
 }
 
 @property ---invert-refraction-y {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---link-refraction-with-transparency {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-lightmap-as-shadowmap {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-alpha-from-albedo-texture {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---force-alpha-test {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-specular-over-alpha {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-micro-surface-from-reflectivity-map-alpha {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-roughness-from-metallic-texture-alpha {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-roughness-from-metallic-texture-green {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-metallness-from-metallic-texture-blue {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-ambient-occlusion-from-metallic-texture-red {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-ambient-in-gray-scale {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-auto-micro-surface-from-reflectivity-map {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-radiance-over-alpha {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-object-space-normal-map {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-parallax {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---use-parallax-occlusion {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---enable-specular-anti-aliasing {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---apply-decal-map-after-detail-map {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---metallic-f0-factor {
@@ -788,9 +788,8 @@ xr-world-axis {
 }
 
 @property ---has-alpha {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---level {
@@ -864,9 +863,8 @@ xr-world-axis {
 }
 
 @property ---invert-y {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---src {
@@ -880,15 +878,13 @@ xr-world-axis {
 }
 
 @property ---loop {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---flat-shading {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---origin-transform {
@@ -897,15 +893,13 @@ xr-world-axis {
 }
 
 @property ---preload {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---disable-virtual-node {
-  syntax: "<number>";
+  syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
 
 @property ---samples {

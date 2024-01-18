@@ -17,10 +17,16 @@ import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
 import camelCase from 'lodash/camelCase';
 import { Tags } from '@babylonjs/core/Misc/tags';
 import { ElementRegistry } from '../../registry';
+import { Color4 } from '@babylonjs/core/Maths/math.color';
 
 export type IXRMeshProps = ITransformNodeLikeImpl & {
   geometry: Record<string, IDataType> | null;
   material: string | null;
+
+  // 边缘渲染
+  enableEdges: boolean | null;
+  edgesWidth: number | null;
+  edgesColor: Color4 | null;
 };
 
 export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
@@ -35,6 +41,9 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
       entityDelegated: null,
       geometry: null,
       material: mesh.material ? `[entity-id="${mesh.material.ID}"]` : null,
+      enableEdges: !!mesh._edgesRenderer,
+      edgesWidth: mesh.edgesWidth ?? null,
+      edgesColor: mesh.edgesColor ?? null,
     };
 
     return props;
@@ -66,6 +75,15 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
 
   @Decorator.property('Boolean', 'entity-delegated', null)
   entityDelegated: boolean | null = null;
+
+  @Decorator.property('Boolean', 'enable-edges', null)
+  enableEdges: boolean | null = null;
+
+  @Decorator.property('Number', 'edges-width', 1)
+  edgesWidth: number | null = null;
+
+  @Decorator.property('Color4', 'edges-color', new Color4(1, 0, 0, 1))
+  edgesColor: Color4 | null = null;
 
   @state()
   _material: (HTMLElement & IMaterialImpl) | null = null;
@@ -123,6 +141,14 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
     if (changed.has('disablePointerEvent')) {
       this.entity.isPickable = !this.disablePointerEvent;
     }
+
+    if (changed.has('enableEdges')) {
+      if (this.evaluated.enableEdges) this.entity.enableEdgesRendering();
+      else this.entity.disableEdgesRendering();
+    }
+
+    if (changed.has('edgesWidth') && this.evaluated.edgesWidth !== null) this.entity.edgesWidth = this.evaluated.edgesWidth;
+    if (changed.has('edgesColor') && this.evaluated.edgesColor !== null) this.entity.edgesColor.copyFrom(this.evaluated.edgesColor);
   }
 }
 

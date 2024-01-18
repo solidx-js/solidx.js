@@ -55,8 +55,8 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @Decorator.property('String', 'material', null)
   material: string | null = null;
 
-  @Decorator.property('String', 'auto-play', null)
-  autoPlay: string | null = null;
+  @Decorator.property('Boolean', 'auto-play', null)
+  autoPlay: boolean | null = null;
 
   @Decorator.property('Boolean', 'loop', null)
   loop: boolean | null = null;
@@ -168,15 +168,9 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       }
 
       // 处理 auto-play
-      if (autoPlay !== null) {
+      if (autoPlay) {
         let ags: AnimationGroup[] = [];
-
-        if (autoPlay === '') {
-          ags = _container.animationGroups;
-        } else {
-          const _names = Schema.fromAttr('Array', autoPlay) as string[];
-          ags = _container.animationGroups.filter(a => _names.includes(a.name));
-        }
+        ags = _container.animationGroups;
 
         for (const ag of ags) {
           ag.play(!!loop);
@@ -206,7 +200,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       for (const item of list) {
         const ID: string = item.ID;
 
-        const _selector = `xr-model#${this.id} [entity-id="${ID}"]`;
+        const _selector = `[entity-id="${ID}"]`;
         _data[_selector] = {};
 
         for (const [_p, _v] of Object.entries(Ele.getPropsFrom(item))) {
@@ -277,10 +271,10 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
     );
 
     if (node instanceof Mesh) {
-      return html`<xr-mesh entity-delegated="1" name=${node.name} .entity=${node}>${children}</xr-mesh>`;
+      return html`<xr-mesh entity-delegated name=${node.name} .entity=${node}>${children}</xr-mesh>`;
     }
 
-    return html`<xr-node entity-delegated="1" name=${node.name} .entity=${node}>${children}</xr-node>`;
+    return html`<xr-node entity-delegated name=${node.name} .entity=${node}>${children}</xr-node>`;
   }
 
   private _renderMaterials() {
@@ -291,7 +285,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       m => m.name,
       m => {
         if (m instanceof PBRMaterial) {
-          return html`<xr-material entity-delegated="1" name=${m.name} .entity=${m}></xr-material>`;
+          return html`<xr-material entity-delegated name=${m.name} .entity=${m}></xr-material>`;
         }
         return null;
       }
@@ -306,7 +300,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
       t => t.name,
       t => {
         if (t instanceof Texture) {
-          return html`<xr-texture entity-delegated="1" name=${t.name} .entity=${t}></xr-texture>`;
+          return html`<xr-texture entity-delegated name=${t.name} .entity=${t}></xr-texture>`;
         }
         return null;
       }

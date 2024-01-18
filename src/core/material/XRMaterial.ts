@@ -11,6 +11,7 @@ import { ElementRegistry } from '../../registry';
 export type IXRMaterialProps = IMaterialImpl & {
   albedoColor: Color3 | null;
   albedoTexture: string | null;
+  transparencyMode: number | null;
   metallic: number | null;
   roughness: number | null;
   emissiveColor: Color3 | null;
@@ -57,6 +58,7 @@ export type IXRMaterialProps = IMaterialImpl & {
 };
 
 const _NumberProperties = [
+  'transparencyMode',
   'metallic',
   'roughness',
   'emissiveIntensity',
@@ -110,17 +112,18 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
       entity: mat,
       entityDelegated: null,
       alpha: mat.alpha,
-      alphaMode: mat.transparencyMode,
+      alphaMode: mat.alphaMode,
+      transparencyMode: mat.transparencyMode,
       backFaceCulling: mat.backFaceCulling,
       disableDepthWrite: mat.disableDepthWrite,
       sideOrientation: mat.sideOrientation,
       wireframe: mat.wireframe,
       zOffset: mat.zOffset,
-      albedoColor: mat.albedoColor,
+      albedoColor: mat.albedoColor.toGammaSpace(),
       albedoTexture: mat.albedoTexture ? `[entity-id="${mat.albedoTexture.ID}"]` : null,
       metallic: mat.metallic,
       roughness: mat.roughness,
-      emissiveColor: mat.emissiveColor,
+      emissiveColor: mat.emissiveColor.toGammaSpace(),
       emissiveIntensity: mat.emissiveIntensity,
       unlit: mat.unlit,
       ambientTexture: mat.ambientTexture ? `[entity-id="${mat.ambientTexture.ID}"]` : null,
@@ -134,9 +137,9 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
       bumpTexture: mat.bumpTexture ? `[entity-id="${mat.bumpTexture.ID}"]` : null,
       lightmapTexture: mat.lightmapTexture ? `[entity-id="${mat.lightmapTexture.ID}"]` : null,
       refractionTexture: mat.refractionTexture ? `[entity-id="${mat.refractionTexture.ID}"]` : null,
-      ambientColor: mat.ambientColor,
-      reflectivityColor: mat.reflectivityColor,
-      reflectionColor: mat.reflectionColor,
+      ambientColor: mat.ambientColor.toGammaSpace(),
+      reflectivityColor: mat.reflectivityColor.toGammaSpace(),
+      reflectionColor: mat.reflectionColor.toGammaSpace(),
       microSurface: mat.microSurface,
       indexOfRefraction: mat.indexOfRefraction,
       alphaCutOff: mat.alphaCutOff,
@@ -165,6 +168,9 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
 
     return props;
   }
+
+  @Decorator.property('Number', 'transparency-mode', null)
+  transparencyMode: number | null = null;
 
   @Decorator.property('Color3', 'albedo-color', new Color3(1, 1, 1))
   albedoColor: Color3 | null = null;
@@ -385,7 +391,7 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
     for (const _propName of _ColorProperties) {
       const _propValue = this.evaluated[_propName];
       if (changed.has(_propName) && _propValue !== null) {
-        this.entity[_propName].copyFrom(_propValue);
+        _propValue.toLinearSpaceToRef(this.entity[_propName]); // 用户输入的颜色值是 sRGB，需要转换到线性空间(bjs 颜色值存的是线性空间)
       }
     }
 
