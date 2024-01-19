@@ -47,7 +47,7 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
           const _inData = Schema.fromAttr('Object', _query);
           const Cls = ElementRegistry.Instance.get(_tagName);
 
-          if (_inData && Cls) {
+          if (_inData && Cls && Cls) {
             // 检查是否需要重新创建元素: tag 名字不一样
             if (this._selfHostElement && this._selfHostElement.tagName.toLowerCase() !== _tagName.toLowerCase()) {
               this._selfHostElement.remove();
@@ -57,6 +57,8 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
             // 创建内部元素
             if (!this._selfHostElement) {
               const _ele = new Cls();
+              if (!(_ele instanceof XRElement)) throw new Error(`TagRefController: ${_tagName} is not a XRElement`);
+
               this._selfHostElement = _ele;
 
               // 设置初始属性

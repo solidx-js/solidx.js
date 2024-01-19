@@ -6,7 +6,7 @@ import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
-import { EntityQueryController, PointerController } from './controller';
+import { EntityQueryController } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
 import { ElementUtil, randomID } from '../util';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
@@ -101,6 +101,7 @@ export class XRScene extends XRElement {
     this.scene = new Scene(this.engine);
     this.scene.autoClear = true;
     this.scene.clearColor = new Color4(0, 0, 0, 0); // 默认透明背景
+    this.scene.bindingElement = this;
 
     // FIXME: 一定要提前设置好环境贴图，否则后面不会生效（即使重新标记 material markAsDirty）。why?
     this.scene.environmentTexture = CubeTexture.CreateFromPrefilteredData(XRScene.defaultEnvMap, this.scene);
@@ -132,9 +133,6 @@ export class XRScene extends XRElement {
 
       this.emit('load', {});
     });
-
-    // 放到最后
-    new PointerController(this);
 
     window.addEventListener('resize', this.resize);
 

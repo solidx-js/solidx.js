@@ -27,6 +27,9 @@ export type IXRMeshProps = ITransformNodeLikeImpl & {
   enableEdges: boolean | null;
   edgesWidth: number | null;
   edgesColor: Color4 | null;
+
+  // 轮廓渲染
+  enableOutline: boolean | null;
 };
 
 export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
@@ -44,6 +47,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
       enableEdges: !!mesh._edgesRenderer,
       edgesWidth: mesh.edgesWidth ?? null,
       edgesColor: mesh.edgesColor ?? null,
+      enableOutline: mesh.renderOutline,
     };
 
     return props;
@@ -84,6 +88,9 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
 
   @Decorator.property('Color4', 'edges-color', new Color4(1, 0, 0, 1))
   edgesColor: Color4 | null = null;
+
+  @Decorator.property('Boolean', 'enable-outline', null)
+  enableOutline: boolean | null = null;
 
   @state()
   _material: (HTMLElement & IMaterialImpl) | null = null;
@@ -149,6 +156,10 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
 
     if (changed.has('edgesWidth') && this.evaluated.edgesWidth !== null) this.entity.edgesWidth = this.evaluated.edgesWidth;
     if (changed.has('edgesColor') && this.evaluated.edgesColor !== null) this.entity.edgesColor.copyFrom(this.evaluated.edgesColor);
+
+    if (changed.has('enableOutline')) {
+      this.entity.renderOutline = !!this.evaluated.enableOutline;
+    }
   }
 }
 

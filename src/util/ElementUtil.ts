@@ -41,4 +41,15 @@ export const ElementUtil = {
     if (duration.endsWith('s')) return parseFloat(duration) * 1000;
     return parseFloat(duration);
   },
+
+  getCssText: (datas: { selector: string; style: { [key: string]: string } }[]) => {
+    return datas
+      .map(data => {
+        const styleText = Object.entries(data.style)
+          .map(([key, value]) => `  ${key}: ${value};`)
+          .join('\n');
+        return `${data.selector} {\n${styleText}\n}`;
+      })
+      .join('\n');
+  },
 };

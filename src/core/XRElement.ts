@@ -9,7 +9,48 @@ import { Compatibility } from '../Compatibility';
 
 const ComputedStylesFlagSym = Symbol('ComputedStylesFlagSym');
 
-export class XRElement<T = any> extends LitElement {
+export class XRThinElement extends LitElement {
+  /** @internal */
+  get _Cls() {
+    return this.constructor as any as typeof XRElement;
+  }
+
+  get displayText() {
+    return ElementUtil.displayText(this);
+  }
+
+  protected createRenderRoot() {
+    return this;
+  }
+
+  /** @internal */
+  emit<T extends keyof HTMLElementEventMap>(evType: T, detail: HTMLElementEventMap[T]['detail']) {
+    this.dispatchEvent(new CustomEvent(evType, { detail, bubbles: true }));
+  }
+
+  /** @internal */
+  render(): any {
+    return null;
+  }
+
+  toAttributeObject() {
+    return ElementUtil.toAttributeObject(this);
+  }
+
+  /** @override */
+  onAncestorCoordinate() {
+    // 遍历 children 的 onAncestorCoordinate 方法
+    for (let i = 0; i < this.children.length; i++) {
+      const child = this.children[i];
+
+      if (child instanceof XRThinElement) {
+        child.onAncestorCoordinate();
+      }
+    }
+  }
+}
+
+export class XRElement<T = any> extends XRThinElement {
   readonly logger = DefaultBizLogger.extend(this.tagName.toLowerCase());
 
   @state()
@@ -74,19 +115,6 @@ export class XRElement<T = any> extends LitElement {
     });
   }
 
-  /** @internal */
-  get _Cls() {
-    return this.constructor as any as typeof XRElement;
-  }
-
-  get displayText() {
-    return ElementUtil.displayText(this);
-  }
-
-  protected createRenderRoot() {
-    return this;
-  }
-
   checkComputedStyles(_syncProperty?: boolean) {
     if (!this._styled) return;
 
@@ -140,23 +168,6 @@ export class XRElement<T = any> extends LitElement {
   convertPropertyValue(key: string, value: string) {
     const _def = this._Cls.elementProperties.get(key) as any;
     return _def.converter ? _def.converter.fromAttribute(value) : _def.type ? _def.type(value) : value;
-  }
-
-  /** @internal */
-  emit<T extends keyof HTMLElementEventMap>(evType: T, detail: HTMLElementEventMap[T]['detail']) {
-    this.dispatchEvent(new CustomEvent(evType, { detail, bubbles: true }));
-  }
-
-  /** @override */
-  onAncestorCoordinate() {
-    // 遍历 children 的 onAncestorCoordinate 方法
-    for (let i = 0; i < this.children.length; i++) {
-      const child = this.children[i];
-
-      if (child instanceof XRElement) {
-        child.onAncestorCoordinate();
-      }
-    }
   }
 
   /** @internal */
@@ -265,13 +276,4 @@ export class XRElement<T = any> extends LitElement {
    * @internal
    * @override 从文档 DOM 中删除 */
   disconnected() {}
-
-  /** @internal */
-  render(): any {
-    return null;
-  }
-
-  toAttributeObject() {
-    return ElementUtil.toAttributeObject(this);
-  }
 }

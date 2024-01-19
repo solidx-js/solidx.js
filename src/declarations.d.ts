@@ -1,5 +1,6 @@
 import type { AssetContainer, UtilityLayerRenderer, AbstractMesh } from '@babylonjs/core';
 import { IDataType, IDataTypeMap } from './util/Schema';
+import type { XRElement } from './core/XRElement';
 
 declare module '@babylonjs/core/Engines/engine' {
   interface Engine {
@@ -12,6 +13,8 @@ declare module '@babylonjs/core/scene' {
     loadModel(url: string, forceExt?: string): Promise<AssetContainer>;
     defaultUtilityLayer: UtilityLayerRenderer;
     defaultUtilityLayerWithEvents: UtilityLayerRenderer;
+
+    bindingElement: XRElement;
   }
 }
 

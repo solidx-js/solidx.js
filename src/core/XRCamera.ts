@@ -2,8 +2,9 @@ import { Decorator } from './Decorator';
 import { ArcRotateCamera } from '@babylonjs/core/Cameras/arcRotateCamera';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { XRSceneScopeElement } from './XRSceneScopeElement';
-import { ElementRegistry } from '../registry';
+import { registerElement } from '../registry';
 
+@registerElement('xr-camera')
 export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
   @Decorator.property('Number', 'alpha', -90)
   alpha: number | null = null;
@@ -54,4 +55,3 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
     this.entity = null;
   }
 }
-ElementRegistry.Instance.register('xr-camera', XRCamera as any);

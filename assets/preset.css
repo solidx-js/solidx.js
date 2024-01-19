@@ -56,6 +56,77 @@ xr-scene {
   ---exposure: 1.2;
 }
 
+xr-glow {
+  ---intensity: 1;
+}
+
+xr-pipeline-ssao2 {
+
+}
+
+xr-volumetric-light {
+
+}
+
+xr-background-material {
+  ---alpha: 1;
+  ---alpha-mode: 2;
+}
+
+xr-grid-material {
+  ---alpha: 1;
+  ---alpha-mode: 2;
+  ---main-color: #FFFFFF;
+  ---line-color: #000000;
+  ---grid-ratio: 1;
+  ---major-unit-frequency: 10;
+  ---minor-unit-visible: 0.5;
+  ---opacity: 0.99;
+}
+
+xr-material {
+  ---alpha: 1;
+  ---alpha-mode: 2;
+  ---transparency-mode: 2;
+  ---albedo-color: #FFFFFF;
+  ---metallic: 0.2;
+  ---roughness: 0.8;
+  ---ambient-texture-strength: 1;
+  ---reflection-color: #FFFFFF;
+  ---micro-surface: 1;
+  ---use-alpha-from-albedo-texture: true;
+  ---use-specular-over-alpha: true;
+  ---use-radiance-over-alpha: true;
+}
+
+xr-line {
+  ---scale: 1 1 1;
+}
+
+xr-mesh {
+  ---scale: 1 1 1;
+  ---edges-width: 1;
+  ---edges-color: #FF0000FF;
+}
+
+xr-cube-texture {
+
+}
+
+xr-texture {
+  ---level: 1;
+  ---u-scale: 1;
+  ---v-scale: 1;
+}
+
+xr-node {
+  ---scale: 1 1 1;
+}
+
+xr-model {
+  ---scale: 1 1 1;
+}
+
 xr-directional-light {
   ---diffuse: #FFFFFF;
   ---intensity: 1;
@@ -99,78 +170,15 @@ xr-ray {
   ---length: 1;
 }
 
-xr-line {
-  ---scale: 1 1 1;
-}
-
-xr-mesh {
-  ---scale: 1 1 1;
-  ---edges-width: 1;
-  ---edges-color: #FF0000FF;
-}
-
-xr-background-material {
-  ---alpha: 1;
-  ---alpha-mode: 2;
-}
-
-xr-grid-material {
-  ---alpha: 1;
-  ---alpha-mode: 2;
-  ---main-color: #FFFFFF;
-  ---line-color: #000000;
-  ---grid-ratio: 1;
-  ---major-unit-frequency: 10;
-  ---minor-unit-visible: 0.5;
-  ---opacity: 0.99;
-}
-
-xr-material {
-  ---alpha: 1;
-  ---alpha-mode: 2;
-  ---transparency-mode: 2;
-  ---albedo-color: #FFFFFF;
-  ---metallic: 0.2;
-  ---roughness: 0.8;
-  ---ambient-texture-strength: 1;
-  ---reflection-color: #FFFFFF;
-  ---micro-surface: 1;
-  ---use-alpha-from-albedo-texture: true;
-  ---use-specular-over-alpha: true;
-  ---use-radiance-over-alpha: true;
-}
-
-xr-cube-texture {
-
-}
-
-xr-texture {
-  ---level: 1;
-  ---u-scale: 1;
-  ---v-scale: 1;
-}
-
-xr-node {
-  ---scale: 1 1 1;
-}
-
-xr-model {
-  ---scale: 1 1 1;
-}
-
-xr-glow {
-  ---intensity: 1;
-}
-
-xr-pipeline-ssao2 {
-
-}
-
-xr-volumetric-light {
-
-}
-
 xr-loading {
+
+}
+
+xr-performance-monitor {
+
+}
+
+xr-editor {
 
 }
 
@@ -295,168 +303,55 @@ xr-world-axis {
   initial-value: 0;
 }
 
-@property ---diffuse {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #000000;
-}
-
 @property ---intensity {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
 }
 
-@property ---shadow-caster {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---shadow-caster-filtering-quality {
+@property ---samples {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
 }
 
-@property ---shadow-caster-bias {
+@property ---total-strength {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
 }
 
-@property ---shadow-caster-normal-bias {
+@property ---camera {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---source {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---excluded {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---decay {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
 }
 
-@property ---ground-color {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #000000;
-}
-
-@property ---position {
+@property ---weight {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
 }
 
-@property ---rotation {
+@property ---density {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
-}
-
-@property ---quaternion {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---scale {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---layer {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---img {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---img-level {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---use-ray {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---ray-scope {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---enable-position {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---enable-rotation {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---enable-scale {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---target {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---length {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---points {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---colors {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---disable-pointer-event {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---geometry {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---material {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---entity-delegated {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---enable-edges {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---edges-width {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---edges-color {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #000000;
 }
 
 @property ---backface-culling {
@@ -490,6 +385,11 @@ xr-world-axis {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
+}
+
+@property ---entity-delegated {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---use-rgb-color {
@@ -789,6 +689,82 @@ xr-world-axis {
   initial-value: 0;
 }
 
+@property ---position {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---rotation {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---points {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---colors {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---disable-pointer-event {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---layer {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---quaternion {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---scale {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---geometry {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---material {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-edges {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---edges-width {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---edges-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
+@property ---enable-outline {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---has-alpha {
   syntax: "*";
   inherits: false;
@@ -904,46 +880,83 @@ xr-world-axis {
   inherits: false;
 }
 
-@property ---samples {
-  syntax: "<number>+";
+@property ---diffuse {
+  syntax: "<color>";
   inherits: false;
-  initial-value: 0;
+  initial-value: #000000;
 }
 
-@property ---total-strength {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---camera {
+@property ---shadow-caster {
   syntax: "*";
   inherits: false;
 }
 
-@property ---source {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---excluded {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---decay {
+@property ---shadow-caster-filtering-quality {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
 }
 
-@property ---weight {
+@property ---shadow-caster-bias {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
 }
 
-@property ---density {
+@property ---shadow-caster-normal-bias {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---ground-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
+@property ---img {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---img-level {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---use-ray {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---ray-scope {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-position {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-rotation {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-scale {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---target {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---length {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;

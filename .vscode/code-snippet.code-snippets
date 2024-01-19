@@ -2,9 +2,11 @@
   "export XRElement": {
     "prefix": "ele",
     "body": [
+      "import { registerElement } from '../../registry';",
       "import { XRSceneScopeElement } from '../XRSceneScopeElement';",
       "",
-      "export class ${TM_FILENAME_BASE} extends XRSceneScopeElement<$1> {",
+      "@registerElement('$1')"
+      "export class ${TM_FILENAME_BASE} extends XRSceneScopeElement<$2> {",
       "  connected(): void {",
       "    super.connected();",
       "  }",
