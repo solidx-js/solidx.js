@@ -369,14 +369,7 @@ export class XRGuiURIInput extends XRThinElement {
           ev.stopPropagation();
           const _name = (ev.target as HTMLSelectElement).value;
           const _data = preset[_name];
-          const _newUri: IDataTypeMap['URI'] = {
-            protocol: _data.protocol,
-            host: _data.host,
-            pathname: _data.pathname || '',
-            search: '',
-            query: {},
-          };
-
+          const _newUri = URIUtil.parse(URIUtil.stringify({ protocol: _data.protocol, host: _data.host, pathname: _data.pathname }));
           this.emit('change', { value: _newUri });
         }}
       >
@@ -402,7 +395,7 @@ export class XRGuiURIInput extends XRThinElement {
                         const _uri = this.value;
                         if (!_uri) return;
 
-                        const _newUri: IDataTypeMap['URI'] = { ..._uri, query: { ..._uri.query, [prop]: newValue } };
+                        const _newUri = URIUtil.parse(URIUtil.stringify({ ..._uri, href: '', query: { ..._uri.query, [prop]: newValue } }));
                         this.emit('change', { value: _newUri });
                       })}
                     </div>
