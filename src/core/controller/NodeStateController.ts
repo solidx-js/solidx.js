@@ -3,26 +3,24 @@ import { XRElement } from '../XRElement';
 import { Node } from '@babylonjs/core/node';
 
 export class NodeStateController implements ReactiveController {
-  private _lastDisabled = this.host.disabled;
-
   constructor(private host: XRElement) {
     this.host.addController(this);
   }
 
-  reload(force?: boolean) {
+  private reload() {
     if (!(this.host.entity instanceof Node)) return;
 
-    const dirty = this._lastDisabled !== this.host.disabled || force;
-    if (!dirty) return;
-
     const entity = this.host.entity;
+    const changed = this.host.changed;
 
-    entity.setEnabled(!this.host.disabled);
+    if (changed.has('disabled')) {
+      entity.setEnabled(!this.host.evaluated.disabled);
+    }
   }
 
-  hostConnected() {
-    this.reload();
-  }
+  // hostConnected() {
+  //   this.reload();
+  // }
 
   hostUpdate(): void {
     this.reload();
