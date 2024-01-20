@@ -1,6 +1,5 @@
 import { Scene } from '@babylonjs/core/scene';
 import { XRElement } from './XRElement';
-import { state } from 'lit/decorators.js';
 import { provide } from '@lit/context';
 import { Context } from './Context';
 import { Engine } from '@babylonjs/core/Engines/engine';
@@ -8,7 +7,7 @@ import { Decorator } from './Decorator';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
 import { EntityQueryController } from './controller';
 import { CubeTexture } from '@babylonjs/core/Materials/Textures/cubeTexture';
-import { ElementUtil, randomID } from '../util';
+import { randomID } from '../util';
 import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { AssetsURLs } from '../AssetsURLs';
 import { ElementRegistry } from '../registry';
@@ -39,28 +38,28 @@ export class XRScene extends XRElement {
   @provide({ context: Context.Scene })
   scene: Scene = null as any;
 
-  @Decorator.property('Color4', 'background', new Color4(1, 1, 1, 0))
+  @Decorator.property('Color4', 'background', new Color4(1, 1, 1, 1))
   background: Color4 | null = null;
 
   @Decorator.property('String', 'env-url', null)
   envUrl: string | null = null;
 
-  @Decorator.property('Number', 'env-rotation-y', null)
+  @Decorator.property('Number', 'env-rotation-y', null, { min: 0, max: 360, step: 1 })
   envRotationY: number | null = null;
 
-  @Decorator.property('Number', 'env-intensity', null)
+  @Decorator.property('Number', 'env-intensity', 1, { min: 0, max: 10, step: 0.1 })
   envIntensity: number | null = null;
 
-  @Decorator.property('Number', 'contrast', 1.2)
+  @Decorator.property('Number', 'contrast', 1.2, { min: 0.1, max: 10, step: 0.1 })
   contrast: number | null = null;
 
-  @Decorator.property('Number', 'exposure', 1.2)
+  @Decorator.property('Number', 'exposure', 1.2, { min: 0.1, max: 10, step: 0.1 })
   exposure: number | null = null;
 
-  @Decorator.property('Number', 'hardware-scaling-level', null)
+  @Decorator.property('Number', 'hardware-scaling-level', null, { hidden: true })
   hardwareScalingLevel: number | null = null;
 
-  @Decorator.property('Number', 'render-delay', null)
+  @Decorator.property('Number', 'render-delay', null, { hidden: true })
   renderDelay: number | null = null;
 
   private _container: HTMLDivElement | null = null;
@@ -163,8 +162,8 @@ export class XRScene extends XRElement {
       this.scene.environmentTexture.rotationY = (this.evaluated.envRotationY || 0) * (Math.PI / 180);
     }
 
-    if (changed.has('envIntensity')) {
-      this.scene.environmentIntensity = this.evaluated.envIntensity || 1;
+    if (changed.has('envIntensity') && this.evaluated.envIntensity !== null) {
+      this.scene.environmentIntensity = this.evaluated.envIntensity;
     }
 
     if (changed.has('background') && this._container) {

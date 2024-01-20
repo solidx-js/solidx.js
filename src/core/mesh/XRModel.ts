@@ -2,7 +2,7 @@ import { Decorator } from '../Decorator';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
 import type { AssetContainer } from '@babylonjs/core/assetContainer';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
-import { ElementUtil, Schema, randomID } from '../../util';
+import { ElementUtil, IDataTypeMap, Schema, randomID } from '../../util';
 import { TagRefController, TransformLikeController } from '../controller';
 import { Matrix, Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { provide } from '@lit/context';
@@ -21,7 +21,7 @@ import { XRTexture } from '../texture';
 import { XRMesh } from './XRMesh';
 import { XRNode } from './XRNode';
 import { Compatibility } from '../../Compatibility';
-import { ElementRegistry } from '../../registry';
+import { ElementRegistry, PrimitiveMap } from '../../registry';
 
 export class XRModel extends XRSceneScopeElement<TransformNode> implements ITransformNodeLikeImpl {
   @provide({ context: Context.AssetContainer })
@@ -52,8 +52,8 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @Decorator.property('String', 'extension', null)
   extension: string | null = null;
 
-  @Decorator.property('String', 'material', null)
-  material: string | null = null;
+  @Decorator.property('URI', 'material', null)
+  material: IDataTypeMap['URI'] | null = null;
 
   @Decorator.property('Boolean', 'auto-play', null)
   autoPlay: boolean | null = null;
@@ -96,7 +96,7 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
     super();
 
     new TransformLikeController(this);
-    new TagRefController(this, 'material', '_material', 'xr-material');
+    new TagRefController(this, 'material', '_material', PrimitiveMap.material);
   }
 
   connected(): void {

@@ -51,7 +51,8 @@ xr-camera {
 }
 
 xr-scene {
-  ---background: #FFFFFF00;
+  ---background: #FFFFFFFF;
+  ---env-intensity: 1;
   ---contrast: 1.2;
   ---exposure: 1.2;
 }
@@ -174,11 +175,15 @@ xr-loading {
 
 }
 
+xr-editor {
+
+}
+
 xr-performance-monitor {
 
 }
 
-xr-editor {
+xr-gui {
 
 }
 
@@ -765,6 +770,11 @@ xr-world-axis {
   inherits: false;
 }
 
+@property ---flat-shading {
+  syntax: "*";
+  inherits: false;
+}
+
 @property ---has-alpha {
   syntax: "*";
   inherits: false;
@@ -856,11 +866,6 @@ xr-world-axis {
 }
 
 @property ---loop {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---flat-shading {
   syntax: "*";
   inherits: false;
 }

@@ -2,6 +2,7 @@ import { consume } from '@lit/context';
 import { property } from 'lit/decorators.js';
 import { Context } from './Context';
 import { IDataType, IDataTypeMap, Schema, typedClone } from '../util';
+import { PropertyDeclaration } from 'lit';
 
 export const Decorator = {
   scene: () => {
@@ -12,8 +13,9 @@ export const Decorator = {
     return consume({ context: Context.AssetContainer, subscribe: true });
   },
 
-  property: <T extends IDataType>(dType: T, attribute: string, initValue: IDataTypeMap[T] | null) => {
+  property: <T extends IDataType>(dType: T, attribute: string, initValue: IDataTypeMap[T] | null, extra?: PropertyDeclaration['extra']) => {
     return property({
+      extra,
       dType,
       initValue: typedClone(initValue),
       attribute,

@@ -1,22 +1,24 @@
 import { ReactiveController } from 'lit';
-import { XRElement } from '../XRElement';
-import { Schema, typedClone } from '../../util';
+import { XRElement, XRThinElement } from '../XRElement';
+import { IDataTypeMap, Schema, typedClone } from '../../util';
 import { ElementRegistry } from '../../registry';
 import difference from 'lodash/difference';
 import { XRScene } from '../XRScene';
+import { Scene } from '@babylonjs/core/scene';
+import { DefaultBizLogger } from '../../BizLogger';
 
 export class TagRefController<T extends HTMLElement, A extends string, B extends string> implements ReactiveController {
   private _ab: AbortController | null = null;
-  private _selfHostElement: XRElement | null = null;
-  private _lastIncomeData: Record<string, any> | null = null;
+  private _selfHostElement: XRThinElement | null = null;
+  private _lastIncomeData: Record<string, string> | null = null;
 
   private _sceneEle: XRScene | null = null;
 
   constructor(
-    private host: XRElement & { [key in A]?: string | null } & { [key in B]: T | null },
-    private selectorProp: A,
+    private host: XRThinElement & { scene: Scene } & { [key in A]?: IDataTypeMap['URI'] | null } & { [key in B]: T | null },
+    private uriProp: A,
     private targetProp: B,
-    private fallbackTagName: string | null
+    private primitiveTagMapper: Record<string, string> | null
   ) {
     this.host.addController(this as any);
   }
@@ -27,27 +29,25 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
   };
 
   hostConnected(): void {
-    this._sceneEle = this.host.closest('xr-scene');
+    this._sceneEle = this.host.scene.bindingElement as XRScene;
   }
 
   hostUpdated(): void {
     if (!this._sceneEle) return;
 
-    if (this.host.changed.has(this.selectorProp)) {
-      const selector = this.host.evaluated[this.selectorProp] as string | null;
+    if (this.host.changed.has(this.uriProp)) {
+      const uri = this.host.evaluated[this.uriProp] as IDataTypeMap['URI'] | null;
 
-      if (typeof selector === 'string') {
-        // object 格式
-        if ((selector.startsWith('?') || selector.match(/^[\w-_]+\?/)) && this.fallbackTagName) {
-          let [_tagName, _query] = selector.split('?');
+      if (uri) {
+        // primitive: 协议
+        if (uri.protocol === 'primitive:' && this.primitiveTagMapper) {
+          const _tagName = this.primitiveTagMapper[uri.host];
+          if (!_tagName) throw new Error(`TagRefController: unknown primitive tag ${uri.host}`);
 
-          _tagName = _tagName.trim() || this.fallbackTagName;
-          _query = _query.trim();
-
-          const _inData = Schema.fromAttr('Object', _query);
+          const _inData = uri.query;
           const Cls = ElementRegistry.Instance.get(_tagName);
 
-          if (_inData && Cls && Cls) {
+          if (_inData && Cls) {
             // 检查是否需要重新创建元素: tag 名字不一样
             if (this._selfHostElement && this._selfHostElement.tagName.toLowerCase() !== _tagName.toLowerCase()) {
               this._selfHostElement.remove();
@@ -68,7 +68,7 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
               this.host.appendChild(_ele);
 
               if (!_ele.entity) {
-                this.host.logger.warn('TagRefController: entity is null when ref is object. tag=%s', _ele.tagName.toLowerCase());
+                throw new Error(`TagRefController: entity is null when ref is object. tag=${_ele.tagName.toLowerCase()}`);
               }
 
               this._setTarget(_ele as any);
@@ -99,8 +99,8 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
           }
         }
 
-        // 普通 string 格式
-        else {
+        // 没有协议
+        else if (!uri.protocol) {
           if (this._ab) this._ab.abort();
           this._ab = new AbortController();
 
@@ -109,11 +109,17 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
             this._selfHostElement = null;
           }
 
+          const selector = uri.query.selector || uri.href;
           this._sceneEle.querier.queryWatch<T>(selector, this._ab.signal, this._setTarget, this.host.displayText);
+        }
+
+        //
+        else {
+          DefaultBizLogger.warn(`TagRefController: unknown protocol ${uri.protocol}`);
         }
       }
 
-      // 没有 selector, 清空
+      // 没有 url, 清空
       else {
         this._setTarget(null);
 

@@ -12,6 +12,7 @@ import { ScaleGizmo } from '@babylonjs/core/Gizmos/scaleGizmo';
 import { ITransformNodeLikeImpl } from '../impl';
 import { XRElement } from '../XRElement';
 import { registerElement } from '../../registry';
+import { IDataTypeMap } from '../../util';
 
 type IDragStartInfo = {
   type: 'position' | 'rotation' | 'scale';
@@ -33,8 +34,8 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
   @Decorator.property('Boolean', 'enable-scale', null)
   enableScale: boolean | null = null;
 
-  @Decorator.property('String', 'target', null)
-  target: string | null = null;
+  @Decorator.property('URI', 'target', null)
+  target: IDataTypeMap['URI'] | null = null;
 
   @state()
   private _dragStartInfo: IDragStartInfo | null = null;

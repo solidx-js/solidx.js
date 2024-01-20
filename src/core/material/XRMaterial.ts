@@ -6,28 +6,29 @@ import { state } from 'lit/decorators.js';
 import { XRBaseMaterial } from './XRBaseMaterial';
 import { IMaterialImpl, ITextureImpl } from '../impl';
 import { Tags } from '@babylonjs/core/Misc/tags';
-import { ElementRegistry } from '../../registry';
+import { ElementRegistry, PrimitiveMap, registerElement } from '../../registry';
+import { IDataTypeMap, URIUtil } from '../../util';
 
 export type IXRMaterialProps = IMaterialImpl & {
   albedoColor: Color3 | null;
-  albedoTexture: string | null;
+  albedoTexture: IDataTypeMap['URI'] | null;
   transparencyMode: number | null;
   metallic: number | null;
   roughness: number | null;
   emissiveColor: Color3 | null;
   unlit: boolean | null;
   emissiveIntensity: number | null;
-  ambientTexture: string | null;
+  ambientTexture: IDataTypeMap['URI'] | null;
   ambientTextureStrength: number | null;
-  opacityTexture: string | null;
-  reflectionTexture: string | null;
-  reflectivityTexture: string | null;
-  metallicTexture: string | null;
-  reflectanceTexture: string | null;
-  microSurfaceTexture: string | null;
-  bumpTexture: string | null;
-  lightmapTexture: string | null;
-  refractionTexture: string | null;
+  opacityTexture: IDataTypeMap['URI'] | null;
+  reflectionTexture: IDataTypeMap['URI'] | null;
+  reflectivityTexture: IDataTypeMap['URI'] | null;
+  metallicTexture: IDataTypeMap['URI'] | null;
+  reflectanceTexture: IDataTypeMap['URI'] | null;
+  microSurfaceTexture: IDataTypeMap['URI'] | null;
+  bumpTexture: IDataTypeMap['URI'] | null;
+  lightmapTexture: IDataTypeMap['URI'] | null;
+  refractionTexture: IDataTypeMap['URI'] | null;
   ambientColor: Color3 | null;
   reflectivityColor: Color3 | null;
   reflectionColor: Color3 | null;
@@ -106,6 +107,7 @@ const _TextureProperties = [
   'refractionTexture',
 ] as const;
 
+@registerElement('xr-material')
 export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMaterialProps {
   static getPropsFrom(mat: PBRMaterial) {
     const props: IXRMaterialProps = {
@@ -120,23 +122,23 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
       wireframe: mat.wireframe,
       zOffset: mat.zOffset,
       albedoColor: mat.albedoColor.toGammaSpace(),
-      albedoTexture: mat.albedoTexture ? `[entity-id="${mat.albedoTexture.ID}"]` : null,
+      albedoTexture: mat.albedoTexture ? URIUtil.parse(`[entity-id="${mat.albedoTexture.ID}"]`) : null,
       metallic: mat.metallic,
       roughness: mat.roughness,
       emissiveColor: mat.emissiveColor.toGammaSpace(),
       emissiveIntensity: mat.emissiveIntensity,
       unlit: mat.unlit,
-      ambientTexture: mat.ambientTexture ? `[entity-id="${mat.ambientTexture.ID}"]` : null,
+      ambientTexture: mat.ambientTexture ? URIUtil.parse(`[entity-id="${mat.ambientTexture.ID}"]`) : null,
       ambientTextureStrength: mat.ambientTextureStrength,
-      opacityTexture: mat.opacityTexture ? `[entity-id="${mat.opacityTexture.ID}"]` : null,
-      reflectionTexture: mat.reflectionTexture ? `[entity-id="${mat.reflectionTexture.ID}"]` : null,
-      reflectivityTexture: mat.reflectivityTexture ? `[entity-id="${mat.reflectivityTexture.ID}"]` : null,
-      metallicTexture: mat.metallicTexture ? `[entity-id="${mat.metallicTexture.ID}"]` : null,
-      reflectanceTexture: mat.reflectanceTexture ? `[entity-id="${mat.reflectanceTexture.ID}"]` : null,
-      microSurfaceTexture: mat.microSurfaceTexture ? `[entity-id="${mat.microSurfaceTexture.ID}"]` : null,
-      bumpTexture: mat.bumpTexture ? `[entity-id="${mat.bumpTexture.ID}"]` : null,
-      lightmapTexture: mat.lightmapTexture ? `[entity-id="${mat.lightmapTexture.ID}"]` : null,
-      refractionTexture: mat.refractionTexture ? `[entity-id="${mat.refractionTexture.ID}"]` : null,
+      opacityTexture: mat.opacityTexture ? URIUtil.parse(`[entity-id="${mat.opacityTexture.ID}"]`) : null,
+      reflectionTexture: mat.reflectionTexture ? URIUtil.parse(`[entity-id="${mat.reflectionTexture.ID}"]`) : null,
+      reflectivityTexture: mat.reflectivityTexture ? URIUtil.parse(`[entity-id="${mat.reflectivityTexture.ID}"]`) : null,
+      metallicTexture: mat.metallicTexture ? URIUtil.parse(`[entity-id="${mat.metallicTexture.ID}"]`) : null,
+      reflectanceTexture: mat.reflectanceTexture ? URIUtil.parse(`[entity-id="${mat.reflectanceTexture.ID}"]`) : null,
+      microSurfaceTexture: mat.microSurfaceTexture ? URIUtil.parse(`[entity-id="${mat.microSurfaceTexture.ID}"]`) : null,
+      bumpTexture: mat.bumpTexture ? URIUtil.parse(`[entity-id="${mat.bumpTexture.ID}"]`) : null,
+      lightmapTexture: mat.lightmapTexture ? URIUtil.parse(`[entity-id="${mat.lightmapTexture.ID}"]`) : null,
+      refractionTexture: mat.refractionTexture ? URIUtil.parse(`[entity-id="${mat.refractionTexture.ID}"]`) : null,
       ambientColor: mat.ambientColor.toGammaSpace(),
       reflectivityColor: mat.reflectivityColor.toGammaSpace(),
       reflectionColor: mat.reflectionColor.toGammaSpace(),
@@ -175,8 +177,8 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
   @Decorator.property('Color3', 'albedo-color', new Color3(1, 1, 1))
   albedoColor: Color3 | null = null;
 
-  @Decorator.property('String', 'albedo-texture', null)
-  albedoTexture: string | null = null;
+  @Decorator.property('URI', 'albedo-texture', null)
+  albedoTexture: IDataTypeMap['URI'] | null = null;
 
   @Decorator.property('Number', 'metallic', 0.2)
   metallic: number | null = null;
@@ -193,38 +195,38 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
   @Decorator.property('Boolean', 'unlit', null)
   unlit: boolean | null = null;
 
-  @Decorator.property('String', 'ambient-texture', null)
-  ambientTexture: string | null = null;
+  @Decorator.property('URI', 'ambient-texture', null)
+  ambientTexture: IDataTypeMap['URI'] | null = null;
 
   @Decorator.property('Number', 'ambient-texture-strength', 1)
   ambientTextureStrength: number | null = null;
 
-  @Decorator.property('String', 'opacity-texture', null)
-  opacityTexture: string | null = null;
+  @Decorator.property('URI', 'opacity-texture', null)
+  opacityTexture: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('String', 'reflection-texture', null)
-  reflectionTexture: string | null = null;
+  @Decorator.property('URI', 'reflection-texture', null)
+  reflectionTexture: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('String', 'reflectivity-texture', null)
-  reflectivityTexture: string | null = null;
+  @Decorator.property('URI', 'reflectivity-texture', null)
+  reflectivityTexture: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('String', 'metallic-texture', null)
-  metallicTexture: string | null = null;
+  @Decorator.property('URI', 'metallic-texture', null)
+  metallicTexture: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('String', 'reflectance-texture', null)
-  reflectanceTexture: string | null = null;
+  @Decorator.property('URI', 'reflectance-texture', null)
+  reflectanceTexture: IDataTypeMap['URI'] | null = null;
 
   @Decorator.property('String', 'micro-surface-texture', null)
-  microSurfaceTexture: string | null = null;
+  microSurfaceTexture: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('String', 'bump-texture', null)
-  bumpTexture: string | null = null;
+  @Decorator.property('URI', 'bump-texture', null)
+  bumpTexture: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('String', 'lightmap-texture', null)
-  lightmapTexture: string | null = null;
+  @Decorator.property('URI', 'lightmap-texture', null)
+  lightmapTexture: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('String', 'refraction-texture', null)
-  refractionTexture: string | null = null;
+  @Decorator.property('URI', 'refraction-texture', null)
+  refractionTexture: IDataTypeMap['URI'] | null = null;
 
   @Decorator.property('Color3', 'ambient-color', null)
   ambientColor: Color3 | null = null;
@@ -343,17 +345,17 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
   constructor() {
     super();
 
-    new TagRefController(this, 'albedoTexture', '_albedoTexture', 'xr-texture');
-    new TagRefController(this, 'ambientTexture', '_ambientTexture', 'xr-texture');
-    new TagRefController(this, 'opacityTexture', '_opacityTexture', 'xr-texture');
-    new TagRefController(this, 'reflectionTexture', '_reflectionTexture', 'xr-texture');
-    new TagRefController(this, 'reflectivityTexture', '_reflectivityTexture', 'xr-texture');
-    new TagRefController(this, 'metallicTexture', '_metallicTexture', 'xr-texture');
-    new TagRefController(this, 'reflectanceTexture', '_reflectanceTexture', 'xr-texture');
-    new TagRefController(this, 'microSurfaceTexture', '_microSurfaceTexture', 'xr-texture');
-    new TagRefController(this, 'bumpTexture', '_bumpTexture', 'xr-texture');
-    new TagRefController(this, 'lightmapTexture', '_lightmapTexture', 'xr-texture');
-    new TagRefController(this, 'refractionTexture', '_refractionTexture', 'xr-texture');
+    new TagRefController(this, 'albedoTexture', '_albedoTexture', PrimitiveMap.texture);
+    new TagRefController(this, 'ambientTexture', '_ambientTexture', PrimitiveMap.texture);
+    new TagRefController(this, 'opacityTexture', '_opacityTexture', PrimitiveMap.texture);
+    new TagRefController(this, 'reflectionTexture', '_reflectionTexture', PrimitiveMap.texture);
+    new TagRefController(this, 'reflectivityTexture', '_reflectivityTexture', PrimitiveMap.texture);
+    new TagRefController(this, 'metallicTexture', '_metallicTexture', PrimitiveMap.texture);
+    new TagRefController(this, 'reflectanceTexture', '_reflectanceTexture', PrimitiveMap.texture);
+    new TagRefController(this, 'microSurfaceTexture', '_microSurfaceTexture', PrimitiveMap.texture);
+    new TagRefController(this, 'bumpTexture', '_bumpTexture', PrimitiveMap.texture);
+    new TagRefController(this, 'lightmapTexture', '_lightmapTexture', PrimitiveMap.texture);
+    new TagRefController(this, 'refractionTexture', '_refractionTexture', PrimitiveMap.texture);
     new MaterialController(this);
   }
 
@@ -413,5 +415,3 @@ export class XRMaterial extends XRBaseMaterial<PBRMaterial> implements IXRMateri
     }
   }
 }
-
-ElementRegistry.Instance.register('xr-material', XRMaterial as any);

@@ -7,7 +7,7 @@ describe('xr-scene', () => {
       <div id="root" style="width: 100px; height: 50px;">
         <xr-scene background="#ff0000">
           <xr-camera radius="3"></xr-camera>
-          <xr-mesh geometry="?type=box"></xr-mesh>
+          <xr-mesh geometry="primitive://box"></xr-mesh>
         </xr-scene>
       </div>
     `);

@@ -9,10 +9,12 @@ export class EntityQueryController implements ReactiveController {
   hostConnected() {}
 
   query<T extends HTMLElement>(selector: string): T | null {
+    if (selector === 'xr-scene') return this.host as any;
     return this.host.querySelector(selector);
   }
 
   queryList<T extends HTMLElement>(selector: string): T[] {
+    if (selector === 'xr-scene') return [this.host as any];
     return Array.from(this.host.querySelectorAll(selector));
   }
 

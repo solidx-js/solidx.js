@@ -1,6 +1,6 @@
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { XRSceneScopeElement } from '../XRSceneScopeElement';
-import { ElementUtil, IDataType, Schema } from '../../util';
+import { ElementUtil, IDataType, IDataTypeMap, Schema, URIUtil } from '../../util';
 import { TagRefController, TransformLikeController } from '../controller';
 import { Decorator } from '../Decorator';
 import { Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
@@ -16,12 +16,12 @@ import { CreateTorusVertexData } from '@babylonjs/core/Meshes/Builders/torusBuil
 import { VertexData } from '@babylonjs/core/Meshes/mesh.vertexData';
 import camelCase from 'lodash/camelCase';
 import { Tags } from '@babylonjs/core/Misc/tags';
-import { ElementRegistry } from '../../registry';
+import { ElementRegistry, PrimitiveMap } from '../../registry';
 import { Color4 } from '@babylonjs/core/Maths/math.color';
 
 export type IXRMeshProps = ITransformNodeLikeImpl & {
-  geometry: Record<string, IDataType> | null;
-  material: string | null;
+  geometry: IDataTypeMap['URI'] | null;
+  material: IDataTypeMap['URI'] | null;
 
   // 边缘渲染
   enableEdges: boolean | null;
@@ -43,7 +43,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
       layer: mesh.renderingGroupId,
       entityDelegated: null,
       geometry: null,
-      material: mesh.material ? `[entity-id="${mesh.material.ID}"]` : null,
+      material: mesh.material ? URIUtil.parse(`link://tag?selector=[entity-id="${mesh.material.ID}"]`) : null,
       enableEdges: !!mesh._edgesRenderer,
       edgesWidth: mesh.edgesWidth ?? null,
       edgesColor: mesh.edgesColor ?? null,
@@ -53,11 +53,76 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
     return props;
   }
 
-  @Decorator.property('Object', 'geometry', null)
-  geometry: Record<string, IDataType> | null = null;
+  @Decorator.property('URI', 'geometry', null, {
+    uriPreset: {
+      box: {
+        protocol: 'primitive:',
+        host: 'box',
+        query: {
+          size: { dType: 'Number', min: 0, step: 0.1 },
+          width: { dType: 'Number', min: 0, step: 0.1 },
+          height: { dType: 'Number', min: 0, step: 0.1 },
+          depth: { dType: 'Number', min: 0, step: 0.1 },
+        },
+      },
+      sphere: {
+        protocol: 'primitive:',
+        host: 'sphere',
+        query: {
+          diameter: { dType: 'Number', min: 0, step: 0.1 },
+          'diameter-x': { dType: 'Number', min: 0, step: 0.1 },
+          'diameter-y': { dType: 'Number', min: 0, step: 0.1 },
+          'diameter-z': { dType: 'Number', min: 0, step: 0.1 },
+          arc: { dType: 'Number', min: 0, max: 1, step: 0.01 },
+          slice: { dType: 'Number', min: 0, max: 1, step: 0.01 },
+        },
+      },
+      disc: {
+        protocol: 'primitive:',
+        host: 'disc',
+        query: {
+          radius: { dType: 'Number', min: 0, step: 0.1 },
+          tessellation: { dType: 'Number', min: 0, step: 1 },
+        },
+      },
+      cylinder: {
+        protocol: 'primitive:',
+        host: 'cylinder',
+        query: {
+          height: { dType: 'Number', min: 0, step: 0.1 },
+          'diameter-top': { dType: 'Number', min: 0, step: 0.1 },
+          'diameter-bottom': { dType: 'Number', min: 0, step: 0.1 },
+          tessellation: { dType: 'Number', min: 0, step: 1 },
+          subdivisions: { dType: 'Number', min: 0, step: 1 },
+          'has-rings': { dType: 'Boolean' },
+          enclose: { dType: 'Boolean' },
+          cap: { dType: 'Number', enums: [Mesh.NO_CAP, Mesh.CAP_START, Mesh.CAP_END, Mesh.CAP_ALL] },
+        },
+      },
+      plane: {
+        protocol: 'primitive:',
+        host: 'plane',
+        query: {
+          size: { dType: 'Number', min: 0, step: 0.1 },
+          width: { dType: 'Number', min: 0, step: 0.1 },
+          height: { dType: 'Number', min: 0, step: 0.1 },
+        },
+      },
+      torus: {
+        protocol: 'primitive:',
+        host: 'torus',
+        query: {
+          diameter: { dType: 'Number', min: 0, step: 0.1 },
+          thickness: { dType: 'Number', min: 0, step: 0.1 },
+          tessellation: { dType: 'Number', min: 0, step: 1 },
+        },
+      },
+    },
+  })
+  geometry: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('String', 'material', null)
-  material: string | null = null;
+  @Decorator.property('URI', 'material', null)
+  material: IDataTypeMap['URI'] | null = null;
 
   @Decorator.property('Vector3', 'position', null)
   position: Vector3 | null = null;
@@ -71,13 +136,13 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
   @Decorator.property('Vector3', 'scale', Vector3.One())
   scale: Vector3 | null = null;
 
-  @Decorator.property('Boolean', 'disable-pointer-event', null)
+  @Decorator.property('Boolean', 'disable-pointer-event', null, { hidden: true })
   disablePointerEvent: boolean | null = null;
 
   @Decorator.property('Number', 'layer', null)
   layer: number | null = null;
 
-  @Decorator.property('Boolean', 'entity-delegated', null)
+  @Decorator.property('Boolean', 'entity-delegated', null, { hidden: true })
   entityDelegated: boolean | null = null;
 
   @Decorator.property('Boolean', 'enable-edges', null)
@@ -92,6 +157,9 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
   @Decorator.property('Boolean', 'enable-outline', null)
   enableOutline: boolean | null = null;
 
+  @Decorator.property('Boolean', 'flat-shading', null)
+  flatShading: boolean | null = null;
+
   @state()
   _material: (HTMLElement & IMaterialImpl) | null = null;
 
@@ -99,7 +167,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
     super();
 
     new TransformLikeController(this);
-    new TagRefController(this, 'material', '_material', 'xr-material');
+    new TagRefController(this, 'material', '_material', PrimitiveMap.material);
   }
 
   connected(): void {
@@ -134,10 +202,16 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
 
     if (!this.entity) return;
 
-    if (changed.has('geometry') && this.evaluated.geometry) {
+    let isVertexDirty = false;
+
+    if ((changed.has('geometry') || changed.has('flatShading')) && this.evaluated.geometry) {
       const _vertexData = getVertexDataFromGeometryArg(this.evaluated.geometry, true);
       if (_vertexData) {
         _vertexData.applyToMesh(this.entity);
+        isVertexDirty = true;
+
+        // flat shading
+        if (this.evaluated.flatShading) this.entity.convertToFlatShadedMesh();
       }
     }
 
@@ -149,9 +223,13 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
       this.entity.isPickable = !this.disablePointerEvent;
     }
 
-    if (changed.has('enableEdges')) {
-      if (this.evaluated.enableEdges) this.entity.enableEdgesRendering();
-      else this.entity.disableEdgesRendering();
+    if (changed.has('enableEdges') || isVertexDirty) {
+      if (this.evaluated.enableEdges) {
+        if (isVertexDirty) this.entity.disableEdgesRendering();
+        this.entity.enableEdgesRendering();
+      } else {
+        this.entity.disableEdgesRendering();
+      }
     }
 
     if (changed.has('edgesWidth') && this.evaluated.edgesWidth !== null) this.entity.edgesWidth = this.evaluated.edgesWidth;
@@ -165,15 +243,15 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
 
 ElementRegistry.Instance.register('xr-mesh', XRMesh as any);
 
-function getVertexDataFromGeometryArg(arg: Record<string, IDataType>, useCamelCase = false): VertexData | null {
-  if (!arg.type) return null;
+function getVertexDataFromGeometryArg(uri: IDataTypeMap['URI'], useCamelCase = false): VertexData | null {
+  const type = uri.query.type || uri.host; // query.type 是为了兼容旧版本
 
-  const geoDef = GEO_DEFS[arg.type];
+  const geoDef = GEO_DEFS[type];
   if (!geoDef) return null;
 
   const _vertArgs: any = {};
 
-  for (let [_key, _value] of Object.entries(arg)) {
+  for (let [_key, _value] of Object.entries(uri.query)) {
     if (_key === 'type') continue; // type is not a prop
 
     if (useCamelCase) _key = camelCase(_key);

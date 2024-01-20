@@ -6,19 +6,19 @@ import { registerElement } from '../registry';
 
 @registerElement('xr-camera')
 export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
-  @Decorator.property('Number', 'alpha', -90)
+  @Decorator.property('Number', 'alpha', -90, { min: 0, max: 360, step: 1 })
   alpha: number | null = null;
 
-  @Decorator.property('Number', 'beta', 90)
+  @Decorator.property('Number', 'beta', 90, { min: 0, max: 180, step: 1 })
   beta: number | null = null;
 
-  @Decorator.property('Number', 'radius', 10)
+  @Decorator.property('Number', 'radius', 10, { min: 0 })
   radius: number | null = null;
 
   @Decorator.property('Vector3', 'locked-target', Vector3.Zero())
   lockedTarget: Vector3 | null = null;
 
-  @Decorator.property('Number', 'min-z', 0.1)
+  @Decorator.property('Number', 'min-z', 0.1, { min: 0 })
   minZ: number | null = null;
 
   @Decorator.property('Number', 'max-z', 100)

@@ -11,6 +11,9 @@ const ComputedStylesFlagSym = Symbol('ComputedStylesFlagSym');
 
 export class XRThinElement extends LitElement {
   /** @internal */
+  readonly changed = new Map<string, any>();
+
+  /** @internal */
   get _Cls() {
     return this.constructor as any as typeof XRElement;
   }
@@ -19,8 +22,49 @@ export class XRThinElement extends LitElement {
     return ElementUtil.displayText(this);
   }
 
+  // 求解后的属性
+  readonly evaluated = new Proxy<PickStringKey<this>>({} as any, {
+    get: (_stash, _p) => {
+      const p = _p as string;
+
+      // 开发模式下进行检查
+      if (process.env.NODE_ENV === 'development') {
+        const _def = this._Cls.elementProperties.get(p);
+        if (!_def) throw new Error(`Property "${p}" is not defined`);
+        if (_def.state) throw new Error(`Property "${p}" is a state property, not allowed to access`);
+      }
+
+      return this._getEvaluatedValue(p);
+    },
+    set(_stash, p) {
+      throw new Error(`Can't set property "${p as any}" of evaluatedProps`);
+    },
+    ownKeys: () => {
+      const keys = [...this._Cls.elementProperties.keys()].filter(k => typeof k === 'string') as string[];
+      return keys;
+    },
+    getOwnPropertyDescriptor: (_stash, p) => {
+      const key = p as string;
+      if (this._Cls.elementProperties.has(key)) return { enumerable: true, configurable: true }; // 令 Object.keys() 可以枚举到
+      return undefined;
+    },
+  });
+
+  /** @internal */
+  protected _getEvaluatedValue(p: string) {
+    return (this as any)[p];
+  }
+
   protected createRenderRoot() {
     return this;
+  }
+
+  protected willUpdate(changed: Map<string, any>): void {
+    super.willUpdate(changed);
+
+    // 把 changed 复制到 this.changed
+    this.changed.clear();
+    for (const [key, value] of changed) this.changed.set(key, value);
   }
 
   /** @internal */
@@ -67,40 +111,6 @@ export class XRElement<T = any> extends XRThinElement {
   private _styleRefData: Record<string, { raw: string; data: any }> = {}; // class 引入数据
 
   private _disposes: (() => void)[] = [];
-
-  // 求解后的属性
-  readonly evaluated = new Proxy<PickStringKey<this>>({} as any, {
-    get: (_stash, _p) => {
-      const p = _p as string;
-
-      // 开发模式下进行检查
-      if (process.env.NODE_ENV === 'development') {
-        const _def = this._Cls.elementProperties.get(p);
-        if (!_def) throw new Error(`Property "${p}" is not defined`);
-        if (_def.state) throw new Error(`Property "${p}" is a state property, not allowed to access`);
-      }
-
-      // 兼容没有 CSS.registerProperty 的浏览器
-      if (Compatibility.disableCssProperty) return (this as any)[p];
-
-      return this._styleRefData[p]?.data ?? null;
-    },
-    set(_stash, p) {
-      throw new Error(`Can't set property "${p as any}" of evaluatedProps`);
-    },
-    ownKeys: () => {
-      const keys = [...this._Cls.elementProperties.keys()].filter(k => typeof k === 'string') as string[];
-      return keys;
-    },
-    getOwnPropertyDescriptor: (_stash, p) => {
-      const key = p as string;
-      if (this._Cls.elementProperties.has(key)) return { enumerable: true, configurable: true }; // 令 Object.keys() 可以枚举到
-      return undefined;
-    },
-  });
-
-  /** @internal */
-  readonly changed = new Map<string, any>();
 
   constructor() {
     super();
@@ -196,6 +206,13 @@ export class XRElement<T = any> extends XRThinElement {
     this.connected();
   }
 
+  protected _getEvaluatedValue(p: string) {
+    // 兼容没有 CSS.registerProperty 的浏览器
+    if (Compatibility.disableCssProperty) return (this as any)[p];
+
+    return this._styleRefData[p]?.data ?? null;
+  }
+
   protected willUpdate(changed: Map<string, any>): void {
     super.willUpdate(changed);
 
@@ -251,7 +268,10 @@ export class XRElement<T = any> extends XRThinElement {
     return super.shouldUpdate(changed);
   }
 
-  protected updated(_changed: Map<string, any>): void {}
+  protected updated(_changed: Map<string, any>): void {
+    super.updated(_changed);
+    this.emit('change', { changed: _changed });
+  }
 
   /** @internal */
   disconnectedCallback() {

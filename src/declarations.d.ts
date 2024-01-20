@@ -41,6 +41,22 @@ declare module 'lit' {
   export interface PropertyDeclaration {
     dType: IDataType;
     initValue: IDataTypeMap[IDataType] | null;
+    extra?: {
+      min?: number;
+      max?: number;
+      step?: number;
+      enums?: any[];
+      hidden?: boolean;
+      uriPreset?: Record<
+        string, // name
+        {
+          protocol: string;
+          host: string;
+          pathname?: string;
+          query: Record<string, { dType: IDataType; min?: number; max?: number; step?: number; enums?: any[]; hidden?: boolean }>;
+        }
+      >;
+    };
   }
 }
 

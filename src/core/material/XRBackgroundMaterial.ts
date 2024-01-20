@@ -5,7 +5,8 @@ import { state } from 'lit/decorators.js';
 import { BackgroundMaterial } from '@babylonjs/core/Materials/Background/backgroundMaterial';
 import { XRBaseMaterial } from './XRBaseMaterial';
 import { IMaterialImpl, ITextureImpl } from '../impl';
-import { registerElement } from '../../registry';
+import { PrimitiveMap, registerElement } from '../../registry';
+import { IDataTypeMap } from '../../util';
 
 @registerElement('xr-background-material')
 export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> implements IMaterialImpl {
@@ -18,8 +19,8 @@ export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> imp
   @Decorator.property('Boolean', 'enable-noise', null)
   enableNoise: boolean | null = null;
 
-  @Decorator.property('String', 'reflection-texture', null)
-  reflectionTexture: string | null = null;
+  @Decorator.property('URI', 'reflection-texture', null)
+  reflectionTexture: IDataTypeMap['URI'] | null = null;
 
   @state()
   _reflectionTexture: (HTMLElement & ITextureImpl) | null = null;
@@ -27,7 +28,7 @@ export class XRBackgroundMaterial extends XRBaseMaterial<BackgroundMaterial> imp
   constructor() {
     super();
 
-    new TagRefController(this, 'reflectionTexture', '_reflectionTexture', 'xr-cube-texture');
+    new TagRefController(this, 'reflectionTexture', '_reflectionTexture', PrimitiveMap.texture);
     new MaterialController(this);
   }
 

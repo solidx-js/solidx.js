@@ -63,7 +63,7 @@ Render a simple box with inline attributes:
 <body>
   <xr-scene>
     <xr-camera radius="6" beta="75"></xr-camera>
-    <xr-mesh geometry="?type=box" material="?albedo-color=#ffc069"></xr-mesh>
+    <xr-mesh geometry="primitive://box" material="primitive://pbr?albedo-color=#ffc069"></xr-mesh>
   </xr-scene>
 
   <script src="https://registry.npmmirror.com/solidx.js/latest/files/dist/index.js"></script>
@@ -82,8 +82,8 @@ also you can use CSS to style your mesh:
       ---beta: 75;
     }
     .box {
-      ---geometry: '?type=box';
-      ---material: '?albedo-color=#ffc069';
+      ---geometry: 'primitive://box';
+      ---material: 'primitive://pbr?albedo-color=#ffc069';
     }
   </style>
 </head>
@@ -115,7 +115,7 @@ import 'solidx.js';
 ReactDOM.render(
   <xr-scene>
     <xr-camera radius='6' beta='75'></xr-camera>
-    <xr-mesh geometry='?type=box' material='?albedo-color=#ffc069'></xr-mesh>
+    <xr-mesh geometry='primitive://box' material='primitive://pbr?albedo-color=#ffc069'></xr-mesh>
   </xr-scene>,
   document.getElementById('root')
 );
@@ -127,7 +127,7 @@ ReactDOM.render(
 <template>
   <xr-scene>
     <xr-camera radius="6" beta="75"></xr-camera>
-    <xr-mesh geometry="?type=box" material="?albedo-color=#ffc069"></xr-mesh>
+    <xr-mesh geometry="primitive://box" material="primitive://pbr?albedo-color=#ffc069"></xr-mesh>
   </xr-scene>
 </template>
 

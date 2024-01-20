@@ -8,14 +8,15 @@ import { TagListRefController, TagRefController } from '../controller';
 import { Camera } from '@babylonjs/core/Cameras/camera';
 import compact from 'lodash/compact';
 import { registerElement } from '../../registry';
+import { IDataTypeMap } from '../../util';
 
 @registerElement('xr-volumetric-light')
 export class XRVolumetricLight extends XRSceneScopeElement<VolumetricLightScatteringPostProcess> implements IPostProcessImpl {
-  @Decorator.property('String', 'camera', null)
-  camera: string | null = null;
+  @Decorator.property('URI', 'camera', null)
+  camera: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('String', 'source', null)
-  source: string | null = null;
+  @Decorator.property('URI', 'source', null)
+  source: IDataTypeMap['URI'] | null = null;
 
   @Decorator.property('String', 'excluded', null)
   excluded: string | null = null;

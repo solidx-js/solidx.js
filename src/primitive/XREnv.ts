@@ -63,7 +63,7 @@ export class XREnv extends PrimitiveBase {
         enable-noise
         reflection-texture="url: ${XREnv.defaultSkyBoxTexture}; coordinates-mode: 5"
       ></xr-material>
-      <xr-mesh disable-pointer-event id="env-sky-box" geometry="?type=sphere" material="#env-sky-box" scale="100 100 100"></xr-mesh>
+      <xr-mesh disable-pointer-event id="env-sky-box" geometry="primitive://sphere" material="#env-sky-box" scale="100 100 100"></xr-mesh>
     `;
   }
 
@@ -78,7 +78,7 @@ export class XREnv extends PrimitiveBase {
       <xr-mesh
         disable-pointer-event
         id="env-ground"
-        geometry="?type=plane"
+        geometry="primitive://plane"
         material="#env-ground"
         scale="5 5 5"
         rotation="90 0 0"

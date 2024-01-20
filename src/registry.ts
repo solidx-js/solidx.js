@@ -49,9 +49,14 @@ export class ElementRegistry {
   }
 }
 
-export function registerElement(tag: string, registry = ElementRegistry.Instance) {
+export function registerElement(tag: string) {
   return function <C extends { new (): XRThinElement }>(constructor: C) {
-    registry.register(tag, constructor as any);
+    ElementRegistry.Instance.register(tag, constructor as any);
     return constructor;
   };
 }
+
+export const PrimitiveMap = {
+  material: { pbr: 'xr-material', grid: 'xr-grid-material' },
+  texture: { img: 'xr-texture', cube: 'xr-cube-texture' },
+} as const;

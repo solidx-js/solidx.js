@@ -2,6 +2,8 @@ import { Color3, Color4, Matrix, Quaternion } from '@babylonjs/core/Maths/math';
 import { Vector2, Vector3, Vector4 } from '@babylonjs/core/Maths/math.vector';
 import chroma from 'chroma-js';
 import camelCase from 'lodash/camelCase';
+import { DefaultBizLogger } from '../BizLogger';
+import { IUriData, URIUtil } from './URIUtil';
 
 export type IDataType =
   | 'Number'
@@ -12,6 +14,7 @@ export type IDataType =
   | 'Vector3'
   | 'Vector4'
   | 'Quaternion'
+  | 'URI'
   | 'Object'
   | 'Color3'
   | 'Color4'
@@ -30,6 +33,7 @@ export type IDataTypeMap = {
   Color3: Color3;
   Color4: Color4;
   Matrix: Matrix;
+  URI: IUriData;
 };
 
 export const Schema = {
@@ -47,17 +51,30 @@ export const Schema = {
     else if (type === 'Color3') return Color3.FromHexString(chroma(data).hex()) as any;
     else if (type === 'Color4') return Color4.FromHexString(chroma(data).hex()) as any;
     else if (type === 'Matrix') return Matrix.FromArray(_ns(data)) as any;
+    else if (type === 'URI') {
+      try {
+        return URIUtil.parse(data) as any;
+      } catch (e) {
+        DefaultBizLogger.error(`Schema.fromAttr: invalid URL \`${data}\``);
+        return null;
+      }
+    }
+    //
     else if (type === 'Object') {
-      const obj: any = {};
-      if (data === '') return obj as any;
+      // `:` 分割 key 和 value，`;` 分割多个 key-value 对
+      const obj: Record<string, string> = {};
+      const pairs = data
+        .split(';')
+        .map(v => v.trim())
+        .filter(v => v);
 
-      new URLSearchParams(data).forEach((value, key) => {
-        obj[key] = value.trim();
-      });
+      for (const pair of pairs) {
+        const [key, value] = pair.split(':').map(v => v.trim());
+        obj[key] = value;
+      }
 
       return obj as any;
     }
-
     // throw
     else {
       throw new Error(`Schema.parse: unknown schema type ${type}`);
@@ -69,7 +86,7 @@ export const Schema = {
 
     if (type === 'Number') return String(data);
     else if (type === 'String') return String(data);
-    else if (type === 'Boolean') return '';
+    else if (type === 'Boolean') return data ? '' : null;
     else if (type === 'Array') return (data as any[]).join(' ');
     else if (type === 'Vector2') return (data as Vector2).asArray().join(' ');
     else if (type === 'Vector3') return (data as Vector3).asArray().join(' ');
@@ -78,10 +95,12 @@ export const Schema = {
     else if (type === 'Color3') return (data as Color3).toHexString();
     else if (type === 'Color4') return (data as Color4).toHexString();
     else if (type === 'Matrix') return (data as Matrix).asArray().join(' ');
+    else if (type === 'URI') return URIUtil.stringify(data as any);
     else if (type === 'Object') {
-      return new URLSearchParams(data as any).toString();
+      const obj = data as Record<string, string>;
+      const pairs = Object.entries(obj).map(([key, value]) => `${key}:${value}`);
+      return pairs.join(';');
     }
-
     // throw
     else {
       throw new Error(`Schema.stringify: unknown schema type ${type}`);
@@ -102,7 +121,7 @@ export const Schema = {
     else if (type === 'Color3') return (a as Color3).equals(b as Color3);
     else if (type === 'Color4') return (a as Color4).equals(b as Color4);
     else if (type === 'Matrix') return (a as Matrix).equals(b as Matrix);
-    else if (type === 'Object') return a === b;
+    else if (type === 'URI') return a === b;
     else return false;
   },
 

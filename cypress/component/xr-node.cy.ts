@@ -7,10 +7,10 @@ describe('xr-node', () => {
       <xr-scene style="width: 256px; height: 256px;">
         <xr-camera radius="2" beta="70"></xr-camera>
 
-        <xr-mesh geometry="?type=box &size=0.5"></xr-mesh>
+        <xr-mesh geometry="primitive://box?size=0.5"></xr-mesh>
 
         <xr-node position="0.5 0 0" rotation="0 45 0">
-          <xr-mesh geometry="?type=box &size=0.5"></xr-mesh>
+          <xr-mesh geometry="primitive://box?size=0.5"></xr-mesh>
         </xr-node>
       </xr-scene>
     `);
