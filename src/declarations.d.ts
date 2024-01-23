@@ -11,6 +11,8 @@ declare module '@babylonjs/core/Engines/engine' {
 declare module '@babylonjs/core/scene' {
   interface Scene {
     loadModel(url: string, forceExt?: string): Promise<AssetContainer>;
+    capture(): Promise<string>;
+
     defaultUtilityLayer: UtilityLayerRenderer;
     defaultUtilityLayerWithEvents: UtilityLayerRenderer;
 

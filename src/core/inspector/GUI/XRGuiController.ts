@@ -3,7 +3,7 @@ import { registerElement } from '../../../registry';
 import { Decorator } from '../../Decorator';
 import { XRThinElement } from '../../XRElement';
 import { TagRefController } from '../../controller';
-import { LitElement, PropertyDeclaration, css, html } from 'lit';
+import { LitElement, PropertyDeclaration, css, html, unsafeCSS } from 'lit';
 import { IDataType, IDataTypeMap, Schema, URIUtil } from '../../../util';
 import camelCase from 'lodash/camelCase';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
@@ -12,6 +12,7 @@ import { StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { Scene } from '@babylonjs/core/scene';
 import { repeat } from 'lit/directives/repeat.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { STYLE } from './const';
 
 @registerElement('xr-gui-controller')
 export class XRGuiController extends XRThinElement {
@@ -24,8 +25,7 @@ export class XRGuiController extends XRThinElement {
 
       margin-bottom: 4px;
 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+      font-family: ${unsafeCSS(STYLE.fontFamily)};
       font-size: 12px;
     }
 
@@ -44,7 +44,7 @@ export class XRGuiController extends XRThinElement {
       white-space: nowrap;
       user-select: none;
 
-      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+      font-family: ${unsafeCSS(STYLE.fontFamilyCode)};
     }
 
     .input {
@@ -52,6 +52,15 @@ export class XRGuiController extends XRThinElement {
       display: flex;
       flex-direction: row;
       align-items: center;
+    }
+
+    :host([data-dtype='Boolean']) .label {
+      width: 1px;
+      flex: 1;
+    }
+
+    :host([data-dtype='Boolean']) .input {
+      flex: unset;
     }
 
     .input > input {
@@ -146,6 +155,7 @@ export class XRGuiController extends XRThinElement {
     const value = (this._source.evaluated as any)[property];
 
     this.toggleVisible(true);
+    this.dataset.dtype = def.dType;
 
     return html`
       <div class="label" title="${label}">${label}</div>
@@ -294,7 +304,7 @@ function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: 
   }
 
   // URL
-  if (dType === 'URI' && uriPreset) {
+  if (dType === 'URI') {
     return html`
       <xr-gui-uri-input .preset=${uriPreset} .value=${value} @change=${(ev: CustomEvent) => onChange(ev.detail.value)}></xr-gui-uri-input>
     `;
@@ -359,7 +369,12 @@ export class XRGuiURIInput extends XRThinElement {
   }
 
   render() {
-    if (!this.preset) return null;
+    if (!this.preset) {
+      // 没有 preset，退化为 String
+      return renderInput({ dType: 'String' } as any, this.value?.href, (href: string) => {
+        this.emit('change', { value: URIUtil.parse(href) });
+      });
+    }
 
     const preset = this.preset;
 

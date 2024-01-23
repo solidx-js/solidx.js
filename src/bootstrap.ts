@@ -10,6 +10,7 @@ import { randomID } from './util';
 import { Material } from '@babylonjs/core/Materials/material';
 import { BaseTexture } from '@babylonjs/core/Materials/Textures/baseTexture';
 import { Node } from '@babylonjs/core/node';
+import { CreateScreenshot } from '@babylonjs/core/Misc/screenshotTools';
 
 Gizmo.PreserveScaling = true;
 Gizmo.UseAbsoluteScaling = false;
@@ -68,6 +69,15 @@ Scene.prototype.loadModel = async function loadModel(url: string, forceExt?: str
       // 关掉动画自动播放
       loader.animationStartMode = GLTFLoaderAnimationStartMode.NONE;
     }
+  });
+};
+
+Scene.prototype.capture = async function() {
+  const camera = this.activeCamera;
+  if (!camera) throw new Error('No active camera');
+
+  return new Promise<string>(resolve => {
+    CreateScreenshot(this.getEngine(), camera, {}, resolve, 'image/png');
   });
 };
 

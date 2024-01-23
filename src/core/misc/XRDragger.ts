@@ -229,7 +229,7 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
 
     // rotation
     if (changed.has('enableRotation') || changed.has('disabled')) {
-      const _enabled = this.evaluated.enablePosition && !this.evaluated.disabled;
+      const _enabled = this.evaluated.enableRotation && !this.evaluated.disabled;
 
       if (_enabled && !this._rotGiz) {
         const _giz = new RotationGizmo(this.scene.defaultUtilityLayerWithEvents);
@@ -256,7 +256,7 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
 
     // scale
     if (changed.has('enableScale') || changed.has('disabled')) {
-      const _enabled = this.evaluated.enablePosition && !this.evaluated.disabled;
+      const _enabled = this.evaluated.enableScale && !this.evaluated.disabled;
 
       if (_enabled && !this._scaleGiz) {
         const _giz = new ScaleGizmo(this.scene.defaultUtilityLayerWithEvents);

@@ -2,11 +2,12 @@ import { state } from 'lit/decorators.js';
 import { registerElement } from '../../../registry';
 import { Decorator } from '../../Decorator';
 import { XRThinElement } from '../../XRElement';
-import { LitElement, css, html } from 'lit';
+import { LitElement, css, html, unsafeCSS } from 'lit';
 import { TagRefController } from '../../controller';
 import { repeat } from 'lit/directives/repeat.js';
 import { Scene } from '@babylonjs/core/scene';
 import { IDataTypeMap } from '../../../util';
+import { ICON, STYLE } from './const';
 
 @registerElement('xr-gui-folder')
 export class XRGuiFolder extends XRThinElement {
@@ -15,6 +16,9 @@ export class XRGuiFolder extends XRThinElement {
     }
 
     .header {
+      display: flex;
+      align-items: center;
+
       background-color: #eee;
       padding: 4px 8px;
       cursor: pointer;
@@ -22,11 +26,11 @@ export class XRGuiFolder extends XRThinElement {
       font-size: 12px;
       user-select: none;
       border-bottom: 1px solid transparent;
-      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+      font-family: ${unsafeCSS(STYLE.fontFamily)}};
     }
 
     :host(.collapsed) .header {
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid ${unsafeCSS(STYLE.headerBg)};
     }
 
     .body {
@@ -62,6 +66,7 @@ export class XRGuiFolder extends XRThinElement {
     const list: { key: string; ele: any }[] = [];
 
     if (this._source) {
+      // 渲染属性列表
       for (const [key, def] of this._source._Cls.elementProperties.entries()) {
         if (def.state || typeof key !== 'string') continue;
 
@@ -99,7 +104,10 @@ export class XRGuiFolder extends XRThinElement {
     const label = this.label || this._source?.displayText || 'Folder';
 
     return html`
-      <div class="header" @click=${() => (this._collapsed = !this._collapsed)}>${label}</div>
+      <div class="header" @click=${() => (this._collapsed = !this._collapsed)}>
+        ${this._collapsed ? ICON.right : ICON.down}
+        <span style="margin-left: 4px">${label}</span>
+      </div>
       ${this._collapsed ? null : this.renderBody()}
     `;
   }

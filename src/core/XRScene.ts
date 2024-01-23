@@ -99,7 +99,6 @@ export class XRScene extends XRElement {
 
     this.scene = new Scene(this.engine);
     this.scene.autoClear = true;
-    this.scene.clearColor = new Color4(0, 0, 0, 0); // 默认透明背景
     this.scene.bindingElement = this;
 
     // FIXME: 一定要提前设置好环境贴图，否则后面不会生效（即使重新标记 material markAsDirty）。why?
@@ -166,8 +165,8 @@ export class XRScene extends XRElement {
       this.scene.environmentIntensity = this.evaluated.envIntensity;
     }
 
-    if (changed.has('background') && this._container) {
-      this._container.style.background = this.evaluated.background?.toHexString() || 'transparent';
+    if (changed.has('background') && this.evaluated.background) {
+      this.scene.clearColor = this.evaluated.background;
     }
 
     if (changed.has('hardwareScalingLevel') && this.evaluated.hardwareScalingLevel !== null && this.evaluated.hardwareScalingLevel > 0) {
