@@ -72,7 +72,7 @@ Scene.prototype.loadModel = async function loadModel(url: string, forceExt?: str
   });
 };
 
-Scene.prototype.capture = async function() {
+Scene.prototype.capture = async function () {
   const camera = this.activeCamera;
   if (!camera) throw new Error('No active camera');
 
