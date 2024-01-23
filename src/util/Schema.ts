@@ -134,7 +134,6 @@ export const Schema = {
   },
 
   fromCssLiteral<T extends IDataType>(type: T, literal: string): IDataTypeMap[T] | null {
-    
     if (literal === '') return null; // css 值为空，表示没有这个属性，返回 null
     return this.fromAttr(type, literal.replace(/^['"]/, '').replace(/['"]$/, ''));
   },
