@@ -1,5 +1,6 @@
 import { ElementRegistry, IDataType, Schema } from './src';
 import fs from 'fs';
+import { PropertyDeclaration } from 'lit';
 import Path from 'path';
 
 function emitStyle() {
@@ -72,7 +73,7 @@ function emitMeta() {
       string,
       {
         cls: string;
-        attribute: Record<string, { prop: string; initValue: string | null; dType: IDataType }>;
+        attribute: Record<string, { prop: string; initValue: string | null; dType: IDataType; extra?: PropertyDeclaration['extra'] }>;
       }
     >;
   } = { element: {} };
@@ -89,6 +90,7 @@ function emitMeta() {
         prop,
         initValue: def.initValue !== null ? Schema.toCssLiteral(def.dType, def.initValue) : null,
         dType: def.dType,
+        extra: def.extra,
       };
     }
   }

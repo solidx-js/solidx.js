@@ -58,7 +58,7 @@ describe('xr-model', () => {
           .should('exist')
           .should('have.attr', 'entity-id', mat.ID)
           .should('have.attr', 'entity-class', mat.getClassName())
-          .should('have.attr', 'entity-delegated');
+          .should('have.attr', 'entity-delegated', 'true');
       }
 
       for (const tex of container.textures) {
@@ -66,7 +66,7 @@ describe('xr-model', () => {
           .should('exist')
           .should('have.attr', 'entity-id', tex.ID)
           .should('have.attr', 'entity-class', tex.getClassName())
-          .should('have.attr', 'entity-delegated');
+          .should('have.attr', 'entity-delegated', 'true');
       }
 
       for (const mesh of container.meshes) {
@@ -74,7 +74,7 @@ describe('xr-model', () => {
           .should('exist')
           .should('have.attr', 'entity-id', mesh.ID)
           .should('have.attr', 'entity-class', mesh.getClassName())
-          .should('have.attr', 'entity-delegated');
+          .should('have.attr', 'entity-delegated', 'true');
       }
 
       for (const node of container.transformNodes) {
@@ -83,7 +83,7 @@ describe('xr-model', () => {
           .should('exist')
           .should('have.attr', 'entity-id', node.ID)
           .should('have.attr', 'entity-class', node.getClassName())
-          .should('have.attr', 'entity-delegated');
+          .should('have.attr', 'entity-delegated', 'true');
       }
     });
   });

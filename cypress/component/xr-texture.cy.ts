@@ -6,7 +6,7 @@ describe('xr-texture', () => {
     cy.mount(html`
       <xr-scene style="width: 256px; height: 256px;">
         <xr-camera radius="2" alpha="-80"></xr-camera>
-        <xr-texture id="tex" url="/lion.png" invert-y has-alpha></xr-texture>
+        <xr-texture id="tex" url="/lion.png" invert-y="true" has-alpha="true"></xr-texture>
         <xr-mesh geometry="primitive://plane" material="primitive://pbr?albedo-texture=#tex"></xr-mesh>
 
         <xr-mesh geometry="primitive://box" position="-0.5 0 1"></xr-mesh>
@@ -31,7 +31,7 @@ describe('xr-texture', () => {
 
       <xr-scene style="width: 256px; height: 256px;">
         <xr-camera radius="4" alpha="90" beta="75"></xr-camera>
-        <xr-texture id="tex" url="/equirectangular.jpg" invert-y></xr-texture>
+        <xr-texture id="tex" url="/equirectangular.jpg" invert-y="true"></xr-texture>
         <xr-model src="/DamagedHelmet.glb" rotation="0 -40 0"></xr-model>
       </xr-scene>
     `);

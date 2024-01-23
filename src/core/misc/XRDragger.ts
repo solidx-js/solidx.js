@@ -202,8 +202,10 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
     const posScaleEntity = this._posScaleEntity;
 
     // position
-    if (changed.has('enablePosition')) {
-      if (this.evaluated.enablePosition && !this._posGiz) {
+    if (changed.has('enablePosition') || changed.has('disabled')) {
+      const _enabled = this.evaluated.enablePosition && !this.evaluated.disabled;
+
+      if (_enabled && !this._posGiz) {
         const _giz = new PositionGizmo(this.scene.defaultUtilityLayerWithEvents);
         this._posGiz = _giz;
 
@@ -219,15 +221,17 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
         _giz.onDragEndObservable.add(() => this._endDrag());
       }
 
-      if (!this.evaluated.enablePosition && this._posGiz) {
+      if (!_enabled && this._posGiz) {
         this._posGiz.dispose();
         this._posGiz = null;
       }
     }
 
     // rotation
-    if (changed.has('enableRotation')) {
-      if (this.evaluated.enableRotation && !this._rotGiz) {
+    if (changed.has('enableRotation') || changed.has('disabled')) {
+      const _enabled = this.evaluated.enablePosition && !this.evaluated.disabled;
+
+      if (_enabled && !this._rotGiz) {
         const _giz = new RotationGizmo(this.scene.defaultUtilityLayerWithEvents);
         this._rotGiz = _giz;
 
@@ -244,15 +248,17 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
         _giz.onDragEndObservable.add(() => this._endDrag());
       }
 
-      if (!this.evaluated.enableRotation && this._rotGiz) {
+      if (!_enabled && this._rotGiz) {
         this._rotGiz.dispose();
         this._rotGiz = null;
       }
     }
 
     // scale
-    if (changed.has('enableScale')) {
-      if (this.evaluated.enableScale && !this._scaleGiz) {
+    if (changed.has('enableScale') || changed.has('disabled')) {
+      const _enabled = this.evaluated.enablePosition && !this.evaluated.disabled;
+
+      if (_enabled && !this._scaleGiz) {
         const _giz = new ScaleGizmo(this.scene.defaultUtilityLayerWithEvents);
         this._scaleGiz = _giz;
 
@@ -268,13 +274,13 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
         _giz.onDragEndObservable.add(() => this._endDrag());
       }
 
-      if (!this.evaluated.enableScale && this._scaleGiz) {
+      if (!_enabled && this._scaleGiz) {
         this._scaleGiz.dispose();
         this._scaleGiz = null;
       }
     }
 
-    if (changed.has('scale') && this.evaluated.scale) {
+    if (this.evaluated.scale) {
       if (this._posGiz) {
         this._posGiz.xGizmo.scaleRatio = this.evaluated.scale.x;
         this._posGiz.yGizmo.scaleRatio = this.evaluated.scale.y;

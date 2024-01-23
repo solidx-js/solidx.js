@@ -256,8 +256,7 @@ export class XRElement<T = any> extends XRThinElement {
     const _p = '---' + (_def.attribute || property);
     const _v = (this as any)[property] === null ? '' : Schema.toCssLiteral(_def.dType, (this as any)[property]);
 
-    if (_v === '') this.style.removeProperty(_p);
-    else this.style.setProperty(_p, _v);
+    this.style.setProperty(_p, _v);
 
     if (reload) {
       this.reloadAttrFromComputedStyles(property);
