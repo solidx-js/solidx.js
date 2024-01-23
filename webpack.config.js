@@ -87,9 +87,9 @@ module.exports = function (env) {
       });
     }
 
-    if (env['emit-style']) {
+    if (env['rt-emit']) {
       return merge(
-        { ...commonConfigBase, entry: { 'emit-style': './emit-style.ts' } },
+        { ...commonConfigBase, entry: { 'rt-emit': './rt-emit.ts' } },
         {
           output: {
             path: Path.resolve(__dirname, 'node_modules', '.cache'),

@@ -9,13 +9,13 @@
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
-    "build": "npm run build:css && rm -rf dist/* && webpack build --progress --env production && tsc -p tsconfig.build.json",
-    "build:css": "webpack build --progress --env emit-style && node ./node_modules/.cache/emit-style.js",
+    "build": "npm run build:rt-emit && rm -rf dist/* && webpack build --progress --env production && tsc -p tsconfig.build.json",
+    "build:rt-emit": "webpack build --progress --env rt-emit && node ./node_modules/.cache/rt-emit.js",
     "local": "webpack serve --progress --env local",
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
-    "ci:e2e": "npm run build:css && cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless",
+    "ci:e2e": "npm run build:rt-emit && cypress run --component --browser chrome -C cypress/cypress.config.ts --no-runner-ui --headless",
     "release": "npm run ci && npm run ci:e2e && rm -rf dist/* && npm run build && release-it",
-    "cypress:open": "npm run build:css && cypress open --component --browser chrome -C cypress/cypress.config.ts"
+    "cypress:open": "npm run build:rt-emit && cypress open --component --browser chrome -C cypress/cypress.config.ts"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -16,6 +16,6 @@
     "types": ["cypress", "node"],
     "allowJs": true
   },
-  "include": ["src", "cypress", "emit-style.ts"],
+  "include": ["src", "cypress", "emit-style.ts", "rt-emit.ts"],
   "exclude": ["webpack.config.js"]
 }
