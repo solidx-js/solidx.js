@@ -40,6 +40,10 @@ const commonConfigBase = {
         test: /\.(env|dds|png|jpg|zip|glb|gltf)$/i,
         type: 'asset/resource',
       },
+      {
+        test: /\.inline\.css$/i,
+        type: 'asset/source',
+      },
     ],
   },
   resolve: {

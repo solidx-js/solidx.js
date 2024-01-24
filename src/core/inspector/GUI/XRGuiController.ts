@@ -11,73 +11,13 @@ import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 import { StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { Scene } from '@babylonjs/core/scene';
 import { repeat } from 'lit/directives/repeat.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { STYLE } from './const';
+import { STYLE } from './style';
 
 @registerElement('xr-gui-controller')
 export class XRGuiController extends XRThinElement {
-  static styles = css`
-    :host {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-
-      margin-bottom: 4px;
-
-      font-family: ${unsafeCSS(STYLE.fontFamily)};
-      font-size: 12px;
-    }
-
-    :host(:last-child) {
-      margin-bottom: 0;
-    }
-
-    :host(.hidden) {
-      display: none;
-    }
-
-    .label {
-      width: 100px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      user-select: none;
-
-      font-family: ${unsafeCSS(STYLE.fontFamilyCode)};
-    }
-
-    .input {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
-
-    :host([data-dtype='Boolean']) .label {
-      width: 1px;
-      flex: 1;
-    }
-
-    :host([data-dtype='Boolean']) .input {
-      flex: unset;
-    }
-
-    .input > input {
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .input > select {
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .input > [type='checkbox'] {
-      width: auto;
-      margin: 0;
-    }
-  `;
+  static styles = STYLE;
 
   @Decorator.property('URI', 'source', null)
   source: IDataTypeMap['URI'] | null = null;
@@ -158,13 +98,15 @@ export class XRGuiController extends XRThinElement {
     this.dataset.dtype = def.dType;
 
     return html`
-      <div class="label" title="${label}">${label}</div>
-      <div class="input">
-        ${renderInput(def, value, newValue => {
-          const _literal = Schema.toAttr(def.dType, newValue);
-          if (_literal === null) _source.removeAttribute(_attr);
-          else _source.setAttribute(_attr, _literal);
-        })}
+      <div class="cell ${classMap({ 'label-max': def.dType === 'Boolean' })}">
+        <div class="label" title="${label}">${label}</div>
+        <div class="content">
+          ${renderInput(def, value, newValue => {
+            const _literal = Schema.toAttr(def.dType, newValue);
+            if (_literal === null) _source.removeAttribute(_attr);
+            else _source.setAttribute(_attr, _literal);
+          })}
+        </div>
       </div>
     `;
   }
@@ -297,9 +239,11 @@ function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: 
     const _v = value as Vector3;
 
     return html`
-      ${renderInput({ dType: 'Number' } as any, _v.x, (x: any) => onChange(new Vector3(x, _v.y, _v.z)))}
-      ${renderInput({ dType: 'Number' } as any, _v.y, (y: any) => onChange(new Vector3(_v.x, y, _v.z)))}
-      ${renderInput({ dType: 'Number' } as any, _v.z, (z: any) => onChange(new Vector3(_v.x, _v.y, z)))}
+      <div class="space space--h">
+        ${renderInput({ dType: 'Number' } as any, _v.x, (x: any) => onChange(new Vector3(x, _v.y, _v.z)))}
+        ${renderInput({ dType: 'Number' } as any, _v.y, (y: any) => onChange(new Vector3(_v.x, y, _v.z)))}
+        ${renderInput({ dType: 'Number' } as any, _v.z, (z: any) => onChange(new Vector3(_v.x, _v.y, z)))}
+      </div>
     `;
   }
 
@@ -315,33 +259,7 @@ function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: 
 
 @registerElement('xr-gui-uri-input')
 export class XRGuiURIInput extends XRThinElement {
-  static styles = css`
-    :host {
-      width: 100%;
-    }
-    select {
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .query-body {
-      margin-top: 8px;
-      padding-left: 8px;
-      border-left: 1px dashed #ddd;
-    }
-    .row {
-      margin-bottom: 4px;
-    }
-    .row > .label {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .row > .input {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
-  `;
+  static styles = STYLE;
 
   @state()
   preset: NonNullable<NonNullable<PropertyDeclaration['extra']>['uriPreset']> | null = null;
@@ -403,9 +321,9 @@ export class XRGuiURIInput extends XRThinElement {
               ([prop, def]) => prop,
               ([prop, def]) => {
                 return html`
-                  <div class="row">
-                    <div class="label">${prop}</div>
-                    <div class="input">
+                  <div>
+                    <div>${prop}</div>
+                    <div>
                       ${renderInput({ dType: def.dType, extra: def } as any, this.value?.query[prop], (newValue: any) => {
                         const _uri = this.value;
                         if (!_uri) return;

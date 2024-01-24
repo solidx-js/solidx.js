@@ -1,0 +1,141 @@
+:host {
+  --primary-color: #396efb;
+  --border-color: #ccc;
+  --hover-color: #f5f5f5;
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+:host * {
+  box-sizing: border-box;
+}
+
+/* layout */
+.space {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.space > * {
+  flex: 1;
+  width: 1px;
+}
+
+.space.space--h {
+  flex-direction: row;
+}
+
+.space.space--v {
+  flex-direction: column;
+}
+
+/* cell */
+.cell {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  width: 100%;
+}
+
+.cell > .label {
+  width: 100px;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.cell > .content {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  display: flex;
+  align-items: center;
+}
+
+.cell.label-max > .label {
+  width: 1px;
+  flex: 1;
+}
+
+.cell.label-max > .content {
+  flex: unset;
+  width: auto;
+}
+
+.cell:hover {
+  background-color: var(--hover-color);
+}
+
+/* input */
+input {
+  width: 100%;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+}
+
+input[type='text'],
+input[type='number'] {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  outline: none;
+}
+
+input[type='checkbox'] {
+  width: auto;
+  margin: 0;
+  cursor: pointer;
+}
+
+input[type='color'] {
+  width: auto;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+input:focus {
+  border-color: var(--primary-color);
+}
+
+select {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2px 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* button */
+button {
+  outline: none;
+  cursor: pointer;
+  padding: 0 8px;
+  border-radius: 4px;
+  background-color: #fff;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  font-size: 12px;
+  font-weight: 500;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}

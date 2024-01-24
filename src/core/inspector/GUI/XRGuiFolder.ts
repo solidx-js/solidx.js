@@ -7,36 +7,38 @@ import { TagRefController } from '../../controller';
 import { repeat } from 'lit/directives/repeat.js';
 import { Scene } from '@babylonjs/core/scene';
 import { IDataTypeMap } from '../../../util';
-import { ICON, STYLE } from './const';
+import { ICON } from './icon';
+import { STYLE } from './style';
 
 @registerElement('xr-gui-folder')
 export class XRGuiFolder extends XRThinElement {
-  static styles = css`
-    :host {
-    }
+  static styles = [
+    STYLE,
+    css`
+      :host {
+      }
 
-    .header {
-      display: flex;
-      align-items: center;
+      .header {
+        display: flex;
+        align-items: center;
 
-      background-color: #eee;
-      padding: 4px 8px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 12px;
-      user-select: none;
-      border-bottom: 1px solid transparent;
-      font-family: ${unsafeCSS(STYLE.fontFamily)}};
-    }
+        background-color: #eee;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 12px;
+        user-select: none;
+        border-bottom: 1px solid transparent;
+      }
 
-    :host(.collapsed) .header {
-      border-bottom: 1px solid ${unsafeCSS(STYLE.headerBg)};
-    }
+      :host(.collapsed) .header {
+      }
 
-    .body {
-      padding: 4px 8px;
-    }
-  `;
+      .body {
+        padding: 4px 8px;
+      }
+    `,
+  ];
 
   @Decorator.property('String', 'label', null)
   label: string | null = null;

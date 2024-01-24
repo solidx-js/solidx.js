@@ -1,16 +1,5 @@
 import { html } from 'lit';
 
-// copy from antd
-export const STYLE = {
-  primary: '#396EFB',
-  primaryLight: '#558DFC',
-
-  headerBg: '#FAFAFA',
-
-  fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'`,
-  fontFamilyCode: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
-} as const;
-
 // copy from https://www.iconfont.cn/collections/detail?spm=a313x.collections_index.i1.d9df05512.631c3a81ZQolLl&cid=9402
 export const ICON = {
   camera: html`
