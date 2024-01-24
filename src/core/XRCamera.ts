@@ -24,12 +24,14 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
   @Decorator.property('Number', 'max-z', 100)
   maxZ: number | null = null;
 
+  @Decorator.property('Boolean', 'attach-control', null)
+  attachControl: boolean | null = null;
+
   connected(): void {
     super.connected();
 
     this.entity = new ArcRotateCamera(this.id, 0, 0, 1, new Vector3(0, 0, 0), this.scene);
     this.entity.lowerRadiusLimit = this.minZ;
-    this.entity.attachControl();
   }
 
   protected willUpdate(changed: Map<string, any>): void {
@@ -46,6 +48,11 @@ export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
       this.entity.lowerRadiusLimit = this.evaluated.minZ;
     }
     if (changed.has('maxZ') && this.evaluated.maxZ != null) this.entity.maxZ = this.evaluated.maxZ;
+
+    if (changed.has('attachControl')) {
+      if (this.evaluated.attachControl) this.entity.attachControl();
+      else this.entity.detachControl();
+    }
   }
 
   disconnected(): void {
