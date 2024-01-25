@@ -13,7 +13,7 @@ export class XRHemisphericLight extends XRBaseLight<HemisphericLight> {
   @Decorator.property('Number', 'beta', 0)
   beta: number | null = null;
 
-  @Decorator.property('Color3', 'ground-color', null)
+  @Decorator.property('Color3', 'ground-color', null, { title: '地面颜色' })
   groundColor: Color3 | null = null;
 
   connected(): void {

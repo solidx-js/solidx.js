@@ -54,75 +54,76 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
   }
 
   @Decorator.property('URI', 'geometry', null, {
+    title: '几何体',
     uriPreset: {
       box: {
         protocol: 'primitive:',
         host: 'box',
         query: {
-          size: { dType: 'Number', min: 0, step: 0.1 },
-          width: { dType: 'Number', min: 0, step: 0.1 },
-          height: { dType: 'Number', min: 0, step: 0.1 },
-          depth: { dType: 'Number', min: 0, step: 0.1 },
+          size: { dType: 'Number', min: 0, step: 0.1, title: '尺寸' },
+          width: { dType: 'Number', min: 0, step: 0.1, title: '宽度' },
+          height: { dType: 'Number', min: 0, step: 0.1, title: '高度' },
+          depth: { dType: 'Number', min: 0, step: 0.1, title: '深度' },
         },
       },
       sphere: {
         protocol: 'primitive:',
         host: 'sphere',
         query: {
-          diameter: { dType: 'Number', min: 0, step: 0.1 },
-          'diameter-x': { dType: 'Number', min: 0, step: 0.1 },
-          'diameter-y': { dType: 'Number', min: 0, step: 0.1 },
-          'diameter-z': { dType: 'Number', min: 0, step: 0.1 },
-          arc: { dType: 'Number', min: 0, max: 1, step: 0.01 },
-          slice: { dType: 'Number', min: 0, max: 1, step: 0.01 },
+          diameter: { dType: 'Number', min: 0, step: 0.1, title: '直径' },
+          'diameter-x': { dType: 'Number', min: 0, step: 0.1, title: '直径 X' },
+          'diameter-y': { dType: 'Number', min: 0, step: 0.1, title: '直径 Y' },
+          'diameter-z': { dType: 'Number', min: 0, step: 0.1, title: '直径 Z' },
+          arc: { dType: 'Number', min: 0, max: 1, step: 0.01, title: '弧度' },
+          slice: { dType: 'Number', min: 0, max: 1, step: 0.01, title: '切片' },
         },
       },
       disc: {
         protocol: 'primitive:',
         host: 'disc',
         query: {
-          radius: { dType: 'Number', min: 0, step: 0.1 },
-          tessellation: { dType: 'Number', min: 0, step: 1 },
+          radius: { dType: 'Number', min: 0, step: 0.1, title: '半径' },
+          tessellation: { dType: 'Number', min: 0, step: 1, title: '细分' },
         },
       },
       cylinder: {
         protocol: 'primitive:',
         host: 'cylinder',
         query: {
-          height: { dType: 'Number', min: 0, step: 0.1 },
-          'diameter-top': { dType: 'Number', min: 0, step: 0.1 },
-          'diameter-bottom': { dType: 'Number', min: 0, step: 0.1 },
-          tessellation: { dType: 'Number', min: 0, step: 1 },
-          subdivisions: { dType: 'Number', min: 0, step: 1 },
-          'has-rings': { dType: 'Boolean' },
-          enclose: { dType: 'Boolean' },
-          arc: { dType: 'Number', min: 0, max: 1, step: 0.01 },
-          cap: { dType: 'Number', enums: [Mesh.NO_CAP, Mesh.CAP_START, Mesh.CAP_END, Mesh.CAP_ALL] },
+          height: { dType: 'Number', min: 0, step: 0.1, title: '高度' },
+          'diameter-top': { dType: 'Number', min: 0, step: 0.1, title: '顶部直径' },
+          'diameter-bottom': { dType: 'Number', min: 0, step: 0.1, title: '底部直径' },
+          tessellation: { dType: 'Number', min: 0, step: 1, title: '细分' },
+          subdivisions: { dType: 'Number', min: 0, step: 1, title: '子分区' },
+          'has-rings': { dType: 'Boolean', title: '有环' },
+          enclose: { dType: 'Boolean', title: '封闭' },
+          arc: { dType: 'Number', min: 0, max: 1, step: 0.01, title: '弧度' },
+          cap: { dType: 'Number', min: 0, max: 3, step: 1, title: '端盖' },
         },
       },
       plane: {
         protocol: 'primitive:',
         host: 'plane',
         query: {
-          size: { dType: 'Number', min: 0, step: 0.1 },
-          width: { dType: 'Number', min: 0, step: 0.1 },
-          height: { dType: 'Number', min: 0, step: 0.1 },
+          size: { dType: 'Number', min: 0, step: 0.1, title: '尺寸' },
+          width: { dType: 'Number', min: 0, step: 0.1, title: '宽度' },
+          height: { dType: 'Number', min: 0, step: 0.1, title: '高度' },
         },
       },
       torus: {
         protocol: 'primitive:',
         host: 'torus',
         query: {
-          diameter: { dType: 'Number', min: 0, step: 0.1 },
-          thickness: { dType: 'Number', min: 0, step: 0.1 },
-          tessellation: { dType: 'Number', min: 0, step: 1 },
+          diameter: { dType: 'Number', min: 0, step: 0.1, title: '直径' },
+          thickness: { dType: 'Number', min: 0, step: 0.1, title: '厚度' },
+          tessellation: { dType: 'Number', min: 0, step: 1, title: '细分' },
         },
       },
     },
   })
   geometry: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('URI', 'material', null)
+  @Decorator.material()
   material: IDataTypeMap['URI'] | null = null;
 
   @Decorator.position()
@@ -146,19 +147,19 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
   @Decorator.property('Boolean', 'entity-delegated', null, { hidden: true })
   entityDelegated: boolean | null = null;
 
-  @Decorator.property('Boolean', 'enable-edges', null)
+  @Decorator.property('Boolean', 'enable-edges', null, { title: '边缘渲染' })
   enableEdges: boolean | null = null;
 
-  @Decorator.property('Number', 'edges-width', 1)
+  @Decorator.property('Number', 'edges-width', 1, { title: '边缘渲染宽度' })
   edgesWidth: number | null = null;
 
-  @Decorator.property('Color4', 'edges-color', new Color4(1, 0, 0, 1))
+  @Decorator.property('Color4', 'edges-color', new Color4(1, 0, 0, 1), { title: '边缘渲染颜色' })
   edgesColor: Color4 | null = null;
 
-  @Decorator.property('Boolean', 'enable-outline', null)
+  @Decorator.property('Boolean', 'enable-outline', null, { title: '轮廓渲染' })
   enableOutline: boolean | null = null;
 
-  @Decorator.property('Boolean', 'flat-shading', null)
+  @Decorator.property('Boolean', 'flat-shading', null, { title: '平面着色' })
   flatShading: boolean | null = null;
 
   @state()

@@ -6,25 +6,25 @@ import { registerElement } from '../registry';
 
 @registerElement('xr-camera')
 export class XRCamera extends XRSceneScopeElement<ArcRotateCamera> {
-  @Decorator.property('Number', 'alpha', -90, { min: 0, max: 360, step: 1 })
+  @Decorator.property('Number', 'alpha', -90, { min: 0, max: 360, step: 1, title: 'Alpha (deg)' })
   alpha: number | null = null;
 
-  @Decorator.property('Number', 'beta', 90, { min: 0, max: 180, step: 1 })
+  @Decorator.property('Number', 'beta', 90, { min: 0, max: 180, step: 1, title: 'Beta (deg)' })
   beta: number | null = null;
 
-  @Decorator.property('Number', 'radius', 10, { min: 0 })
+  @Decorator.property('Number', 'radius', 10, { min: 0, title: '半径' })
   radius: number | null = null;
 
-  @Decorator.property('Vector3', 'locked-target', Vector3.Zero())
+  @Decorator.property('Vector3', 'locked-target', Vector3.Zero(), { title: '锁定目标' })
   lockedTarget: Vector3 | null = null;
 
-  @Decorator.property('Number', 'min-z', 0.1, { min: 0 })
+  @Decorator.property('Number', 'min-z', 0.1, { min: 0, title: '近裁平面 z' })
   minZ: number | null = null;
 
-  @Decorator.property('Number', 'max-z', 100)
+  @Decorator.property('Number', 'max-z', 100, { min: 0, title: '远裁平面 z' })
   maxZ: number | null = null;
 
-  @Decorator.property('Boolean', 'attach-control', null)
+  @Decorator.property('Boolean', 'attach-control', null, { title: '附加控制' })
   attachControl: boolean | null = null;
 
   connected(): void {

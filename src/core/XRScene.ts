@@ -38,22 +38,22 @@ export class XRScene extends XRElement {
   @provide({ context: Context.Scene })
   scene: Scene = null as any;
 
-  @Decorator.property('Color4', 'background', new Color4(1, 1, 1, 1))
+  @Decorator.property('Color4', 'background', new Color4(1, 1, 1, 1), { title: '背景颜色' })
   background: Color4 | null = null;
 
-  @Decorator.property('String', 'env-url', null)
+  @Decorator.property('String', 'env-url', null, { title: '环境贴图' })
   envUrl: string | null = null;
 
-  @Decorator.property('Number', 'env-rotation-y', null, { min: 0, max: 360, step: 1 })
+  @Decorator.property('Number', 'env-rotation-y', null, { min: 0, max: 360, step: 1, title: '环境贴图旋转 Y' })
   envRotationY: number | null = null;
 
-  @Decorator.property('Number', 'env-intensity', 1, { min: 0, max: 10, step: 0.1 })
+  @Decorator.property('Number', 'env-intensity', 1, { min: 0, max: 10, step: 0.1, title: '环境贴图强度' })
   envIntensity: number | null = null;
 
-  @Decorator.property('Number', 'contrast', 1.2, { min: 0.1, max: 10, step: 0.1 })
+  @Decorator.property('Number', 'contrast', 1.2, { min: 0.1, max: 10, step: 0.1, title: '对比度' })
   contrast: number | null = null;
 
-  @Decorator.property('Number', 'exposure', 1.2, { min: 0.1, max: 10, step: 0.1 })
+  @Decorator.property('Number', 'exposure', 1.2, { min: 0.1, max: 10, step: 0.1, title: '曝光度' })
   exposure: number | null = null;
 
   @Decorator.property('Number', 'hardware-scaling-level', null, { hidden: true })

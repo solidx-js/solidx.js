@@ -6,12 +6,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "alpha": {
           "prop": "alpha",
@@ -20,7 +26,8 @@
           "extra": {
             "min": 0,
             "max": 360,
-            "step": 1
+            "step": 1,
+            "title": "Alpha (deg)"
           }
         },
         "beta": {
@@ -30,7 +37,8 @@
           "extra": {
             "min": 0,
             "max": 180,
-            "step": 1
+            "step": 1,
+            "title": "Beta (deg)"
           }
         },
         "radius": {
@@ -38,26 +46,43 @@
           "initValue": "10",
           "dType": "Number",
           "extra": {
-            "min": 0
+            "min": 0,
+            "title": "半径"
           }
         },
         "locked-target": {
           "prop": "lockedTarget",
           "initValue": "0 0 0",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "锁定目标"
+          }
         },
         "min-z": {
           "prop": "minZ",
           "initValue": "0.1",
           "dType": "Number",
           "extra": {
-            "min": 0
+            "min": 0,
+            "title": "近裁平面 z"
           }
         },
         "max-z": {
           "prop": "maxZ",
           "initValue": "100",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "title": "远裁平面 z"
+          }
+        },
+        "attach-control": {
+          "prop": "attachControl",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "附加控制"
+          }
         }
       }
     },
@@ -67,22 +92,34 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "background": {
           "prop": "background",
           "initValue": "#FFFFFFFF",
-          "dType": "Color4"
+          "dType": "Color4",
+          "extra": {
+            "title": "背景颜色"
+          }
         },
         "env-url": {
           "prop": "envUrl",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "环境贴图"
+          }
         },
         "env-rotation-y": {
           "prop": "envRotationY",
@@ -91,7 +128,8 @@
           "extra": {
             "min": 0,
             "max": 360,
-            "step": 1
+            "step": 1,
+            "title": "环境贴图旋转 Y"
           }
         },
         "env-intensity": {
@@ -101,7 +139,8 @@
           "extra": {
             "min": 0,
             "max": 10,
-            "step": 0.1
+            "step": 0.1,
+            "title": "环境贴图强度"
           }
         },
         "contrast": {
@@ -111,7 +150,8 @@
           "extra": {
             "min": 0.1,
             "max": 10,
-            "step": 0.1
+            "step": 0.1,
+            "title": "对比度"
           }
         },
         "exposure": {
@@ -121,7 +161,8 @@
           "extra": {
             "min": 0.1,
             "max": 10,
-            "step": 0.1
+            "step": 0.1,
+            "title": "曝光度"
           }
         },
         "hardware-scaling-level": {
@@ -148,17 +189,29 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "intensity": {
           "prop": "intensity",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 10,
+            "step": 0.1,
+            "title": "强度"
+          }
         }
       }
     },
@@ -168,32 +221,64 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "samples": {
           "prop": "samples",
-          "initValue": null,
-          "dType": "Number"
+          "initValue": "16",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 64,
+            "step": 1,
+            "title": "采样数",
+            "doc": "这个参数决定了 SSAO 效果的采样数量。采样数量越多，效果越精确，但计算成本也越高"
+          }
         },
         "radius": {
           "prop": "radius",
-          "initValue": null,
-          "dType": "Number"
+          "initValue": "2",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.1,
+            "title": "半径",
+            "doc": "半径参数决定了在计算每个像素的环境光遮蔽时，应该考虑多大范围内的其他像素。这个范围通常是以当前像素为中心的一个圆形区域，半径就是这个圆的半径。如果半径较大，那么在计算环境光遮蔽时会考虑更多的像素，这可能会使遮蔽效果更明显，但也可能会导致物体之间的边缘过于模糊。这是因为大半径可能会将物体的边缘和背景混合在一起，导致边缘的细节丢失。如果半径较小，那么在计算环境光遮蔽时只会考虑离当前像素较近的其他像素，这可能会使遮蔽效果较弱，但可以保留更多的边缘细节。"
+          }
         },
         "total-strength": {
           "prop": "totalStrength",
-          "initValue": null,
-          "dType": "Number"
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 10,
+            "step": 0.1,
+            "title": "强度",
+            "doc": "这个参数决定了 SSAO 效果的强度。强度越大，遮蔽效果越明显。"
+          }
         },
         "max-z": {
           "prop": "maxZ",
-          "initValue": null,
-          "dType": "Number"
+          "initValue": "100",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.1,
+            "title": "最大 Z",
+            "doc": "SSAO 效果的最大深度。深度越大，遮蔽效果在远离相机的地方越明显。这个参数可以用来控制 SSAO 效果的远近程度。"
+          }
         }
       }
     },
@@ -203,47 +288,86 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "camera": {
           "prop": "camera",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "作用相机"
+          }
         },
         "source": {
           "prop": "source",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "源"
+          }
         },
         "excluded": {
           "prop": "excluded",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "排除"
+          }
         },
         "exposure": {
           "prop": "exposure",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 10,
+            "step": 0.1,
+            "title": "曝光"
+          }
         },
         "decay": {
           "prop": "decay",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 10,
+            "step": 0.1,
+            "title": "衰减"
+          }
         },
         "weight": {
           "prop": "weight",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 10,
+            "step": 0.1,
+            "title": "权重"
+          }
         },
         "density": {
           "prop": "density",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 10,
+            "step": 0.1,
+            "title": "密度"
+          }
         }
       }
     },
@@ -253,12 +377,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "backface-culling": {
           "prop": "backFaceCulling",
@@ -328,12 +458,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "backface-culling": {
           "prop": "backFaceCulling",
@@ -413,12 +549,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "backface-culling": {
           "prop": "backFaceCulling",
@@ -463,102 +605,165 @@
         "transparency-mode": {
           "prop": "transparencyMode",
           "initValue": "2",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "透明模式"
+          }
         },
         "albedo-color": {
           "prop": "albedoColor",
           "initValue": "#FFFFFF",
-          "dType": "Color3"
+          "dType": "Color3",
+          "extra": {
+            "title": "漫反射颜色"
+          }
         },
         "albedo-texture": {
           "prop": "albedoTexture",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "漫反射贴图"
+          }
         },
         "metallic": {
           "prop": "metallic",
           "initValue": "0.2",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "金属度"
+          }
         },
         "roughness": {
           "prop": "roughness",
           "initValue": "0.8",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "粗糙度"
+          }
         },
         "emissive-color": {
           "prop": "emissiveColor",
           "initValue": null,
-          "dType": "Color3"
+          "dType": "Color3",
+          "extra": {
+            "title": "自发光颜色"
+          }
         },
         "emissive-intensity": {
           "prop": "emissiveIntensity",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "自发光强度"
+          }
         },
         "unlit": {
           "prop": "unlit",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "不受光照影响"
+          }
         },
         "ambient-texture": {
           "prop": "ambientTexture",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "环境遮蔽贴图"
+          }
         },
         "ambient-texture-strength": {
           "prop": "ambientTextureStrength",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "环境遮蔽贴图强度"
+          }
         },
         "opacity-texture": {
           "prop": "opacityTexture",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "透明贴图"
+          }
         },
         "reflection-texture": {
           "prop": "reflectionTexture",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "反射贴图",
+            "doc": "这个纹理用于模拟物体表面的环境反射。它通常是一个包含环境场景的立方体贴图（cube map），用于模拟物体表面反射环境中的物体。"
+          }
         },
         "reflectivity-texture": {
           "prop": "reflectivityTexture",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "反射率贴图",
+            "doc": "这个纹理用于模拟物体表面的反射率，也就是物体表面反射光线的能力。它通常是一个灰度贴图，其中的每个像素值表示对应表面点的反射率。反射率越高，物体表面反射的光线越多，看起来就越亮或者更像金属。"
+          }
         },
         "metallic-texture": {
           "prop": "metallicTexture",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "金属度贴图"
+          }
         },
         "reflectance-texture": {
           "prop": "reflectanceTexture",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "漫反射率贴图",
+            "doc": "这个纹理通常用于模拟物体表面的漫反射率，也就是物体表面散射光线的能力。它通常是一个颜色贴图，其中的每个像素值表示对应表面点的漫反射颜色。漫反射率越高，物体表面散射的光线越多，看起来就越亮。"
+          }
         },
         "micro-surface-texture": {
           "prop": "microSurfaceTexture",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "微表面贴图"
+          }
         },
         "bump-texture": {
           "prop": "bumpTexture",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "法线贴图"
+          }
         },
         "lightmap-texture": {
           "prop": "lightmapTexture",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "光照贴图"
+          }
         },
         "refraction-texture": {
           "prop": "refractionTexture",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "折射贴图"
+          }
         },
         "ambient-color": {
           "prop": "ambientColor",
           "initValue": null,
-          "dType": "Color3"
+          "dType": "Color3",
+          "extra": {
+            "title": "环境遮蔽颜色"
+          }
         },
         "reflectivity-color": {
           "prop": "reflectivityColor",
@@ -578,47 +783,74 @@
         "index-of-refraction": {
           "prop": "indexOfRefraction",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "折射率"
+          }
         },
         "alpha-cut-off": {
           "prop": "alphaCutOff",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "透明度截断"
+          }
         },
         "parallax-scale-bias": {
           "prop": "parallaxScaleBias",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "视差偏移"
+          }
         },
         "invert-refraction-y": {
           "prop": "invertRefractionY",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "反转折射贴图的 Y 轴"
+          }
         },
         "link-refraction-with-transparency": {
           "prop": "linkRefractionWithTransparency",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "将折射与透明度关联"
+          }
         },
         "use-lightmap-as-shadowmap": {
           "prop": "useLightmapAsShadowmap",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "使用光照贴图作为阴影贴图"
+          }
         },
         "use-alpha-from-albedo-texture": {
           "prop": "useAlphaFromAlbedoTexture",
           "initValue": "true",
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "使用漫反射贴图的 alpha 通道"
+          }
         },
         "force-alpha-test": {
           "prop": "forceAlphaTest",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "强制 alpha 测试"
+          }
         },
         "use-specular-over-alpha": {
           "prop": "useSpecularOverAlpha",
           "initValue": "true",
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "是否在透明度（Alpha）上应用高光（Specular）效果"
+          }
         },
         "use-micro-surface-from-reflectivity-map-alpha": {
           "prop": "useMicroSurfaceFromReflectivityMapAlpha",
@@ -627,33 +859,51 @@
         },
         "use-roughness-from-metallic-texture-alpha": {
           "prop": "useRoughnessFromMetallicTextureAlpha",
-          "initValue": null,
-          "dType": "Boolean"
+          "initValue": "true",
+          "dType": "Boolean",
+          "extra": {
+            "title": "使用金属度贴图的 alpha 通道作为粗糙度"
+          }
         },
         "use-roughness-from-metallic-texture-green": {
           "prop": "useRoughnessFromMetallicTextureGreen",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "使用金属度贴图的绿色通道作为粗糙度"
+          }
         },
         "use-metallness-from-metallic-texture-blue": {
           "prop": "useMetallnessFromMetallicTextureBlue",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "使用金属度贴图的蓝色通道作为金属度"
+          }
         },
         "use-ambient-occlusion-from-metallic-texture-red": {
           "prop": "useAmbientOcclusionFromMetallicTextureRed",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "使用金属度贴图的红色通道作为环境遮蔽"
+          }
         },
         "use-ambient-in-gray-scale": {
           "prop": "useAmbientInGrayScale",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "仅在其红色通道中包含环境遮蔽信息"
+          }
         },
         "use-auto-micro-surface-from-reflectivity-map": {
           "prop": "useAutoMicroSurfaceFromReflectivityMap",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "使用反射率贴图自动计算微表面"
+          }
         },
         "use-radiance-over-alpha": {
           "prop": "useRadianceOverAlpha",
@@ -663,32 +913,53 @@
         "use-object-space-normal-map": {
           "prop": "useObjectSpaceNormalMap",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "使用物体空间法线贴图"
+          }
         },
         "use-parallax": {
           "prop": "useParallax",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "启用视差"
+          }
         },
         "use-parallax-occlusion": {
           "prop": "useParallaxOcclusion",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "启用视差遮挡"
+          }
         },
         "enable-specular-anti-aliasing": {
           "prop": "enableSpecularAntiAliasing",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "启用高光抗锯齿"
+          }
         },
         "apply-decal-map-after-detail-map": {
           "prop": "applyDecalMapAfterDetailMap",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "在细节贴图之后应用贴花贴图"
+          }
         },
         "metallic-f0-factor": {
           "prop": "metallicF0Factor",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 1,
+            "step": 0.1,
+            "title": "菲涅尔系数"
+          }
         }
       }
     },
@@ -698,32 +969,53 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "position": {
           "prop": "position",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         },
         "rotation": {
           "prop": "rotation",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转",
+            "min": 0,
+            "max": 360,
+            "step": 1
+          }
         },
         "points": {
           "prop": "points",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "点"
+          }
         },
         "colors": {
           "prop": "colors",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "颜色"
+          }
         },
         "disable-pointer-event": {
           "prop": "disablePointerEvent",
@@ -733,17 +1025,30 @@
         "layer": {
           "prop": "layer",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "渲染顺序层",
+            "doc": "layer 属性通常用于控制渲染顺序和可见性。可以将不同的对象分配给不同的层，然后独立地控制每个层的渲染。例如，可以使用层来创建一个总是在其他对象之上渲染的元素。数值越大，渲染越靠前。",
+            "min": 0,
+            "max": 3,
+            "step": 1
+          }
         },
         "quaternion": {
           "prop": "quaternion",
           "initValue": null,
-          "dType": "Quaternion"
+          "dType": "Quaternion",
+          "extra": {
+            "title": "四元数"
+          }
         },
         "scale": {
           "prop": "scale",
           "initValue": "1 1 1",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
         }
       }
     },
@@ -753,18 +1058,25 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "geometry": {
           "prop": "geometry",
           "initValue": null,
           "dType": "URI",
           "extra": {
+            "title": "几何体",
             "uriPreset": {
               "box": {
                 "protocol": "primitive:",
@@ -773,22 +1085,26 @@
                   "size": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "尺寸"
                   },
                   "width": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "宽度"
                   },
                   "height": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "高度"
                   },
                   "depth": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "深度"
                   }
                 }
               },
@@ -799,34 +1115,40 @@
                   "diameter": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "直径"
                   },
                   "diameter-x": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "直径 X"
                   },
                   "diameter-y": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "直径 Y"
                   },
                   "diameter-z": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "直径 Z"
                   },
                   "arc": {
                     "dType": "Number",
                     "min": 0,
                     "max": 1,
-                    "step": 0.01
+                    "step": 0.01,
+                    "title": "弧度"
                   },
                   "slice": {
                     "dType": "Number",
                     "min": 0,
                     "max": 1,
-                    "step": 0.01
+                    "step": 0.01,
+                    "title": "切片"
                   }
                 }
               },
@@ -837,12 +1159,14 @@
                   "radius": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "半径"
                   },
                   "tessellation": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 1
+                    "step": 1,
+                    "title": "细分"
                   }
                 }
               },
@@ -853,42 +1177,54 @@
                   "height": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "高度"
                   },
                   "diameter-top": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "顶部直径"
                   },
                   "diameter-bottom": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "底部直径"
                   },
                   "tessellation": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 1
+                    "step": 1,
+                    "title": "细分"
                   },
                   "subdivisions": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 1
+                    "step": 1,
+                    "title": "子分区"
                   },
                   "has-rings": {
-                    "dType": "Boolean"
+                    "dType": "Boolean",
+                    "title": "有环"
                   },
                   "enclose": {
-                    "dType": "Boolean"
+                    "dType": "Boolean",
+                    "title": "封闭"
+                  },
+                  "arc": {
+                    "dType": "Number",
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "title": "弧度"
                   },
                   "cap": {
                     "dType": "Number",
-                    "enums": [
-                      0,
-                      1,
-                      2,
-                      3
-                    ]
+                    "min": 0,
+                    "max": 3,
+                    "step": 1,
+                    "title": "端盖"
                   }
                 }
               },
@@ -899,17 +1235,20 @@
                   "size": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "尺寸"
                   },
                   "width": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "宽度"
                   },
                   "height": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "高度"
                   }
                 }
               },
@@ -920,17 +1259,20 @@
                   "diameter": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "直径"
                   },
                   "thickness": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 0.1
+                    "step": 0.1,
+                    "title": "厚度"
                   },
                   "tessellation": {
                     "dType": "Number",
                     "min": 0,
-                    "step": 1
+                    "step": 1,
+                    "title": "细分"
                   }
                 }
               }
@@ -940,27 +1282,45 @@
         "material": {
           "prop": "material",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "材质"
+          }
         },
         "position": {
           "prop": "position",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         },
         "rotation": {
           "prop": "rotation",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转",
+            "min": 0,
+            "max": 360,
+            "step": 1
+          }
         },
         "quaternion": {
           "prop": "quaternion",
           "initValue": null,
-          "dType": "Quaternion"
+          "dType": "Quaternion",
+          "extra": {
+            "title": "四元数"
+          }
         },
         "scale": {
           "prop": "scale",
           "initValue": "1 1 1",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
         },
         "disable-pointer-event": {
           "prop": "disablePointerEvent",
@@ -973,7 +1333,14 @@
         "layer": {
           "prop": "layer",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "渲染顺序层",
+            "doc": "layer 属性通常用于控制渲染顺序和可见性。可以将不同的对象分配给不同的层，然后独立地控制每个层的渲染。例如，可以使用层来创建一个总是在其他对象之上渲染的元素。数值越大，渲染越靠前。",
+            "min": 0,
+            "max": 3,
+            "step": 1
+          }
         },
         "entity-delegated": {
           "prop": "entityDelegated",
@@ -986,27 +1353,42 @@
         "enable-edges": {
           "prop": "enableEdges",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "边缘渲染"
+          }
         },
         "edges-width": {
           "prop": "edgesWidth",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "边缘渲染宽度"
+          }
         },
         "edges-color": {
           "prop": "edgesColor",
           "initValue": "#FF0000FF",
-          "dType": "Color4"
+          "dType": "Color4",
+          "extra": {
+            "title": "边缘渲染颜色"
+          }
         },
         "enable-outline": {
           "prop": "enableOutline",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "轮廓渲染"
+          }
         },
         "flat-shading": {
           "prop": "flatShading",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "平面着色"
+          }
         }
       }
     },
@@ -1016,12 +1398,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "has-alpha": {
           "prop": "hasAlpha",
@@ -1081,77 +1469,128 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "has-alpha": {
           "prop": "hasAlpha",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "是否有透明通道"
+          }
         },
         "level": {
           "prop": "level",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "强度"
+          }
         },
         "coordinates-index": {
           "prop": "coordinatesIndex",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 3,
+            "step": 1,
+            "title": "UV 索引"
+          }
         },
         "coordinates-mode": {
           "prop": "coordinatesMode",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 9,
+            "step": 1,
+            "title": "UV 模式"
+          }
         },
         "wrap-u": {
           "prop": "wrapU",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "U 轴环绕"
+          }
         },
         "wrap-v": {
           "prop": "wrapV",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "V 轴环绕"
+          }
         },
         "url": {
           "prop": "url",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "图片地址"
+          }
         },
         "u-offset": {
           "prop": "uOffset",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "U 轴偏移"
+          }
         },
         "v-offset": {
           "prop": "vOffset",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "V 轴偏移"
+          }
         },
         "u-scale": {
           "prop": "uScale",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "U 轴缩放"
+          }
         },
         "v-scale": {
           "prop": "vScale",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "V 轴缩放"
+          }
         },
         "invert-y": {
           "prop": "invertY",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "是否反转 Y 轴"
+          }
         },
         "extension": {
           "prop": "extension",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "扩展名"
+          }
         },
         "entity-delegated": {
           "prop": "entityDelegated",
@@ -1166,37 +1605,65 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "position": {
           "prop": "position",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         },
         "rotation": {
           "prop": "rotation",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转",
+            "min": 0,
+            "max": 360,
+            "step": 1
+          }
         },
         "quaternion": {
           "prop": "quaternion",
           "initValue": null,
-          "dType": "Quaternion"
+          "dType": "Quaternion",
+          "extra": {
+            "title": "四元数"
+          }
         },
         "scale": {
           "prop": "scale",
           "initValue": "1 1 1",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
         },
         "layer": {
           "prop": "layer",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "渲染顺序层",
+            "doc": "layer 属性通常用于控制渲染顺序和可见性。可以将不同的对象分配给不同的层，然后独立地控制每个层的渲染。例如，可以使用层来创建一个总是在其他对象之上渲染的元素。数值越大，渲染越靠前。",
+            "min": 0,
+            "max": 3,
+            "step": 1
+          }
         },
         "entity-delegated": {
           "prop": "entityDelegated",
@@ -1211,12 +1678,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "src": {
           "prop": "src",
@@ -1226,22 +1699,37 @@
         "position": {
           "prop": "position",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         },
         "rotation": {
           "prop": "rotation",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转",
+            "min": 0,
+            "max": 360,
+            "step": 1
+          }
         },
         "quaternion": {
           "prop": "quaternion",
           "initValue": null,
-          "dType": "Quaternion"
+          "dType": "Quaternion",
+          "extra": {
+            "title": "四元数"
+          }
         },
         "scale": {
           "prop": "scale",
           "initValue": "1 1 1",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
         },
         "disable-pointer-event": {
           "prop": "disablePointerEvent",
@@ -1251,47 +1739,79 @@
         "layer": {
           "prop": "layer",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "渲染顺序层",
+            "doc": "layer 属性通常用于控制渲染顺序和可见性。可以将不同的对象分配给不同的层，然后独立地控制每个层的渲染。例如，可以使用层来创建一个总是在其他对象之上渲染的元素。数值越大，渲染越靠前。",
+            "min": 0,
+            "max": 3,
+            "step": 1
+          }
         },
         "extension": {
           "prop": "extension",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "扩展名"
+          }
         },
         "material": {
           "prop": "material",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "材质"
+          }
         },
         "auto-play": {
           "prop": "autoPlay",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "自动播放"
+          }
         },
         "loop": {
           "prop": "loop",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "循环播放"
+          }
         },
         "flat-shading": {
           "prop": "flatShading",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "平面着色"
+          }
         },
         "origin-transform": {
           "prop": "originTransform",
           "initValue": null,
-          "dType": "Matrix"
+          "dType": "Matrix",
+          "extra": {
+            "title": "原点转换",
+            "doc": "如果设置了该属性，则会把模型的原点转换到指定的位置"
+          }
         },
         "preload": {
           "prop": "preload",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "预加载"
+          }
         },
         "disable-virtual-node": {
           "prop": "disableVirtualNode",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用虚拟节点"
+          }
         }
       }
     },
@@ -1301,42 +1821,75 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "diffuse": {
           "prop": "diffuse",
           "initValue": "#FFFFFF",
-          "dType": "Color3"
+          "dType": "Color3",
+          "extra": {
+            "title": "漫反射颜色"
+          }
         },
         "intensity": {
           "prop": "intensity",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.1,
+            "title": "强度"
+          }
         },
         "shadow-caster": {
           "prop": "shadowCaster",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "阴影投射源"
+          }
         },
         "shadow-caster-filtering-quality": {
           "prop": "shadowCasterFilteringQuality",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 2,
+            "step": 1,
+            "title": "阴影投射过滤质量"
+          }
         },
         "shadow-caster-bias": {
           "prop": "shadowCasterBias",
           "initValue": "0.01",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射偏移"
+          }
         },
         "shadow-caster-normal-bias": {
           "prop": "shadowCasterNormalBias",
           "initValue": "0.01",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射法线偏移"
+          }
         },
         "alpha": {
           "prop": "alpha",
@@ -1356,42 +1909,75 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "diffuse": {
           "prop": "diffuse",
           "initValue": "#FFFFFF",
-          "dType": "Color3"
+          "dType": "Color3",
+          "extra": {
+            "title": "漫反射颜色"
+          }
         },
         "intensity": {
           "prop": "intensity",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.1,
+            "title": "强度"
+          }
         },
         "shadow-caster": {
           "prop": "shadowCaster",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "阴影投射源"
+          }
         },
         "shadow-caster-filtering-quality": {
           "prop": "shadowCasterFilteringQuality",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 2,
+            "step": 1,
+            "title": "阴影投射过滤质量"
+          }
         },
         "shadow-caster-bias": {
           "prop": "shadowCasterBias",
           "initValue": "0.01",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射偏移"
+          }
         },
         "shadow-caster-normal-bias": {
           "prop": "shadowCasterNormalBias",
           "initValue": "0.01",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射法线偏移"
+          }
         },
         "alpha": {
           "prop": "alpha",
@@ -1406,7 +1992,10 @@
         "ground-color": {
           "prop": "groundColor",
           "initValue": null,
-          "dType": "Color3"
+          "dType": "Color3",
+          "extra": {
+            "title": "地面颜色"
+          }
         }
       }
     },
@@ -1416,47 +2005,83 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "diffuse": {
           "prop": "diffuse",
           "initValue": "#FFFFFF",
-          "dType": "Color3"
+          "dType": "Color3",
+          "extra": {
+            "title": "漫反射颜色"
+          }
         },
         "intensity": {
           "prop": "intensity",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.1,
+            "title": "强度"
+          }
         },
         "shadow-caster": {
           "prop": "shadowCaster",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "阴影投射源"
+          }
         },
         "shadow-caster-filtering-quality": {
           "prop": "shadowCasterFilteringQuality",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 2,
+            "step": 1,
+            "title": "阴影投射过滤质量"
+          }
         },
         "shadow-caster-bias": {
           "prop": "shadowCasterBias",
           "initValue": "0.01",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射偏移"
+          }
         },
         "shadow-caster-normal-bias": {
           "prop": "shadowCasterNormalBias",
           "initValue": "0.01",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射法线偏移"
+          }
         },
         "position": {
           "prop": "position",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         }
       }
     },
@@ -1466,57 +2091,97 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "position": {
           "prop": "position",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         },
         "rotation": {
           "prop": "rotation",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转",
+            "min": 0,
+            "max": 360,
+            "step": 1
+          }
         },
         "quaternion": {
           "prop": "quaternion",
           "initValue": null,
-          "dType": "Quaternion"
+          "dType": "Quaternion",
+          "extra": {
+            "title": "四元数"
+          }
         },
         "scale": {
           "prop": "scale",
           "initValue": "1 1 1",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
         },
         "layer": {
           "prop": "layer",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "渲染顺序层",
+            "doc": "layer 属性通常用于控制渲染顺序和可见性。可以将不同的对象分配给不同的层，然后独立地控制每个层的渲染。例如，可以使用层来创建一个总是在其他对象之上渲染的元素。数值越大，渲染越靠前。",
+            "min": 0,
+            "max": 3,
+            "step": 1
+          }
         },
         "img": {
           "prop": "img",
           "initValue": null,
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "贴花图片"
+          }
         },
         "img-level": {
           "prop": "imgLevel",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "贴花强度"
+          }
         },
         "use-ray": {
           "prop": "useRay",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "使用射线"
+          }
         },
         "ray-scope": {
           "prop": "rayScope",
           "initValue": "\"scene\"",
-          "dType": "String"
+          "dType": "String",
+          "extra": {
+            "title": "射线范围"
+          }
         }
       }
     },
@@ -1526,37 +2191,58 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "scale": {
           "prop": "scale",
           "initValue": "1 1 1",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
         },
         "enable-position": {
           "prop": "enablePosition",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "启用平移"
+          }
         },
         "enable-rotation": {
           "prop": "enableRotation",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "启用旋转"
+          }
         },
         "enable-scale": {
           "prop": "enableScale",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "启用缩放"
+          }
         },
         "target": {
           "prop": "target",
           "initValue": null,
-          "dType": "URI"
+          "dType": "URI",
+          "extra": {
+            "title": "目标"
+          }
         }
       }
     },
@@ -1566,27 +2252,42 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "position": {
           "prop": "position",
           "initValue": "0 0 0",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         },
         "rotation": {
           "prop": "rotation",
           "initValue": "0 0 0",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转"
+          }
         },
         "length": {
           "prop": "length",
           "initValue": "1",
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "长度"
+          }
         }
       }
     },
@@ -1596,12 +2297,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         }
       }
     },
@@ -1611,12 +2318,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         }
       }
     },
@@ -1630,12 +2343,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "thickness": {
           "prop": "thickness",
@@ -1645,17 +2364,29 @@
         "position": {
           "prop": "position",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         },
         "rotation": {
           "prop": "rotation",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转",
+            "min": 0,
+            "max": 360,
+            "step": 1
+          }
         },
         "scale": {
           "prop": "scale",
           "initValue": "1 1 1",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
         },
         "color": {
           "prop": "color",
@@ -1670,37 +2401,65 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "position": {
           "prop": "position",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         },
         "rotation": {
           "prop": "rotation",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转",
+            "min": 0,
+            "max": 360,
+            "step": 1
+          }
         },
         "scale": {
           "prop": "scale",
           "initValue": "1 1 1",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
         },
         "layer": {
           "prop": "layer",
           "initValue": null,
-          "dType": "Number"
+          "dType": "Number",
+          "extra": {
+            "title": "渲染顺序层",
+            "doc": "layer 属性通常用于控制渲染顺序和可见性。可以将不同的对象分配给不同的层，然后独立地控制每个层的渲染。例如，可以使用层来创建一个总是在其他对象之上渲染的元素。数值越大，渲染越靠前。",
+            "min": 0,
+            "max": 3,
+            "step": 1
+          }
         },
         "quaternion": {
           "prop": "quaternion",
           "initValue": null,
-          "dType": "Quaternion"
+          "dType": "Quaternion",
+          "extra": {
+            "title": "四元数"
+          }
         },
         "radius-x": {
           "prop": "radiusX",
@@ -1725,27 +2484,45 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "position": {
           "prop": "position",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         },
         "rotation": {
           "prop": "rotation",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转",
+            "min": 0,
+            "max": 360,
+            "step": 1
+          }
         },
         "scale": {
           "prop": "scale",
           "initValue": "1 1 1",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
         }
       }
     },
@@ -1755,27 +2532,45 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "position": {
           "prop": "position",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
         },
         "rotation": {
           "prop": "rotation",
           "initValue": null,
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转",
+            "min": 0,
+            "max": 360,
+            "step": 1
+          }
         },
         "scale": {
           "prop": "scale",
           "initValue": "1 1 1",
-          "dType": "Vector3"
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
         },
         "type": {
           "prop": "type",
@@ -1795,12 +2590,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "target": {
           "prop": "target",
@@ -1815,12 +2616,18 @@
         "inspect": {
           "prop": "inspect",
           "initValue": null,
-          "dType": "Object"
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
         },
         "disabled": {
           "prop": "disabled",
           "initValue": null,
-          "dType": "Boolean"
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
         },
         "size": {
           "prop": "size",

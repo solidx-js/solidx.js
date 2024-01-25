@@ -10,22 +10,22 @@ import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { PointLight } from '@babylonjs/core/Lights/pointLight';
 
 export class XRBaseLight<T extends Light> extends XRSceneScopeElement<T> {
-  @Decorator.property('Color3', 'diffuse', Color3.White())
+  @Decorator.property('Color3', 'diffuse', Color3.White(), { title: '漫反射颜色' })
   diffuse: Color3 | null = null;
 
-  @Decorator.property('Number', 'intensity', 1)
+  @Decorator.property('Number', 'intensity', 1, { min: 0, step: 0.1, title: '强度' })
   intensity: number | null = null;
 
-  @Decorator.property('String', 'shadow-caster', null)
+  @Decorator.property('String', 'shadow-caster', null, { title: '阴影投射源' })
   shadowCaster: string | null = null;
 
-  @Decorator.property('Number', 'shadow-caster-filtering-quality', 1)
+  @Decorator.property('Number', 'shadow-caster-filtering-quality', 1, { min: 0, max: 2, step: 1, title: '阴影投射过滤质量' })
   shadowCasterFilteringQuality: number | null = null;
 
-  @Decorator.property('Number', 'shadow-caster-bias', 0.01)
+  @Decorator.property('Number', 'shadow-caster-bias', 0.01, { min: 0, step: 0.01, title: '阴影投射偏移' })
   shadowCasterBias: number | null = null;
 
-  @Decorator.property('Number', 'shadow-caster-normal-bias', 0.01)
+  @Decorator.property('Number', 'shadow-caster-normal-bias', 0.01, { min: 0, step: 0.01, title: '阴影投射法线偏移' })
   shadowCasterNormalBias: number | null = null;
 
   @state()

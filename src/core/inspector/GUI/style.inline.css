@@ -73,6 +73,11 @@
   width: auto;
 }
 
+.cell.has-doc > .label {
+  cursor: help;
+  text-decoration: dashed underline;
+}
+
 .cell:hover {
   background-color: var(--hover-color);
 }

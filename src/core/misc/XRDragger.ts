@@ -25,16 +25,16 @@ export class XRDragger extends XRSceneScopeElement<TransformNode> {
   @Decorator.scale()
   scale: Vector3 | null = null;
 
-  @Decorator.property('Boolean', 'enable-position', null)
+  @Decorator.property('Boolean', 'enable-position', null, { title: '启用平移' })
   enablePosition: boolean | null = null;
 
-  @Decorator.property('Boolean', 'enable-rotation', null)
+  @Decorator.property('Boolean', 'enable-rotation', null, { title: '启用旋转' })
   enableRotation: boolean | null = null;
 
-  @Decorator.property('Boolean', 'enable-scale', null)
+  @Decorator.property('Boolean', 'enable-scale', null, { title: '启用缩放' })
   enableScale: boolean | null = null;
 
-  @Decorator.property('URI', 'target', null)
+  @Decorator.property('URI', 'target', null, { title: '目标' })
   target: IDataTypeMap['URI'] | null = null;
 
   @state()

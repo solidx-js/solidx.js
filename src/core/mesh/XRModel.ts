@@ -49,31 +49,34 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @Decorator.layer()
   layer: number | null = null;
 
-  @Decorator.property('String', 'extension', null)
+  @Decorator.property('String', 'extension', null, { title: '扩展名' })
   extension: string | null = null;
 
-  @Decorator.property('URI', 'material', null)
+  @Decorator.material()
   material: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('Boolean', 'auto-play', null)
+  @Decorator.property('Boolean', 'auto-play', null, { title: '自动播放' })
   autoPlay: boolean | null = null;
 
-  @Decorator.property('Boolean', 'loop', null)
+  @Decorator.property('Boolean', 'loop', null, { title: '循环播放' })
   loop: boolean | null = null;
 
-  @Decorator.property('Boolean', 'flat-shading', null)
+  @Decorator.property('Boolean', 'flat-shading', null, { title: '平面着色' })
   flatShading: boolean | null = null;
 
   /**
    * 原点转换。如果设置了该属性，则会把模型的原点转换到指定的位置。
    */
-  @Decorator.property('Matrix', 'origin-transform', null)
+  @Decorator.property('Matrix', 'origin-transform', null, {
+    title: '原点转换',
+    doc: process.env.NODE_ENV === 'development' ? '如果设置了该属性，则会把模型的原点转换到指定的位置' : '',
+  })
   originTransform: Matrix | null = null;
 
-  @Decorator.property('Boolean', 'preload', null)
+  @Decorator.property('Boolean', 'preload', null, { title: '预加载' })
   preload: boolean | null = null;
 
-  @Decorator.property('Boolean', 'disable-virtual-node', null)
+  @Decorator.property('Boolean', 'disable-virtual-node', null, { title: '禁用虚拟节点' })
   disableVirtualNode: boolean | null = null;
 
   @state()

@@ -12,25 +12,25 @@ import { IDataTypeMap } from '../../util';
 
 @registerElement('xr-volumetric-light')
 export class XRVolumetricLight extends XRSceneScopeElement<VolumetricLightScatteringPostProcess> implements IPostProcessImpl {
-  @Decorator.property('URI', 'camera', null)
+  @Decorator.camera()
   camera: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('URI', 'source', null)
+  @Decorator.property('URI', 'source', null, { title: '源' })
   source: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('String', 'excluded', null)
+  @Decorator.property('String', 'excluded', null, { title: '排除' })
   excluded: string | null = null;
 
-  @Decorator.property('Number', 'exposure', null)
+  @Decorator.property('Number', 'exposure', null, { min: 0, max: 10, step: 0.1, title: '曝光' })
   exposure: number | null = null;
 
-  @Decorator.property('Number', 'decay', null)
+  @Decorator.property('Number', 'decay', null, { min: 0, max: 10, step: 0.1, title: '衰减' })
   decay: number | null = null;
 
-  @Decorator.property('Number', 'weight', null)
+  @Decorator.property('Number', 'weight', null, { min: 0, max: 10, step: 0.1, title: '权重' })
   weight: number | null = null;
 
-  @Decorator.property('Number', 'density', null)
+  @Decorator.property('Number', 'density', null, { min: 0, max: 10, step: 0.1, title: '密度' })
   density: number | null = null;
 
   @state()

@@ -44,16 +44,16 @@ export class XRDecal extends XRSceneScopeElement<TransformNode> implements Omit<
   @Decorator.layer()
   layer: number | null = null;
 
-  @Decorator.property('String', 'img', null)
+  @Decorator.property('String', 'img', null, { title: '贴花图片' })
   img: string | null = null;
 
-  @Decorator.property('Number', 'img-level', null)
+  @Decorator.property('Number', 'img-level', null, { title: '贴花强度' })
   imgLevel: number | null = null;
 
-  @Decorator.property('Boolean', 'use-ray', null)
+  @Decorator.property('Boolean', 'use-ray', null, { title: '使用射线' })
   useRay: boolean | null = null;
 
-  @Decorator.property('String', 'ray-scope', 'scene')
+  @Decorator.property('String', 'ray-scope', 'scene', { title: '射线范围' })
   rayScope: 'scene' | 'parent' | null = 'scene';
 
   private _lastTargetMesh: Mesh | null = null; // 上一次贴花的目标对象

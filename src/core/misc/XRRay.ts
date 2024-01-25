@@ -7,13 +7,13 @@ import { TickController } from '../controller';
 import { ElementRegistry } from '../../registry';
 
 export class XRRay extends XRSceneScopeElement<Ray> {
-  @Decorator.property('Vector3', 'position', Vector3.Zero())
+  @Decorator.property('Vector3', 'position', Vector3.Zero(), { title: '位置' })
   position: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'rotation', Vector3.Zero())
+  @Decorator.property('Vector3', 'rotation', Vector3.Zero(), { title: '旋转' })
   rotation: Vector3 | null = null;
 
-  @Decorator.property('Number', 'length', 1)
+  @Decorator.property('Number', 'length', 1, { title: '长度' })
   length: number | null = null;
 
   constructor() {

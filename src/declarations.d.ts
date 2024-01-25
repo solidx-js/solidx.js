@@ -44,6 +44,8 @@ declare module 'lit' {
     dType: IDataType;
     initValue: IDataTypeMap[IDataType] | null;
     extra?: {
+      title?: string;
+      doc?: string;
       min?: number;
       max?: number;
       step?: number;
@@ -56,7 +58,10 @@ declare module 'lit' {
           protocol: string;
           host: string;
           pathname?: string;
-          query: Record<string, { dType: IDataType; min?: number; max?: number; step?: number; enums?: any[]; hidden?: boolean }>;
+          query: Record<
+            string,
+            { title?: string; doc?: string; dType: IDataType; min?: number; max?: number; step?: number; enums?: any[]; hidden?: boolean }
+          >;
         }
       >;
     };

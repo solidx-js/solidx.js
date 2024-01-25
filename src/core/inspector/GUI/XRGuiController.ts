@@ -105,15 +105,15 @@ export class XRGuiController extends XRThinElement {
       return null;
     }
 
-    const label = _attr;
+    const label = def.extra?.title ? `${def.extra?.title} (${_attr})` : _attr;
     const value = (this._source.evaluated as any)[property];
 
     this.toggleVisible(true);
     this.dataset.dtype = def.dType;
 
     return html`
-      <div class="cell ${classMap({ 'label-max': def.dType === 'Boolean' })}">
-        <div class="label" title="${label}">${label}</div>
+      <div class="cell ${classMap({ 'label-max': def.dType === 'Boolean', 'has-doc': !!def.extra?.doc })}">
+        <div class="label" title="${def.extra?.doc || label}">${label}</div>
         <div class="content">
           ${renderInput(def, value, newValue => {
             const _literal = Schema.toAttr(def.dType, newValue);
@@ -368,7 +368,7 @@ export class XRGuiURIInput extends XRThinElement {
               ([prop, def]) => {
                 return html`
                   <div class="row">
-                    <div class="label">${prop}</div>
+                    <div class="label">${def.title ? `${def.title} (${prop})` : prop}</div>
                     <div class="content">
                       ${renderInput({ dType: def.dType, extra: def } as any, this.value?.query[prop], (newValue: any) => {
                         const _uri = this.value;

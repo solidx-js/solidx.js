@@ -62,7 +62,10 @@ xr-glow {
 }
 
 xr-pipeline-ssao2 {
-
+  ---samples: 16;
+  ---radius: 2;
+  ---total-strength: 1;
+  ---max-z: 100;
 }
 
 xr-volumetric-light {
@@ -97,6 +100,7 @@ xr-material {
   ---micro-surface: 1;
   ---use-alpha-from-albedo-texture: true;
   ---use-specular-over-alpha: true;
+  ---use-roughness-from-metallic-texture-alpha: true;
   ---use-radiance-over-alpha: true;
 }
 
@@ -255,6 +259,11 @@ xr-world-axis {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
+}
+
+@property ---attach-control {
+  syntax: "*";
+  inherits: false;
 }
 
 @property ---background {

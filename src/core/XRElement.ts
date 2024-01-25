@@ -101,10 +101,10 @@ export class XRElement<T = any> extends XRThinElement {
   entity: T | null = null;
 
   // 基础属性
-  @Decorator.property('Object', 'inspect', null)
+  @Decorator.property('Object', 'inspect', null, { title: '检查模式' })
   inspect: Record<string, string> | null = null;
 
-  @Decorator.property('Boolean', 'disabled', null)
+  @Decorator.property('Boolean', 'disabled', null, { title: '禁用' })
   disabled: boolean | null = null;
 
   protected _styled: CSSStyleDeclaration | null = null;

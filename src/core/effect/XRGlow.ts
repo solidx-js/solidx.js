@@ -5,7 +5,7 @@ import { Decorator } from '../Decorator';
 
 @registerElement('xr-glow')
 export class XRGlow extends XRSceneScopeElement<GlowLayer> {
-  @Decorator.property('Number', 'intensity', 1)
+  @Decorator.property('Number', 'intensity', 1, { min: 0, max: 10, step: 0.1, title: '强度' })
   intensity: number | null = null;
 
   connected(): void {

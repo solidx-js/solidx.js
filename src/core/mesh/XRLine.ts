@@ -18,10 +18,10 @@ export class XRLine extends XRSceneScopeElement<LinesMesh> implements Omit<ITran
   @Decorator.rotation()
   rotation: Vector3 | null = null;
 
-  @Decorator.property('String', 'points', null)
+  @Decorator.property('String', 'points', null, { title: '点' })
   points: string | null = null;
 
-  @Decorator.property('String', 'colors', null)
+  @Decorator.property('String', 'colors', null, { title: '颜色' })
   colors: string | null = null;
 
   @Decorator.property('Boolean', 'disable-pointer-event', null)

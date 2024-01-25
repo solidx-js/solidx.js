@@ -37,43 +37,43 @@ export class XRTexture extends XRSceneScopeElement<Texture> implements IXRTextur
     return props;
   }
 
-  @Decorator.property('Boolean', 'has-alpha', null)
+  @Decorator.property('Boolean', 'has-alpha', null, { title: '是否有透明通道' })
   hasAlpha: boolean | null = null;
 
-  @Decorator.property('Number', 'level', 1)
+  @Decorator.property('Number', 'level', 1, { title: '强度' })
   level: number | null = null;
 
-  @Decorator.property('Number', 'coordinates-index', null)
+  @Decorator.property('Number', 'coordinates-index', null, { min: 0, max: 3, step: 1, title: 'UV 索引' })
   coordinatesIndex: number | null = null;
 
-  @Decorator.property('Number', 'coordinates-mode', null)
+  @Decorator.property('Number', 'coordinates-mode', null, { min: 0, max: 9, step: 1, title: 'UV 模式' })
   coordinatesMode: number | null = null;
 
-  @Decorator.property('Number', 'wrap-u', null)
+  @Decorator.property('Number', 'wrap-u', null, { title: 'U 轴环绕' })
   wrapU: number | null = null;
 
-  @Decorator.property('Number', 'wrap-v', null)
+  @Decorator.property('Number', 'wrap-v', null, { title: 'V 轴环绕' })
   wrapV: number | null = null;
 
-  @Decorator.property('String', 'url', null)
+  @Decorator.property('String', 'url', null, { title: '图片地址' })
   url: string | null = null;
 
-  @Decorator.property('Number', 'u-offset', null)
+  @Decorator.property('Number', 'u-offset', null, { title: 'U 轴偏移' })
   uOffset: number | null = null;
 
-  @Decorator.property('Number', 'v-offset', null)
+  @Decorator.property('Number', 'v-offset', null, { title: 'V 轴偏移' })
   vOffset: number | null = null;
 
-  @Decorator.property('Number', 'u-scale', 1)
+  @Decorator.property('Number', 'u-scale', 1, { title: 'U 轴缩放' })
   uScale: number | null = null;
 
-  @Decorator.property('Number', 'v-scale', 1)
+  @Decorator.property('Number', 'v-scale', 1, { title: 'V 轴缩放' })
   vScale: number | null = null;
 
-  @Decorator.property('Boolean', 'invert-y', null)
+  @Decorator.property('Boolean', 'invert-y', null, { title: '是否反转 Y 轴' })
   invertY: boolean | null = null;
 
-  @Decorator.property('String', 'extension', null)
+  @Decorator.property('String', 'extension', null, { title: '扩展名' })
   extension: string | null = null;
 
   @Decorator.property('Boolean', 'entity-delegated', null)
