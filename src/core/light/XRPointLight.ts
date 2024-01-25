@@ -6,7 +6,7 @@ import { XRBaseLight } from './XRBaseLight';
 import { ElementRegistry } from '../../registry';
 
 export class XRPointLight extends XRBaseLight<PointLight> {
-  @Decorator.property('Vector3', 'position', null)
+  @Decorator.position()
   position: Vector3 | null = null;
 
   connected(): void {

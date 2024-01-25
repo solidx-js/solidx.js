@@ -22,13 +22,13 @@ import { ElementRegistry } from '../../registry';
  * 贴花
  */
 export class XRDecal extends XRSceneScopeElement<TransformNode> implements Omit<ITransformNodeLikeImpl, 'entityDelegated'> {
-  @Decorator.property('Vector3', 'position', null)
+  @Decorator.position()
   position: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'rotation', null)
+  @Decorator.rotation()
   rotation: Vector3 | null = null;
 
-  @Decorator.property('Quaternion', 'quaternion', null)
+  @Decorator.quaternion()
   quaternion: Quaternion | null = null;
 
   /**
@@ -38,10 +38,10 @@ export class XRDecal extends XRSceneScopeElement<TransformNode> implements Omit<
    * - y: height
    * - z: depth
    */
-  @Decorator.property('Vector3', 'scale', Vector3.One())
+  @Decorator.scale()
   scale: Vector3 | null = null;
 
-  @Decorator.property('Number', 'layer', null)
+  @Decorator.layer()
   layer: number | null = null;
 
   @Decorator.property('String', 'img', null)

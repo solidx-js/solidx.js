@@ -1,6 +1,7 @@
 :host {
   --primary-color: #396efb;
   --border-color: #ccc;
+  --border-color-light: #e5e5e5;
   --hover-color: #f5f5f5;
 
   font-size: 12px;
@@ -39,7 +40,7 @@
 .cell {
   display: flex;
   align-items: center;
-  padding: 2px 4px;
+  padding: 6px 0px;
   width: 100%;
 }
 
@@ -102,6 +103,10 @@ input[type='color'] {
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+input[type='range'] {
+  margin: 0;
 }
 
 input:focus {

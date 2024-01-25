@@ -17,7 +17,21 @@ import { STYLE } from './style';
 
 @registerElement('xr-gui-controller')
 export class XRGuiController extends XRThinElement {
-  static styles = STYLE;
+  static styles = [
+    STYLE,
+    css`
+      :host::after {
+        content: '';
+        display: block;
+        height: 1px;
+        background-color: var(--border-color-light);
+      }
+
+      :host(.hidden) {
+        display: none;
+      }
+    `,
+  ];
 
   @Decorator.property('URI', 'source', null)
   source: IDataTypeMap['URI'] | null = null;
@@ -161,7 +175,7 @@ function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: 
         style="width: 60px;"
       />`;
 
-      return html`${_rangeInput}${_numberInput}`;
+      return html`<div style="display: flex; width: 100%; gap: 4px;">${_rangeInput}${_numberInput}</div>`;
     }
 
     return html`<input
@@ -239,10 +253,25 @@ function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: 
     const _v = value as Vector3;
 
     return html`
-      <div class="space space--h">
-        ${renderInput({ dType: 'Number' } as any, _v.x, (x: any) => onChange(new Vector3(x, _v.y, _v.z)))}
-        ${renderInput({ dType: 'Number' } as any, _v.y, (y: any) => onChange(new Vector3(_v.x, y, _v.z)))}
-        ${renderInput({ dType: 'Number' } as any, _v.z, (z: any) => onChange(new Vector3(_v.x, _v.y, z)))}
+      <div class="space space--v">
+        ${renderInput(
+          { dType: 'Number', extra: def.extra?.vecRange?.x || def.extra } as any,
+          _v.x,
+          (x: any) => onChange(new Vector3(x, _v.y, _v.z)),
+          { width: '100%' }
+        )}
+        ${renderInput(
+          { dType: 'Number', extra: def.extra?.vecRange?.y || def.extra } as any,
+          _v.y,
+          (y: any) => onChange(new Vector3(_v.x, y, _v.z)),
+          { width: '100%' }
+        )}
+        ${renderInput(
+          { dType: 'Number', extra: def.extra?.vecRange?.z || def.extra } as any,
+          _v.z,
+          (z: any) => onChange(new Vector3(_v.x, _v.y, z)),
+          { width: '100%' }
+        )}
       </div>
     `;
   }
@@ -259,7 +288,24 @@ function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: 
 
 @registerElement('xr-gui-uri-input')
 export class XRGuiURIInput extends XRThinElement {
-  static styles = STYLE;
+  static styles = [
+    STYLE,
+    css`
+      .query-body > .row {
+      }
+
+      .query-body > .row > .label {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .query-body > .row > .content {
+        display: flex;
+        align-items: center;
+      }
+    `,
+  ];
 
   @state()
   preset: NonNullable<NonNullable<PropertyDeclaration['extra']>['uriPreset']> | null = null;
@@ -321,9 +367,9 @@ export class XRGuiURIInput extends XRThinElement {
               ([prop, def]) => prop,
               ([prop, def]) => {
                 return html`
-                  <div>
-                    <div>${prop}</div>
-                    <div>
+                  <div class="row">
+                    <div class="label">${prop}</div>
+                    <div class="content">
                       ${renderInput({ dType: def.dType, extra: def } as any, this.value?.query[prop], (newValue: any) => {
                         const _uri = this.value;
                         if (!_uri) return;

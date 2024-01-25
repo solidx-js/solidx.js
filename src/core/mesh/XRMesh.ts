@@ -96,6 +96,7 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
           subdivisions: { dType: 'Number', min: 0, step: 1 },
           'has-rings': { dType: 'Boolean' },
           enclose: { dType: 'Boolean' },
+          arc: { dType: 'Number', min: 0, max: 1, step: 0.01 },
           cap: { dType: 'Number', enums: [Mesh.NO_CAP, Mesh.CAP_START, Mesh.CAP_END, Mesh.CAP_ALL] },
         },
       },
@@ -124,22 +125,22 @@ export class XRMesh extends XRSceneScopeElement<Mesh> implements IXRMeshProps {
   @Decorator.property('URI', 'material', null)
   material: IDataTypeMap['URI'] | null = null;
 
-  @Decorator.property('Vector3', 'position', null)
+  @Decorator.position()
   position: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'rotation', null)
+  @Decorator.rotation()
   rotation: Vector3 | null = null;
 
-  @Decorator.property('Quaternion', 'quaternion', null)
+  @Decorator.quaternion()
   quaternion: Quaternion | null = null;
 
-  @Decorator.property('Vector3', 'scale', Vector3.One())
+  @Decorator.scale()
   scale: Vector3 | null = null;
 
   @Decorator.property('Boolean', 'disable-pointer-event', null, { hidden: true })
   disablePointerEvent: boolean | null = null;
 
-  @Decorator.property('Number', 'layer', null)
+  @Decorator.layer()
   layer: number | null = null;
 
   @Decorator.property('Boolean', 'entity-delegated', null, { hidden: true })
@@ -318,6 +319,7 @@ const GEO_DEFS: Record<string, { props: Record<string, IDataType>; factory: (dat
       subdivisions: 'Number',
       hasRings: 'Boolean',
       enclose: 'Boolean',
+      arc: 'Number',
       cap: 'Number',
       sideOrientation: 'Number',
       frontUVs: 'Vector4',

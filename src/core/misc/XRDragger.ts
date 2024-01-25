@@ -22,7 +22,7 @@ type IDragStartInfo = {
 
 @registerElement('xr-dragger')
 export class XRDragger extends XRSceneScopeElement<TransformNode> {
-  @Decorator.property('Vector3', 'scale', Vector3.One())
+  @Decorator.scale()
   scale: Vector3 | null = null;
 
   @Decorator.property('Boolean', 'enable-position', null)

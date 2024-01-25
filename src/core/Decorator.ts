@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js';
 import { Context } from './Context';
 import { IDataType, IDataTypeMap, Schema, typedClone } from '../util';
 import { PropertyDeclaration } from 'lit';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 
 export const Decorator = {
   scene: () => {
@@ -25,5 +26,25 @@ export const Decorator = {
       },
       hasChanged: (value: any, oldValue: any) => !Schema.isEqual(dType, value, oldValue),
     });
+  },
+
+  rotation: () => {
+    return Decorator.property('Vector3', 'rotation', null, { min: 0, max: 360, step: 1 });
+  },
+
+  position: () => {
+    return Decorator.property('Vector3', 'position', null);
+  },
+
+  quaternion: () => {
+    return Decorator.property('Quaternion', 'quaternion', null);
+  },
+
+  scale: () => {
+    return Decorator.property('Vector3', 'scale', Vector3.One());
+  },
+
+  layer: () => {
+    return Decorator.property('Number', 'layer', null, { min: 0, max: 3, step: 1 });
   },
 };

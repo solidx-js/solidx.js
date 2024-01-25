@@ -49,6 +49,7 @@ declare module 'lit' {
       step?: number;
       enums?: any[];
       hidden?: boolean;
+      vecRange?: Partial<Record<'x' | 'y' | 'z' | 'w', { min?: number; max?: number; step?: number }>>;
       uriPreset?: Record<
         string, // name
         {

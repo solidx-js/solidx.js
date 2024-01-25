@@ -31,22 +31,22 @@ export class XRModel extends XRSceneScopeElement<TransformNode> implements ITran
   @Decorator.property('String', 'src', null)
   src: string | null = null;
 
-  @Decorator.property('Vector3', 'position', null)
+  @Decorator.position()
   position: Vector3 | null = null;
 
-  @Decorator.property('Vector3', 'rotation', null)
+  @Decorator.rotation()
   rotation: Vector3 | null = null;
 
-  @Decorator.property('Quaternion', 'quaternion', null)
+  @Decorator.quaternion()
   quaternion: Quaternion | null = null;
 
-  @Decorator.property('Vector3', 'scale', Vector3.One())
+  @Decorator.scale()
   scale: Vector3 | null = null;
 
   @Decorator.property('Boolean', 'disable-pointer-event', null)
   disablePointerEvent: boolean | null = null;
 
-  @Decorator.property('Number', 'layer', null)
+  @Decorator.layer()
   layer: number | null = null;
 
   @Decorator.property('String', 'extension', null)
