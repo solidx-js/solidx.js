@@ -22,7 +22,7 @@ export class XRBaseLight<T extends Light> extends XRSceneScopeElement<T> {
   @Decorator.property('Number', 'shadow-caster-filtering-quality', 1, { min: 0, max: 2, step: 1, title: '阴影投射过滤质量' })
   shadowCasterFilteringQuality: number | null = null;
 
-  @Decorator.property('Number', 'shadow-caster-bias', 0.01, { min: 0, step: 0.01, title: '阴影投射偏移' })
+  @Decorator.property('Number', 'shadow-caster-bias', null, { min: 0, step: 0.01, title: '阴影投射偏移' })
   shadowCasterBias: number | null = null;
 
   @Decorator.property('Number', 'shadow-caster-normal-bias', 0.01, { min: 0, step: 0.01, title: '阴影投射法线偏移' })

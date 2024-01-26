@@ -136,7 +136,6 @@ xr-directional-light {
   ---diffuse: #FFFFFF;
   ---intensity: 1;
   ---shadow-caster-filtering-quality: 1;
-  ---shadow-caster-bias: 0.01;
   ---shadow-caster-normal-bias: 0.01;
   ---alpha: 40;
   ---beta: 30;
@@ -146,7 +145,7 @@ xr-hemispheric-light {
   ---diffuse: #FFFFFF;
   ---intensity: 1;
   ---shadow-caster-filtering-quality: 1;
-  ---shadow-caster-bias: 0.01;
+  ---shadow-caster-bias: 0;
   ---shadow-caster-normal-bias: 0.01;
   ---alpha: 0;
   ---beta: 0;
@@ -156,7 +155,7 @@ xr-point-light {
   ---diffuse: #FFFFFF;
   ---intensity: 1;
   ---shadow-caster-filtering-quality: 1;
-  ---shadow-caster-bias: 0.01;
+  ---shadow-caster-bias: 0;
   ---shadow-caster-normal-bias: 0.01;
 }
 
