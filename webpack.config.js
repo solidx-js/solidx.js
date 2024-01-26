@@ -142,6 +142,10 @@ module.exports.e2eConfig = merge(localServerConfig, {
         test: /\.(env|dds|png|jpg|zip|glb|gltf)$/i,
         type: 'asset/resource',
       },
+      {
+        test: /\.inline\.css$/i,
+        type: 'asset/source',
+      },
     ],
   },
 });

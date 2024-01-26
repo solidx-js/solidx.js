@@ -1873,7 +1873,7 @@
         },
         "shadow-caster-bias": {
           "prop": "shadowCasterBias",
-          "initValue": "0.01",
+          "initValue": null,
           "dType": "Number",
           "extra": {
             "min": 0,
@@ -1961,7 +1961,7 @@
         },
         "shadow-caster-bias": {
           "prop": "shadowCasterBias",
-          "initValue": "0.01",
+          "initValue": null,
           "dType": "Number",
           "extra": {
             "min": 0,
@@ -2057,7 +2057,7 @@
         },
         "shadow-caster-bias": {
           "prop": "shadowCasterBias",
-          "initValue": "0.01",
+          "initValue": null,
           "dType": "Number",
           "extra": {
             "min": 0,
