@@ -23,7 +23,7 @@ export class ElementRegistry {
   }
 
   keys() {
-    return Object.keys(this._elements);
+    return Object.keys(this._elements).sort((a, b) => a.localeCompare(b));
   }
 
   apply(skipAncestorCoordinate = false) {
