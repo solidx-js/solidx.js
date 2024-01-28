@@ -13,11 +13,13 @@ export class TextureController implements ReactiveController {
 
     const tex = this.host.entity;
 
-    if (typeof this.host.hasAlpha === 'boolean') tex.hasAlpha = this.host.hasAlpha;
-    if (typeof this.host.level === 'number') tex.level = this.host.level;
-    if (typeof this.host.coordinatesIndex === 'number') tex.coordinatesIndex = this.host.coordinatesIndex;
-    if (typeof this.host.coordinatesMode === 'number') tex.coordinatesMode = this.host.coordinatesMode;
-    if (typeof this.host.wrapU === 'number') tex.wrapU = this.host.wrapU;
-    if (typeof this.host.wrapV === 'number') tex.wrapV = this.host.wrapV;
+    const { hasAlpha, level, coordinatesIndex, coordinatesMode, wrapU, wrapV } = this.host.evaluated;
+
+    if (hasAlpha !== null) tex.hasAlpha = hasAlpha;
+    if (level !== null) tex.level = level;
+    if (coordinatesIndex !== null) tex.coordinatesIndex = coordinatesIndex;
+    if (coordinatesMode !== null) tex.coordinatesMode = coordinatesMode;
+    if (wrapU !== null) tex.wrapU = wrapU;
+    if (wrapV !== null) tex.wrapV = wrapV;
   }
 }
