@@ -104,34 +104,6 @@ xr-material {
   ---use-radiance-over-alpha: true;
 }
 
-xr-line {
-  ---scale: 1 1 1;
-}
-
-xr-mesh {
-  ---scale: 1 1 1;
-  ---edges-width: 1;
-  ---edges-color: #FF0000FF;
-}
-
-xr-cube-texture {
-
-}
-
-xr-texture {
-  ---level: 1;
-  ---u-scale: 1;
-  ---v-scale: 1;
-}
-
-xr-node {
-  ---scale: 1 1 1;
-}
-
-xr-model {
-  ---scale: 1 1 1;
-}
-
 xr-directional-light {
   ---diffuse: #FFFFFF;
   ---intensity: 1;
@@ -172,8 +144,48 @@ xr-ray {
   ---length: 1;
 }
 
-xr-loading {
+xr-particle {
+  ---emit-rate: 10;
+  ---update-speed: 0.01;
+  ---min-emit-power: 1;
+  ---max-emit-power: 1;
+  ---min-life-time: 1;
+  ---max-life-time: 1;
+  ---min-size: 1;
+  ---max-size: 1;
+  ---color1: #FFFFFFFF;
+  ---color2: #FFFFFFFF;
+  ---color-dead: #000000FF;
+  ---texture-mask: #FFFFFFFF;
+  ---capacity: 2000;
+}
 
+xr-line {
+  ---scale: 1 1 1;
+}
+
+xr-mesh {
+  ---scale: 1 1 1;
+  ---edges-width: 1;
+  ---edges-color: #FF0000FF;
+}
+
+xr-cube-texture {
+
+}
+
+xr-texture {
+  ---level: 1;
+  ---u-scale: 1;
+  ---v-scale: 1;
+}
+
+xr-node {
+  ---scale: 1 1 1;
+}
+
+xr-model {
+  ---scale: 1 1 1;
 }
 
 xr-performance-monitor {
@@ -181,6 +193,10 @@ xr-performance-monitor {
 }
 
 xr-gui {
+
+}
+
+xr-loading {
 
 }
 
@@ -696,6 +712,41 @@ xr-world-axis {
   initial-value: 0;
 }
 
+@property ---diffuse {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
+@property ---shadow-caster {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---shadow-caster-filtering-quality {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---shadow-caster-bias {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---shadow-caster-normal-bias {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---ground-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
 @property ---position {
   syntax: "<number>+";
   inherits: false;
@@ -703,6 +754,178 @@ xr-world-axis {
 }
 
 @property ---rotation {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---quaternion {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---scale {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---layer {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---img {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---img-level {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---use-ray {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---ray-scope {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-position {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-rotation {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---enable-scale {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---target {
+  syntax: "*";
+  inherits: false;
+}
+
+@property ---length {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---emitter {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---emit-rate {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---update-speed {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---min-emit-power {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---max-emit-power {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---min-life-time {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---max-life-time {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---min-size {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---max-size {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---gravity {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---world-offset {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---direction1 {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---direction2 {
+  syntax: "<number>+";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property ---color1 {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
+@property ---color2 {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
+@property ---color-dead {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
+@property ---texture-mask {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #000000;
+}
+
+@property ---capacity {
   syntax: "<number>+";
   inherits: false;
   initial-value: 0;
@@ -721,23 +944,6 @@ xr-world-axis {
 @property ---disable-pointer-event {
   syntax: "*";
   inherits: false;
-}
-
-@property ---layer {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---quaternion {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---scale {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
 }
 
 @property ---geometry {
@@ -885,88 +1091,6 @@ xr-world-axis {
 @property ---disable-virtual-node {
   syntax: "*";
   inherits: false;
-}
-
-@property ---diffuse {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #000000;
-}
-
-@property ---shadow-caster {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---shadow-caster-filtering-quality {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---shadow-caster-bias {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---shadow-caster-normal-bias {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---ground-color {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #000000;
-}
-
-@property ---img {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---img-level {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property ---use-ray {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---ray-scope {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---enable-position {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---enable-rotation {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---enable-scale {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---target {
-  syntax: "*";
-  inherits: false;
-}
-
-@property ---length {
-  syntax: "<number>+";
-  inherits: false;
-  initial-value: 0;
 }
 
 @property ---thickness {

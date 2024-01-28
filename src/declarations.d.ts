@@ -49,6 +49,7 @@ declare module 'lit' {
       min?: number;
       max?: number;
       step?: number;
+      linerSpace?: boolean;
       enums?: any[];
       hidden?: boolean;
       vecRange?: Partial<Record<'x' | 'y' | 'z' | 'w', { min?: number; max?: number; step?: number }>>;
@@ -72,6 +73,11 @@ declare module 'lit' {
 declare global {
   interface HTMLElementEventMap {
     pick: any;
+  }
+  namespace NodeJS {
+    interface ProcessEnv {
+      NODE_ENV: 'development' | 'production';
+    }
   }
 }
 

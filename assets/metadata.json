@@ -963,6 +963,682 @@
         }
       }
     },
+    "xr-directional-light": {
+      "cls": "XRDirectionalLight",
+      "attribute": {
+        "inspect": {
+          "prop": "inspect",
+          "initValue": null,
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
+        },
+        "disabled": {
+          "prop": "disabled",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
+        },
+        "diffuse": {
+          "prop": "diffuse",
+          "initValue": "#FFFFFF",
+          "dType": "Color3",
+          "extra": {
+            "title": "漫反射颜色"
+          }
+        },
+        "intensity": {
+          "prop": "intensity",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.1,
+            "title": "强度"
+          }
+        },
+        "shadow-caster": {
+          "prop": "shadowCaster",
+          "initValue": null,
+          "dType": "String",
+          "extra": {
+            "title": "阴影投射源"
+          }
+        },
+        "shadow-caster-filtering-quality": {
+          "prop": "shadowCasterFilteringQuality",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 2,
+            "step": 1,
+            "title": "阴影投射过滤质量"
+          }
+        },
+        "shadow-caster-bias": {
+          "prop": "shadowCasterBias",
+          "initValue": null,
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射偏移"
+          }
+        },
+        "shadow-caster-normal-bias": {
+          "prop": "shadowCasterNormalBias",
+          "initValue": "0.01",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射法线偏移"
+          }
+        },
+        "alpha": {
+          "prop": "alpha",
+          "initValue": "40",
+          "dType": "Number"
+        },
+        "beta": {
+          "prop": "beta",
+          "initValue": "30",
+          "dType": "Number"
+        }
+      }
+    },
+    "xr-hemispheric-light": {
+      "cls": "XRHemisphericLight",
+      "attribute": {
+        "inspect": {
+          "prop": "inspect",
+          "initValue": null,
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
+        },
+        "disabled": {
+          "prop": "disabled",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
+        },
+        "diffuse": {
+          "prop": "diffuse",
+          "initValue": "#FFFFFF",
+          "dType": "Color3",
+          "extra": {
+            "title": "漫反射颜色"
+          }
+        },
+        "intensity": {
+          "prop": "intensity",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.1,
+            "title": "强度"
+          }
+        },
+        "shadow-caster": {
+          "prop": "shadowCaster",
+          "initValue": null,
+          "dType": "String",
+          "extra": {
+            "title": "阴影投射源"
+          }
+        },
+        "shadow-caster-filtering-quality": {
+          "prop": "shadowCasterFilteringQuality",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 2,
+            "step": 1,
+            "title": "阴影投射过滤质量"
+          }
+        },
+        "shadow-caster-bias": {
+          "prop": "shadowCasterBias",
+          "initValue": null,
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射偏移"
+          }
+        },
+        "shadow-caster-normal-bias": {
+          "prop": "shadowCasterNormalBias",
+          "initValue": "0.01",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射法线偏移"
+          }
+        },
+        "alpha": {
+          "prop": "alpha",
+          "initValue": "0",
+          "dType": "Number"
+        },
+        "beta": {
+          "prop": "beta",
+          "initValue": "0",
+          "dType": "Number"
+        },
+        "ground-color": {
+          "prop": "groundColor",
+          "initValue": null,
+          "dType": "Color3",
+          "extra": {
+            "title": "地面颜色"
+          }
+        }
+      }
+    },
+    "xr-point-light": {
+      "cls": "XRPointLight",
+      "attribute": {
+        "inspect": {
+          "prop": "inspect",
+          "initValue": null,
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
+        },
+        "disabled": {
+          "prop": "disabled",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
+        },
+        "diffuse": {
+          "prop": "diffuse",
+          "initValue": "#FFFFFF",
+          "dType": "Color3",
+          "extra": {
+            "title": "漫反射颜色"
+          }
+        },
+        "intensity": {
+          "prop": "intensity",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.1,
+            "title": "强度"
+          }
+        },
+        "shadow-caster": {
+          "prop": "shadowCaster",
+          "initValue": null,
+          "dType": "String",
+          "extra": {
+            "title": "阴影投射源"
+          }
+        },
+        "shadow-caster-filtering-quality": {
+          "prop": "shadowCasterFilteringQuality",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "max": 2,
+            "step": 1,
+            "title": "阴影投射过滤质量"
+          }
+        },
+        "shadow-caster-bias": {
+          "prop": "shadowCasterBias",
+          "initValue": null,
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射偏移"
+          }
+        },
+        "shadow-caster-normal-bias": {
+          "prop": "shadowCasterNormalBias",
+          "initValue": "0.01",
+          "dType": "Number",
+          "extra": {
+            "min": 0,
+            "step": 0.01,
+            "title": "阴影投射法线偏移"
+          }
+        },
+        "position": {
+          "prop": "position",
+          "initValue": null,
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
+        }
+      }
+    },
+    "xr-decal": {
+      "cls": "XRDecal",
+      "attribute": {
+        "inspect": {
+          "prop": "inspect",
+          "initValue": null,
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
+        },
+        "disabled": {
+          "prop": "disabled",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
+        },
+        "position": {
+          "prop": "position",
+          "initValue": null,
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
+        },
+        "rotation": {
+          "prop": "rotation",
+          "initValue": null,
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转",
+            "min": 0,
+            "max": 360,
+            "step": 1
+          }
+        },
+        "quaternion": {
+          "prop": "quaternion",
+          "initValue": null,
+          "dType": "Quaternion",
+          "extra": {
+            "title": "四元数"
+          }
+        },
+        "scale": {
+          "prop": "scale",
+          "initValue": "1 1 1",
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
+        },
+        "layer": {
+          "prop": "layer",
+          "initValue": null,
+          "dType": "Number",
+          "extra": {
+            "title": "渲染顺序层",
+            "doc": "layer 属性通常用于控制渲染顺序和可见性。可以将不同的对象分配给不同的层，然后独立地控制每个层的渲染。例如，可以使用层来创建一个总是在其他对象之上渲染的元素。数值越大，渲染越靠前。",
+            "min": 0,
+            "max": 3,
+            "step": 1
+          }
+        },
+        "img": {
+          "prop": "img",
+          "initValue": null,
+          "dType": "String",
+          "extra": {
+            "title": "贴花图片"
+          }
+        },
+        "img-level": {
+          "prop": "imgLevel",
+          "initValue": null,
+          "dType": "Number",
+          "extra": {
+            "title": "贴花强度"
+          }
+        },
+        "use-ray": {
+          "prop": "useRay",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "使用射线"
+          }
+        },
+        "ray-scope": {
+          "prop": "rayScope",
+          "initValue": "\"scene\"",
+          "dType": "String",
+          "extra": {
+            "title": "射线范围"
+          }
+        }
+      }
+    },
+    "xr-dragger": {
+      "cls": "XRDragger",
+      "attribute": {
+        "inspect": {
+          "prop": "inspect",
+          "initValue": null,
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
+        },
+        "disabled": {
+          "prop": "disabled",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
+        },
+        "scale": {
+          "prop": "scale",
+          "initValue": "1 1 1",
+          "dType": "Vector3",
+          "extra": {
+            "title": "缩放"
+          }
+        },
+        "enable-position": {
+          "prop": "enablePosition",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "启用平移"
+          }
+        },
+        "enable-rotation": {
+          "prop": "enableRotation",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "启用旋转"
+          }
+        },
+        "enable-scale": {
+          "prop": "enableScale",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "启用缩放"
+          }
+        },
+        "target": {
+          "prop": "target",
+          "initValue": null,
+          "dType": "URI",
+          "extra": {
+            "title": "目标"
+          }
+        }
+      }
+    },
+    "xr-ray": {
+      "cls": "XRRay",
+      "attribute": {
+        "inspect": {
+          "prop": "inspect",
+          "initValue": null,
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
+        },
+        "disabled": {
+          "prop": "disabled",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
+        },
+        "position": {
+          "prop": "position",
+          "initValue": "0 0 0",
+          "dType": "Vector3",
+          "extra": {
+            "title": "位置"
+          }
+        },
+        "rotation": {
+          "prop": "rotation",
+          "initValue": "0 0 0",
+          "dType": "Vector3",
+          "extra": {
+            "title": "旋转"
+          }
+        },
+        "length": {
+          "prop": "length",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "title": "长度"
+          }
+        }
+      }
+    },
+    "xr-particle": {
+      "cls": "XRParticle",
+      "attribute": {
+        "inspect": {
+          "prop": "inspect",
+          "initValue": null,
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
+        },
+        "disabled": {
+          "prop": "disabled",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
+        },
+        "emitter": {
+          "prop": "emitter",
+          "initValue": null,
+          "dType": "Vector3",
+          "extra": {
+            "title": "发射位置"
+          }
+        },
+        "img": {
+          "prop": "img",
+          "initValue": null,
+          "dType": "String",
+          "extra": {
+            "title": "粒子纹理"
+          }
+        },
+        "emit-rate": {
+          "prop": "emitRate",
+          "initValue": "10",
+          "dType": "Number",
+          "extra": {
+            "title": "发射速率",
+            "doc": "每秒发射的粒子数",
+            "min": 1
+          }
+        },
+        "update-speed": {
+          "prop": "updateSpeed",
+          "initValue": "0.01",
+          "dType": "Number",
+          "extra": {
+            "title": "更新速率",
+            "doc": "整体运动速率",
+            "min": 0,
+            "step": 0.01
+          }
+        },
+        "min-emit-power": {
+          "prop": "minEmitPower",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "title": "最小初始速度",
+            "doc": "最小初始速度。当粒子被发射时，它的初始速度将在最小和最大值之间随机选择。",
+            "min": 0
+          }
+        },
+        "max-emit-power": {
+          "prop": "maxEmitPower",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "title": "最大初始速度",
+            "doc": "最大初始速度。当粒子被发射时，它的初始速度将在最小和最大值之间随机选择。",
+            "min": 0
+          }
+        },
+        "min-life-time": {
+          "prop": "minLifeTime",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "title": "最小生命周期",
+            "doc": "最小生命周期。当粒子被发射时，它的生命周期将在最小和最大值之间随机选择。",
+            "min": 0
+          }
+        },
+        "max-life-time": {
+          "prop": "maxLifeTime",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "title": "最大生命周期",
+            "doc": "最大生命周期。当粒子被发射时，它的生命周期将在最小和最大值之间随机选择。",
+            "min": 0
+          }
+        },
+        "min-size": {
+          "prop": "minSize",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "title": "最小粒子大小",
+            "doc": "最小粒子大小。当粒子被发射时，它的大小将在最小和最大值之间随机选择。",
+            "min": 0
+          }
+        },
+        "max-size": {
+          "prop": "maxSize",
+          "initValue": "1",
+          "dType": "Number",
+          "extra": {
+            "title": "最大粒子大小",
+            "doc": "最大粒子大小。当粒子被发射时，它的大小将在最小和最大值之间随机选择。",
+            "min": 0
+          }
+        },
+        "gravity": {
+          "prop": "gravity",
+          "initValue": null,
+          "dType": "Vector3",
+          "extra": {
+            "title": "重力"
+          }
+        },
+        "world-offset": {
+          "prop": "worldOffset",
+          "initValue": null,
+          "dType": "Vector3",
+          "extra": {
+            "title": "世界偏移",
+            "doc": "worldOffset 是粒子系统在世界坐标系中的偏移量，它决定了粒子系统整体的位置。当你改变 worldOffset 时，粒子系统中所有的粒子（包括已经存在的粒子和新产生的粒子）的位置都会相应地改变。"
+          }
+        },
+        "direction1": {
+          "prop": "direction1",
+          "initValue": null,
+          "dType": "Vector3",
+          "extra": {
+            "title": "方向1",
+            "doc": "当粒子被发射时，它的初始方向会在 direction1 和 direction2 定义的范围内随机选择。"
+          }
+        },
+        "direction2": {
+          "prop": "direction2",
+          "initValue": null,
+          "dType": "Vector3",
+          "extra": {
+            "title": "方向2",
+            "doc": "当粒子被发射时，它的初始方向会在 direction1 和 direction2 定义的范围内随机选择。"
+          }
+        },
+        "color1": {
+          "prop": "color1",
+          "initValue": "#FFFFFFFF",
+          "dType": "Color4",
+          "extra": {
+            "title": "颜色1",
+            "doc": "当粒子被发射时，它的初始颜色会在 color1 和 color2 定义的范围内随机选择。"
+          }
+        },
+        "color2": {
+          "prop": "color2",
+          "initValue": "#FFFFFFFF",
+          "dType": "Color4",
+          "extra": {
+            "title": "颜色2",
+            "doc": "当粒子被发射时，它的初始颜色会在 color1 和 color2 定义的范围内随机选择。"
+          }
+        },
+        "color-dead": {
+          "prop": "colorDead",
+          "initValue": "#000000FF",
+          "dType": "Color4",
+          "extra": {
+            "title": "死亡颜色",
+            "doc": "当粒子死亡时的颜色。"
+          }
+        },
+        "texture-mask": {
+          "prop": "textureMask",
+          "initValue": "#FFFFFFFF",
+          "dType": "Color4",
+          "extra": {
+            "title": "纹理遮罩",
+            "doc": "如果你想让纹理中的红色通道被忽略，你可以将 textureMask 设置为 (0, 1, 1, 1)。如果你想让纹理中的透明度通道被忽略，你可以将 textureMask 设置为 (1, 1, 1, 0)。",
+            "linerSpace": true
+          }
+        },
+        "capacity": {
+          "prop": "capacity",
+          "initValue": "2000",
+          "dType": "Number",
+          "extra": {
+            "title": "粒子容量",
+            "doc": "粒子容量",
+            "min": 1
+          }
+        }
+      }
+    },
     "xr-line": {
       "cls": "XRLine",
       "attribute": {
@@ -1815,503 +2491,6 @@
         }
       }
     },
-    "xr-directional-light": {
-      "cls": "XRDirectionalLight",
-      "attribute": {
-        "inspect": {
-          "prop": "inspect",
-          "initValue": null,
-          "dType": "Object",
-          "extra": {
-            "title": "检查模式"
-          }
-        },
-        "disabled": {
-          "prop": "disabled",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "禁用"
-          }
-        },
-        "diffuse": {
-          "prop": "diffuse",
-          "initValue": "#FFFFFF",
-          "dType": "Color3",
-          "extra": {
-            "title": "漫反射颜色"
-          }
-        },
-        "intensity": {
-          "prop": "intensity",
-          "initValue": "1",
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "step": 0.1,
-            "title": "强度"
-          }
-        },
-        "shadow-caster": {
-          "prop": "shadowCaster",
-          "initValue": null,
-          "dType": "String",
-          "extra": {
-            "title": "阴影投射源"
-          }
-        },
-        "shadow-caster-filtering-quality": {
-          "prop": "shadowCasterFilteringQuality",
-          "initValue": "1",
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "max": 2,
-            "step": 1,
-            "title": "阴影投射过滤质量"
-          }
-        },
-        "shadow-caster-bias": {
-          "prop": "shadowCasterBias",
-          "initValue": null,
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "step": 0.01,
-            "title": "阴影投射偏移"
-          }
-        },
-        "shadow-caster-normal-bias": {
-          "prop": "shadowCasterNormalBias",
-          "initValue": "0.01",
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "step": 0.01,
-            "title": "阴影投射法线偏移"
-          }
-        },
-        "alpha": {
-          "prop": "alpha",
-          "initValue": "40",
-          "dType": "Number"
-        },
-        "beta": {
-          "prop": "beta",
-          "initValue": "30",
-          "dType": "Number"
-        }
-      }
-    },
-    "xr-hemispheric-light": {
-      "cls": "XRHemisphericLight",
-      "attribute": {
-        "inspect": {
-          "prop": "inspect",
-          "initValue": null,
-          "dType": "Object",
-          "extra": {
-            "title": "检查模式"
-          }
-        },
-        "disabled": {
-          "prop": "disabled",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "禁用"
-          }
-        },
-        "diffuse": {
-          "prop": "diffuse",
-          "initValue": "#FFFFFF",
-          "dType": "Color3",
-          "extra": {
-            "title": "漫反射颜色"
-          }
-        },
-        "intensity": {
-          "prop": "intensity",
-          "initValue": "1",
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "step": 0.1,
-            "title": "强度"
-          }
-        },
-        "shadow-caster": {
-          "prop": "shadowCaster",
-          "initValue": null,
-          "dType": "String",
-          "extra": {
-            "title": "阴影投射源"
-          }
-        },
-        "shadow-caster-filtering-quality": {
-          "prop": "shadowCasterFilteringQuality",
-          "initValue": "1",
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "max": 2,
-            "step": 1,
-            "title": "阴影投射过滤质量"
-          }
-        },
-        "shadow-caster-bias": {
-          "prop": "shadowCasterBias",
-          "initValue": null,
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "step": 0.01,
-            "title": "阴影投射偏移"
-          }
-        },
-        "shadow-caster-normal-bias": {
-          "prop": "shadowCasterNormalBias",
-          "initValue": "0.01",
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "step": 0.01,
-            "title": "阴影投射法线偏移"
-          }
-        },
-        "alpha": {
-          "prop": "alpha",
-          "initValue": "0",
-          "dType": "Number"
-        },
-        "beta": {
-          "prop": "beta",
-          "initValue": "0",
-          "dType": "Number"
-        },
-        "ground-color": {
-          "prop": "groundColor",
-          "initValue": null,
-          "dType": "Color3",
-          "extra": {
-            "title": "地面颜色"
-          }
-        }
-      }
-    },
-    "xr-point-light": {
-      "cls": "XRPointLight",
-      "attribute": {
-        "inspect": {
-          "prop": "inspect",
-          "initValue": null,
-          "dType": "Object",
-          "extra": {
-            "title": "检查模式"
-          }
-        },
-        "disabled": {
-          "prop": "disabled",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "禁用"
-          }
-        },
-        "diffuse": {
-          "prop": "diffuse",
-          "initValue": "#FFFFFF",
-          "dType": "Color3",
-          "extra": {
-            "title": "漫反射颜色"
-          }
-        },
-        "intensity": {
-          "prop": "intensity",
-          "initValue": "1",
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "step": 0.1,
-            "title": "强度"
-          }
-        },
-        "shadow-caster": {
-          "prop": "shadowCaster",
-          "initValue": null,
-          "dType": "String",
-          "extra": {
-            "title": "阴影投射源"
-          }
-        },
-        "shadow-caster-filtering-quality": {
-          "prop": "shadowCasterFilteringQuality",
-          "initValue": "1",
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "max": 2,
-            "step": 1,
-            "title": "阴影投射过滤质量"
-          }
-        },
-        "shadow-caster-bias": {
-          "prop": "shadowCasterBias",
-          "initValue": null,
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "step": 0.01,
-            "title": "阴影投射偏移"
-          }
-        },
-        "shadow-caster-normal-bias": {
-          "prop": "shadowCasterNormalBias",
-          "initValue": "0.01",
-          "dType": "Number",
-          "extra": {
-            "min": 0,
-            "step": 0.01,
-            "title": "阴影投射法线偏移"
-          }
-        },
-        "position": {
-          "prop": "position",
-          "initValue": null,
-          "dType": "Vector3",
-          "extra": {
-            "title": "位置"
-          }
-        }
-      }
-    },
-    "xr-decal": {
-      "cls": "XRDecal",
-      "attribute": {
-        "inspect": {
-          "prop": "inspect",
-          "initValue": null,
-          "dType": "Object",
-          "extra": {
-            "title": "检查模式"
-          }
-        },
-        "disabled": {
-          "prop": "disabled",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "禁用"
-          }
-        },
-        "position": {
-          "prop": "position",
-          "initValue": null,
-          "dType": "Vector3",
-          "extra": {
-            "title": "位置"
-          }
-        },
-        "rotation": {
-          "prop": "rotation",
-          "initValue": null,
-          "dType": "Vector3",
-          "extra": {
-            "title": "旋转",
-            "min": 0,
-            "max": 360,
-            "step": 1
-          }
-        },
-        "quaternion": {
-          "prop": "quaternion",
-          "initValue": null,
-          "dType": "Quaternion",
-          "extra": {
-            "title": "四元数"
-          }
-        },
-        "scale": {
-          "prop": "scale",
-          "initValue": "1 1 1",
-          "dType": "Vector3",
-          "extra": {
-            "title": "缩放"
-          }
-        },
-        "layer": {
-          "prop": "layer",
-          "initValue": null,
-          "dType": "Number",
-          "extra": {
-            "title": "渲染顺序层",
-            "doc": "layer 属性通常用于控制渲染顺序和可见性。可以将不同的对象分配给不同的层，然后独立地控制每个层的渲染。例如，可以使用层来创建一个总是在其他对象之上渲染的元素。数值越大，渲染越靠前。",
-            "min": 0,
-            "max": 3,
-            "step": 1
-          }
-        },
-        "img": {
-          "prop": "img",
-          "initValue": null,
-          "dType": "String",
-          "extra": {
-            "title": "贴花图片"
-          }
-        },
-        "img-level": {
-          "prop": "imgLevel",
-          "initValue": null,
-          "dType": "Number",
-          "extra": {
-            "title": "贴花强度"
-          }
-        },
-        "use-ray": {
-          "prop": "useRay",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "使用射线"
-          }
-        },
-        "ray-scope": {
-          "prop": "rayScope",
-          "initValue": "\"scene\"",
-          "dType": "String",
-          "extra": {
-            "title": "射线范围"
-          }
-        }
-      }
-    },
-    "xr-dragger": {
-      "cls": "XRDragger",
-      "attribute": {
-        "inspect": {
-          "prop": "inspect",
-          "initValue": null,
-          "dType": "Object",
-          "extra": {
-            "title": "检查模式"
-          }
-        },
-        "disabled": {
-          "prop": "disabled",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "禁用"
-          }
-        },
-        "scale": {
-          "prop": "scale",
-          "initValue": "1 1 1",
-          "dType": "Vector3",
-          "extra": {
-            "title": "缩放"
-          }
-        },
-        "enable-position": {
-          "prop": "enablePosition",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "启用平移"
-          }
-        },
-        "enable-rotation": {
-          "prop": "enableRotation",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "启用旋转"
-          }
-        },
-        "enable-scale": {
-          "prop": "enableScale",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "启用缩放"
-          }
-        },
-        "target": {
-          "prop": "target",
-          "initValue": null,
-          "dType": "URI",
-          "extra": {
-            "title": "目标"
-          }
-        }
-      }
-    },
-    "xr-ray": {
-      "cls": "XRRay",
-      "attribute": {
-        "inspect": {
-          "prop": "inspect",
-          "initValue": null,
-          "dType": "Object",
-          "extra": {
-            "title": "检查模式"
-          }
-        },
-        "disabled": {
-          "prop": "disabled",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "禁用"
-          }
-        },
-        "position": {
-          "prop": "position",
-          "initValue": "0 0 0",
-          "dType": "Vector3",
-          "extra": {
-            "title": "位置"
-          }
-        },
-        "rotation": {
-          "prop": "rotation",
-          "initValue": "0 0 0",
-          "dType": "Vector3",
-          "extra": {
-            "title": "旋转"
-          }
-        },
-        "length": {
-          "prop": "length",
-          "initValue": "1",
-          "dType": "Number",
-          "extra": {
-            "title": "长度"
-          }
-        }
-      }
-    },
-    "xr-loading": {
-      "cls": "XRLoading",
-      "attribute": {
-        "inspect": {
-          "prop": "inspect",
-          "initValue": null,
-          "dType": "Object",
-          "extra": {
-            "title": "检查模式"
-          }
-        },
-        "disabled": {
-          "prop": "disabled",
-          "initValue": null,
-          "dType": "Boolean",
-          "extra": {
-            "title": "禁用"
-          }
-        }
-      }
-    },
     "xr-performance-monitor": {
       "cls": "XRPerformanceMonitor",
       "attribute": {
@@ -2336,6 +2515,27 @@
     "xr-gui": {
       "cls": "XRGui",
       "attribute": {}
+    },
+    "xr-loading": {
+      "cls": "XRLoading",
+      "attribute": {
+        "inspect": {
+          "prop": "inspect",
+          "initValue": null,
+          "dType": "Object",
+          "extra": {
+            "title": "检查模式"
+          }
+        },
+        "disabled": {
+          "prop": "disabled",
+          "initValue": null,
+          "dType": "Boolean",
+          "extra": {
+            "title": "禁用"
+          }
+        }
+      }
     },
     "xr-arrow": {
       "cls": "XRArrow",

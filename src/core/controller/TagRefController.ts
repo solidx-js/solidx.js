@@ -15,8 +15,8 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
   private _sceneEle: XRScene | null = null;
 
   constructor(
-    private host: XRThinElement & { scene: Scene } & { [key in A]?: IDataTypeMap['URI'] | null } & { [key in B]: T | null },
-    private uriProp: A,
+    private host: XRThinElement & { scene: Scene } & { [key in A]?: IDataTypeMap['URI'] | string | null } & { [key in B]: T | null },
+    private sourceProp: A,
     private targetProp: B,
     private primitiveTagMapper: Record<string, string> | null
   ) {
@@ -35,12 +35,26 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
   hostUpdated(): void {
     if (!this._sceneEle) return;
 
-    if (this.host.changed.has(this.uriProp)) {
-      const uri = this.host.evaluated[this.uriProp] as IDataTypeMap['URI'] | null;
+    if (this.host.changed.has(this.sourceProp)) {
+      const uri = this.host.evaluated[this.sourceProp] as IDataTypeMap['URI'] | string | null;
 
       if (uri) {
+        // 没有协议
+        if (typeof uri === 'string' || !uri.protocol) {
+          if (this._ab) this._ab.abort();
+          this._ab = new AbortController();
+
+          if (this._selfHostElement) {
+            this._selfHostElement.remove();
+            this._selfHostElement = null;
+          }
+
+          const selector = typeof uri === 'string' ? uri : uri.query.selector || uri.href;
+          this._sceneEle.querier.queryWatch<T>(selector, this._ab.signal, this._setTarget, this.host.displayText);
+        }
+
         // primitive: 协议
-        if (uri.protocol === 'primitive:' && this.primitiveTagMapper) {
+        else if (uri.protocol === 'primitive:' && this.primitiveTagMapper) {
           const _tagName = this.primitiveTagMapper[uri.host];
           if (!_tagName) throw new Error(`TagRefController: unknown primitive tag ${uri.host}`);
 
@@ -97,20 +111,6 @@ export class TagRefController<T extends HTMLElement, A extends string, B extends
 
             this._lastIncomeData = _inData;
           }
-        }
-
-        // 没有协议
-        else if (!uri.protocol) {
-          if (this._ab) this._ab.abort();
-          this._ab = new AbortController();
-
-          if (this._selfHostElement) {
-            this._selfHostElement.remove();
-            this._selfHostElement = null;
-          }
-
-          const selector = uri.query.selector || uri.href;
-          this._sceneEle.querier.queryWatch<T>(selector, this._ab.signal, this._setTarget, this.host.displayText);
         }
 
         //

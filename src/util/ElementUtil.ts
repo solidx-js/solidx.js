@@ -1,5 +1,6 @@
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import type { XRElement } from '../core';
+import { IDataType, IDataTypeMap } from './Schema';
 
 export const ElementUtil = {
   closestTransformNodeLike: (ele: HTMLElement): TransformNode | null => {
@@ -51,5 +52,32 @@ export const ElementUtil = {
         return `${data.selector} {\n${styleText}\n}`;
       })
       .join('\n');
+  },
+
+  updateTarget(
+    target: any,
+    source: Record<string, IDataTypeMap[IDataType]>,
+    specs: Record<string, [IDataType] | [IDataType, apply: (data: any) => any]>
+  ) {
+    for (const [attr, [dType, apply]] of Object.entries(specs)) {
+      if (source[attr] === null) continue;
+
+      // 自定义赋值方法
+      if (apply) {
+        apply(source[attr]);
+        continue;
+      }
+
+      // VectorX
+      if (dType === 'Vector2' || dType === 'Vector3' || dType === 'Vector4' || dType === 'Color3' || dType === 'Color4') {
+        if (!target[attr]) target[attr] = source[attr];
+        else target[attr].copyFrom(source[attr]);
+
+        continue;
+      }
+
+      // 其他直接赋值
+      target[attr] = source[attr];
+    }
   },
 };

@@ -128,7 +128,7 @@ export class XRGuiController extends XRThinElement {
 
 function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: any) => any, style: StyleInfo = {}): any {
   const dType = def.dType;
-  const { min, max, step, enums, uriPreset } = def.extra || {};
+  const { min, max, step, enums, uriPreset, linerSpace } = def.extra || {};
 
   // String
   if (dType === 'String') {
@@ -205,14 +205,27 @@ function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: 
 
   // Color3
   if (dType === 'Color3') {
+    const _c3 = value as Color3 | null;
+
+    if (!_c3) {
+      return html`<div>
+        <button @click=${() => onChange(new Color3(0, 0, 0))}>创建 Color3</button>
+      </div>`;
+    }
+
     const _onColor3Change = (ev: InputEvent) => {
       ev.stopPropagation();
-      onChange(Schema.fromAttr('Color3', (ev.target as HTMLInputElement).value)?.toLinearSpace());
+
+      const _nc = Schema.fromAttr('Color3', (ev.target as HTMLInputElement).value);
+      if (!_nc) return;
+
+      if (linerSpace) onChange(_nc);
+      else onChange(_nc.toLinearSpace());
     };
 
     return html`<input
       type="color"
-      .value=${(value as Color3).toGammaSpace().toHexString()}
+      .value=${linerSpace ? _c3.toHexString() : _c3.toGammaSpace().toHexString()}
       style=${styleMap(style)}
       @input=${_onColor3Change}
       @change=${_onColor3Change}
@@ -221,7 +234,14 @@ function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: 
 
   // Color4
   if (dType === 'Color4') {
-    const _c4 = value as Color4;
+    const _c4 = value as Color4 | null;
+
+    if (!_c4) {
+      return html`<div>
+        <button @click=${() => onChange(new Color4(0, 0, 0, 1))}>创建 Color4</button>
+      </div>`;
+    }
+
     const _onAlphaChange = (ev: InputEvent) => {
       ev.stopPropagation();
       const _a = Number((ev.target as HTMLInputElement).value);
@@ -230,7 +250,7 @@ function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: 
 
     return html`
       ${renderInput(
-        { dType: 'Color3' } as any,
+        { dType: 'Color3', extra: { linerSpace } } as any,
         new Color3(_c4.r, _c4.g, _c4.b),
         (_c3: Color3) => onChange(new Color4(_c3.r, _c3.g, _c3.b, _c4.a)),
         { flex: 1 }
@@ -250,7 +270,13 @@ function renderInput(def: PropertyDeclaration, value: any, onChange: (newValue: 
 
   // Vector3
   if (dType === 'Vector3') {
-    const _v = value as Vector3;
+    const _v = value as Vector3 | null;
+
+    if (!_v) {
+      return html`<div>
+        <button @click=${() => onChange(new Vector3(0, 0, 0))}>创建 Vector3</button>
+      </div>`;
+    }
 
     return html`
       <div class="space space--v">
