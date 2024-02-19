@@ -10,8 +10,8 @@ export class Engine {
   private gl: WebGL2RenderingContext;
   private glx: IGlxInstance<IMainVertexShaderProp | IMainFragmentShaderProp>;
 
-  constructor() {
-    this.canvas = document.createElement('canvas');
+  constructor(canvas?: HTMLCanvasElement) {
+    this.canvas = canvas || document.createElement('canvas');
 
     this.gl = this.canvas.getContext('webgl2') as WebGL2RenderingContext;
     if (!this.gl) throw new Error('WebGL2 not supported');

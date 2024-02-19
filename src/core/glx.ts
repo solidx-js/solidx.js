@@ -23,6 +23,7 @@ export type IGlxConfig = {
     string,
     {
       itemType: IShaderParamDataType;
+      required?: boolean;
       normalized?: boolean;
       stride?: number;
       offset?: number;
@@ -32,6 +33,7 @@ export type IGlxConfig = {
     string,
     {
       type: IShaderParamDataType;
+      required?: boolean;
     }
   >;
 };
@@ -45,20 +47,21 @@ glx.of = function <P extends Record<string, any>>(
   vert: ITpl | string,
   frag: ITpl | string,
   config: IGlxConfig,
-  defaultProp?: P
+  defaultProp?: P,
+  defaultElementData?: ITypedArray
 ): IGlxInstance<P> {
   const { attributes, uniforms } = config;
 
-  function _getSizeByType(type: IShaderParamDataType) {
+  const _getSizeByType = (type: IShaderParamDataType) => {
     if (type === 'vec2') return 2;
     if (type === 'vec3') return 3;
     if (type === 'vec4') return 4;
     if (type === 'mat4') return 16;
 
     throw new Error(`unknown type: ${type}`);
-  }
+  };
 
-  function _getUniformType(type: IShaderParamDataType, data: ITypedArray | number): GLenum {
+  const _getUniformType = (type: IShaderParamDataType, data: ITypedArray | number): GLenum => {
     if (type === 'int') return gl.INT;
     if (type === 'float') return gl.FLOAT;
     if (type === 'vec2') {
@@ -94,9 +97,9 @@ glx.of = function <P extends Record<string, any>>(
     }
 
     throw new Error('not support type: ' + type);
-  }
+  };
 
-  function _getBufferPointerType(data: ITypedArray): GLenum {
+  const _getBufferPointerType = (data: ITypedArray): GLenum => {
     if (data instanceof Float32Array) return gl.FLOAT;
     if (data instanceof Int32Array) return gl.INT;
     if (data instanceof Int16Array) return gl.SHORT;
@@ -105,26 +108,62 @@ glx.of = function <P extends Record<string, any>>(
     if (data instanceof Uint16Array) return gl.UNSIGNED_SHORT;
     if (data instanceof Uint8Array || data instanceof Uint8ClampedArray) return gl.UNSIGNED_BYTE;
     throw new Error('unknown type');
-  }
+  };
 
-  const vertSrc = typeof vert === 'string' ? vert : vert.render({ config });
-  const fragSrc = typeof frag === 'string' ? frag : frag.render({ config });
+  // internal state
+  let _inUseVertSrc = ''; // 当前使用的 vertex shader
+  let _inUseFragSrc = ''; // 当前使用的 fragment shader
 
   // 创建顶点着色器
   const vertexShader = gl.createShader(gl.VERTEX_SHADER);
   if (!vertexShader) throw new Error('create vertex shader failed');
-  gl.shaderSource(vertexShader, vertSrc);
-  gl.compileShader(vertexShader);
 
   // 创建片元着色器
   const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
   if (!fragmentShader) throw new Error('create fragment shader failed');
-  gl.shaderSource(fragmentShader, fragSrc);
-  gl.compileShader(fragmentShader);
+
+  const _compileShaderIfNeeded = (prop: P = {} as any) => {
+    // 传参给 tpl 动态生成
+    const vertSrc = typeof vert === 'string' ? vert : vert.render({ config, prop });
+    const fragSrc = typeof frag === 'string' ? frag : frag.render({ config, prop });
+
+    if (_inUseVertSrc !== vertSrc) {
+      gl.shaderSource(vertexShader, vertSrc);
+      gl.compileShader(vertexShader);
+
+      console.log('compile vertex shader');
+      console.log(vertSrc);
+
+      if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+        const info = gl.getShaderInfoLog(vertexShader);
+        throw new Error(`vertex shader compile failed: ${info}`);
+      }
+
+      _inUseVertSrc = vertSrc;
+    }
+
+    if (_inUseFragSrc !== fragSrc) {
+      gl.shaderSource(fragmentShader, fragSrc);
+      gl.compileShader(fragmentShader);
+
+      console.log('compile fragment shader');
+      console.log(fragSrc);
+
+      if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+        const info = gl.getShaderInfoLog(fragmentShader);
+        throw new Error(`fragment shader compile failed: ${info}`);
+      }
+
+      _inUseFragSrc = fragSrc;
+    }
+  };
 
   // 创建着色器程序
   const program = gl.createProgram();
   if (!program) throw new Error('create program failed');
+
+  // 编译着色器
+  _compileShaderIfNeeded(defaultProp);
 
   gl.attachShader(program, vertexShader);
   gl.attachShader(program, fragmentShader);
@@ -138,7 +177,7 @@ glx.of = function <P extends Record<string, any>>(
   // 使用着色器程序
   gl.useProgram(program);
 
-  const preset: IGlxInstance<P> = {
+  const instance: IGlxInstance<P> = {
     program,
     clear: () => {
       throw new Error('not implemented');
@@ -148,7 +187,7 @@ glx.of = function <P extends Record<string, any>>(
     },
   };
 
-  preset.clear = (arg: { color?: number[]; depth?: number; stencil?: number }) => {
+  instance.clear = (arg: { color?: number[]; depth?: number; stencil?: number }) => {
     let mask = 0;
 
     if (arg.color) {
@@ -168,13 +207,18 @@ glx.of = function <P extends Record<string, any>>(
 
     gl.clear(mask);
 
-    return preset;
+    return instance;
   };
 
-  preset.render = (prop?: P, elementData?: ITypedArray, count?: number) => {
+  instance.render = (prop?: P, elementData?: ITypedArray, count?: number) => {
     let _draw = (): any => {
       throw new Error('not implemented');
     };
+
+    const finalProp = { ...defaultProp, ...prop } as P;
+    const finalElementData = defaultElementData || elementData;
+
+    _compileShaderIfNeeded(finalProp);
 
     // 绑定 attributes
     if (attributes) {
@@ -182,8 +226,11 @@ glx.of = function <P extends Record<string, any>>(
         const buf = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, buf);
 
-        const data = prop?.[attr] || defaultProp?.[attr];
-        if (!data) throw new Error(`attribute ${attr} not found`);
+        const data = finalProp[attr];
+        if (!data) {
+          if (def.required) throw new Error(`attribute ${attr} not found`);
+          else continue;
+        }
         if (!glx.isTypedArray(data)) throw new Error(`attribute ${attr} data must be ArrayBuffer`);
 
         gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
@@ -208,16 +255,16 @@ glx.of = function <P extends Record<string, any>>(
     }
 
     // 绑定索引
-    if (elementData) {
+    if (finalElementData) {
       const buf = gl.createBuffer();
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buf);
 
-      if (!glx.isTypedArray(elementData)) throw new Error('element data must be ArrayBuffer');
+      if (!glx.isTypedArray(finalElementData)) throw new Error('element data must be ArrayBuffer');
 
-      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, elementData, gl.STATIC_DRAW);
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, finalElementData, gl.STATIC_DRAW);
 
-      const _count = elementData.length;
-      const _eleType = _getBufferPointerType(elementData);
+      const _count = finalElementData.length;
+      const _eleType = _getBufferPointerType(finalElementData);
 
       _draw = () => {
         gl.drawElements(gl.TRIANGLES, _count, _eleType, 0);
@@ -230,8 +277,11 @@ glx.of = function <P extends Record<string, any>>(
         const loc = gl.getUniformLocation(program, uniform);
         if (!loc) throw new Error(`uniform ${uniform} not found`);
 
-        const data = prop?.[uniform] || defaultProp?.[uniform];
-        if (!data) throw new Error(`uniform ${uniform} not found`);
+        const data = finalProp[uniform];
+        if (!data) {
+          if (def.required) throw new Error(`uniform ${uniform} not found`);
+          else continue;
+        }
 
         const glItemType = _getUniformType(def.type, data);
 
@@ -292,10 +342,10 @@ glx.of = function <P extends Record<string, any>>(
 
     _draw();
 
-    return preset;
+    return instance;
   };
 
-  return preset;
+  return instance;
 };
 
 glx.isTypedArray = function (data: any) {
