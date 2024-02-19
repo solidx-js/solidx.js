@@ -1,62 +1,60 @@
-import { Matrix } from 'tiny-math.js/dist/esm';
+import { Matrix, Quaternion, Vector3 } from 'tiny-math.js/dist/esm';
 
 /** 场景图节点 */
 export class Node {
   static walk(n: Node, callback: (n: Node) => any) {
     callback(n);
 
-    for (let i = 0; i < n._children.length; i++) {
-      const child = n._children[i];
+    for (let i = 0; i < n.children.length; i++) {
+      const child = n.children[i];
       Node.walk(child, callback);
     }
   }
 
-  private _children: Node[] = [];
-
   // 父节点(冗余一下)
-  private _parent: Node | null = null;
+  parent: Node | null = null;
+  children: Node[] = [];
+
+  position: Vector3 = new Vector3();
+  rotation: Quaternion = Quaternion.Identity();
+  scaling: Vector3 = new Vector3(1, 1, 1);
 
   // 模型矩阵
-  private _matrix: Matrix = Matrix.Identity();
-  private _worldMatrix: Matrix = Matrix.Identity();
-
-  get parent() {
-    return this._parent;
-  }
-
-  get worldMatrix() {
-    return this._worldMatrix;
-  }
+  matrix: Matrix = Matrix.Identity();
+  worldMatrix: Matrix = Matrix.Identity();
 
   setParent(parent: Node) {
-    if (this._parent) this._parent.removeChild(this);
+    if (this.parent) this.parent.removeChild(this);
     parent.addChild(this);
   }
 
   addChild(child: Node) {
-    if (this._children.indexOf(child) >= 0) return;
+    if (this.children.indexOf(child) >= 0) return;
 
-    this._children.push(child);
-    child._parent = this;
+    this.children.push(child);
+    child.parent = this;
   }
 
   removeChild(child: Node) {
-    const index = this._children.indexOf(child);
+    const index = this.children.indexOf(child);
     if (index >= 0) {
-      this._children.splice(index, 1);
-      child._parent = null;
+      this.children.splice(index, 1);
+      child.parent = null;
     }
   }
 
   computeWorldMatrix(bubbleUp?: boolean) {
-    if (this._parent) {
+    // 更新本地 matrix
+    this.matrix.composeInPlace(this.position, this.rotation, this.scaling);
+
+    if (this.parent) {
       if (bubbleUp) {
-        this._parent.computeWorldMatrix(true);
+        this.parent.computeWorldMatrix(true);
       }
 
-      this._worldMatrix = this._matrix.multiply(this._parent._worldMatrix);
+      this.worldMatrix = this.matrix.multiply(this.parent.worldMatrix);
     } else {
-      this._worldMatrix = this._matrix.clone();
+      this.worldMatrix = this.matrix.clone();
     }
   }
 }
