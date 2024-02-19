@@ -4,18 +4,20 @@ import '@babylonjs/core/Animations';
 import '@babylonjs/core/Rendering';
 import '@babylonjs/core/Lights';
 
+import './builtin';
+
 import './bootstrap';
 import { ElementRegistry } from './registry';
 import { DefaultBizLogger } from './BizLogger';
 
 // 为了方便使用, 将一些常用的类导出
-export * from '@babylonjs/core/Maths';
-export * from '@babylonjs/core/Loading/sceneLoader';
-export * from '@babylonjs/core/assetContainer';
-export * from '@babylonjs/core/Buffers';
-export * from '@babylonjs/core/Rendering';
-export * from '@babylonjs/core/Meshes';
-export * from '@babylonjs/core/scene';
+// export * from '@babylonjs/core/Maths';
+// export * from '@babylonjs/core/Loading/sceneLoader';
+// export * from '@babylonjs/core/assetContainer';
+// export * from '@babylonjs/core/Buffers';
+// export * from '@babylonjs/core/Rendering';
+// export * from '@babylonjs/core/Meshes';
+// export * from '@babylonjs/core/scene';
 
 export * from './Compatibility';
 export * from './registry';

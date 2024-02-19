@@ -59,6 +59,11 @@ const localServerConfig = {
   resolve: {
     extensions: ['.ts', '.js', '.json'],
   },
+  output: {
+    library: 'SOLIDX',
+    libraryTarget: 'umd',
+    globalObject: 'this',
+  },
   module: {
     rules: [
       {

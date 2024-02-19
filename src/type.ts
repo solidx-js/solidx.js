@@ -5,3 +5,5 @@ export type StringKeys<T> = {
 export type PickStringKey<T> = {
   [K in keyof T]: K extends string ? T[K] : never;
 };
+
+export type OnlyStrings<T> = Extract<T, string>;

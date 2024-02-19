@@ -1,6 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 import { DefaultBizLogger } from './BizLogger';
-import type { XRThinElement } from './core';
+import type { XRThinElement, Geometry } from './core';
 
 export class ElementRegistry {
   static Instance = new ElementRegistry();
