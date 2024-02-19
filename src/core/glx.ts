@@ -12,18 +12,42 @@ export type ITypedArray =
   | Float64Array
   | Uint8ClampedArray;
 
-export function glx<P extends Record<string, any>>(
+export type IGlxInstance<P extends Record<string, any>> = {
+  render: (prop?: P, element?: ITypedArray, count?: number) => IGlxInstance<P>;
+  clear: (arg: { color?: number[]; depth?: number; stencil?: number }) => IGlxInstance<P>;
+  program: WebGLProgram;
+};
+
+export type IGlxConfig = {
+  attributes?: Record<
+    string,
+    {
+      itemType: IShaderParamDataType;
+      normalized?: boolean;
+      stride?: number;
+      offset?: number;
+    }
+  >;
+  uniforms?: Record<
+    string,
+    {
+      type: IShaderParamDataType;
+    }
+  >;
+};
+
+export function glx() {
+  return glx;
+}
+
+glx.of = function <P extends Record<string, any>>(
   gl: WebGL2RenderingContext,
   vert: ITpl | string,
   frag: ITpl | string,
-  config: {
-    element?: {};
-    attributes?: Record<string, { itemType: IShaderParamDataType; normalized?: boolean; stride?: number; offset?: number }>;
-    uniforms?: Record<string, { type: IShaderParamDataType }>;
-  },
+  config: IGlxConfig,
   defaultProp?: P
-) {
-  const { attributes, uniforms, element } = config;
+): IGlxInstance<P> {
+  const { attributes, uniforms } = config;
 
   function _getSizeByType(type: IShaderParamDataType) {
     if (type === 'vec2') return 2;
@@ -114,7 +138,17 @@ export function glx<P extends Record<string, any>>(
   // 使用着色器程序
   gl.useProgram(program);
 
-  const clear = (arg: { color?: number[]; depth?: number; stencil?: number }) => {
+  const preset: IGlxInstance<P> = {
+    program,
+    clear: () => {
+      throw new Error('not implemented');
+    },
+    render: () => {
+      throw new Error('not implemented');
+    },
+  };
+
+  preset.clear = (arg: { color?: number[]; depth?: number; stencil?: number }) => {
     let mask = 0;
 
     if (arg.color) {
@@ -133,9 +167,11 @@ export function glx<P extends Record<string, any>>(
     }
 
     gl.clear(mask);
+
+    return preset;
   };
 
-  const render = (prop?: P, count = 0) => {
+  preset.render = (prop?: P, elementData?: ITypedArray, count?: number) => {
     let _draw = (): any => {
       throw new Error('not implemented');
     };
@@ -172,18 +208,16 @@ export function glx<P extends Record<string, any>>(
     }
 
     // 绑定索引
-    if (element) {
+    if (elementData) {
       const buf = gl.createBuffer();
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buf);
 
-      const data = prop?.element || defaultProp?.element;
-      if (!data) throw new Error('element not found');
-      if (!glx.isTypedArray(data)) throw new Error('element data must be ArrayBuffer');
+      if (!glx.isTypedArray(elementData)) throw new Error('element data must be ArrayBuffer');
 
-      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, data, gl.STATIC_DRAW);
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, elementData, gl.STATIC_DRAW);
 
-      const _count = data.length;
-      const _eleType = _getBufferPointerType(data);
+      const _count = elementData.length;
+      const _eleType = _getBufferPointerType(elementData);
 
       _draw = () => {
         gl.drawElements(gl.TRIANGLES, _count, _eleType, 0);
@@ -257,10 +291,12 @@ export function glx<P extends Record<string, any>>(
     }
 
     _draw();
+
+    return preset;
   };
 
-  return { render, clear, program };
-}
+  return preset;
+};
 
 glx.isTypedArray = function (data: any) {
   return (

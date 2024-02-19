@@ -1,4 +1,2 @@
-export * from './ShaderFragment';
-export * from './ShaderMainBase';
-export * from './ShaderManager';
-export * from './ShaderVertex';
+export * from './MainFragmentShader';
+export * from './MainVertexShader';
