@@ -4,6 +4,7 @@ import { Node } from './Node';
 import { Scene } from './Scene';
 import { IGlxInstance, glx } from './glx';
 import { IGlslDefine, IGlslProp, glsl } from './glsl';
+import { DirectionalLight, PointLight } from './Light';
 
 export class Engine {
   private canvas: HTMLCanvasElement;
@@ -28,16 +29,24 @@ export class Engine {
         u_projectionMatrix: { type: 'mat4' },
         u_viewMatrix: { type: 'mat4' },
       },
+      uniformBlockArrays: {
+        u_pointLights: { structure: { color: 'vec3', position: 'vec3', intensity: 'float' } },
+        u_directionalLights: { structure: { color: 'vec3', direction: 'vec3', intensity: 'float' } },
+      },
     });
   }
 
   render(scene: Scene) {
     const meshes: Mesh[] = [];
+    const pointLights: PointLight[] = [];
+    const directionalLights: DirectionalLight[] = [];
     const cameras: Camera[] = [];
 
     Node.walk(scene.root, n => {
       if (n instanceof Mesh) meshes.push(n);
       else if (n instanceof Camera) cameras.push(n);
+      else if (n instanceof PointLight) pointLights.push(n);
+      else if (n instanceof DirectionalLight) directionalLights.push(n);
     });
 
     const activeCamera = cameras[0];
@@ -48,21 +57,37 @@ export class Engine {
     for (let i = 0; i < meshes.length; i++) {
       const mesh = meshes[i];
 
+      const define: Partial<IGlslDefine> = {
+        NUM_POINT_LIGHTS: pointLights.length,
+        NUM_DIRECTIONAL_LIGHTS: directionalLights.length,
+      };
+
+      if (mesh.geometry.uvs) define.HAS_ATTR_UV = true;
+
+      console.log('@@@', 'define ->', define);
+
       this.glx.render(
+        define,
         {
-          HAS_ATTR_NORMAL: false,
-          HAS_ATTR_UV: false,
-          HAS_ATTR_COLOR: false,
-          NUM_DIRECTIONAL_LIGHT: 0,
-          NUM_POINT_LIGHT: 0,
-        },
-        {
-          a_position: mesh.geometry.vertex,
+          a_position: mesh.geometry.vertices,
+          a_normal: mesh.geometry.normals || undefined,
+          a_uv: mesh.geometry.uvs || undefined,
           u_worldMatrix: new Float32Array(mesh.worldMatrix.asArray()),
           u_projectionMatrix: new Float32Array(activeCamera.projectionMatrix.asArray()),
           u_viewMatrix: new Float32Array(activeCamera.viewMatrix.asArray()),
+
+          u_pointLights: pointLights.map(l => ({
+            color: new Float32Array(l.color.toArray()),
+            position: new Float32Array(l.position.toArray()),
+            intensity: l.intensity,
+          })),
+          u_directionalLights: directionalLights.map(l => ({
+            color: new Float32Array(l.color.toArray()),
+            direction: new Float32Array(l.direction.toArray()),
+            intensity: l.intensity,
+          })),
         },
-        mesh.geometry.element
+        mesh.geometry.indices
       );
     }
   }

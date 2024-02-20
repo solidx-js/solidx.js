@@ -41,7 +41,7 @@ const commonConfigBase = {
         type: 'asset/resource',
       },
       {
-        test: /\.inline\.css$/i,
+        test: /\.(glsl)$/i,
         type: 'asset/source',
       },
     ],

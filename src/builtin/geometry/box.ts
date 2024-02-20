@@ -23,7 +23,7 @@ GeometryFactoryRegistry.Instance.register('box', opt => {
   const geo = new Geometry();
 
   // prettier-ignore
-  geo.vertex = new Float32Array([
+  geo.vertices = new Float32Array([
     // 前面
     -hw, -hh, hd,   // 左下
      hw, -hh, hd,   // 右下
@@ -62,7 +62,7 @@ GeometryFactoryRegistry.Instance.register('box', opt => {
   ]);
 
   // prettier-ignore
-  geo.element = new Uint32Array([
+  geo.indices = new Uint32Array([
     // 前面
     0, 1, 2,
     0, 2, 3,
@@ -87,6 +87,8 @@ GeometryFactoryRegistry.Instance.register('box', opt => {
     20, 21, 22,
     20, 22, 23,
   ]);
+
+  geo.computeNormals();
 
   return geo;
 });

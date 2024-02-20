@@ -16,39 +16,31 @@ glsl.getFile = function (name: string): IGlslTpl {
 };
 
 glsl.toTpl = function (content: string | IGlslTpl): IGlslTpl {
-  if (typeof content === 'string') return tpl.print(() => content);
+  if (typeof content === 'string') {
+    return tpl.print(ctx => {
+      const c2 = content.replace(/#include\s+<(.*)>;/g, (_substring: string, match: string) => {
+        let _included = '';
+
+        if (match === '_defines.glsl') {
+          // print defines
+          _included = Object.entries(ctx)
+            .map(([key, value]) => `#define ${key} ${value}`)
+            .join('\n');
+        } else {
+          _included = glsl.getFile(match).render(ctx);
+        }
+
+        return `// include from ${match}\n// =============================\n\n${_included}\n\n`;
+      });
+
+      return c2;
+    });
+  }
+
   return content;
 };
 
 glsl.register = function <T extends `${string}.glsl`>(name: T, content: string | IGlslTpl) {
   glsl.files.set(name, glsl.toTpl(content));
   return glsl;
-};
-
-glsl.$printDefines = function (): ITplResolver<IGlslDefine> {
-  return ctx => {
-    return Object.entries(ctx)
-      .map(([k, v]) => `#define ${k} ${v};`)
-      .join('\n');
-  };
-};
-
-glsl.$ifdef = function (name: keyof IGlslDefine, a: string | IGlslTpl, b: string | IGlslTpl): IGlslTpl {
-  return tpl.print(ctx => (typeof ctx[name] !== 'undefined' ? a : b));
-};
-
-glsl.$include = function (name: string): ITplResolver<IGlslDefine> {
-  const file = glsl.getFile(name);
-
-  return ctx => {
-    const content = file.render(ctx);
-
-    return `
-// include from ${name}
-// =======================================
-${content}
-// end include from ${name}
-    
-    `;
-  };
 };
