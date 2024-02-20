@@ -6,5 +6,6 @@ export * from './Node';
 export * from './OrthographicCamera';
 export * from './PerspectiveCamera';
 export * from './Scene';
+export * from './glsl';
 export * from './glx';
-export * from './Shader';
+export * from './Light';

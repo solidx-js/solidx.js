@@ -12,9 +12,9 @@ export type ITypedArray =
   | Float64Array
   | Uint8ClampedArray;
 
-export type IGlxInstance<P extends Record<string, any>> = {
-  render: (prop?: P, element?: ITypedArray, count?: number) => IGlxInstance<P>;
-  clear: (arg: { color?: number[]; depth?: number; stencil?: number }) => IGlxInstance<P>;
+export type IGlxInstance<D extends Record<string, any>, P extends Record<string, any>> = {
+  render: (define?: D, prop?: P, element?: ITypedArray, count?: number) => IGlxInstance<D, P>;
+  clear: (arg: { color?: number[]; depth?: number; stencil?: number }) => IGlxInstance<D, P>;
   program: WebGLProgram;
 };
 
@@ -42,14 +42,15 @@ export function glx() {
   return glx;
 }
 
-glx.of = function <P extends Record<string, any>>(
+glx.of = function <D extends Record<string, any>, P extends Record<string, any>>(
   gl: WebGL2RenderingContext,
   vert: ITpl | string,
   frag: ITpl | string,
   config: IGlxConfig,
+  defaultDefine?: D,
   defaultProp?: P,
   defaultElementData?: ITypedArray
-): IGlxInstance<P> {
+): IGlxInstance<D, P> {
   const { attributes, uniforms } = config;
 
   const _getSizeByType = (type: IShaderParamDataType) => {
@@ -122,10 +123,10 @@ glx.of = function <P extends Record<string, any>>(
   const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
   if (!fragmentShader) throw new Error('create fragment shader failed');
 
-  const _compileShaderIfNeeded = (prop: P = {} as any) => {
+  const _compileShaderIfNeeded = (define: D = {} as any) => {
     // 传参给 tpl 动态生成
-    const vertSrc = typeof vert === 'string' ? vert : vert.render({ config, prop });
-    const fragSrc = typeof frag === 'string' ? frag : frag.render({ config, prop });
+    const vertSrc = typeof vert === 'string' ? vert : vert.render({ VERTEX_SHADER: true, ...define });
+    const fragSrc = typeof frag === 'string' ? frag : frag.render({ FRAGMENT_SHADER: true, ...define });
 
     if (_inUseVertSrc !== vertSrc) {
       gl.shaderSource(vertexShader, vertSrc);
@@ -163,7 +164,7 @@ glx.of = function <P extends Record<string, any>>(
   if (!program) throw new Error('create program failed');
 
   // 编译着色器
-  _compileShaderIfNeeded(defaultProp);
+  _compileShaderIfNeeded(defaultDefine);
 
   gl.attachShader(program, vertexShader);
   gl.attachShader(program, fragmentShader);
@@ -177,7 +178,7 @@ glx.of = function <P extends Record<string, any>>(
   // 使用着色器程序
   gl.useProgram(program);
 
-  const instance: IGlxInstance<P> = {
+  const instance: IGlxInstance<D, P> = {
     program,
     clear: () => {
       throw new Error('not implemented');
@@ -210,15 +211,16 @@ glx.of = function <P extends Record<string, any>>(
     return instance;
   };
 
-  instance.render = (prop?: P, elementData?: ITypedArray, count?: number) => {
+  instance.render = (define?: D, prop?: P, elementData?: ITypedArray, count?: number) => {
     let _draw = (): any => {
       throw new Error('not implemented');
     };
 
+    const finalDefine = { ...defaultDefine, ...define } as D;
     const finalProp = { ...defaultProp, ...prop } as P;
     const finalElementData = defaultElementData || elementData;
 
-    _compileShaderIfNeeded(finalProp);
+    _compileShaderIfNeeded(finalDefine);
 
     // 绑定 attributes
     if (attributes) {

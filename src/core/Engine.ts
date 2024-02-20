@@ -2,13 +2,13 @@ import { Camera } from './Camera';
 import { Mesh } from './Mesh';
 import { Node } from './Node';
 import { Scene } from './Scene';
-import { IMainFragmentShaderProp, IMainVertexShaderProp, MainFragmentShader, MainVertexShader } from './Shader';
 import { IGlxInstance, glx } from './glx';
+import { IGlslDefine, IGlslProp, glsl } from './glsl';
 
 export class Engine {
   private canvas: HTMLCanvasElement;
   private gl: WebGL2RenderingContext;
-  private glx: IGlxInstance<IMainVertexShaderProp | IMainFragmentShaderProp>;
+  private glx: IGlxInstance<Partial<IGlslDefine>, Partial<IGlslProp>>;
 
   constructor(canvas?: HTMLCanvasElement) {
     this.canvas = canvas || document.createElement('canvas');
@@ -16,9 +16,18 @@ export class Engine {
     this.gl = this.canvas.getContext('webgl2') as WebGL2RenderingContext;
     if (!this.gl) throw new Error('WebGL2 not supported');
 
-    this.glx = glx.of(this.gl, MainVertexShader.tpl, MainFragmentShader.tpl, {
-      attributes: MainVertexShader.attributes,
-      uniforms: { ...MainVertexShader.uniforms, ...MainFragmentShader.uniforms },
+    this.glx = glx.of(this.gl, glsl.getFile('vertex.glsl'), glsl.getFile('fragment.glsl'), {
+      attributes: {
+        a_position: { itemType: 'vec3', required: true },
+        a_normal: { itemType: 'vec3' },
+        a_uv: { itemType: 'vec2' },
+        a_color: { itemType: 'vec4' },
+      },
+      uniforms: {
+        u_worldMatrix: { type: 'mat4' },
+        u_projectionMatrix: { type: 'mat4' },
+        u_viewMatrix: { type: 'mat4' },
+      },
     });
   }
 
@@ -40,6 +49,13 @@ export class Engine {
       const mesh = meshes[i];
 
       this.glx.render(
+        {
+          HAS_ATTR_NORMAL: false,
+          HAS_ATTR_UV: false,
+          HAS_ATTR_COLOR: false,
+          NUM_DIRECTIONAL_LIGHT: 0,
+          NUM_POINT_LIGHT: 0,
+        },
         {
           a_position: mesh.geometry.vertex,
           u_worldMatrix: new Float32Array(mesh.worldMatrix.asArray()),
