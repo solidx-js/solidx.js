@@ -1,5 +1,3 @@
-import { tpl, ITpl } from 'tiny-tpl';
-
 export type IShaderParamDataType = 'int' | 'float' | 'vec2' | 'vec3' | 'vec4' | 'mat4' | 'sampler2D';
 export type ITypedArray =
   | Int8Array
@@ -12,46 +10,33 @@ export type ITypedArray =
   | Float64Array
   | Uint8ClampedArray;
 
-export type IGlxInstance<D extends Record<string, any>, P extends Record<string, any>> = {
-  render: (define?: D, prop?: P, element?: ITypedArray, count?: number) => IGlxInstance<D, P>;
-  clear: (arg: { color?: number[]; depth?: number; stencil?: number }) => IGlxInstance<D, P>;
+export type IGlxIns<P extends Record<string, any>> = {
+  program: WebGLProgram;
+  vert: string;
+  frag: string;
+  render: (prop: P, element?: ITypedArray, count?: number) => IGlxIns<P>;
+  clear: (arg: { color?: number[]; depth?: number; stencil?: number }) => IGlxIns<P>;
+  dispose: () => void;
 };
 
-export type IGlxConfig = {
-  attributes?: Record<
-    string,
-    {
-      itemType: IShaderParamDataType;
-      required?: boolean;
-      normalized?: boolean;
-      stride?: number;
-      offset?: number;
-    }
-  >;
-  uniforms?: Record<
-    string,
-    {
-      type: IShaderParamDataType;
-      required?: boolean;
-    }
-  >;
-  uniformArrays?: Record<string, { type: IShaderParamDataType }>;
-  uniformBlockArrays?: Record<string, { structure: Record<string, IShaderParamDataType> }>;
-};
+export type IGlxAttrData = { data: ITypedArray; normalized?: boolean; stride?: number; offset?: number };
+export type IGlxUniformData = { data: any };
 
 export function glx() {
   return glx;
 }
 
-glx.of = function <D extends Record<string, any>, P extends Record<string, any>>(
+glx.of = function <P extends Record<string, IGlxAttrData | IGlxUniformData | IGlxUniformData[] | Record<string, IGlxUniformData>[]>>(
   gl: WebGL2RenderingContext,
-  vert: ITpl | string,
-  frag: ITpl | string,
-  config: IGlxConfig,
-  defaultDefine?: D,
-  defaultProp?: P,
-  defaultElementData?: ITypedArray
-): IGlxInstance<D, P> {
+  vert: string,
+  frag: string,
+  config: {
+    attributes?: Record<string, { type: IShaderParamDataType }>;
+    uniforms?: Record<string, { type: IShaderParamDataType }>;
+    uniformArrays?: Record<string, { type: IShaderParamDataType }>;
+    uniformBlockArrays?: Record<string, { structure: Record<string, IShaderParamDataType> }>;
+  }
+): IGlxIns<P> {
   const { attributes, uniforms, uniformArrays, uniformBlockArrays } = config;
 
   const _getSizeByType = (type: IShaderParamDataType) => {
@@ -63,70 +48,49 @@ glx.of = function <D extends Record<string, any>, P extends Record<string, any>>
     throw new Error(`unknown type: ${type}`);
   };
 
-  const _getBufferPointerType = (data: ITypedArray): GLenum => {
-    if (data instanceof Float32Array) return gl.FLOAT;
-    if (data instanceof Int32Array) return gl.INT;
-    if (data instanceof Int16Array) return gl.SHORT;
-    if (data instanceof Int8Array) return gl.BYTE;
-    if (data instanceof Uint32Array) return gl.UNSIGNED_INT;
-    if (data instanceof Uint16Array) return gl.UNSIGNED_SHORT;
-    if (data instanceof Uint8Array || data instanceof Uint8ClampedArray) return gl.UNSIGNED_BYTE;
-    throw new Error('unknown type');
-  };
+  const program = gl.createProgram();
+  if (!program) throw new Error('create program failed');
 
-  let program: WebGLProgram | null = null;
-  let _lastDefineData: string = '';
+  // 着色器
+  const _shaderSources = [vert, frag];
 
-  const _prepareProgram = (define: D = {} as any) => {
-    // 比较 define 是否改变
-    const _curDefineData = JSON.stringify(define);
-    if (_curDefineData === _lastDefineData) return;
+  const _vShader = gl.createShader(gl.VERTEX_SHADER);
+  if (!_vShader) throw new Error('create vertex shader failed');
 
-    // 开始重新构建 gl 程序
-    if (program) gl.deleteProgram(program);
+  const _fShader = gl.createShader(gl.FRAGMENT_SHADER);
+  if (!_fShader) throw new Error('create fragment shader failed');
 
-    program = gl.createProgram();
-    if (!program) throw new Error('create program failed');
+  for (let _i = 0; _i < 2; _i++) {
+    const _src = _shaderSources[_i];
+    const _pointer = [_vShader, _fShader][_i];
 
-    // 着色器
-    const _shaderSources = [typeof vert === 'string' ? vert : vert.render(define), typeof frag === 'string' ? frag : frag.render(define)];
+    gl.shaderSource(_pointer, _src);
+    gl.compileShader(_pointer);
 
-    console.log('@@@', 'frag ->', _shaderSources[1]);
-
-    const _vShader = gl.createShader(gl.VERTEX_SHADER);
-    if (!_vShader) throw new Error('create vertex shader failed');
-
-    const _fShader = gl.createShader(gl.FRAGMENT_SHADER);
-    if (!_fShader) throw new Error('create fragment shader failed');
-
-    for (let _i = 0; _i < 2; _i++) {
-      const _src = _shaderSources[_i];
-      const _pointer = [_vShader, _fShader][_i];
-
-      gl.shaderSource(_pointer, _src);
-      gl.compileShader(_pointer);
-
-      if (!gl.getShaderParameter(_pointer, gl.COMPILE_STATUS)) {
-        console.error(_src);
-        const info = gl.getShaderInfoLog(_pointer);
-        throw new Error(`shader compile failed: ${info}`);
-      }
-
-      gl.attachShader(program, _pointer);
+    if (!gl.getShaderParameter(_pointer, gl.COMPILE_STATUS)) {
+      console.error(_src);
+      const info = gl.getShaderInfoLog(_pointer);
+      throw new Error(`shader compile failed: ${info}`);
     }
 
-    gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      const info = gl.getProgramInfoLog(program);
-      throw new Error(`program link failed: ${info}`);
-    }
+    gl.attachShader(program, _pointer);
+  }
 
-    gl.useProgram(program);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    const info = gl.getProgramInfoLog(program);
+    throw new Error(`program link failed: ${info}`);
+  }
 
-    _lastDefineData = _curDefineData;
-  };
+  gl.useProgram(program);
 
-  const instance: IGlxInstance<D, P> = {
+  const instance: IGlxIns<P> = {
+    program,
+    vert,
+    frag,
+    dispose: () => {
+      gl.deleteProgram(program);
+    },
     clear: () => {
       throw new Error('not implemented');
     },
@@ -158,17 +122,10 @@ glx.of = function <D extends Record<string, any>, P extends Record<string, any>>
     return instance;
   };
 
-  instance.render = (define?: D, prop?: P, elementData?: ITypedArray, count?: number) => {
+  instance.render = (prop: P, elementData?: ITypedArray, count?: number) => {
     let _draw = (): any => {
       throw new Error('not implemented');
     };
-
-    const finalDefine = { ...defaultDefine, ...define } as D;
-    const finalProp = { ...defaultProp, ...prop } as P;
-    const finalElementData = defaultElementData || elementData;
-
-    _prepareProgram(finalDefine);
-    if (!program) throw new Error('program not found');
 
     // 绑定 attributes
     if (attributes) {
@@ -176,26 +133,23 @@ glx.of = function <D extends Record<string, any>, P extends Record<string, any>>
         const buf = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, buf);
 
-        const data = finalProp[attr];
-        if (!data) {
-          if (def.required) throw new Error(`attribute ${attr} not found`);
-          else continue;
-        }
-        if (!glx.isTypedArray(data)) throw new Error(`attribute ${attr} data must be ArrayBuffer`);
+        const data = prop[attr] as IGlxAttrData;
+        if (!data) continue;
+        if (!glx.isTypedArray(data.data)) throw new Error(`attribute ${attr} data must be ArrayBuffer`);
 
-        gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER, data.data, gl.STATIC_DRAW);
 
         const loc = gl.getAttribLocation(program, attr);
-        if (loc === -1) throw new Error(`attribute ${attr} not found`);
+        if (loc === -1) continue;
 
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(
           loc,
-          _getSizeByType(def.itemType),
-          _getBufferPointerType(data),
-          !!def.normalized,
-          def.stride || 0,
-          def.offset || 0
+          _getSizeByType(def.type),
+          glx.getBufferPointerType(gl, data.data),
+          !!data.normalized,
+          data.stride || 0,
+          data.offset || 0
         );
       }
 
@@ -207,16 +161,16 @@ glx.of = function <D extends Record<string, any>, P extends Record<string, any>>
     }
 
     // 绑定索引
-    if (finalElementData) {
+    if (elementData) {
       const buf = gl.createBuffer();
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buf);
 
-      if (!glx.isTypedArray(finalElementData)) throw new Error('element data must be ArrayBuffer');
+      if (!glx.isTypedArray(elementData)) throw new Error('element data must be ArrayBuffer');
 
-      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, finalElementData, gl.STATIC_DRAW);
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, elementData, gl.STATIC_DRAW);
 
-      const _count = finalElementData.length;
-      const _eleType = _getBufferPointerType(finalElementData);
+      const _count = elementData.length;
+      const _eleType = glx.getBufferPointerType(gl, elementData);
 
       _draw = () => {
         gl.drawElements(gl.TRIANGLES, _count, _eleType, 0);
@@ -226,30 +180,27 @@ glx.of = function <D extends Record<string, any>, P extends Record<string, any>>
     // 绑定 uniforms
     if (uniforms) {
       for (const [uniform, def] of Object.entries(uniforms)) {
-        const data = finalProp[uniform];
-        if (!data) {
-          if (def.required) throw new Error(`uniform ${uniform} not found`);
-          else continue;
-        }
+        const data = prop[uniform] as IGlxUniformData;
+        if (!data) continue;
 
-        glx.setUniform(gl, program, uniform, def.type, data);
+        glx.setUniform(gl, program, uniform, def.type, data.data);
       }
     }
 
     if (uniformBlockArrays) {
       for (const [uniform, def] of Object.entries(uniformBlockArrays)) {
-        const data = finalProp[uniform];
-        if (!data) throw new Error(`missing uniform data: ${uniform}`);
+        const data = prop[uniform];
+        if (!data) continue;
         if (!Array.isArray(data)) throw new Error(`uniform data must be array: ${uniform}`);
 
         for (let i = 0; i < data.length; i++) {
-          const item = data[i];
+          const item = data[i] as Record<string, IGlxUniformData>;
 
           for (const key of Object.keys(item)) {
             const type = def.structure[key];
             if (!type) throw new Error(`missing uniform structure: ${uniform}.${key}`);
 
-            glx.setUniform(gl, program, `${uniform}[${i}].${key}`, type, item[key]);
+            glx.setUniform(gl, program, `${uniform}[${i}].${key}`, type, item[key].data);
           }
         }
       }
@@ -275,6 +226,17 @@ glx.isTypedArray = function (data: any) {
     data instanceof Float64Array ||
     data instanceof Uint8ClampedArray
   );
+};
+
+glx.getBufferPointerType = function (gl: WebGL2RenderingContext, data: ITypedArray): GLenum {
+  if (data instanceof Float32Array) return gl.FLOAT;
+  if (data instanceof Int32Array) return gl.INT;
+  if (data instanceof Int16Array) return gl.SHORT;
+  if (data instanceof Int8Array) return gl.BYTE;
+  if (data instanceof Uint32Array) return gl.UNSIGNED_INT;
+  if (data instanceof Uint16Array) return gl.UNSIGNED_SHORT;
+  if (data instanceof Uint8Array || data instanceof Uint8ClampedArray) return gl.UNSIGNED_BYTE;
+  throw new Error('unknown type');
 };
 
 glx.getUniformType = function (gl: WebGL2RenderingContext, type: IShaderParamDataType, data: ITypedArray | number): GLenum {

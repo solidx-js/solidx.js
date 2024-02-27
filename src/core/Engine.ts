@@ -2,14 +2,13 @@ import { Camera } from './Camera';
 import { Mesh } from './Mesh';
 import { Node } from './Node';
 import { Scene } from './Scene';
-import { IGlxInstance, glx } from './glx';
-import { IGlslDefine, IGlslProp, glsl } from './glsl';
 import { DirectionalLight, PointLight } from './Light';
+import { GlxStore, IGlslDefine } from './GlxStore';
 
 export class Engine {
   private canvas: HTMLCanvasElement;
   private gl: WebGL2RenderingContext;
-  private glx: IGlxInstance<Partial<IGlslDefine>, Partial<IGlslProp>>;
+  private glxMng: GlxStore;
 
   constructor(canvas?: HTMLCanvasElement) {
     this.canvas = canvas || document.createElement('canvas');
@@ -17,23 +16,11 @@ export class Engine {
     this.gl = this.canvas.getContext('webgl2') as WebGL2RenderingContext;
     if (!this.gl) throw new Error('WebGL2 not supported');
 
-    this.glx = glx.of(this.gl, glsl.getFile('vertex.glsl'), glsl.getFile('fragment.glsl'), {
-      attributes: {
-        a_position: { itemType: 'vec3', required: true },
-        a_normal: { itemType: 'vec3' },
-        a_uv: { itemType: 'vec2' },
-        a_color: { itemType: 'vec4' },
-      },
-      uniforms: {
-        u_worldMatrix: { type: 'mat4' },
-        u_projectionMatrix: { type: 'mat4' },
-        u_viewMatrix: { type: 'mat4' },
-      },
-      uniformBlockArrays: {
-        u_pointLights: { structure: { color: 'vec3', position: 'vec3', intensity: 'float' } },
-        u_directionalLights: { structure: { color: 'vec3', direction: 'vec3', intensity: 'float' } },
-      },
-    });
+    this.glxMng = new GlxStore(this.gl);
+  }
+
+  async init() {
+    await this.glxMng.init();
   }
 
   render(scene: Scene) {
@@ -52,39 +39,39 @@ export class Engine {
     const activeCamera = cameras[0];
     if (!activeCamera) throw new Error('No active camera');
 
-    this.glx.clear({ color: [0, 0, 0, 1] });
-
     for (let i = 0; i < meshes.length; i++) {
       const mesh = meshes[i];
 
-      const define: Partial<IGlslDefine> = {
+      const defines: Partial<IGlslDefine> = {
         NUM_POINT_LIGHTS: pointLights.length,
         NUM_DIRECTIONAL_LIGHTS: directionalLights.length,
       };
 
-      if (mesh.geometry.uvs) define.HAS_ATTR_UV = true;
+      if (mesh.geometry.uvs) defines.HAS_ATTR_UV = true;
 
-      console.log('@@@', 'define ->', define);
+      const glx = this.glxMng.use(defines);
+      console.log('@@@', 'glx ->', glx.vert);
+      console.log('@@@', 'glx.frag ->', glx.frag);
 
-      this.glx.render(
-        define,
+      glx.clear({ color: [0, 0, 0, 1] });
+      glx.render(
         {
-          a_position: mesh.geometry.vertices,
-          a_normal: mesh.geometry.normals || undefined,
-          a_uv: mesh.geometry.uvs || undefined,
-          u_worldMatrix: new Float32Array(mesh.worldMatrix.asArray()),
-          u_projectionMatrix: new Float32Array(activeCamera.projectionMatrix.asArray()),
-          u_viewMatrix: new Float32Array(activeCamera.viewMatrix.asArray()),
+          a_position: { data: mesh.geometry.vertices },
+          a_normal: mesh.geometry.normals ? { data: mesh.geometry.normals } : undefined,
+          a_uv: mesh.geometry.uvs ? { data: mesh.geometry.uvs } : undefined,
+          u_worldMatrix: { data: new Float32Array(mesh.worldMatrix.asArray()) },
+          u_projectionMatrix: { data: new Float32Array(activeCamera.projectionMatrix.asArray()) },
+          u_viewMatrix: { data: new Float32Array(activeCamera.viewMatrix.asArray()) },
 
           u_pointLights: pointLights.map(l => ({
-            color: new Float32Array(l.color.toArray()),
-            position: new Float32Array(l.position.toArray()),
-            intensity: l.intensity,
+            color: { data: new Float32Array(l.color.toArray()) },
+            position: { data: new Float32Array(l.position.toArray()) },
+            intensity: { data: l.intensity },
           })),
           u_directionalLights: directionalLights.map(l => ({
-            color: new Float32Array(l.color.toArray()),
-            direction: new Float32Array(l.direction.toArray()),
-            intensity: l.intensity,
+            color: { data: new Float32Array(l.color.toArray()) },
+            direction: { data: new Float32Array(l.direction.toArray()) },
+            intensity: { data: l.intensity },
           })),
         },
         mesh.geometry.indices

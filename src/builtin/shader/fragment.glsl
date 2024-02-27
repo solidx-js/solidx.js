@@ -4,8 +4,7 @@ precision mediump float;
 #define FRAGMENT_SHADER
 
 // includes
-#include <_defines.glsl>;
-#include <light.glsl>;
+#include "light.glsl"
 
 // uniforms
 uniform mat4 u_worldMatrix;

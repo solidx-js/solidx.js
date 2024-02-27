@@ -2,8 +2,7 @@
 #define VERTEX_SHADER
 
 // includes
-#include <_defines.glsl>;
-#include <light.glsl>;
+#include "light.glsl"
 
 // attributes
 attribute vec3 a_position;

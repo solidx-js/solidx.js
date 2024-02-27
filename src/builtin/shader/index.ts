@@ -1,6 +1,6 @@
-import { glsl } from '../../core/glsl';
+import { GlxStore } from '../../core/GlxStore';
 
-declare module '../../core/glsl' {
+declare module '../../core/GlxStore' {
   interface IGlslDefine {
     HAS_ATTR_UV: boolean;
     HAS_ATTR_COLOR: boolean;
@@ -10,21 +10,20 @@ declare module '../../core/glsl' {
   }
 
   interface IGlslProp {
-    a_position: Float32Array;
-    a_normal: Float32Array;
-    a_uv: Float32Array;
-    a_color: Float32Array;
+    a_position: { data: Float32Array };
+    a_normal: { data: Float32Array };
+    a_uv: { data: Float32Array };
+    a_color: { data: Float32Array };
 
-    u_worldMatrix: Float32Array;
-    u_viewMatrix: Float32Array;
-    u_projectionMatrix: Float32Array;
+    u_worldMatrix: { data: Float32Array };
+    u_viewMatrix: { data: Float32Array };
+    u_projectionMatrix: { data: Float32Array };
 
     u_pointLights: any[];
     u_directionalLights: any[];
   }
 }
 
-glsl.register('vertex.glsl', require('./vertex.glsl'));
-glsl.register('fragment.glsl', require('./fragment.glsl'));
-
-glsl.register('light.glsl', require('./light.glsl'));
+GlxStore.files.set('vertex.glsl', require('./vertex.glsl'));
+GlxStore.files.set('fragment.glsl', require('./fragment.glsl'));
+GlxStore.files.set('light.glsl', require('./light.glsl'));

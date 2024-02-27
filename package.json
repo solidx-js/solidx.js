@@ -57,7 +57,7 @@
     "solidx-assets": "^1.0.1",
     "stats.js": "^0.17.0",
     "tiny-math.js": "link:/Users/concefly/Project/real3d/tiny-math",
-    "tiny-tpl": "^1.0.1",
+    "tiny-pp": "link:/Users/concefly/Project/real3d/tiny-pp",
     "tslib": "^2.6.2"
   }
 }
